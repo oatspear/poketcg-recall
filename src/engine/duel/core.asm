@@ -5270,25 +5270,26 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	xor a
 	ld [wSelectedDuelSubMenuItem], a
 
-.asm_6435
+.main_loop
 	call .DrawScreen
 	ld hl, PlayAreaScreenMenuParameters_ActivePokemonIncluded
 	ld a, [wSelectedDuelSubMenuItem]
 	call InitializeMenuParameters
 	ld a, [wNumPlayAreaItems]
 	ld [wNumMenuItems], a
-.asm_6447
+.loop_menu_input
 	call DoFrame
 	call HandleMenuInput
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ld [wHUDEnergyAndHPBarsX], a
-	jr nc, .asm_6447
-	cp $ff
-	jr z, .asm_649b
+	jr nc, .loop_menu_input
+	cp $ff  ; B button
+	jr z, .set_carry
 	ld [wSelectedDuelSubMenuItem], a
 	ldh a, [hKeysPressed]
 	and START
-	jr nz, .asm_649d
+	jr nz, .check_card
+; A pressed
 	ldh a, [hCurMenuItem]
 	add a
 	ld e, a
@@ -5296,39 +5297,39 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	ld hl, wDuelTempList + 1
 	add hl, de
 	ld a, [hld]
-	cp $04
-	jr nz, .asm_6447
-	ld a, [hl]
-	ldh [hTempCardIndex_ff98], a
+	cp $ff
+	jr z, .loop_menu_input
 	ld d, a
 	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	ld a, [hl]
+	ldh [hTempCardIndex_ff98], a
 	call CopyAttackDataAndDamage_FromDeckIndex
 	call DisplayUsePokemonPowerScreen
 	ld a, EFFECTCMDTYPE_INITIAL_EFFECT_1
 	call TryExecuteEffectCommandFunction
-	jr nc, .asm_648c
+	jr nc, .use_power_prompt
 	ldtx hl, PokemonPowerSelectNotRequiredText
 	call DrawWideTextBox_WaitForInput
-	jp .asm_6435
-.asm_648c
+	jp .main_loop
+.use_power_prompt
 	ldtx hl, UseThisPokemonPowerText
 	call YesOrNoMenuWithText
-	jp c, .asm_6435
+	jp c, .main_loop
 	ldh a, [hTempCardIndex_ff98]
 	ldh [hTemp_ffa0], a
 	or a
 	ret
-.asm_649b
+.set_carry
 	scf
 	ret
-.asm_649d
+.check_card
 	ldh a, [hCurMenuItem]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
 	call LoadCardDataToBuffer1_FromCardID
 	call OpenCardPage_FromCheckPlayArea
-	jp .asm_6435
+	jp .main_loop
 
 .DrawScreen:
 	call ZeroObjectPositionsAndToggleOAMCopy
@@ -5342,7 +5343,7 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	call GetTurnDuelistVariable
 	ld c, a
 	ld b, $00
-.asm_64ca
+.loop_play_area_cards
 	push hl
 	push bc
 	ld a, b
@@ -5352,38 +5353,79 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	add b
 	ld [wCurPlayAreaY], a
 	ld a, b
+	ldh [hTempPlayAreaLocation_ff9d], a
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call SetNextElementOfList
+	call GetCardOneStageBelow  ; preload wAllStagesIndices
 	call PrintPlayAreaCardHeader
 	call PrintPlayAreaCardLocation
 	call .PrintCardNameIfHasPkmnPower
-	ld a, [wLoadedCard1Atk1Category]
 	call SetNextElementOfList
 	pop bc
 	pop hl
 	inc b
 	dec c
-	jr nz, .asm_64ca
+	jr nz, .loop_play_area_cards
 	ld a, b
 	ld [wNumPlayAreaItems], a
 	jp EnableLCD
 
+; should return deck index of card with Power or $ff if there is none
 .PrintCardNameIfHasPkmnPower:
 	ld a, [wLoadedCard1Atk1Category]
 	cp POKEMON_POWER
-	ret nz
+	ld hl, wLoadedCard1Atk1Name
+	jr z, .has_power
+
+; check previous stages
+	ld a, [wLoadedCard1Stage]
+	dec a
+	cp $ff
+	ret z  ; BASIC, nothing below, return $ff
+
+; get card from one stage below
+	ld hl, wAllStagesIndices
+	ld e, a
+	ld d, $00
+	add hl, de
+.loop_stage_below
+	ld a, [hld]
+; account for Basic -> Stage 2 without intermediate cards
+	cp $ff
+	jr z, .next_stage_below
+
+; check the card from previous stage
+	ldh [hTempCardIndex_ff98], a
+	call LoadCardDataToBuffer2_FromDeckIndex
+	ld a, [wLoadedCard2Atk1Category]
+	cp POKEMON_POWER
+	ld hl, wLoadedCard2Atk1Name
+	jr z, .has_power
+
+.next_stage_below
+	dec e
+	ld a, e
+	cp $ff
+	ret z  ; nothing below, return $ff
+	jr .loop_stage_below
+
+.has_power
 	ld a, [wCurPlayAreaY]
 	inc a
 	ld e, a
 	ld d, 4
-	ld hl, wLoadedCard1Atk1Name
-	jp InitTextPrinting_ProcessTextFromPointerToID
+	; ld hl, wLoadedCard1Atk1Name
+	call InitTextPrinting_ProcessTextFromPointerToID
+	ldh a, [hTempCardIndex_ff98]
+	ret
 
 ; display the screen that prompts the player to use the selected card's
 ; Pokemon Power. Includes the card's information above, and the Pokemon Power's
 ; description below.
-; input: hTempPlayAreaLocation_ff9d
+; input:
+;   hTempPlayAreaLocation_ff9d: PLAY_AREA_* of the card whose Pokémon Power is being used
+;   wLoadedAttack: Pokémon Power data already loaded
 DisplayUsePokemonPowerScreen::
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld [wCurPlayAreaSlot], a
@@ -5396,10 +5438,10 @@ DisplayUsePokemonPowerScreen::
 	call PrintPlayAreaCardInformationAndLocation
 	lb de, 1, 4
 	call InitTextPrinting
-	ld hl, wLoadedCard1Atk1Name
+	ld hl, wLoadedAttackName
 	call InitTextPrinting_ProcessTextFromPointerToID
 	lb de, 1, 6
-	ld hl, wLoadedCard1Atk1Description
+	ld hl, wLoadedAttackDescription
 ;	fallthrough
 
 ; print the description of an attack, a Pokemon power, or a trainer or energy card
