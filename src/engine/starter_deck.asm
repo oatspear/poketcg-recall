@@ -1,3 +1,5 @@
+DEF DEBUG_FULL_COLLECTION_AT_START EQU TRUE
+
 ; adds the chosen starter deck to the player's first deck configuration
 ; and also adds to the collection its corresponding extra cards
 ; input:
@@ -65,6 +67,20 @@ _AddStarterDeck:
 	pop hl
 	dec c
 	jr nz, .loop_extra_cards
+
+IF DEBUG_FULL_COLLECTION_AT_START
+; add all cards to the initial collection
+	ld c, NUM_CARDS
+.loop_debug_collection
+	ld a, c
+	ld l, a
+	res CARD_NOT_OWNED_F, [hl]
+	ld a, [hl]
+	add 4
+	ld [hl], a
+	dec c
+	jr nz, .loop_debug_collection
+ENDC
 
 ; add a few extra energies
 	ld c, PSYCHIC_ENERGY
