@@ -872,7 +872,20 @@ wCoinTossDuelistType:: ; cd9e
 wCoinTossNumTossed:: ; cd9f
 	ds $1
 
-	ds $5
+; when looking up for a Pokémon in the Play Area,
+; this holds the stage being searched for or $ff if anything goes.
+; this is useful when looking for previous stage Powers,
+; accounting for Pokémon Breeder.
+wPlayAreaStageToLookup:: ; cda0
+	ds $1
+
+wTempTurnDuelistCardStage:: ;cda1
+	ds $1
+
+wTempNonTurnDuelistCardStage:: ;cda2
+	ds $1
+
+	ds $2
 
 wAIDuelVars::
 ; unused

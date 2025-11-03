@@ -98,6 +98,11 @@ HandleDamageReductionExceptSubstatus2::
 	jr z, .invisible_wall
 	cphl KABUTO
 	jr z, .kabuto_armor
+	ld a, [wTempNonTurnDuelistCardStage]
+	cp STAGE2
+	ret nz
+	cphl KABUTOPS
+	jr z, .kabuto_armor
 	ret
 
 .no_damage
@@ -126,7 +131,8 @@ HandleDamageReductionExceptSubstatus2::
 	ret
 
 .halve_damage
-	sla d ; bug, should be sra d
+.kabuto_armor
+	sra d
 	rr e
 	bit 0, e
 	ret z
@@ -146,16 +152,6 @@ HandleDamageReductionExceptSubstatus2::
 	ld de, 0
 	ret
 
-.kabuto_armor
-	sla d ; bug, should be sra d
-	rr e
-	bit 0, e
-	ret z
-	ld hl, -5
-	add hl, de
-	ld e, l
-	ld d, h
-	ret
 
 ; check for Invisible Wall, Kabuto Armor, NShield, or Transparency, in order to
 ; possibly reduce or make zero the damage at de.
@@ -491,7 +487,12 @@ IsClairvoyanceActive::
 	ccf
 	ret nc
 	ld de, OMANYTE
-	jp CountTurnDuelistPokemonWithActivePkmnPower
+	call CountTurnDuelistPokemonWithActivePkmnPower
+	ret c
+	ld a, STAGE2
+	ld [wPlayAreaStageToLookup], a
+	ld de, OMASTAR
+	jp CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
 
 ; returns carry if turn holder's arena card is paralyzed, asleep, confused,
 ; and/or toxic gas in play (i.e. its pkmn power cannot be used)
@@ -524,15 +525,28 @@ CheckIsIncapableOfUsingPkmnPower::
 ; play area of both duelists. Also return carry if the Pokemon card is at least found once.
 ; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
 ; input:
-; - de = Pokemon card ID to search
+;   de = Pokemon card ID to search
 CountPokemonWithActivePkmnPowerInBothPlayAreas::
+	ld a, $ff
+	ld [wPlayAreaStageToLookup], a
+	; jr CountPokemonOrPreviousStageWithActivePkmnPowerInBothPlayAreas
+	; fallthrough
+
+; return, in a, the amount of times that the Pokemon card with a given ID is found in the
+; play area of both duelists. Also return carry if the Pokemon card is at least found once.
+; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
+; the Pokemon must be of the exact stage given.
+; input:
+;   de = Pokemon card ID to search
+;   wPlayAreaStageToLookup = stage to look for, or $ff to ignore stage
+CountPokemonOrPreviousStageWithActivePkmnPowerInBothPlayAreas::
 	push bc
 	push de
-	call CountTurnDuelistPokemonWithActivePkmnPower
+	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
 	ld c, a
 	pop de
 	call SwapTurn
-	call CountTurnDuelistPokemonWithActivePkmnPower
+	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
 	call SwapTurn
 	add c
 	or a
@@ -547,8 +561,21 @@ CountPokemonWithActivePkmnPowerInBothPlayAreas::
 ; turn holder's play area. Also return carry if the Pokemon card is at least found once.
 ; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
 ; input:
-; - de = Pokemon card ID to search
+;   de = Pokemon card ID to search
 CountTurnDuelistPokemonWithActivePkmnPower::
+	ld a, $ff
+	ld [wPlayAreaStageToLookup], a
+	; jr CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
+	; fallthrough
+
+; return, in a, the amount of times that the Pokemon card with a given ID is found in the
+; turn holder's play area. Also return carry if the Pokemon card is at least found once.
+; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
+; the Pokemon must be of the exact stage given.
+; input:
+;   de = Pokemon card ID to search
+;   wPlayAreaStageToLookup = stage to look for, or $ff to ignore stage
+CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower::
 	push hl
 	push de
 	push bc
@@ -574,6 +601,13 @@ CountTurnDuelistPokemonWithActivePkmnPower::
 	call GetTurnDuelistVariable
 	and CNF_SLP_PRZ
 	jr nz, .check_bench
+	ld a, [wPlayAreaStageToLookup]
+	cp $ff
+	jr z, .count_arena  ; ignore stage
+	ld l, DUELVARS_ARENA_CARD_STAGE
+	cp [hl]
+	jr nz, .check_bench  ; does not match required stage
+.count_arena
 	inc c
 .check_bench
 	ld a, DUELVARS_BENCH
@@ -591,6 +625,16 @@ CountTurnDuelistPokemonWithActivePkmnPower::
 	call CompareDEtoBC
 	pop bc
 	jr nz, .skip
+	ld a, [wPlayAreaStageToLookup]
+	cp $ff
+	jr z, .count_bench  ; ignore stage
+	push hl
+	ld de, DUELVARS_ARENA_CARD_STAGE - DUELVARS_ARENA_CARD
+	add hl, de
+	cp [hl]
+	pop hl
+	jr nz, .skip  ; does not match required stage
+.count_bench
 	inc c
 .skip
 	inc b

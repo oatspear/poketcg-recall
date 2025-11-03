@@ -4660,11 +4660,16 @@ DevolutionBeam_DevolveEffect:
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
 
-; check if car is affected
+; check if card is affected
 	ld a, [wLoadedCard1ID + 0]
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, [wLoadedCard1ID + 1]
 	ld [wTempNonTurnDuelistCardID + 1], a
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD_STAGE
+	ld l, a
+	ld a, [hl]
+	ld [wTempNonTurnDuelistCardStage], a
 	ld de, $0
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	or a

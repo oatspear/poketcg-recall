@@ -1484,6 +1484,9 @@ UpdateArenaCardIDsAndClearTwoTurnDuelVars::
 	ld [wTempTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempTurnDuelistCardID + 1], a
+	ld l, DUELVARS_ARENA_CARD_STAGE
+	ld a, [hl]
+	ld [wTempTurnDuelistCardStage], a
 	call SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -1492,6 +1495,9 @@ UpdateArenaCardIDsAndClearTwoTurnDuelVars::
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempNonTurnDuelistCardID + 1], a
+	ld l, DUELVARS_ARENA_CARD_STAGE
+	ld a, [hl]
+	ld [wTempNonTurnDuelistCardStage], a
 	call SwapTurn
 	xor a
 	ld [wccec], a
@@ -1807,7 +1813,11 @@ DealConfusionDamageToSelf::
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, [wTempTurnDuelistCardID + 1]
 	ld [wTempNonTurnDuelistCardID + 1], a
-	bank1call ApplyDamageModifiers_DamageToSelf ; this is at bank 0
+	ld a, [wTempNonTurnDuelistCardStage]
+	push af
+	ld a, [wTempTurnDuelistCardStage]
+	ld [wTempNonTurnDuelistCardStage], a
+	call ApplyDamageModifiers_DamageToSelf
 	ld a, [wDamageEffectiveness]
 	ld c, a
 	ld b, PLAY_AREA_ARENA
@@ -1815,6 +1825,8 @@ DealConfusionDamageToSelf::
 	call GetTurnDuelistVariable
 	bank1call PlayAttackAnimation_DealAttackDamageSimple
 	call PrintKnockedOutIfHLZero
+	pop af
+	ld [wTempNonTurnDuelistCardStage], a
 	pop de
 	ld a, e
 	ld [wTempNonTurnDuelistCardID + 0], a
@@ -2108,6 +2120,10 @@ DealDamageToPlayAreaPokemon::
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempNonTurnDuelistCardID + 1], a
+	ld a, [wTempPlayAreaLocation_cceb]
+	add DUELVARS_ARENA_CARD_STAGE
+	call GetTurnDuelistVariable
+	ld [wTempNonTurnDuelistCardStage], a
 	pop de
 	ld a, [wTempPlayAreaLocation_cceb]
 	or a ; cp PLAY_AREA_ARENA
