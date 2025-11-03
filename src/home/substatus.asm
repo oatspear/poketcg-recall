@@ -247,11 +247,19 @@ HandleNShieldAndTransparency::
 	ld a, DUELVARS_ARENA_CARD
 	add e
 	call GetTurnDuelistVariable
-	call GetCardIDFromDeckIndex
+	ld de, DUELVARS_ARENA_CARD_STAGE - DUELVARS_ARENA_CARD  ; add offset to get stage
+	add hl, de
+	call GetCardIDFromDeckIndex  ; preserves hl
 	cp16 MEW_LV8
 	jr z, .nshield
 	cp16 HAUNTER_LV17
 	jr z, .transparency
+	ld a, [hl]
+	cp STAGE2
+	jr nz, .done
+	cp16 GENGAR
+	jr z, .transparency
+
 .done
 	pop de
 	or a
@@ -423,6 +431,11 @@ HandleNoDamageOrEffectSubstatus::
 HandleTransparency::
 	ld hl, wTempNonTurnDuelistCardID
 	cphl HAUNTER_LV17
+	jr z, .transparency
+	ld a, [wTempNonTurnDuelistCardStage]
+	cp STAGE2
+	jr nz, .done
+	cphl GENGAR
 	jr z, .transparency
 .done
 	or a
