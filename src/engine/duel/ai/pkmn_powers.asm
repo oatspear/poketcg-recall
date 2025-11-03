@@ -966,12 +966,20 @@ HandleAICowardice:
 	call GetTurnDuelistVariable
 	ld [wce08], a
 	call GetCardIDFromDeckIndex
+	push de
 	push bc
 	cp16 TENTACOOL
 	call z, .CheckWhetherToUseCowardice
 	pop bc
+	pop de
+	jr c, .adjust_party
+	push bc
+	cp16 TENTACRUEL
+	call z, .CheckWhetherToUseCowardice
+	pop bc
 	jr nc, .next
 
+.adjust_party
 	dec b ; subtract 1 from number of Pokemon in Play Area
 	ld a, 1
 	cp b
@@ -989,7 +997,7 @@ HandleAICowardice:
 ; checks whether AI uses Cowardice.
 ; return carry if Pkmn Power was used.
 ; input:
-;	c = Play Area location (PLAY_AREA_*) of Tentacool.
+;	c = Play Area location (PLAY_AREA_*) of Tentacool or Tentacruel.
 .CheckWhetherToUseCowardice:
 	ld a, c
 	ldh [hTemp_ffa0], a
@@ -998,23 +1006,24 @@ HandleAICowardice:
 	call GetTurnDuelistVariable
 	and CAN_EVOLVE_THIS_TURN
 	ret z ; return if was played this turn
+
 	call GetCardDamageAndMaxHP
-.asm_22678
 	or a
 	ret z ; return if has no damage counters
 
+	sub c
+	cp -30
+	ccf
+	ret nc  ; still has more than 30 HP left
+
 	ldh a, [hTemp_ffa0]
 	or a
-	jr nz, .is_benched
+	ld a, $ff  ; in case it is benched
+	jr nz, .use_cowardice
 
-	; this part is buggy if AIDecideBenchPokemonToSwitchTo returns carry
-	; but since this was already checked beforehand, this never happens.
-	; so jr c, .asm_22678 can be safely removed.
+; arena
 	farcall AIDecideBenchPokemonToSwitchTo
-	jr c, .asm_22678 ; bug, this jumps in the middle of damage checking
-	jr .use_cowardice
-.is_benched
-	ld a, $ff
+
 .use_cowardice
 	push af
 	ld a, [wce08]
