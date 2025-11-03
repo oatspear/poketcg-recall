@@ -3037,13 +3037,13 @@ Cowardice_PlayerSelectEffect:
 	ret
 
 Cowardice_RemoveFromPlayAreaEffect:
+; check all Pokémon cards in the given Play Area location
 	ldh a, [hTemp_ffa0]
-	add DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+	ldh [hTempPlayAreaLocation_ff9d], a
+	bank1call GetCardOneStageBelow  ; preload wAllStagesIndices
 
-; put card in Discard Pile temporarily, so that
+; put the top card in Discard Pile temporarily, so that
 ; all cards attached are discarded as well.
-	push af
 	ldh a, [hTemp_ffa0]
 	ld e, a
 	call MovePlayAreaCardToDiscardPile
@@ -3058,16 +3058,25 @@ Cowardice_RemoveFromPlayAreaEffect:
 	call SwapArenaWithBenchPokemon
 
 .skip_switch
-; move card back to Hand from Discard Pile
-; and adjust Play Area
-	pop af
+; move Pokémon cards back to Hand from Discard Pile
+	ld hl, wAllStagesIndices + STAGE2
+	ld e, STAGE2 + 1
+.loop_return_to_hand
+	ld a, [hld]
+	cp $ff
+	jr z, .next_card
 	call MoveDiscardPileCardToHand
 	call AddCardToHand
-	call ShiftAllPokemonToFirstPlayAreaSlots
+.next_card
+	dec e
+	jr nz, .loop_return_to_hand
 
+; adjust Play Area and return to the main duel screen
+	call ShiftAllPokemonToFirstPlayAreaSlots
 	xor a
 	ld [wDuelDisplayedScreen], a
 	ret
+
 
 LaprasWaterGunEffect:
 	lb bc, 1, 0
