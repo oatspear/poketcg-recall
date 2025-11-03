@@ -5354,10 +5354,10 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	ld [wCurPlayAreaY], a
 	ld a, b
 	ldh [hTempPlayAreaLocation_ff9d], a
-	add DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	call SetNextElementOfList
 	call GetCardOneStageBelow  ; preload wAllStagesIndices
+	; output a = card index in hTempPlayAreaLocation_ff9d
+	ldh [hTempCardIndex_ff98], a
+	call SetNextElementOfList
 	call PrintPlayAreaCardHeader
 	call PrintPlayAreaCardLocation
 	call .PrintCardNameIfHasPkmnPower
@@ -7068,6 +7068,13 @@ PrintThereWasNoEffectFromStatusText::
 ;	d = card index of card one stage below;
 ;	carry set if card is a basic card.
 GetCardOneStageBelow:
+; first, make sure that wAllStagesIndices is reset
+	ld hl, wAllStagesIndices
+	ld a, $ff
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+; now, proceed with the normal function behaviour
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -7075,16 +7082,14 @@ GetCardOneStageBelow:
 	ld a, [wLoadedCard2Stage]
 	or a
 	jr nz, .not_basic
+
+; Basic Pokémon
+	ld a, [hl]  ; retrieve deck index anyway
+	ld [wAllStagesIndices], a  ; populate with basic card index
 	scf
 	ret
 
 .not_basic
-	ld hl, wAllStagesIndices
-	ld a, $ff
-	ld [hli], a
-	ld [hli], a
-	ld [hl], a
-
 ; loads deck indices of the stages present in hTempPlayAreaLocation_ff9d.
 ; the three stages are loaded consecutively in wAllStagesIndices.
 	ldh a, [hTempPlayAreaLocation_ff9d]
