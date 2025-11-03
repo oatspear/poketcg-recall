@@ -7,6 +7,7 @@
 
 ### Changed
 - Evolved Pokémon can use attacks from their previous stages.
+- Evolved Pokémon can use Pokémon Powers from their previous stages.
 - Each card acquired by the player can now be used in multiple deck lists.
 - Card art can now use up to 8 colors grouped in up to 3 palettes of 4 colors each.
 - The tutorial duel is no longer mandatory.
