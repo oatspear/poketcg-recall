@@ -930,3 +930,24 @@ ClearChangedTypesIfMuk::
 	dec c
 	jr nz, .zero_changed_types_loop
 	ret
+
+; return carry and the corresponding text in hl if the turn holder's
+; arena Pokemon card is paralyzed or asleep.
+CheckIfActiveCardParalyzedOrAsleep:
+	ld a, DUELVARS_ARENA_CARD_STATUS
+	call GetTurnDuelistVariable
+	and CNF_SLP_PRZ
+	cp PARALYZED
+	jr z, .paralyzed
+	cp ASLEEP
+	jr z, .asleep
+	or a
+	ret
+.paralyzed
+	ldtx hl, UnableDueToParalysisText
+	jr .return_with_status_condition
+.asleep
+	ldtx hl, UnableDueToSleepText
+.return_with_status_condition
+	scf
+	ret
