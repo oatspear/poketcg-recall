@@ -245,8 +245,8 @@ DEF SPECIAL_AI_HANDLING      EQU $1 << SPECIAL_AI_HANDLING_F
 DEF UNABLE_RETREAT EQU $64
 
 ; attack index constants
-DEF FIRST_ATTACK_OR_PKMN_POWER EQU $0
-DEF SECOND_ATTACK              EQU $1
+DEF FIRST_ATTACK_OR_PKMN_POWER     EQU $0
+DEF SECOND_ATTACK                  EQU $1
 
 ; whether attack with the ATTACHED_ENERGY_BOOST flag
 ; has limit on attached energy cards boost.

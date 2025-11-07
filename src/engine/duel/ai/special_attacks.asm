@@ -406,53 +406,6 @@ HandleSpecialAIAttacks:
 	ld a, $80
 	ret
 
-; called when second attack is determined by AI to have
-; more AI score than the first attack, so that it checks
-; whether the first attack is a better alternative.
-CheckWhetherToSwitchToFirstAttack:
-; this checks whether the first attack is also viable
-; (has more than minimum score to be used)
-	ld a, [wFirstAttackAIScore]
-	cp $50
-	jr c, .keep_second_attack
-
-; first attack has more than minimum score to be used,
-; check if it can KO, in case it can't
-; then the AI keeps second attack as selection.
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
-	; a = FIRST_ATTACK_OR_PKMN_POWER
-	call EstimateDamage_VersusDefendingCard
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
-	ld hl, wDamage
-	sub [hl] ; HP - damage
-	jr z, .check_flag
-	jr nc, .keep_second_attack ; cannot KO
-
-; first attack can ko, check flags from second attack
-; in case its effect is to heal user or nullify/weaken damage
-; next turn, keep second attack as the option.
-.check_flag
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld d, a
-	ld e, SECOND_ATTACK
-	call CopyAttackDataAndDamage_FromDeckIndex
-	ld a, ATTACK_FLAG2_ADDRESS | HEAL_USER_F
-	call CheckLoadedAttackFlag
-	jr c, .keep_second_attack
-	ld a, ATTACK_FLAG2_ADDRESS | NULLIFY_OR_WEAKEN_ATTACK_F
-	call CheckLoadedAttackFlag
-	jr c, .keep_second_attack
-; switch to first attack
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	ret
-.keep_second_attack
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	ret
 
 ; returns carry if there are
 ; any basic Pokémon cards in deck.

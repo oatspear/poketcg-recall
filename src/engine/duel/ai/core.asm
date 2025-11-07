@@ -128,15 +128,23 @@ LoadDefendingPokemonColorWRAndPrizeCards:
 ; called when AI has chosen its attack.
 ; executes all effects and damage.
 ; handles AI choosing parameters for certain attacks as well.
+; input:
+;   [wSelectedAttack] = attack index chosen by AI
+;   [wTempCardDeckIndex] = deck index of the card owning the attack
 AITryUseAttack:
 	ld a, [wSelectedAttack]
 	ldh [hTemp_ffa0], a
-	ld e, a
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ldh [hTempCardIndex_ff9f], a
-	ld d, a
-	call CopyAttackDataAndDamage_FromDeckIndex
+; no need to load the attack right now, OPPACTION_BEGIN_ATTACK will do it
+	; ld e, a
+	; ld a, DUELVARS_ARENA_CARD
+	; call GetTurnDuelistVariable
+	; ldh [hTempCardIndex_ff9f], a
+	; ld d, a
+	; call CopyAttackDataAndDamage_FromDeckIndex
+
+; OPPACTION_BEGIN_ATTACK wants the following inputs:
+;   [hTemp_ffa0]: the index of the selected attack
+;   [hTempCardIndex_ff9f]: deck index of the card to load attack data from
 	ld a, OPPACTION_BEGIN_ATTACK
 	bank1call AIMakeDecision
 	ret c
@@ -147,10 +155,15 @@ AITryUseAttack:
 	call TryExecuteEffectCommandFunction
 
 .use_attack
+; not sure if we need to reload the attack data here again
+; unless some of the special logic overwrites it...
 	ld a, [wSelectedAttack]
 	ld e, a
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+; the attack might not belong to the current arena card
+	; ld a, DUELVARS_ARENA_CARD
+	; call GetTurnDuelistVariable
+; hTempCardIndex_ff9f might have been overwritten
+	ld a, [wTempCardDeckIndex]
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
 	ld a, OPPACTION_USE_ATTACK
@@ -336,27 +349,33 @@ AIPlayInitialBasicCards:
 	pop hl
 	jr .check_for_next_card
 
+
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
 ; can't use an attack or if that selected attack doesn't have enough energy
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-;	[wSelectedAttack]         = selected attack to examine
+;	[wSelectedAttack] = selected attack to examine
 CheckIfSelectedAttackIsUnusable:
+	call CopyAttackDataAndDamage_FromPlayAreaLocation
+	; jr CheckIfSelectedAttackOfLoadedCardIsUnusable
+	; fallthrough
+
+; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
+; can't use an attack or if that selected attack doesn't have enough energy
+; input:
+;   [wLoadedCard1] = Pokémon card to check
+;   [wLoadedAttack] = attack to check
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+;	[wSelectedAttack] = selected attack to examine
+CheckIfSelectedAttackOfLoadedCardIsUnusable:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	or a
 	jr nz, .bench
 
-	bank1call HandleCantAttackSubstatus
+	call HandleCantAttackSubstatus
 	ret c
-	bank1call CheckIfActiveCardParalyzedOrAsleep
+	call CheckIfActiveCardParalyzedOrAsleep
 	ret c
-
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld d, a
-	ld a, [wSelectedAttack]
-	ld e, a
-	call CopyAttackDataAndDamage_FromDeckIndex
 	call HandleAmnesiaSubstatus
 	ret c
 	ld a, EFFECTCMDTYPE_INITIAL_EFFECT_1
@@ -364,7 +383,7 @@ CheckIfSelectedAttackIsUnusable:
 	ret c
 
 .bench
-	call CheckEnergyNeededForAttack
+	call CheckEnergyNeededForLoadedAttack
 	ret c ; can't be used
 	ld a, ATTACK_FLAG2_ADDRESS | FLAG_2_BIT_5_F
 	jp CheckLoadedAttackFlag
@@ -382,13 +401,23 @@ CheckIfSelectedAttackIsUnusable:
 ;	       OR if it's a Pokémon Power
 ;	       OR if not enough energy for attack
 CheckEnergyNeededForAttack:
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	add DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld d, a
-	ld a, [wSelectedAttack]
-	ld e, a
-	call CopyAttackDataAndDamage_FromDeckIndex
+	call CopyAttackDataAndDamage_FromPlayAreaLocation
+	; jr CheckEnergyNeededForLoadedAttack
+	; fallthrough
+
+; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d
+; and checks if there is enough energy to execute the selected attack
+; input:
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+;	[wLoadedAttack] = selected (and loaded) attack to examine
+; output:
+;	b = basic energy still needed
+;	c = colorless energy still needed
+;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
+;	carry set if no attack
+;	       OR if it's a Pokémon Power
+;	       OR if not enough energy for attack
+CheckEnergyNeededForLoadedAttack:
 	ld hl, wLoadedAttackName
 	ld a, [hli]
 	or [hl]
@@ -406,7 +435,7 @@ CheckEnergyNeededForAttack:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld e, a
 	call GetPlayAreaCardAttachedEnergies
-	bank1call HandleEnergyBurn
+	call HandleEnergyBurn
 
 	xor a
 	ld [wTempLoadedAttackEnergyCost], a
@@ -864,7 +893,7 @@ CheckEnergyNeededForAttackAfterDiscard:
 	dec [hl]
 
 .asm_1570c
-	bank1call HandleEnergyBurn
+	call HandleEnergyBurn
 	xor a
 	ld [wTempLoadedAttackEnergyCost], a
 	ld [wTempLoadedAttackEnergyNeededAmount], a
@@ -1928,8 +1957,10 @@ AISelectSpecialAttackParameters:
 	ret
 
 .SelectAttackParameters:
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+; the attack might not belong to the current arena card
+	; ld a, DUELVARS_ARENA_CARD
+	; call GetTurnDuelistVariable
+	ldh a, [hTempCardIndex_ff9f]
 	call GetCardIDFromDeckIndex
 	cp16 MEW_LV23
 	jr z, .DevolutionBeam
@@ -2075,7 +2106,7 @@ CheckIfNoSurplusEnergyForAttack:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld e, a
 	call GetPlayAreaCardAttachedEnergies
-	bank1call HandleEnergyBurn
+	call HandleEnergyBurn
 	xor a
 	ld [wTempLoadedAttackEnergyCost], a
 	ld [wTempLoadedAttackEnergyNeededAmount], a

@@ -20,25 +20,6 @@ AIProcessButDontUseAttack:
 	ld [de], a
 	jr AIProcessAttacks
 
-; copies wTempPlayAreaAIScore to wPlayAreaAIScore
-; and loads wAIScore with value in wTempAIScore.
-; identical to RetrievePlayAreaAIScoreFromBackup1.
-RetrievePlayAreaAIScoreFromBackup2:
-	push af
-	ld de, wPlayAreaAIScore
-	ld hl, wTempPlayAreaAIScore
-	ld b, MAX_PLAY_AREA_POKEMON
-.loop
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .loop
-
-	ld a, [hl]
-	ld [wAIScore], a
-	pop af
-	ret
 
 ; have AI choose and execute an attack.
 ; return carry if an attack was chosen and attempted.
@@ -58,7 +39,7 @@ AIProcessAttacks:
 	jr z, .no_pluspower
 	ld a, [wAIPluspowerAttack]
 	ld [wSelectedAttack], a
-	jr .attack_chosen
+	jp .attack_chosen
 
 .no_pluspower
 ; if Player is running MewtwoLv53 mill deck,
@@ -67,41 +48,153 @@ AIProcessAttacks:
 	cp AI_MEWTWO_MILL + 0
 	jp z, .dont_attack
 
-; determine AI score of both attacks.
+; Implementation Notes
+; We always need to calculate the scores of each attack to evaluate them fairly.
+; More often than not, attacks from the current (highest) stage will have the best scores.
+; To optimize the maximum score calculation later, it is easier if we start from the Basic stage.
+; Thus, we should lay out the scores in WRAM from Basic to Stage 2,
+; exactly the same order that wAllStagesIndices uses.
+; We define the initial max score as AI_MINIMUM_SCORE_TO_USE_ATTACK.
+; Each attack's score is compared to the current max score, and replaces it if higher.
+; In addition to replacing the max score, we also store the corresponding attack index,
+; as well as the current stage deck index, so that we can overwrite the arena card later.
+
+; initialize attack scores
+	xor a
+; basic stage
+	ld [wAIScoreAllAttacks + 0], a
+	ld [wAIScoreAllAttacks + 1], a
+; stage 1
+	ld [wAIScoreAllAttacks + 2], a
+	ld [wAIScoreAllAttacks + 3], a
+; stage 2
+	ld [wAIScoreAllAttacks + 4], a
+	ld [wAIScoreAllAttacks + 5], a
+
+; preload previous stages
+	ldh [hTempPlayAreaLocation_ff9d], a  ; PLAY_AREA_ARENA
+	bank1call GetCardOneStageBelow
+
+; replace the current card with the Basic
+; if the Pokémon is Basic, we overwrite it with itself (non optimal)
+; and then skip the rest of the scores
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld a, [wAllStagesIndices + BASIC]
+; there is always a Basic, skip checks
+	ld [hl], a
+; determine AI score of both attacks
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	call GetAIScoreOfAttack
 	ld a, [wAIScore]
-	ld [wFirstAttackAIScore], a
+	ld [wAIScoreAllAttacks + 0], a
 	ld a, SECOND_ATTACK
 	call GetAIScoreOfAttack
-
-; compare both attack scores
-	ld c, SECOND_ATTACK
-	ld a, [wFirstAttackAIScore]
-	ld b, a
 	ld a, [wAIScore]
+	ld [wAIScoreAllAttacks + 1], a
+
+; replace the current card with the Stage 1 Pokémon, if any
+; if the Pokémon is an actual Stage 1, we restore it by overwriting here
+; if there is no Stage 1, we skip to Stage 2
+; the Stage 2 check is necessary because of STAGE2_WITHOUT_STAGE1 cases
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+; replace the current card with the Stage 1
+	ld [hl], a
+; determine AI score of both stage 1 attacks
+	xor a ; FIRST_ATTACK_OR_PKMN_POWER
+	call GetAIScoreOfAttack
+	ld a, [wAIScore]
+	ld [wAIScoreAllAttacks + 2], a
+	ld a, SECOND_ATTACK
+	call GetAIScoreOfAttack
+	ld a, [wAIScore]
+	ld [wAIScoreAllAttacks + 3], a
+
+; replace the current card with the Stage 2 Pokémon, if any
+; if the Pokémon is an actual Stage 2, we restore it by overwriting here
+.stage2
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld a, [wAllStagesIndices + STAGE2]
+	cp $ff
+	jr z, .compare_attack_scores
+; replace the current card with the Stage 2
+	ld [hl], a
+; determine AI score of both stage 2 attacks
+	xor a ; FIRST_ATTACK_OR_PKMN_POWER
+	call GetAIScoreOfAttack
+	ld a, [wAIScore]
+	ld [wAIScoreAllAttacks + 4], a
+	ld a, SECOND_ATTACK
+	call GetAIScoreOfAttack
+	ld a, [wAIScore]
+	ld [wAIScoreAllAttacks + 5], a
+
+; compare attack scores for all stages and pick the best one
+.compare_attack_scores
+	ld c, 3  ; number of stages we have to go through
+	ld b, 0  ; initial max score
+	ld hl, wAIScoreAllAttacks
+	ld de, wAllStagesIndices + BASIC
+; the loop compares both attacks of each stage at once
+; this way we only loop 3 times for up to 6 attacks
+; it is easier to manage wAllstagesIndices this way
+.loop_compare_attack_scores
+	ld a, [hli]
 	cp b
-	jr nc, .check_score
-	; first attack has higher score
-	dec c
-	ld a, b
-
-; c holds the attack index chosen by AI,
-; and a holds its AI score.
-; first check if chosen attack has at least minimum score.
-; then check if first attack is better than second attack
-; in case the second one was chosen.
-.check_score
-	cp $50 ; minimum score to use attack
-	jr c, .dont_attack
-	; enough score, proceed
-
-	ld a, c
+	jr c, .compare_attack2
+; this attack has a higher score
+; store the new max score
+	ld b, a
+; store the attack index
+	xor a  ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
-	or a
-	call nz, CheckWhetherToSwitchToFirstAttack
+; store the deck index of this stage
+	ld a, [de]
+	ld [wTempCardDeckIndex], a
+.compare_attack2
+	ld a, [hli]
+	cp b
+	jr c, .compare_scores_next_stage
+; this attack has a higher score
+; store the new max score
+	ld b, a
+; store the attack index
+	ld a, SECOND_ATTACK
+	ld [wSelectedAttack], a
+; store the deck index of this stage
+	ld a, [de]
+	ld [wTempCardDeckIndex], a
+.compare_scores_next_stage
+	inc de
+	dec c
+	jr nz, .loop_compare_attack_scores
+
+; get the maximum attack score
+; check if the chosen attack has at least a minimum score
+	ld a, b
+	cp AI_MINIMUM_SCORE_TO_USE_ATTACK
+	jr c, .dont_attack
+
+; enough score, proceed
+; check if first attack is better than second attack
+; in case the second one was chosen.
+	; ld a, c
+	; ld [wSelectedAttack], a
+	; or a
+	; call nz, CheckWhetherToSwitchToFirstAttack
+; FIXME: this section should be removed.
+; The score calculation function should take into account
+; additional effects of attacks (beneficial or detrimental)
+; and update the score accordingly, so that switching attacks
+; here is not necessary.
+
+; check whether to execute the chosen attack
 .attack_chosen
-; check whether to execute the attack chosen
 	ld a, [wAIExecuteProcessedAttack]
 	or a
 	jr z, .execute
@@ -115,17 +208,17 @@ AIProcessAttacks:
 	ld a, AI_TRAINER_CARD_PHASE_14
 	call AIProcessHandTrainerCards
 
-; load this attack's damage output against
-; the current Defending Pokemon.
+; load this attack's damage output against the current Defending Pokémon
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ld a, [wSelectedAttack]
-	call EstimateDamage_VersusDefendingCard
+	ld e, a
+	ld a, [wTempCardDeckIndex]
+	call EstimateDamageOfCard_VersusDefendingCard
 	ld a, [wDamage]
-
+; if damage is not 0, fallthrough
 	or a
 	jr z, .check_damage_bench
-	; if damage is not 0, fallthrough
 
 .can_damage
 	xor a
@@ -138,15 +231,19 @@ AIProcessAttacks:
 	call CheckLoadedAttackFlag
 	jr c, .can_damage
 
-; cannot damage either Defending Pokemon or Bench
+; cannot damage Defending Pokémon or Bench
 	ld hl, wAIRetreatScore
 	inc [hl]
 
-; return carry if attack is chosen
-; and AI tries to use it.
+; return carry if attack is chosen and AI tries to use it.
 .use_attack
 	ld a, TRUE
 	ld [wAITriedAttack], a
+	ld a, [wTempCardDeckIndex]
+	ldh [hTempCardIndex_ff9f], a
+; input:
+;   [wSelectedAttack] = attack index chosen by AI
+;   [wTempCardDeckIndex] = deck index of the card owning the attack
 	call AITryUseAttack
 	scf
 	ret
@@ -166,6 +263,7 @@ AIProcessAttacks:
 	or a
 	ret
 
+
 ; determines the AI score of attack index in a
 ; of card in Play Area location hTempPlayAreaLocation_ff9d.
 GetAIScoreOfAttack:
@@ -174,8 +272,6 @@ GetAIScoreOfAttack:
 	ld a, $50
 	ld [wAIScore], a
 
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
 	call CheckIfSelectedAttackIsUnusable
 	jr nc, .usable
 
@@ -183,7 +279,7 @@ GetAIScoreOfAttack:
 .unusable
 	xor a
 	ld [wAIScore], a
-	jp .done
+	ret
 
 ; load arena card IDs
 .usable
@@ -338,12 +434,11 @@ GetAIScoreOfAttack:
 .dismiss_high_recoil_atk
 	xor a
 	ld [wAIScore], a
-	jp .done
+	ret
 
 .encourage_high_recoil_atk
 	ld a, 20
-	call AIEncourage
-	jp .done
+	jp AIEncourage
 
 ; Zapping Selfdestruct deck only uses this attack
 ; if number of cards in deck >= 30 and
@@ -431,13 +526,12 @@ GetAIScoreOfAttack:
 ; attack causes player to draw all prize cards
 	xor a
 	ld [wAIScore], a
-	jp .done
+	ret
 
 ; attack causes CPU to draw all prize cards
 .wins_the_duel
 	ld a, 20
-	call AIEncourage
-	jp .done
+	jp AIEncourage
 
 ; subtract from AI score number of own benched Pokémon KO'd
 .count_own_ko_bench
@@ -702,18 +796,86 @@ GetAIScoreOfAttack:
 .handle_special_atks
 	ld a, ATTACK_FLAG3_ADDRESS | SPECIAL_AI_HANDLING_F
 	call CheckLoadedAttackFlag
-	jr nc, .done
+	ret nc
+
 	call HandleSpecialAIAttacks
 	cp $80
 	jr c, .negative_score
 	sub $80
-	call AIEncourage
-	jr .done
+	jp AIEncourage
+
 .negative_score
 	ld b, a
 	ld a, $80
 	sub b
-	call AIDiscourage
+	jp AIDiscourage
 
-.done
+
+; copies wTempPlayAreaAIScore to wPlayAreaAIScore
+; and loads wAIScore with value in wTempAIScore.
+; identical to RetrievePlayAreaAIScoreFromBackup1.
+RetrievePlayAreaAIScoreFromBackup2:
+	push af
+	ld de, wPlayAreaAIScore
+	ld hl, wTempPlayAreaAIScore
+	ld b, MAX_PLAY_AREA_POKEMON
+.loop
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, .loop
+
+	ld a, [hl]
+	ld [wAIScore], a
+	pop af
+	ret
+
+
+; called when second attack is determined by AI to have
+; more AI score than the first attack, so that it checks
+; whether the first attack is a better alternative.
+CheckWhetherToSwitchToFirstAttack:
+; this checks whether the first attack is also viable
+; (has more than minimum score to be used)
+	ld a, [wAIScoreAllAttacks]  ; used to be first attack, todo
+	cp $50
+	jr c, .keep_second_attack
+
+; first attack has more than minimum score to be used,
+; check if it can KO, in case it can't
+; then the AI keeps second attack as selection.
+	xor a ; PLAY_AREA_ARENA
+	ldh [hTempPlayAreaLocation_ff9d], a
+	; a = FIRST_ATTACK_OR_PKMN_POWER
+	call EstimateDamage_VersusDefendingCard
+	ld a, DUELVARS_ARENA_CARD_HP
+	call GetNonTurnDuelistVariable
+	ld hl, wDamage
+	sub [hl] ; HP - damage
+	jr z, .check_flag
+	jr nc, .keep_second_attack ; cannot KO
+
+; first attack can ko, check flags from second attack
+; in case its effect is to heal user or nullify/weaken damage
+; next turn, keep second attack as the option.
+.check_flag
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld d, a
+	ld e, SECOND_ATTACK
+	call CopyAttackDataAndDamage_FromDeckIndex
+	ld a, ATTACK_FLAG2_ADDRESS | HEAL_USER_F
+	call CheckLoadedAttackFlag
+	jr c, .keep_second_attack
+	ld a, ATTACK_FLAG2_ADDRESS | NULLIFY_OR_WEAKEN_ATTACK_F
+	call CheckLoadedAttackFlag
+	jr c, .keep_second_attack
+; switch to first attack
+	xor a ; FIRST_ATTACK_OR_PKMN_POWER
+	ld [wSelectedAttack], a
+	ret
+.keep_second_attack
+	ld a, SECOND_ATTACK
+	ld [wSelectedAttack], a
 	ret

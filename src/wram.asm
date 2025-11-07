@@ -977,29 +977,40 @@ wTempCardID:: ; cdb9
 	ds $2
 wTempCardType:: ; cdba
 	ds $1
+wTempCardDeckIndex:: ; cdbb
+	ds $1
 
-	ds $2
+; unused
+	ds $1
 
 ; used for AI to score decisions for actions
 wAIScore:: ; cdbe
 	ds $1
-
-UNION
 
 ; used for AI decisions that involve
 ; each card in the Play Area.
 wPlayAreaAIScore:: ; cdbf
 	ds MAX_PLAY_AREA_POKEMON
 
-NEXTU
+; stores the scores determined by AI for all attacks
+wAIScoreAllAttacks:: ; cdbf
 
-; stores the score determined by AI for first attack
-wFirstAttackAIScore:: ; cdbf
-	ds $1
+; stores the AI scores for attacks of the Basic Pokémon
+wAIScoreBasicAttacks:: ; cdbf
+	ds $2
 
-ENDU
+; stores the AI scores for the attacks of the Stage 1 Pokémon
+wAIScoreStage1Attacks:: ; cdc1
+	ds $2
 
-	ds $a
+; stores the AI scores for the attacks of the Stage 2 Pokémon
+wAIScoreStage2Attacks:: ; cdc3
+	ds $2
+
+wAIScoreAllAttacksEnd::
+
+; unused
+	ds $4
 
 ; information about the defending Pokémon and
 ; the prize card count on both sides for AI:

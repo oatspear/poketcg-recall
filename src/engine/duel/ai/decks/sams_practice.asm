@@ -100,7 +100,7 @@ AIPerformScriptedTurn:
 	xor a
 	ldh [hTempPlayAreaLocation_ff9d], a ; PLAY_AREA_ARENA
 	ld [wSelectedAttack], a ; FIRST_ATTACK_OR_PKMN_POWER
-	call CheckIfSelectedAttackIsUnusable
+	call CheckIfSelectedAttackIsUnusable  ; sets [hTempCardIndex_ff9f]
 	jr c, .unusable
 	jp AITryUseAttack
 

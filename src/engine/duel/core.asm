@@ -5611,6 +5611,7 @@ DisplayOpponentUsedAttackScreen:
 	call EmptyScreen
 	call LoadDuelCardSymbolTiles
 	call LoadDuelFaceDownCardTiles
+	call SetDefaultConsolePalettes
 	ld a, [wTempCardID_ccc2 + 0]
 	ld e, a
 	ld a, [wTempCardID_ccc2 + 1]
@@ -6131,13 +6132,16 @@ OppAction_ExecuteTrainerCardEffectCommands:
 
 ; begin the execution of an attack and handle the attack being
 ; possibly unsuccessful due to Sand Attack or Smokescreen
+; input:
+;   [wTempCardDeckIndex]: deck index of the attacking Pokemon card
+;   [hTemp_ffa0]: index of the selected attack (0 or 1)
 OppAction_BeginUseAttack:
-	ldh a, [hTempCardIndex_ff9f]
+	ld a, [wTempCardDeckIndex]
 	ld d, a
 	ldh a, [hTemp_ffa0]
 	ld e, a
 	call CopyAttackDataAndDamage_FromDeckIndex
-	call UpdateArenaCardIDsAndClearTwoTurnDuelVars
+	call UpdateArenaCardIDsAndClearTwoTurnDuelVars  ; overwrites temp card index
 	ld a, $01
 	ld [wSkipDuelistIsThinkingDelay], a
 	call CheckSandAttackOrSmokescreenSubstatus
@@ -6170,6 +6174,9 @@ OppAction_UseAttack:
 	call TryExecuteEffectCommandFunction
 	call CheckSelfConfusionDamage
 	jr c, .confusion_damage
+; the following requires wTempCardID_ccc2 to have the attacker's card ID
+; in this case, the ID of the card owning the attack, not necessarily the highest stage
+; it is automatically set by CopyAttackDataAndDamage
 	call DisplayOpponentUsedAttackScreen
 	call PrintPokemonsAttackText
 	call WaitForWideTextBoxInput
