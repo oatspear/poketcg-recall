@@ -4,13 +4,32 @@
 ;	a = attack index to take into account
 ;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
 EstimateDamage_VersusDefendingCard:
-	ld [wSelectedAttack], a
+	ld [wSelectedAttack], a  ; redundant
 	ld e, a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
+	; jr EstimateDamageOfCard_VersusDefendingCard
+	; fallthrough
+
+; stores in wDamage, wAIMinDamage and wAIMaxDamage the calculated damage
+; done to the defending Pokémon by a given card and attack
+; input:
+;	a = deck index of the card to take into account
+;	e = attack index to take into account
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
+EstimateDamageOfCard_VersusDefendingCard:
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
+	; jr EstimateDamageOfLoadedAttack_VersusDefendingCard
+	; fallthrough
+
+; stores in wDamage, wAIMinDamage and wAIMaxDamage the calculated damage
+; done to the defending Pokémon by a given attack
+; input:
+;	[wLoadedAttack] = attack to take into account
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
+EstimateDamageOfLoadedAttack_VersusDefendingCard:
 	ld a, [wLoadedAttackCategory]
 	cp POKEMON_POWER
 	jr nz, .is_attack
