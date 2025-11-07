@@ -159,14 +159,16 @@ AIDecideEvolution:
 
 ; check if the card can use any attacks
 ; and if any of those attacks can KO
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
+	xor a
+	ld [wCurCardCanAttack], a
+	ld [wCurCardCanKO], a
+	ld [wSelectedAttack], a  ; FIRST_ATTACK_OR_PKMN_POWER
 	call CheckIfSelectedAttackIsUnusable
 	jr nc, .can_attack
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
 	call CheckIfSelectedAttackIsUnusable
-	jr c, .cant_attack_or_ko
+	jr c, .check_evolution_attacks
 .can_attack
 	ld a, $01
 	ld [wCurCardCanAttack], a
@@ -175,11 +177,6 @@ AIDecideEvolution:
 	call CheckIfSelectedAttackIsUnusable
 	jr c, .check_evolution_attacks
 	ld a, $01
-	ld [wCurCardCanKO], a
-	jr .check_evolution_attacks
-.cant_attack_or_ko
-	xor a
-	ld [wCurCardCanAttack], a
 	ld [wCurCardCanKO], a
 
 ; check evolution to see if it can use any of its attacks:
