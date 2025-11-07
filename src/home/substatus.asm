@@ -933,7 +933,7 @@ ClearChangedTypesIfMuk::
 
 ; return carry and the corresponding text in hl if the turn holder's
 ; arena Pokemon card is paralyzed or asleep.
-CheckIfActiveCardParalyzedOrAsleep:
+CheckIfActiveCardParalyzedOrAsleep::
 	ld a, DUELVARS_ARENA_CARD_STATUS
 	call GetTurnDuelistVariable
 	and CNF_SLP_PRZ
