@@ -1429,6 +1429,22 @@ CopyAttackDataAndDamage_FromCardID::
 	pop de
 	jr CopyAttackDataAndDamage
 
+; copies, given a card location in hTempPlayAreaLocation_ff9d:
+; - deck index into hTempCardIndex_ff9f
+; - Attack1 (if wSelectedAttack == 0) or
+;   Attack2 (if wSelectedAttack == 1) data into wLoadedAttack
+; - Also from that attack, its Damage field into wDamage
+; finally, clears wNoDamageOrEffect and wDealtDamage
+CopyAttackDataAndDamage_FromPlayAreaLocation::
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld d, a
+	ld a, [wSelectedAttack]
+	ld e, a
+	; jr CopyAttackDataAndDamage_FromDeckIndex
+	; fallthrough
+
 ; copies, given a card identified by register d (0-59 deck index):
 ; - e into wSelectedAttack and d into hTempCardIndex_ff9f
 ; - Attack1 (if e == 0) or Attack2 (if e == 1) data into wLoadedAttack
