@@ -1129,9 +1129,10 @@ wSamePokemonCardID:: ; cdf9
 wSamePokemonEnergyScoreHandled:: ; cdfa
 	ds MAX_PLAY_AREA_POKEMON
 
-wAIFirstAttackDamage:: ; ce00
+wAITempAttackDamage:: ; ce00
 	ds $1
-wAISecondAttackDamage:: ; ce01
+
+; unused
 	ds $1
 
 ; whether AI's attack is damaging or not

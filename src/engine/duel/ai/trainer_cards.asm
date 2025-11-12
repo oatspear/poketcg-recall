@@ -609,9 +609,11 @@ AIDecide_Defender1:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .cannot_ko
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .no_carry
+	; jr nc, .cannot_ko
+	jr c, .no_carry
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
 
@@ -788,9 +790,11 @@ AIDecide_Pluspower1:
 ; if it's unusable and there's no card in hand
 ; to fulfill its energy cost.
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .cannot_ko
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .no_carry
+	; jr nc, .cannot_ko
+	jr c, .no_carry
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
 
@@ -1063,9 +1067,11 @@ AIDecide_GustOfWind:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .check_id ; if can't KO
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .no_carry ; if KO attack is useable
+	; jr nc, .check_id ; if can't KO
+	jr c, .no_carry ; if KO attack is useable
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .no_carry ; if KO attack is useable
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry ; if energy card is in hand
 
@@ -1451,9 +1457,11 @@ AIDecide_EnergyRemoval:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .cannot_ko
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .can_ko
+	; jr nc, .cannot_ko
+	jr c, .can_ko
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .can_ko
 	farcall LookForEnergyNeededForAttackInHand
 	jr nc, .cannot_ko
 
@@ -1719,9 +1727,11 @@ AIDecide_SuperEnergyRemoval:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .cannot_ko
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .can_ko
+	; jr nc, .cannot_ko
+	jr c, .can_ko
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .can_ko
 	farcall LookForEnergyNeededForAttackInHand
 	jr nc, .cannot_ko
 
@@ -3110,9 +3120,11 @@ AIDecide_PokemonCenter:
 
 ; return if active Pokemon can KO player's card.
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .start
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .no_carry
+	; jr nc, .start
+	jr c, .no_carry
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
 
@@ -3999,9 +4011,11 @@ AIDecide_ScoopUp:
 ; if it can KO the defending Pokemon this turn,
 ; return no carry.
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .cannot_ko
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .no_carry
+	; jr nc, .cannot_ko
+	jr c, .no_carry
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
 
@@ -4100,9 +4114,11 @@ AIDecide_ScoopUp:
 ; if it can KO the defending Pokemon this turn,
 ; return no carry.
 	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .check_ko
-	farcall CheckIfSelectedAttackIsUnusable
-	jr nc, .no_carry
+	; jr nc, .check_ko
+	jr c, .no_carry
+; usability check is now baked in
+	; farcall CheckIfSelectedAttackIsUnusable
+	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
 .check_ko

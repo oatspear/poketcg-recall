@@ -39,9 +39,11 @@ AIDecideWhetherToRetreat:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .active_cant_ko_1
-	call CheckIfSelectedAttackIsUnusable
-	jr nc, .active_can_use_atk
+	jr c, .active_can_use_atk
+	; jr nc, .active_cant_ko_1
+; usability check is now baked in
+	; call CheckIfSelectedAttackIsUnusable
+	; jr nc, .active_can_use_atk
 	call LookForEnergyNeededForAttackInHand
 	jr nc, .active_cant_ko_1
 
@@ -239,9 +241,11 @@ AIDecideWhetherToRetreat:
 	push hl
 	push bc
 	call CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .no_ko
-	call CheckIfSelectedAttackIsUnusable
-	jr nc, .success
+	; jr nc, .no_ko
+	jr c, .success
+; ; usability check is now baked in
+	; call CheckIfSelectedAttackIsUnusable
+	; jr nc, .success
 	call LookForEnergyNeededForAttackInHand
 	jr c, .success
 .no_ko
@@ -268,9 +272,11 @@ AIDecideWhetherToRetreat:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .active_cant_ko_2
-	call CheckIfSelectedAttackIsUnusable
-	jp nc, .check_defending_id
+	; jr nc, .active_cant_ko_2
+	jr c, .check_defending_id
+; usability check is now baked in
+	; call CheckIfSelectedAttackIsUnusable
+	; jr nc, .check_defending_id
 .active_cant_ko_2
 	ld a, 40
 	call AIEncourage
@@ -505,8 +511,9 @@ AIDecideBenchPokemonToSwitchTo:
 ; if on last prize card, raise AI score again
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .check_can_use_atks
-	call CheckIfSelectedAttackIsUnusable
-	jr c, .check_can_use_atks
+; usability check is now baked in
+	; call CheckIfSelectedAttackIsUnusable
+	; jr c, .check_can_use_atks
 	ld a, 10
 	call AIEncourage
 	ld a, [wAIRetreatFlags]

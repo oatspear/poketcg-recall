@@ -170,13 +170,14 @@ AIDecideEvolution:
 	call CheckIfSelectedAttackIsUnusable
 	jr c, .check_evolution_attacks
 .can_attack
-	ld a, $01
+	ld a, TRUE
 	ld [wCurCardCanAttack], a
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .check_evolution_attacks
-	call CheckIfSelectedAttackIsUnusable
-	jr c, .check_evolution_attacks
-	ld a, $01
+; usability check is now baked in
+	; call CheckIfSelectedAttackIsUnusable
+	; jr c, .check_evolution_attacks
+	ld a, TRUE
 	ld [wCurCardCanKO], a
 
 ; check evolution to see if it can use any of its attacks:
@@ -184,12 +185,22 @@ AIDecideEvolution:
 ; if it can't, decrease AI score and if an energy card that is needed
 ; can be played from the hand, raise AI score.
 .check_evolution_attacks
+; temporarily overwrite current play area card
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	push af
 	ld a, [wTempAIPokemonCard]
 	ld [hl], a
+; temporarily overwrite evolution card's location 
+; this is necessary to make GetCardOneStageBelow work,
+; which is called by CheckIfAnyAttackKnocksOutDefendingCard
+	ld a, [wTempAIPokemonCard]
+	ld l, a  ; DUELVARS_CARD_LOCATIONS
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	or CARD_LOCATION_ARENA
+	ld [hl], a
+
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
 	call CheckIfSelectedAttackIsUnusable
@@ -228,8 +239,9 @@ AIDecideEvolution:
 	jr nz, .check_defending_can_ko_evolution
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .evolution_cant_ko
-	call CheckIfSelectedAttackIsUnusable
-	jr c, .evolution_cant_ko
+; usability check is now baked in
+	; call CheckIfSelectedAttackIsUnusable
+	; jr c, .evolution_cant_ko
 	ld a, 5
 	call AIEncourage
 	jr .check_defending_can_ko_evolution
@@ -265,8 +277,14 @@ AIDecideEvolution:
 	ld a, [wTempAI]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
+; restore the previous play area card
 	pop af
 	ld [hl], a
+; restore evolution card's location to the hand
+	ld a, [wTempAIPokemonCard]
+	ld l, a  ; DUELVARS_CARD_LOCATIONS
+	ld [hl], CARD_LOCATION_HAND
+
 	ld a, [wTempAI]
 	or a
 	jr nz, .check_2nd_stage_hand
@@ -328,9 +346,8 @@ AIDecideEvolution:
 	cphl MYSTERIOUS_FOSSIL
 	jr z, .mysterious_fossil
 	ld a, [wLoadedCard1AIInfo]
-	; bug, should mask out HAS_EVOLUTION flag first
-	cp AI_INFO_ENCOURAGE_EVO
-	jr nz, .pikachu_deck
+	and AI_INFO_ENCOURAGE_EVO
+	jr z, .pikachu_deck
 	ld a, 2
 	call AIEncourage
 	jr .pikachu_deck

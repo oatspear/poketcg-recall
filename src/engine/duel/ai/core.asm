@@ -1,24 +1,61 @@
-; returns carry if damage dealt from any of
-; a card's attacks KOs defending Pokémon
+; returns carry if damage dealt from any of a Pokémon's attacks KOs defending Pokémon
+; it also checks whether the selected attack is usable
 ; outputs index of the attack that KOs
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
 ; output:
 ;	[wSelectedAttack] = attack index that KOs
+;   [wTempCardDeckIndex] = deck index of the card owning the attack
 CheckIfAnyAttackKnocksOutDefendingCard:
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
+; preload previous stages
+	bank1call GetCardOneStageBelow
+; basic stage, always exists
+	ld a, [wAllStagesIndices + BASIC]
+	ld [wTempCardDeckIndex], a
+	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
+	ret c  ; can Knock Out
+; stage 1
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+	ld [wTempCardDeckIndex], a
+	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
+	ret c  ; can Knock Out
+.stage2
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	ret z  ; nothing here
+	ld [wTempCardDeckIndex], a
+	; jr CheckIfAnyAttackOfCardKnocksOutDefendingCard
+	; fallthrough
+
+; now depends on [wTempCardDeckIndex]
+; the AI always checked whether the selected attack was usable right after,
+; so let's bake the check into this function
+CheckIfAnyAttackOfCardKnocksOutDefendingCard:
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
 	call .CheckAttack
 	ret c
-	ld a, SECOND_ATTACK
+	ld a, [wTempCardDeckIndex]
+	ld e, SECOND_ATTACK
+
+; input:
+;	a = deck index of the card to take into account
+;	e = attack index to take into account
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
 .CheckAttack:
-	call EstimateDamage_VersusDefendingCard
+	call EstimateDamageOfCard_VersusDefendingCard
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
 	ld hl, wDamage
 	sub [hl]
-	ret c
+	jr c, .enough_damage
 	ret nz
-	scf
+.enough_damage
+; card and attack data are already loaded from damage estimation
+	call CheckIfSelectedAttackOfLoadedCardIsUnusable
+; this call returns carry if the attack cannot be used, must flip
+	ccf
 	ret
 
 ; returns carry if any of the defending Pokémon's attacks
@@ -349,6 +386,20 @@ AIPlayInitialBasicCards:
 	pop hl
 	jr .check_for_next_card
 
+
+; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
+; can't use an attack or if that selected attack doesn't have enough energy
+; input:
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+;	[wSelectedAttack] = selected attack to examine
+;   [wTempCardDeckIndex] = card owning the selected attack
+CheckIfSelectedAttackOfCardIsUnusable:
+	ld a, [wSelectedAttack]
+	ld e, a
+	ld a, [wTempCardDeckIndex]
+	ld d, a
+	call CopyAttackDataAndDamage_FromDeckIndex
+	jr CheckIfSelectedAttackOfLoadedCardIsUnusable
 
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
 ; can't use an attack or if that selected attack doesn't have enough energy
@@ -1292,16 +1343,12 @@ CheckDamageToMrMime:
 CheckIfActiveCardCanKnockOut:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	call CheckIfAnyAttackKnocksOutDefendingCard
-	jr nc, .fail
-	call CheckIfSelectedAttackIsUnusable
-	jp c, .fail
-	scf
-	ret
-
-.fail
-	or a
-	ret
+	jp CheckIfAnyAttackKnocksOutDefendingCard
+; usability check is now baked in
+	; ret nc  ; fail
+	; call CheckIfSelectedAttackIsUnusable
+	; ccf  ; nc: fail
+	; ret
 
 ; outputs carry if any of the active Pokémon attacks
 ; can be used and are not residual
@@ -2267,85 +2314,108 @@ CheckIfCanDamageDefendingPokemon:
 
 ; checks if defending Pokémon can knock out
 ; card at hTempPlayAreaLocation_ff9d with any of its attacks
-; and if so, stores the damage to wAIFirstAttackDamage and wAISecondAttackDamage
+; and if so, stores the damage to wAITempAttackDamage
 ; sets carry if any on the attacks knocks out
-; also outputs the largest damage dealt in a
+; also outputs the largest damage dealt in a and wAITempAttackDamage
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of card to check
 ; output:
-;	a = largest damage of both attacks
+;	a = largest damage of all attacks
+;	[wAITempAttackDamage] = largest damage of all attacks
 ;	carry set if can knock out
 CheckIfDefendingPokemonCanKnockOut:
 	xor a
-	ld [wAIFirstAttackDamage], a
-	ld [wAISecondAttackDamage], a
+	ld [wAITempAttackDamage], a
+; preload previous stages
+	call SwapTurn
+	bank1call GetCardOneStageBelow
+	call SwapTurn
+; basic stage, always exists
+	ld a, [wAllStagesIndices + BASIC]
+	call CheckIfAnyAttackOfDefendingPokemonCardKnockOut
+; stage 1
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+	call CheckIfAnyAttackOfDefendingPokemonCardKnockOut
+.stage2
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	call nz, CheckIfAnyAttackOfDefendingPokemonCardKnockOut
+; check whether any attack can score a KO
+	ld a, [wAITempAttackDamage]
+	cp 1
+	ccf  ; carry if not zero
+	ret
 
-	; first attack
+; input:
+;   a: deck index of the card owning the attacks
+CheckIfAnyAttackOfDefendingPokemonCardKnockOut:
+	ld [wTempCardDeckIndex], a
+	xor a  ; FIRST_ATTACK_OR_PKMN_POWER
 	call .CheckAttack
 	jr nc, .second_attack
+; enough damage to KO
+; check if it is maximal damage
 	ld a, [wDamage]
-	ld [wAIFirstAttackDamage], a
+	ld hl, wAITempAttackDamage
+	cp [hl]
+	jr c, .second_attack  ; not the highest
+; new maximum value
+	ld [hl], a
+
 .second_attack
 	ld a, SECOND_ATTACK
 	call .CheckAttack
-	jr nc, .return_if_neither_kos
+	ret nc  ; no KO
+; enough damage to KO
+; check if it is maximal damage
 	ld a, [wDamage]
-	ld [wAISecondAttackDamage], a
-	jr .compare
-
-.return_if_neither_kos
-	ld a, [wAIFirstAttackDamage]
-	or a
-	ret z
-
-.compare
-	ld a, [wAIFirstAttackDamage]
-	ld b, a
-	ld a, [wAISecondAttackDamage]
-	cp b
-	jr nc, .set_carry ; wAIFirstAttackDamage < wAISecondAttackDamage
-	ld a, b
-.set_carry
-	scf
+	ld hl, wAITempAttackDamage
+	cp [hl]
+	jr c, .second_attack  ; not the highest
+; new maximum value
+	ld [hl], a
 	ret
 
 ; return carry if defending Pokémon can knock out
 ; card at hTempPlayAreaLocation_ff9d
 ; input:
 ;	a = attack index
+;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of card to check
 .CheckAttack:
 	ld [wSelectedAttack], a
+	ld e, a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	push af
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call SwapTurn
-	call CheckIfSelectedAttackIsUnusable
+	ld a, [wTempCardDeckIndex]
+	ld d, a
+	call CopyAttackDataAndDamage_FromDeckIndex
+	call CheckIfSelectedAttackOfLoadedCardIsUnusable
 	call SwapTurn
 	pop bc
 	ld a, b
 	ldh [hTempPlayAreaLocation_ff9d], a
-	jr c, .done
+	ccf
+	ret nc  ; unusable
 
 ; player's active Pokémon can use attack
-	ld a, [wSelectedAttack]
-	call EstimateDamage_FromDefendingPokemon
+; attack data is already loaded
+	call EstimateDamageOfLoadedAttack_FromDefendingPokemon
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
 	ld hl, wDamage
 	sub [hl]
-	jr z, .can_ko
-	ret
-
-.can_ko
+	ret c  ; KO
+	ret nz  ; no KO
 	scf
-	ret
+	ret  ; exact KO
 
-.done
-	or a
-	ret
 
 ; sets carry if Opponent's deck ID
 ; is between LEGENDARY_MOLTRES_DECK_ID (inclusive)
