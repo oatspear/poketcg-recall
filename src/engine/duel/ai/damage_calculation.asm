@@ -238,6 +238,8 @@ CalculateDamage_VersusDefendingPokemon:
 	ld [hl], a
 	ret
 
+
+; unused
 ; stores in wDamage, wAIMinDamage and wAIMaxDamage the calculated damage
 ; done to the Pokémon at hTempPlayAreaLocation_ff9d
 ; by the defending Pokémon, using the attack index at a
@@ -256,6 +258,7 @@ EstimateDamage_FromDefendingPokemon:
 	call SwapTurn
 	jr EstimateDamageOfLoadedAttack_FromDefendingPokemon
 
+; unused
 ; stores in wDamage, wAIMinDamage and wAIMaxDamage the calculated damage
 ; done to the Pokémon at hTempPlayAreaLocation_ff9d
 ; by the defending Pokémon, using the attack index at a
