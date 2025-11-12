@@ -1009,8 +1009,11 @@ wAIScoreStage2Attacks:: ; cdc3
 
 wAIScoreAllAttacksEnd::
 
+wAllStagesIndicesBackup:: ; cdc4
+	ds $3
+
 ; unused
-	ds $4
+	ds $1
 
 ; information about the defending Pokémon and
 ; the prize card count on both sides for AI:

@@ -61,12 +61,21 @@ AIProcessAttacks:
 	ldh [hTempPlayAreaLocation_ff9d], a  ; PLAY_AREA_ARENA
 	bank1call GetCardOneStageBelow
 
+; backup the stage list because some function calls in the
+; scoring routine end up overwriting this
+	ld a, [wAllStagesIndices + BASIC]
+	ld [wAllStagesIndicesBackup + BASIC], a
+	ld a, [wAllStagesIndices + STAGE1]
+	ld [wAllStagesIndicesBackup + STAGE1], a
+	ld a, [wAllStagesIndices + STAGE2]
+	ld [wAllStagesIndicesBackup + STAGE2], a
+
 ; replace the current card with the Basic
 ; if the Pokémon is Basic, we overwrite it with itself (non optimal)
 ; and then skip the rest of the scores
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
-	ld a, [wAllStagesIndices + BASIC]
+	ld a, [wAllStagesIndicesBackup + BASIC]
 ; there is always a Basic, skip checks
 	ld [hl], a
 ; determine AI score of both attacks
@@ -85,7 +94,7 @@ AIProcessAttacks:
 ; the Stage 2 check is necessary because of STAGE2_WITHOUT_STAGE1 cases
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
-	ld a, [wAllStagesIndices + STAGE1]
+	ld a, [wAllStagesIndicesBackup + STAGE1]
 	cp $ff
 	jr z, .stage2
 ; replace the current card with the Stage 1
@@ -105,7 +114,7 @@ AIProcessAttacks:
 .stage2
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
-	ld a, [wAllStagesIndices + STAGE2]
+	ld a, [wAllStagesIndicesBackup + STAGE2]
 	cp $ff
 	jr z, .compare_attack_scores
 ; replace the current card with the Stage 2
@@ -125,7 +134,7 @@ AIProcessAttacks:
 	ld c, 3  ; number of stages we have to go through
 	ld b, 0  ; initial max score
 	ld hl, wAIScoreAllAttacks
-	ld de, wAllStagesIndices + BASIC
+	ld de, wAllStagesIndicesBackup + BASIC
 ; the loop compares both attacks of each stage at once
 ; this way we only loop 3 times for up to 6 attacks
 ; it is easier to manage wAllstagesIndices this way
@@ -166,20 +175,7 @@ AIProcessAttacks:
 	cp AI_MINIMUM_SCORE_TO_USE_ATTACK
 	jr c, .dont_attack
 
-; enough score, proceed
-; check if first attack is better than second attack
-; in case the second one was chosen.
-	; ld a, c
-	; ld [wSelectedAttack], a
-	; or a
-	; call nz, CheckWhetherToSwitchToFirstAttack
-; FIXME: this section should be removed.
-; The score calculation function should take into account
-; additional effects of attacks (beneficial or detrimental)
-; and update the score accordingly, so that switching attacks
-; here is not necessary.
-
-; check whether to execute the chosen attack
+; enough score, check whether to execute the chosen attack
 .attack_chosen
 	ld a, [wAIExecuteProcessedAttack]
 	or a
@@ -595,6 +591,8 @@ GetAIScoreOfAttack:
 .check_defending_can_ko
 	ld a, [wSelectedAttack]
 	push af
+; this next check calls GetCardOneStageBelow, which overwrites
+; wAllStagesIndices and messes up the scoring logic afterward
 	call CheckIfDefendingPokemonCanKnockOut
 	pop bc
 	ld a, b
