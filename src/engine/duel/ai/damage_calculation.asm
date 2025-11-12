@@ -254,6 +254,30 @@ EstimateDamage_FromDefendingPokemon:
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
 	call SwapTurn
+	jr EstimateDamageOfLoadedAttack_FromDefendingPokemon
+
+; stores in wDamage, wAIMinDamage and wAIMaxDamage the calculated damage
+; done to the Pokémon at hTempPlayAreaLocation_ff9d
+; by the defending Pokémon, using the attack index at a
+; input:
+;	a = deck index of the card to take into account
+;	e = attack index to take into account
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
+EstimateDamageOfCard_FromDefendingPokemon:
+	ld d, a
+	call SwapTurn
+	call CopyAttackDataAndDamage_FromDeckIndex
+	call SwapTurn
+	; jr EstimateDamageOfLoadedAttack_FromDefendingPokemon
+	; fallthrough
+
+; stores in wDamage, wAIMinDamage and wAIMaxDamage the calculated damage
+; done to the Pokémon at hTempPlayAreaLocation_ff9d
+; by the defending Pokémon, using the attack index at a
+; input:
+;	[wLoadedAttack] = attack to take into account
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
+EstimateDamageOfLoadedAttack_FromDefendingPokemon:
 	ld a, [wLoadedAttackCategory]
 	cp POKEMON_POWER
 	jr nz, .is_attack
