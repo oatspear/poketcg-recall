@@ -2315,7 +2315,7 @@ CheckIfCanDamageDefendingPokemon:
 ; checks if defending Pokémon can knock out
 ; card at hTempPlayAreaLocation_ff9d with any of its attacks
 ; and if so, stores the damage to wAITempAttackDamage
-; sets carry if any on the attacks knocks out
+; sets carry if any of the attacks knocks out
 ; also outputs the largest damage dealt in a and wAITempAttackDamage
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of card to check
