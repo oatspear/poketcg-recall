@@ -367,7 +367,6 @@ AIPlayInitialBasicCards:
 	jr .check_for_next_card
 
 
-; unused
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
 ; can't use an attack or if that selected attack doesn't have enough energy
 ; input:
@@ -2271,33 +2270,54 @@ INCLUDE "engine/duel/ai/boss_deck_set_up.asm"
 ;	a = location of card to check
 CheckIfCanDamageDefendingPokemon:
 	ldh [hTempPlayAreaLocation_ff9d], a
+; preload previous stages
+	bank1call GetCardOneStageBelow
+; basic stage, always exists
+	ld a, [wAllStagesIndices + BASIC]
+	ld [wTempCardDeckIndex], a
+	call CheckIfCardCanDamageDefendingPokemon
+	ret c  ; can damage
+; stage 1
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+	ld [wTempCardDeckIndex], a
+	call CheckIfCardCanDamageDefendingPokemon
+	ret c  ; can damage
+.stage2
+	ld a, [wAllStagesIndices + STAGE2]
+	cp $ff
+	ret z  ; nothing here
+	ld [wTempCardDeckIndex], a
+	; jr CheckIfCardCanDamageDefendingPokemon
+	; fallthrough
+
+; now depends on [wTempCardDeckIndex]
+; the AI always checked whether the selected attack was usable right after,
+; so let's bake the check into this function
+CheckIfCardCanDamageDefendingPokemon:
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
+	call CheckIfSelectedAttackOfCardIsUnusable
 	jr c, .second_attack
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	call EstimateDamage_VersusDefendingCard
+	call EstimateDamageOfLoadedAttack_VersusDefendingCard
 	ld a, [wDamage]
-	or a
-	jr nz, .set_carry
+	cp 1
+	ccf
+	ret c  ; does damage
 
 .second_attack
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
-	jr c, .no_carry
-	ld a, SECOND_ATTACK
-	call EstimateDamage_VersusDefendingCard
+	call CheckIfSelectedAttackOfCardIsUnusable
+	ccf
+	ret nc  ; unusable
+	call EstimateDamageOfLoadedAttack_VersusDefendingCard
 	ld a, [wDamage]
-	or a
-	jr nz, .set_carry
+	cp 1
+	ccf
+	ret  ; carry if it does damage
 
-.no_carry
-	or a
-	ret
-.set_carry
-	scf
-	ret
 
 ; checks if defending Pokémon can knock out
 ; card at hTempPlayAreaLocation_ff9d with any of its attacks
