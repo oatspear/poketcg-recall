@@ -22,7 +22,7 @@ CheckIfAnyAttackKnocksOutDefendingCard:
 	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
 	ret c  ; can Knock Out
 .stage2
-	ld a, [wAllStagesIndices + STAGE1]
+	ld a, [wAllStagesIndices + STAGE2]
 	cp $ff
 	ret z  ; nothing here
 	ld [wTempCardDeckIndex], a
@@ -38,6 +38,8 @@ CheckIfAnyAttackOfCardKnocksOutDefendingCard:
 	ret c
 	ld a, [wTempCardDeckIndex]
 	ld e, SECOND_ATTACK
+	; jr .CheckAttack
+	; fallthrough
 
 ; input:
 ;	a = deck index of the card to take into account
@@ -2324,7 +2326,7 @@ CheckIfDefendingPokemonCanKnockOut:
 	jr z, .stage2
 	call CheckIfAnyAttackOfDefendingPokemonCardKnockOut
 .stage2
-	ld a, [wAllStagesIndices + STAGE1]
+	ld a, [wAllStagesIndices + STAGE2]
 	cp $ff
 	call nz, CheckIfAnyAttackOfDefendingPokemonCardKnockOut
 ; check whether any attack can score a KO
