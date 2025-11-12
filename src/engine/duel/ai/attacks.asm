@@ -255,10 +255,10 @@ AIProcessAttacks:
 GetAIScoreOfAttack:
 ; initialize AI score.
 	ld [wSelectedAttack], a
-	ld a, $50
+	ld a, AI_MINIMUM_SCORE_TO_USE_ATTACK
 	ld [wAIScore], a
 
-	call CheckIfSelectedAttackIsUnusable
+	call CheckIfSelectedAttackIsUnusable  ; loads attack data
 	jr nc, .usable
 
 ; return zero AI score.
@@ -269,7 +269,7 @@ GetAIScoreOfAttack:
 
 ; load arena card IDs
 .usable
-	xor a
+	xor a  ; FALSE
 	ld [wAICannotDamage], a
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -278,6 +278,10 @@ GetAIScoreOfAttack:
 	ld [wTempTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempTurnDuelistCardID + 1], a
+	ld l, DUELVARS_ARENA_CARD_STAGE
+	ld a, [hl]
+	ld [wTempTurnDuelistCardStage], a
+; opponent side
 	call SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -286,24 +290,22 @@ GetAIScoreOfAttack:
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempNonTurnDuelistCardID + 1], a
+	ld l, DUELVARS_ARENA_CARD_STAGE
+	ld a, [hl]
+	ld [wTempNonTurnDuelistCardStage], a
 
 ; handle the case where the player has No Damage substatus.
 ; in the case the player does, check if this attack
 ; has a residual effect, or if it can damage the opposing bench.
 ; If none of those are true, render the attack unusable.
-; also if it's a PKMN power, consider it unusable as well.
 	call HandleNoDamageOrEffectSubstatus
 	call SwapTurn
 	jr nc, .check_if_can_ko
 
-	; player is under No Damage substatus
-	ld a, $01
+; player is under No Damage substatus
+	ld a, TRUE
 	ld [wAICannotDamage], a
-	ld a, [wSelectedAttack]
-	call EstimateDamage_VersusDefendingCard
 	ld a, [wLoadedAttackCategory]
-	cp POKEMON_POWER
-	jr z, .unusable
 	and RESIDUAL
 	jr nz, .check_if_can_ko
 	ld a, ATTACK_FLAG1_ADDRESS | DAMAGE_TO_OPPONENT_BENCH_F
@@ -314,7 +316,7 @@ GetAIScoreOfAttack:
 ; encourage attack if it's able to KO.
 .check_if_can_ko
 	ld a, [wSelectedAttack]
-	call EstimateDamage_VersusDefendingCard
+	call EstimateDamageOfLoadedAttack_VersusDefendingCard
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
 	ld hl, wDamage
@@ -341,16 +343,18 @@ GetAIScoreOfAttack:
 	call ConvertHPToDamageCounters_Bank5
 	call AIEncourage
 	jr .check_recoil
+
 .no_damage
-	ld a, $01
+	ld a, TRUE
 	ld [wAIAttackIsNonDamaging], a
+	; ld a, 1
 	call AIDiscourage
 	ld a, [wAIMaxDamage]
 	or a
 	jr z, .no_max_damage
 	ld a, 2
 	call AIEncourage
-	xor a
+	xor a  ; FALSE
 	ld [wAIAttackIsNonDamaging], a
 .no_max_damage
 	ld a, ATTACK_FLAG1_ADDRESS | DAMAGE_TO_OPPONENT_BENCH_F
@@ -385,24 +389,25 @@ GetAIScoreOfAttack:
 	pop de
 	jr c, .high_recoil
 
-	; if LOW_RECOIL KOs self, decrease AI score
+; if LOW_RECOIL KOs self, decrease AI score
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
 	cp e
 	jr c, .kos_self
 	jp nz, .check_defending_can_ko
+
 .kos_self
 	ld a, 10
 	call AIDiscourage
 
 .high_recoil
-	; dismiss this attack if no benched Pokémon
+; dismiss this attack if no benched Pokémon
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	cp 2
 	jr c, .dismiss_high_recoil_atk
-	; has benched Pokémon
 
+; has benched Pokémon
 ; here the AI handles high recoil attacks differently
 ; depending on what deck it's playing.
 	ld a, [wOpponentDeckID]
@@ -412,10 +417,10 @@ GetAIScoreOfAttack:
 	jr z, .zapping_selfdestruct_deck
 	cp BOOM_BOOM_SELFDESTRUCT_DECK_ID
 	jr z, .encourage_high_recoil_atk
-	; Boom Boom Selfdestruct deck always encourages
+; Boom Boom Selfdestruct deck always encourages
 	cp POWER_GENERATOR_DECK_ID
 	jr nz, .high_recoil_generic_checks
-	; Power Generator deck always dismisses
+; Power Generator deck always dismisses
 
 .dismiss_high_recoil_atk
 	xor a
@@ -602,9 +607,9 @@ GetAIScoreOfAttack:
 	ld a, 5
 	call AIDiscourage
 
-; subtract from AI score if this attack requires
-; discarding any energy cards.
+; subtract from AI score if this attack requires discarding energy
 .check_discard
+; reload attack data because CheckIfDefendingPokemonCanKnockOut clobbers it.
 	ld a, [wSelectedAttack]
 	ld e, a
 	ld a, DUELVARS_ARENA_CARD
@@ -613,13 +618,12 @@ GetAIScoreOfAttack:
 	call CopyAttackDataAndDamage_FromDeckIndex
 	ld a, ATTACK_FLAG2_ADDRESS | DISCARD_ENERGY_F
 	call CheckLoadedAttackFlag
-	jr nc, .asm_16ca6
-	ld a, 1
-	call AIDiscourage
+	jr nc, .check_adhoc_score_bonus
 	ld a, [wLoadedAttackEffectParam]
+	inc a
 	call AIDiscourage
 
-.asm_16ca6
+.check_adhoc_score_bonus
 	ld a, ATTACK_FLAG2_ADDRESS | FLAG_2_BIT_6_F
 	call CheckLoadedAttackFlag
 	jr nc, .check_nullify_flag
@@ -683,7 +687,7 @@ GetAIScoreOfAttack:
 	call SwapTurn
 	call GetCardIDFromDeckIndex
 	call SwapTurn
-	; skip if player has Snorlax
+; skip if player has Snorlax
 	cp16 SNORLAX
 	jp z, .handle_special_atks
 
@@ -693,22 +697,15 @@ GetAIScoreOfAttack:
 
 ; encourage a poison inflicting attack if opposing Pokémon
 ; isn't (doubly) poisoned already.
-; if opposing Pokémon is only poisoned and not double poisoned,
-; and this attack has FLAG_2_BIT_6 set, discourage it
-; (possibly to make Nidoking's Toxic attack less likely to be chosen
-; if the other Pokémon is poisoned.)
+; discourage it if the opposing Pokémon is already poisoned.
 	ld a, ATTACK_FLAG1_ADDRESS | INFLICT_POISON_F
 	call CheckLoadedAttackFlag
 	jr nc, .check_sleep
 	ld a, [wTempAI]
 	and DOUBLE_POISONED
-	jr z, .add_poison_score
-	and $40 ; only double poisoned?
-	jr z, .check_sleep
-	ld a, ATTACK_FLAG2_ADDRESS | FLAG_2_BIT_6_F
-	call CheckLoadedAttackFlag
-	jr nc, .check_sleep
-	ld a, 2
+	jr z, .add_poison_score  ; not poisoned
+; already poisoned
+	ld a, 1
 	call AIDiscourage
 	jr .check_sleep
 .add_poison_score
@@ -774,7 +771,7 @@ GetAIScoreOfAttack:
 	and CNF_SLP_PRZ
 	cp CONFUSED
 	jr nz, .handle_special_atks
-	ld a, 1
+	ld a, 2
 	call AIDiscourage
 
 ; SPECIAL_AI_HANDLING marks attacks that the AI handles individually.

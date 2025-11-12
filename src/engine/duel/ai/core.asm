@@ -365,6 +365,7 @@ AIPlayInitialBasicCards:
 	jr .check_for_next_card
 
 
+; unused
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
 ; can't use an attack or if that selected attack doesn't have enough energy
 ; input:
@@ -391,12 +392,18 @@ CheckIfSelectedAttackIsUnusable:
 
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
 ; can't use an attack or if that selected attack doesn't have enough energy
+; also returns carry if the selected attack is a Pokémon Power
 ; input:
 ;   [wLoadedCard1] = Pokémon card to check
 ;   [wLoadedAttack] = attack to check
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ;	[wSelectedAttack] = selected attack to examine
 CheckIfSelectedAttackOfLoadedCardIsUnusable:
+	ld a, [wLoadedAttackCategory]
+	sub POKEMON_POWER
+	cp 1
+	ret c  ; this is a Pokémon Power
+
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	or a
 	jr nz, .bench
