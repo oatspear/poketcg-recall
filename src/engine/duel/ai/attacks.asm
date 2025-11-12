@@ -315,8 +315,9 @@ GetAIScoreOfAttack:
 ; calculate damage to player to check if attack can KO.
 ; encourage attack if it's able to KO.
 .check_if_can_ko
-	ld a, [wSelectedAttack]
 	call EstimateDamageOfLoadedAttack_VersusDefendingCard
+	; ld a, [wSelectedAttack]
+	; call EstimateDamage_VersusDefendingCard
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
 	ld hl, wDamage
