@@ -41,11 +41,11 @@ AIDecideWhetherToRetreat:
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .active_cant_ko_1
 	call CheckIfSelectedAttackIsUnusable
-	jp nc, .active_cant_use_atk
+	jr nc, .active_can_use_atk
 	call LookForEnergyNeededForAttackInHand
 	jr nc, .active_cant_ko_1
 
-.active_cant_use_atk
+.active_can_use_atk
 	ld a, 5
 	call AIDiscourage
 	ld a, [wAIOpponentPrizeCount]
