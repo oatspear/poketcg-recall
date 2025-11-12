@@ -6141,8 +6141,8 @@ OppAction_BeginUseAttack:
 	ldh a, [hTemp_ffa0]
 	ld e, a
 	call CopyAttackDataAndDamage_FromDeckIndex
-	call UpdateArenaCardIDsAndClearTwoTurnDuelVars  ; overwrites temp card index
-	ld a, $01
+	call UpdateArenaCardIDsAndClearTwoTurnDuelVars  ; overwrites hTempCardIndex_ff9f
+	ld a, TRUE
 	ld [wSkipDuelistIsThinkingDelay], a
 	call CheckSandAttackOrSmokescreenSubstatus
 	jr c, .has_status
