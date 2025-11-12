@@ -161,7 +161,7 @@ AITryUseAttack:
 
 ; OPPACTION_BEGIN_ATTACK wants the following inputs:
 ;   [hTemp_ffa0]: the index of the selected attack
-;   [hTempCardIndex_ff9f]: deck index of the card to load attack data from
+;   [wTempCardDeckIndex]: deck index of the card to load attack data from
 	ld a, OPPACTION_BEGIN_ATTACK
 	bank1call AIMakeDecision
 	ret c
