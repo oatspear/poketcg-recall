@@ -604,7 +604,7 @@ AIPlay_Defender:
 
 ; returns carry if using Defender can prevent a KO
 ; by the defending Pokémon.
-; this takes into account both attacks and whether they're useable.
+; this takes into account all attacks and whether they're useable.
 AIDecide_Defender1:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
@@ -617,72 +617,28 @@ AIDecide_Defender1:
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
 
-.cannot_ko
+; .cannot_ko
 ; check if any of the defending Pokémon's attacks deal
-; damage exactly equal to current HP, and if so,
-; only continue if that attack is useable.
-	farcall CheckIfAnyDefendingPokemonAttackDealsSameDamageAsHP
-	jr nc, .no_carry
-	call SwapTurn
-	farcall CheckIfSelectedAttackIsUnusable
-	call SwapTurn
-	jr c, .no_carry
-
-	ld a, [wSelectedAttack]
-	farcall EstimateDamage_FromDefendingPokemon
-	ld a, [wDamage]
-	ld [wce06], a
-	ld d, a
-
-; load in a the attack that was not selected,
-; and check if it is useable.
-	ld a, [wSelectedAttack]
-	ld b, a
-	ld a, SECOND_ATTACK
-	sub b
-	ld [wSelectedAttack], a
-	push de
-	call SwapTurn
-	farcall CheckIfSelectedAttackIsUnusable
-	call SwapTurn
-	pop de
-	jr c, .switch_back
-
-; the other attack is useable.
-; compare its damage to the selected attack.
-	ld a, [wSelectedAttack]
-	push de
-	farcall EstimateDamage_FromDefendingPokemon
-	pop de
-	ld a, [wDamage]
-	cp d
-	jr nc, .subtract
-
-; in case the non-selected attack is useable
-; and deals less damage than the selected attack,
-; switch back to the other attack.
-.switch_back
-	ld a, [wSelectedAttack]
-	ld b, a
-	ld a, SECOND_ATTACK
-	sub b
-	ld [wSelectedAttack], a
-	ld a, [wce06]
-	ld [wDamage], a
+; enough damage to knock out.
+	farcall CheckIfDefendingPokemonCanKnockOut
+	ret nc  ; cannot KO, do not use Defender
 
 ; now the selected attack is the one that deals
-; the most damage of the two (and is useable).
+; the most damage (and is useable).
 ; if subtracting damage by using Defender
-; still prevents a KO, return carry.
-.subtract
-	ld a, [wDamage]
+; does not prevent a KO, return carry.
+	; ld a, [wAITempAttackDamage]
 	sub 20
+	jr nc, .no_underflow
+	xor a
+.no_underflow
 	ld d, a
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
 	sub d
 	jr c, .no_carry
-	jr z, .no_carry
+	ret z  ; no carry
+; use Defender to prevent a KO
 	scf
 	ret
 .no_carry
