@@ -3,21 +3,7 @@
 AIProcessButDontUseAttack:
 	ld a, $01
 	ld [wAIExecuteProcessedAttack], a
-
-; backup wPlayAreaAIScore in wTempPlayAreaAIScore.
-	ld de, wTempPlayAreaAIScore
-	ld hl, wPlayAreaAIScore
-	ld b, MAX_PLAY_AREA_POKEMON
-.loop
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .loop
-
-; copies wAIScore to wTempAIScore
-	ld a, [wAIScore]
-	ld [de], a
+	call BackupPlayAreaAIScore
 	jr AIProcessAttacks
 
 
@@ -809,6 +795,23 @@ GetAIScoreOfAttack:
 	ld a, $80
 	sub b
 	jp AIDiscourage
+
+
+; backup wPlayAreaAIScore in wTempPlayAreaAIScore.
+; copies wAIScore to wTempAIScore
+BackupPlayAreaAIScore:
+	ld de, wTempPlayAreaAIScore
+	ld hl, wPlayAreaAIScore
+	ld b, MAX_PLAY_AREA_POKEMON
+.loop
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec b
+	jr nz, .loop
+	ld a, [wAIScore]
+	ld [de], a
+	ret
 
 
 ; copies wTempPlayAreaAIScore to wPlayAreaAIScore
