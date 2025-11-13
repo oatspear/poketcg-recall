@@ -514,6 +514,7 @@ AIDecideBenchPokemonToSwitchTo:
 ; check if card can KO defending Pokémon
 ; if it can, raise AI score
 ; if on last prize card, raise AI score again
+; this call loads wAllStagesIndices
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .check_can_use_atks
 ; usability check is now baked in
@@ -532,43 +533,11 @@ AIDecideBenchPokemonToSwitchTo:
 
 ; calculates damage of both attacks
 ; to raise AI score accordingly
+; assume: wAllStagesIndices is loaded
 .check_can_use_atks
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
-	call nc, .HandleAttackDamageScore
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
-	call nc, .HandleAttackDamageScore
-	jr .check_energy_card
-
-; adds to AI score depending on amount of damage
-; it can inflict to the defending Pokémon
-; AI score += floor(Damage / 10) + 1
-.HandleAttackDamageScore
-	ld a, [wSelectedAttack]
-	call EstimateDamage_VersusDefendingCard
-	ld a, [wDamage]
-	call ConvertHPToDamageCounters_Bank5
-	inc a
-	jp AIEncourage
-
-; if an energy card that is needed is found in hand
-; calculate damage of the move and raise AI score
-; AI score += floor(Damage / 20)
-.check_energy_card
-	call LookForEnergyNeededInHand
-	jr nc, .check_attached_energy
-	ld a, [wSelectedAttack]
-	call EstimateDamage_VersusDefendingCard
-	ld a, [wDamage]
-	call ConvertHPToDamageCounters_Bank5
-	srl a
-	call AIEncourage
+	call CheckUsableAttacksAndIncreaseScore
 
 ; if no energies attached to card, lower AI score
-.check_attached_energy
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld e, a
 	call GetPlayAreaCardAttachedEnergies
@@ -791,6 +760,69 @@ AIDecideBenchPokemonToSwitchTo:
 	xor a
 	ld [wAIRetreatScore], a
 	jp FindHighestBenchScore
+
+
+; calculates damage of all usable attacks to raise AI score accordingly
+; input:
+;   wAllStagesIndices = all Pokémon cards at the specified location
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+CheckUsableAttacksAndIncreaseScore:
+; basic stage, always exists
+	ld a, [wAllStagesIndices + BASIC]
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call .HandleAttackDamageScore
+	ld e, SECOND_ATTACK
+	call .HandleAttackDamageScore
+; stage 1
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call .HandleAttackDamageScore
+	ld e, SECOND_ATTACK
+	call .HandleAttackDamageScore
+.stage2
+	ld a, [wAllStagesIndices + STAGE2]
+	cp $ff
+	ret z  ; nothing here
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call .HandleAttackDamageScore
+	ld e, SECOND_ATTACK
+	; jr .HandleAttackDamageScore
+	; fallthrough
+
+; input:
+;   e = selected attack index
+;   [wTempCardDeckIndex] = card owning the selected attack
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+.HandleAttackDamageScore
+	call CheckIfSelectedAttackOfCardIsUnusable  ; loads attack data
+	jr c, .check_energy_card
+; the attack is usable
+; adds to AI score depending on amount of damage
+; the attack can inflict to the defending Pokémon
+; AI score += floor(Damage / 10) + 1
+	call EstimateDamageOfLoadedAttack_VersusDefendingCard
+	ld a, [wDamage]
+	call ConvertHPToDamageCounters_Bank5
+	inc a
+	jp AIEncourage
+
+; if an energy card that is needed is found in hand
+; calculate damage of the move and raise AI score
+; AI score += floor(Damage / 20)
+.check_energy_card
+	call LookForEnergyNeededForLoadedAttackInHand
+	ret nc  ; not found
+	call EstimateDamageOfLoadedAttack_VersusDefendingCard
+	ld a, [wDamage]
+	call ConvertHPToDamageCounters_Bank5
+	srl a
+	jp AIEncourage
+
 
 ; handles AI action of retreating Arena Pokémon
 ; and chooses which energy cards to discard.
