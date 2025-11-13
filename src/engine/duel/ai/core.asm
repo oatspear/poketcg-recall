@@ -1,3 +1,16 @@
+; returns carry if arena card
+; can knock out defending Pokémon
+CheckIfActiveCardCanKnockOut:
+	xor a ; PLAY_AREA_ARENA
+	ldh [hTempPlayAreaLocation_ff9d], a
+	; jr CheckIfAnyAttackKnocksOutDefendingCard
+	; fallthrough
+; usability check is now baked in
+	; ret nc  ; fail
+	; call CheckIfSelectedAttackIsUnusable
+	; ccf  ; nc: fail
+	; ret
+
 ; returns carry if damage dealt from any of a Pokémon's attacks KOs defending Pokémon
 ; it also checks whether the selected attack is usable
 ; outputs index of the attack that KOs
@@ -370,6 +383,15 @@ AIPlayInitialBasicCards:
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
 ; can't use an attack or if that selected attack doesn't have enough energy
 ; input:
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+;	[wSelectedAttack] = selected attack to examine
+CheckIfSelectedAttackIsUnusable:
+	call CopyAttackDataAndDamage_FromPlayAreaLocation
+	jr CheckIfSelectedAttackOfLoadedCardIsUnusable
+
+; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
+; can't use an attack or if that selected attack doesn't have enough energy
+; input:
 ;	e = selected attack to examine
 ;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
@@ -381,15 +403,6 @@ CheckIfSelectedAttackOfCardIsUnusable:
 	ld a, [wTempCardDeckIndex]
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
-	jr CheckIfSelectedAttackOfLoadedCardIsUnusable
-
-; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
-; can't use an attack or if that selected attack doesn't have enough energy
-; input:
-;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-;	[wSelectedAttack] = selected attack to examine
-CheckIfSelectedAttackIsUnusable:
-	call CopyAttackDataAndDamage_FromPlayAreaLocation
 	; jr CheckIfSelectedAttackOfLoadedCardIsUnusable
 	; fallthrough
 
@@ -1326,17 +1339,6 @@ CheckDamageToMrMime:
 	scf
 	ret
 
-; returns carry if arena card
-; can knock out defending Pokémon
-CheckIfActiveCardCanKnockOut:
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
-	jp CheckIfAnyAttackKnocksOutDefendingCard
-; usability check is now baked in
-	; ret nc  ; fail
-	; call CheckIfSelectedAttackIsUnusable
-	; ccf  ; nc: fail
-	; ret
 
 ; outputs carry if any of the active Pokémon attacks
 ; can be used and are not residual
