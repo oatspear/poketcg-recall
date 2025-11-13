@@ -2352,17 +2352,13 @@ CheckIfAnyAttackOfDefendingPokemonCardKnockOut:
 ;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of card to check
 .CheckAttack:
-	ld [wSelectedAttack], a
-	ld e, a
+	ld e, a  ; wSelectedAttack is set when loading attack data
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	push af
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call SwapTurn
-	ld a, [wTempCardDeckIndex]
-	ld d, a
-	call CopyAttackDataAndDamage_FromDeckIndex
-	call CheckIfSelectedAttackOfLoadedCardIsUnusable
+	call CheckIfSelectedAttackOfCardIsUnusable  ; loads attack data
 	call SwapTurn
 	pop bc
 	ld a, b
