@@ -11,21 +11,18 @@ CheckIfAnyAttackKnocksOutDefendingCard:
 	bank1call GetCardOneStageBelow
 ; basic stage, always exists
 	ld a, [wAllStagesIndices + BASIC]
-	ld [wTempCardDeckIndex], a
 	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
 	ret c  ; can Knock Out
 ; stage 1
 	ld a, [wAllStagesIndices + STAGE1]
 	cp $ff
 	jr z, .stage2
-	ld [wTempCardDeckIndex], a
 	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
 	ret c  ; can Knock Out
 .stage2
 	ld a, [wAllStagesIndices + STAGE2]
 	cp $ff
 	ret z  ; nothing here
-	ld [wTempCardDeckIndex], a
 	; jr CheckIfAnyAttackOfCardKnocksOutDefendingCard
 	; fallthrough
 
@@ -33,6 +30,7 @@ CheckIfAnyAttackKnocksOutDefendingCard:
 ; the AI always checked whether the selected attack was usable right after,
 ; so let's bake the check into this function
 CheckIfAnyAttackOfCardKnocksOutDefendingCard:
+	ld [wTempCardDeckIndex], a
 	ld e, FIRST_ATTACK_OR_PKMN_POWER
 	call .CheckAttack
 	ret c
@@ -42,22 +40,24 @@ CheckIfAnyAttackOfCardKnocksOutDefendingCard:
 	; fallthrough
 
 ; input:
-;	a = deck index of the card to take into account
 ;	e = attack index to take into account
+;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
 .CheckAttack:
-	call EstimateDamageOfCard_VersusDefendingCard
+	call CheckIfSelectedAttackOfCardIsUnusable  ; loads attack data
+; this call returns carry if the attack cannot be used, must flip
+	ccf
+	ret nc  ; unusable
+; usable attack, estimate damage and check KO
+	call EstimateDamageOfLoadedAttack_VersusDefendingCard
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
 	ld hl, wDamage
 	sub [hl]
-	jr c, .enough_damage
-	ret nz
-.enough_damage
-; card and attack data are already loaded from damage estimation
-	call CheckIfSelectedAttackOfLoadedCardIsUnusable
-; this call returns carry if the attack cannot be used, must flip
-	ccf
+	ret c  ; enough damage
+	ret nz  ; not enough damage
+; exact damage
+	scf
 	ret
 
 
@@ -370,12 +370,14 @@ AIPlayInitialBasicCards:
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
 ; can't use an attack or if that selected attack doesn't have enough energy
 ; input:
-;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-;	[wSelectedAttack] = selected attack to examine
+;	e = selected attack to examine
 ;   [wTempCardDeckIndex] = card owning the selected attack
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+; output:
+;	[wSelectedAttack] = selected attack to examine
+;   [wLoadedCard1] = Pokémon card to check
+;   [wLoadedAttack] = attack to check
 CheckIfSelectedAttackOfCardIsUnusable:
-	ld a, [wSelectedAttack]
-	ld e, a
 	ld a, [wTempCardDeckIndex]
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
@@ -2256,8 +2258,7 @@ CheckIfCanDamageDefendingPokemon:
 ; the AI always checked whether the selected attack was usable right after,
 ; so let's bake the check into this function
 CheckIfCardCanDamageDefendingPokemon:
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
 	call CheckIfSelectedAttackOfCardIsUnusable
 	jr c, .second_attack
 	call EstimateDamageOfLoadedAttack_VersusDefendingCard
@@ -2267,8 +2268,7 @@ CheckIfCardCanDamageDefendingPokemon:
 	ret c  ; does damage
 
 .second_attack
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
+	ld e, SECOND_ATTACK
 	call CheckIfSelectedAttackOfCardIsUnusable
 	ccf
 	ret nc  ; unusable

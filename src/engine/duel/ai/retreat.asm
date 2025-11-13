@@ -3,7 +3,8 @@
 AIDecideWhetherToRetreat:
 	ld a, [wConfusionRetreatCheckWasUnsuccessful]
 	or a
-	jp nz, .no_carry
+	ret nz  ; unable to retreat
+
 	xor a
 	ld [wAIPlayEnergyCardForRetreat], a
 	call LoadDefendingPokemonColorWRAndPrizeCards
@@ -12,7 +13,8 @@ AIDecideWhetherToRetreat:
 	ld a, [wAIRetreatScore]
 	or a
 	jr z, .check_status
-	; add wAIRetreatScore * 8 to score
+; boost retreat score if other routines suggested it
+; add wAIRetreatScore * 8 to score
 	srl a
 	srl a
 	sla a ; *8
@@ -25,20 +27,23 @@ AIDecideWhetherToRetreat:
 	jr z, .skip_status_check ; no status
 	and DOUBLE_POISONED
 	jr z, .check_cnf ; no poison
+; encourage retreat if poisoned
 	ld a, 2
 	call AIEncourage
+
 .check_cnf
 	ld a, [hl]
 	and CNF_SLP_PRZ
 	cp CONFUSED
 	jr nz, .skip_status_check
+; encourage retreat if confused
 	ld a, 1
 	call AIEncourage
 
 .skip_status_check
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	call CheckIfAnyAttackKnocksOutDefendingCard
+	call CheckIfAnyAttackKnocksOutDefendingCard  ; considers recall
 	jr c, .active_can_use_atk
 	; jr nc, .active_cant_ko_1
 ; usability check is now baked in
