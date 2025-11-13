@@ -1378,53 +1378,13 @@ CheckIfActivePokemonCanUseAnyNonResidualAttack:
 LookForEnergyNeededInHand:
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
-	call CheckEnergyNeededForAttack
-	ld a, b
-	add c
-	cp 1
-	jr z, .one_energy
-	cp 2
-	jr nz, .second_attack
-	ld a, c
-	cp 2
-	jr z, .two_colorless
-
-.second_attack
+	call LookForEnergyNeededForAttackInHand
+	ret c
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckEnergyNeededForAttack
-	ld a, b
-	add c
-	cp 1
-	jr z, .one_energy
-	cp 2
-	jr nz, .no_carry
-	ld a, c
-	cp 2
-	jr z, .two_colorless
-.no_carry
-	or a
-	ret
+	; jr LookForEnergyNeededForAttackInHand
+	; fallthrough
 
-.one_energy
-	ld a, b
-	or a
-	jr z, .one_colorless
-	call LookForCardIDInHandList_Bank5
-	ret c
-	jr .no_carry
-
-.one_colorless
-	call CreateEnergyCardListFromHand
-	jr c, .no_carry
-	scf
-	ret
-
-.two_colorless
-	ld de, DOUBLE_COLORLESS_ENERGY
-	call LookForCardIDInHandList_Bank5
-	ret c
-	jr .no_carry
 
 ; looks for energy card(s) in hand depending on
 ; what is needed for selected card and attack
