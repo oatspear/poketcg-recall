@@ -21,7 +21,7 @@ CheckIfActiveCardCanKnockOut:
 ;   [wTempCardDeckIndex] = deck index of the card owning the attack
 CheckIfAnyAttackKnocksOutDefendingCard:
 ; preload previous stages
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 ; basic stage, always exists
 	ld a, [wAllStagesIndices + BASIC]
 	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
@@ -1785,7 +1785,7 @@ LookForCardThatIsKnockedOutOnDevolution:
 	ld a, c
 	ldh [hTempPlayAreaLocation_ff9d], a
 	push bc
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 	pop bc
 	jr c, .next
 	; is not a basic card
@@ -2250,7 +2250,7 @@ INCLUDE "engine/duel/ai/boss_deck_set_up.asm"
 CheckIfCanDamageDefendingPokemon:
 	ldh [hTempPlayAreaLocation_ff9d], a
 ; preload previous stages
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 ; basic stage, always exists
 	ld a, [wAllStagesIndices + BASIC]
 	ld [wTempCardDeckIndex], a
@@ -2312,7 +2312,7 @@ CheckIfDefendingPokemonCanKnockOut:
 	ld [wAITempAttackDamage], a
 ; preload previous stages
 	call SwapTurn
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 	call SwapTurn
 ; basic stage, always exists
 	ld a, [wAllStagesIndices + BASIC]

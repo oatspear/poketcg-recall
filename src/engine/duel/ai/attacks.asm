@@ -59,7 +59,7 @@ AIProcessAttacks:
 
 ; preload previous stages
 	ldh [hTempPlayAreaLocation_ff9d], a  ; PLAY_AREA_ARENA
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 
 ; backup the stage list because some function calls in the
 ; scoring routine end up overwriting this

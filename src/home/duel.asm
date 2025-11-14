@@ -1526,6 +1526,94 @@ UpdateArenaCardIDsAndClearTwoTurnDuelVars::
 	bank1call ClearNonTurnTemporaryDuelvars_CopyStatus
 	ret
 
+
+; returns carry if card at hTempPlayAreaLocation_ff9d
+; is a basic card.
+; otherwise, lists the card indices of all stages in
+; that card location, and returns the card one
+; stage below.
+; input:
+;	hTempPlayAreaLocation_ff9d = play area location to check;
+; output:
+;	a = card index in hTempPlayAreaLocation_ff9d;
+;	d = card index of card one stage below;
+;	carry set if card is a basic card.
+GetCardOneStageBelow::
+; first, make sure that wAllStagesIndices is reset
+	ld hl, wAllStagesIndices
+	ld a, $ff
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+; now, proceed with the normal function behaviour
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	call LoadCardDataToBuffer2_FromDeckIndex
+	ld a, [wLoadedCard2Stage]
+	or a
+	jr nz, .not_basic
+
+; Basic Pokémon
+	ld a, [hl]  ; retrieve deck index anyway
+	ld [wAllStagesIndices], a  ; populate with basic card index
+	scf
+	ret
+
+.not_basic
+; loads deck indices of the stages present in hTempPlayAreaLocation_ff9d.
+; the three stages are loaded consecutively in wAllStagesIndices.
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	or CARD_LOCATION_PLAY_AREA
+	ld c, a
+	ld a, DUELVARS_CARD_LOCATIONS
+	call GetTurnDuelistVariable
+.loop
+	ld a, [hl]
+	cp c
+	jr nz, .next
+	ld a, l
+	call LoadCardDataToBuffer2_FromDeckIndex
+	ld a, [wLoadedCard2Type]
+	cp TYPE_ENERGY
+	jr nc, .next
+	ld b, l
+	push hl
+	ld a, [wLoadedCard2Stage]
+	ld e, a
+	ld d, $00
+	ld hl, wAllStagesIndices
+	add hl, de
+	ld [hl], b
+	pop hl
+.next
+	inc l
+	ld a, l
+	cp DECK_SIZE
+	jr c, .loop
+
+; if card at hTempPlayAreaLocation_ff9d is a stage 1, load d with basic card.
+; otherwise if stage 2, load d with the stage 1 card.
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD_STAGE
+	call GetTurnDuelistVariable
+	ld hl, wAllStagesIndices ; pointing to basic
+	cp STAGE1
+	jr z, .done
+	; if stage1 was skipped, hl should point to Basic stage card
+	cp STAGE2_WITHOUT_STAGE1
+	jr z, .done
+	inc hl ; pointing to stage 1
+.done
+	ld d, [hl]
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld e, a
+	or a
+	ret
+
+
 ; Use an attack (from DuelMenu_Attack) or a Pokemon Power (from DuelMenu_PkmnPower)
 UseAttackOrPokemonPower::
 	ld a, [wSelectedAttack]
@@ -1744,46 +1832,6 @@ CheckSelfConfusionDamage::
 .no_confusion_damage
 	or a
 	ret
-
-; play the trainer card with deck index at hTempCardIndex_ff98.
-; a trainer card is like an attack effect, with its own effect commands.
-; return nc if the card was played, carry if it wasn't.
-PlayTrainerCard::
-	call CheckCantUseTrainerDueToEffect
-	jr c, .cant_use
-	ldh a, [hWhoseTurn]
-	ld h, a
-	ldh a, [hTempCardIndex_ff98]
-	ldh [hTempCardIndex_ff9f], a
-	call LoadNonPokemonCardEffectCommands
-	ld a, EFFECTCMDTYPE_INITIAL_EFFECT_1
-	call TryExecuteEffectCommandFunction
-	jr nc, .can_use
-.cant_use
-	call DrawWideTextBox_WaitForInput
-	scf
-	ret
-.can_use
-	ld a, EFFECTCMDTYPE_INITIAL_EFFECT_2
-	call TryExecuteEffectCommandFunction
-	jr c, .done
-	ld a, OPPACTION_PLAY_TRAINER
-	ldh [hOppActionTableIndex], a
-	call DisplayUsedTrainerCardDetailScreen
-	ld a, EFFECTCMDTYPE_DISCARD_ENERGY
-	call TryExecuteEffectCommandFunction
-	ld a, EFFECTCMDTYPE_REQUIRE_SELECTION
-	call TryExecuteEffectCommandFunction
-	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
-	ldh [hOppActionTableIndex], a
-	ld a, EFFECTCMDTYPE_BEFORE_DAMAGE
-	call TryExecuteEffectCommandFunction
-	ldh a, [hTempCardIndex_ff9f]
-	call MoveHandCardToDiscardPile
-.done
-	or a
-	ret
-
 
 
 ; loads the effect commands of a (trainer or energy) card with deck index (0-59) at hTempCardIndex_ff9f

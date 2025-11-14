@@ -3040,7 +3040,7 @@ Cowardice_RemoveFromPlayAreaEffect:
 ; check all Pokémon cards in the given Play Area location
 	ldh a, [hTemp_ffa0]
 	ldh [hTempPlayAreaLocation_ff9d], a
-	bank1call GetCardOneStageBelow  ; preload wAllStagesIndices
+	call GetCardOneStageBelow  ; preload wAllStagesIndices
 
 ; put the top card in Discard Pile temporarily, so that
 ; all cards attached are discarded as well.
@@ -4688,7 +4688,7 @@ DevolutionBeam_DevolveEffect:
 	ldh [hTempPlayAreaLocation_ff9d], a
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 	call PrintDevolvedCardNameAndLevelText
 
 	ld a, d
@@ -7597,7 +7597,7 @@ MorphEffect:
 	push hl
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 	ld a, d
 	call PutCardInDiscardPile
 	pop hl
@@ -9660,7 +9660,7 @@ DevolutionSpray_PlayerSelection:
 .read_input
 	bank1call OpenPlayAreaScreenForSelection
 	ret c ; exit if B was pressed
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 	jr c, .read_input ; can't select Basic cards
 
 ; get pre-evolution card data
@@ -9690,7 +9690,7 @@ DevolutionSpray_PlayerSelection:
 	bank1call InitAndPrintPlayAreaCardInformationAndLocation_WithTextBox
 	jr c, .done_selection ; if B pressed, end selection instead
 	; do one more devolution
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 
 .update_data
 ; overwrite the card data to new devolved stats
@@ -9757,7 +9757,7 @@ DevolutionSpray_DevolutionEffect:
 	jr z, .check_ko ; list is over
 	; devolve card to its stage below
 	push hl
-	bank1call GetCardOneStageBelow
+	call GetCardOneStageBelow
 	ld a, d
 	call UpdateDevolvedCardHPAndStage
 	call ResetDevolvedCardStatus
