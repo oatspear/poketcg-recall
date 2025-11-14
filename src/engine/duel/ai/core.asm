@@ -1,3 +1,149 @@
+; initialize attack scores to zero
+ResetAIAttackScores:
+	xor a
+	; jr InitAIAttackScores
+	; fallthrough
+
+; initialize attack scores to value in a
+InitAIAttackScores:
+; basic stage
+	ld [wAIScoreAllAttacks + 0], a
+	ld [wAIScoreAllAttacks + 1], a
+; stage 1
+	ld [wAIScoreAllAttacks + 2], a
+	ld [wAIScoreAllAttacks + 3], a
+; stage 2
+	ld [wAIScoreAllAttacks + 4], a
+	ld [wAIScoreAllAttacks + 5], a
+	ret
+
+
+; input:
+;   hl = pointer to evaluation function
+;   [hTempPlayAreaLocation_ff9d] = location of the Pokémon to check
+ForAllAttacksOfPokemon:
+; preload previous stages
+	push hl
+	call GetCardOneStageBelow
+	pop hl
+	; jr ForAllAttacksOfAllPokemonStages
+	; fallthrough
+
+; input:
+;   hl = pointer to evaluation function
+;   [hTempPlayAreaLocation_ff9d] = location of the Pokémon to check
+;   [wAllStagesIndices] = stack of all Pokémon stages at location
+ForAllAttacksOfAllPokemonStages:
+; store evaluation function pointer
+	ld a, l
+	ld [wAIEvaluationFunctionPointer], a
+	ld a, h
+	ld [wAIEvaluationFunctionPointer + 1], a
+; initialize attack scores
+	call ResetAIAttackScores
+; basic stage, always exists
+	ld a, [wAllStagesIndices + BASIC]
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 0], a
+	ld e, SECOND_ATTACK
+	call EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 1], a
+; stage 1
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 2], a
+	ld e, SECOND_ATTACK
+	call EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 3], a
+.stage2
+	ld a, [wAllStagesIndices + STAGE2]
+	cp $ff
+	ret z  ; nothing here
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 4], a
+	ld e, SECOND_ATTACK
+	call EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 5], a
+	ret
+
+
+; input:
+;   hl = pointer to predicate function (carry if match)
+;   [hTempPlayAreaLocation_ff9d] = location of the Pokémon to check
+FindMatchingAttack:
+; preload previous stages
+	push hl
+	call GetCardOneStageBelow
+	pop hl
+	; jr FindMatchingAttackFromAllPokemonStages
+	; fallthrough
+
+; input:
+;   hl = pointer to predicate function (carry if match)
+;   [hTempPlayAreaLocation_ff9d] = location of the Pokémon to check
+;   [wAllStagesIndices] = stack of all Pokémon stages at location
+FindMatchingAttackFromAllPokemonStages:
+; store evaluation function pointer
+	ld a, l
+	ld [wAIEvaluationFunctionPointer], a
+	ld a, h
+	ld [wAIEvaluationFunctionPointer + 1], a
+; basic stage, always exists
+	ld a, [wAllStagesIndices + BASIC]
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call EvaluateSelectedAttack
+	ret c  ; found match
+	ld e, SECOND_ATTACK
+	call EvaluateSelectedAttack
+	ret c  ; found match
+; stage 1
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call EvaluateSelectedAttack
+	ret c  ; found match
+	ld e, SECOND_ATTACK
+	call EvaluateSelectedAttack
+	ret c  ; found match
+.stage2
+	ld a, [wAllStagesIndices + STAGE2]
+	cp $ff
+	ret z  ; nothing here
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call EvaluateSelectedAttack
+	ret c  ; found match
+	ld e, SECOND_ATTACK
+	jr EvaluateSelectedAttack
+
+
+; input:
+;   e = selected attack index
+;   hl = evaluation function
+;   [wTempCardDeckIndex] = deck index of Pokémon card
+EvaluateSelectedAttack:
+	ld a, [wTempCardDeckIndex]
+	ld d, a
+	call CopyAttackDataAndDamage_FromDeckIndex
+	ld a, [wAIEvaluationFunctionPointer]
+	ld l, a
+	ld a, [wAIEvaluationFunctionPointer + 1]
+	ld h, a
+	jp hl
+
+
+
 ; returns carry if arena card
 ; can knock out defending Pokémon
 CheckIfActiveCardCanKnockOut:

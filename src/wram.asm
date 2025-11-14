@@ -830,6 +830,9 @@ wListItemNameMaxLength:: ; cd1c
 ; if not NULL, the function loaded here is called once per frame by CardListMenuFunction,
 ; which is the function loaded to wMenuUpdateFunc for card lists
 wListFunctionPointer:: ; cd1d
+; function pointer used by AI to run higher-order evaluation functions,
+; for example to find usable attacks
+wAIEvaluationFunctionPointer:: ; cd1d
 	ds $2
 
 	ds $50
