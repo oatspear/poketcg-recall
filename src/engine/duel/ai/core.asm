@@ -840,6 +840,13 @@ CheckIfCardCanBePlayed:
 	jr z, .trainer_card
 
 ; energy card
+	ld hl, wLoadedCard1ID
+	cphl WATER_ENERGY
+	jr nz, .energy
+	call IsRainDanceActive
+	ccf
+	ret nc  ; Rain Dance active, can always play Water energy
+.energy
 	ld a, [wAlreadyPlayedEnergy]
 	or a
 	ret z
