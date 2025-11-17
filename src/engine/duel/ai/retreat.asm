@@ -799,9 +799,11 @@ CheckUsableAttacksAndIncreaseScore:
 ;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 .HandleAttackDamageScore
-	call CheckIfSelectedAttackOfCardIsUnusable  ; loads attack data
+	call CheckIfAttackIsUnusable  ; loads attack data
+	ret c  ; unusable
+	call CheckEnergyNeededForLoadedAttack
 	jr c, .check_energy_card
-; the attack is usable
+; the attack is usable and it has enough energies
 ; adds to AI score depending on amount of damage
 ; the attack can inflict to the defending Pokémon
 ; AI score += floor(Damage / 10) + 1
