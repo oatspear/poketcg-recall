@@ -153,7 +153,7 @@ HandleAIEnergyTrans:
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	farcall CheckEnergyNeededForAttack
+	farcall Old_CheckEnergyNeededForAttack
 	jr nc, .attack_false ; return if no energy needed
 
 ; check if colorless energy is needed...

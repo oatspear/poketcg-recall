@@ -320,7 +320,7 @@ AIDecide_Potion_Phase10:
 	push de
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr c, .second_attack
 	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
 	call CheckLoadedAttackFlag
@@ -328,7 +328,7 @@ AIDecide_Potion_Phase10:
 .second_attack
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr c, .false
 	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
 	call CheckLoadedAttackFlag
@@ -536,7 +536,7 @@ AIDecide_SuperPotion2:
 	push de
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr c, .second_attack_1
 	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
 	call CheckLoadedAttackFlag
@@ -544,7 +544,7 @@ AIDecide_SuperPotion2:
 .second_attack_1
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr c, .false_1
 	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
 	call CheckLoadedAttackFlag
@@ -566,9 +566,9 @@ AIDecide_SuperPotion2:
 	ld [wSelectedAttack], a
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckEnergyNeededForAttack
+	farcall Old_CheckEnergyNeededForAttack
 	jr c, .second_attack_2
-	farcall CheckEnergyNeededForAttackAfterDiscard
+	farcall Old_CheckEnergyNeededForAttackAfterDiscard
 	jr c, .true_2
 
 .second_attack_2
@@ -578,9 +578,9 @@ AIDecide_SuperPotion2:
 	ld [wSelectedAttack], a
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckEnergyNeededForAttack
+	farcall Old_CheckEnergyNeededForAttack
 	jr c, .false_2
-	farcall CheckEnergyNeededForAttackAfterDiscard
+	farcall Old_CheckEnergyNeededForAttackAfterDiscard
 	jr c, .true_2
 
 .false_2
@@ -612,7 +612,7 @@ AIDecide_Defender1:
 	; jr nc, .cannot_ko
 	jr c, .no_carry
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
@@ -749,7 +749,7 @@ AIDecide_Pluspower1:
 	; jr nc, .cannot_ko
 	jr c, .no_carry
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
@@ -814,7 +814,7 @@ AIDecide_Pluspower1:
 ; return carry if attack is useable and KOs
 ; defending Pokémon with Pluspower boost.
 .check_ko_with_pluspower
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr c, .unusable
 	ld a, [wSelectedAttack]
 	farcall EstimateDamage_VersusDefendingCard
@@ -896,7 +896,7 @@ AIDecide_Pluspower2:
 
 ; return carry if attack is useable but cannot KO.
 .check_can_ko
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr c, .unusable
 	ld a, [wSelectedAttack]
 	farcall EstimateDamage_VersusDefendingCard
@@ -917,7 +917,7 @@ AIDecide_Pluspower2:
 ; return carry 7/10 of the time if
 ; attack is useable and minimum damage > 0.
 .check_random
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr c, .unusable
 	ld a, [wSelectedAttack]
 	farcall EstimateDamage_VersusDefendingCard
@@ -1026,7 +1026,7 @@ AIDecide_GustOfWind:
 	; jr nc, .check_id ; if can't KO
 	jr c, .no_carry ; if KO attack is useable
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .no_carry ; if KO attack is useable
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry ; if energy card is in hand
@@ -1254,7 +1254,7 @@ AIDecide_GustOfWind:
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call .CheckIfAnyAttackKnocksOut
 	jr nc, .next
-	farcall CheckIfSelectedAttackIsUnusable
+	farcall Old_CheckIfSelectedAttackIsUnusable
 	jr nc, .found
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .found
@@ -1416,7 +1416,7 @@ AIDecide_EnergyRemoval:
 	; jr nc, .cannot_ko
 	jr c, .can_ko
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .can_ko
 	farcall LookForEnergyNeededForAttackInHand
 	jr nc, .cannot_ko
@@ -1527,7 +1527,7 @@ AIDecide_EnergyRemoval:
 	ld [wSelectedAttack], a
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckEnergyNeededForAttack
+	farcall Old_CheckEnergyNeededForAttack
 	jr nc, .enough_energy
 	pop de
 
@@ -1536,7 +1536,7 @@ AIDecide_EnergyRemoval:
 	ld [wSelectedAttack], a
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckEnergyNeededForAttack
+	farcall Old_CheckEnergyNeededForAttack
 	jr nc, .check_surplus
 	pop de
 
@@ -1686,7 +1686,7 @@ AIDecide_SuperEnergyRemoval:
 	; jr nc, .cannot_ko
 	jr c, .can_ko
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .can_ko
 	farcall LookForEnergyNeededForAttackInHand
 	jr nc, .cannot_ko
@@ -1813,7 +1813,7 @@ AIDecide_SuperEnergyRemoval:
 	ld [wSelectedAttack], a
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckEnergyNeededForAttack
+	farcall Old_CheckEnergyNeededForAttack
 	jr nc, .enough_energy
 	pop de
 
@@ -1822,7 +1822,7 @@ AIDecide_SuperEnergyRemoval:
 	ld [wSelectedAttack], a
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckEnergyNeededForAttack
+	farcall Old_CheckEnergyNeededForAttack
 	jr nc, .check_surplus
 	pop de
 
@@ -3079,7 +3079,7 @@ AIDecide_PokemonCenter:
 	; jr nc, .start
 	jr c, .no_carry
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
@@ -3970,7 +3970,7 @@ AIDecide_ScoopUp:
 	; jr nc, .cannot_ko
 	jr c, .no_carry
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry
@@ -4073,7 +4073,7 @@ AIDecide_ScoopUp:
 	; jr nc, .check_ko
 	jr c, .no_carry
 ; usability check is now baked in
-	; farcall CheckIfSelectedAttackIsUnusable
+	; farcall Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .no_carry
 	farcall LookForEnergyNeededForAttackInHand
 	jr c, .no_carry

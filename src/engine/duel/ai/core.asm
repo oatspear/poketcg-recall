@@ -153,7 +153,7 @@ CheckIfActiveCardCanKnockOut:
 	; fallthrough
 ; usability check is now baked in
 	; ret nc  ; fail
-	; call CheckIfSelectedAttackIsUnusable
+	; call Old_CheckIfSelectedAttackIsUnusable
 	; ccf  ; nc: fail
 	; ret
 
@@ -531,12 +531,26 @@ AIPlayInitialBasicCards:
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ;	[wSelectedAttack] = selected attack to examine
-CheckIfSelectedAttackIsUnusable:
+Old_CheckIfSelectedAttackIsUnusable:  ; FIXME delete
 	call CopyAttackDataAndDamage_FromPlayAreaLocation
-	jr CheckIfSelectedAttackOfLoadedCardIsUnusable
+	jr CheckIfLoadedAttackIsUnusableOrNotEnoughEnergy
+
 
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
-; can't use an attack or if that selected attack doesn't have enough energy
+; can't use the given attack
+; input:
+;	[wSelectedAttack] = selected attack to examine
+;   [wTempCardDeckIndex] = card owning the selected attack
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+CheckIfSelectedAttackIsUnusable:
+	ld a, [wSelectedAttack]
+	ld e, a
+	; jr CheckIfAttackIsUnusable
+	; fallthrough
+
+
+; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
+; can't use the given attack
 ; input:
 ;	e = selected attack to examine
 ;   [wTempCardDeckIndex] = card owning the selected attack
@@ -545,22 +559,21 @@ CheckIfSelectedAttackIsUnusable:
 ;	[wSelectedAttack] = selected attack to examine
 ;   [wLoadedCard1] = Pokémon card to check
 ;   [wLoadedAttack] = attack to check
-CheckIfSelectedAttackOfCardIsUnusable:
+CheckIfAttackIsUnusable:
 	ld a, [wTempCardDeckIndex]
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
-	; jr CheckIfSelectedAttackOfLoadedCardIsUnusable
+	; jr CheckIfLoadedAttackIsUnusable
 	; fallthrough
 
-; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
-; can't use an attack or if that selected attack doesn't have enough energy
+; returns carry if Pokémon at hTempPlayAreaLocation_ff9d can't use an attack
 ; also returns carry if the selected attack is a Pokémon Power
 ; input:
 ;   [wLoadedCard1] = Pokémon card to check
 ;   [wLoadedAttack] = attack to check
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ;	[wSelectedAttack] = selected attack to examine
-CheckIfSelectedAttackOfLoadedCardIsUnusable:
+CheckIfLoadedAttackIsUnusable:
 	ld a, [wLoadedAttackCategory]
 	sub POKEMON_POWER
 	cp 1
@@ -576,15 +589,30 @@ CheckIfSelectedAttackOfLoadedCardIsUnusable:
 	ret c
 	call HandleAmnesiaSubstatus
 	ret c
+; FIXME: this should run at the very start, even for Bench Pokémon
+; some effects might have to be adjusted to account for location
 	ld a, EFFECTCMDTYPE_INITIAL_EFFECT_1
 	call TryExecuteEffectCommandFunction
 	ret c
 
 .bench
-	call CheckEnergyNeededForLoadedAttack
-	ret c ; can't be used
 	ld a, ATTACK_FLAG2_ADDRESS | FLAG_2_BIT_5_F
 	jp CheckLoadedAttackFlag
+
+
+; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
+; can't use an attack or if that selected attack doesn't have enough energy
+; also returns carry if the selected attack is a Pokémon Power
+; input:
+;   [wLoadedCard1] = Pokémon card to check
+;   [wLoadedAttack] = attack to check
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+;	[wSelectedAttack] = selected attack to examine
+CheckIfLoadedAttackIsUnusableOrNotEnoughEnergy:
+	call CheckIfLoadedAttackIsUnusable
+	ret c  ; unusable
+	jp CheckEnergyNeededForLoadedAttack
+
 
 ; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d
 ; and checks if there is enough energy to execute the selected attack
@@ -598,16 +626,53 @@ CheckIfSelectedAttackOfLoadedCardIsUnusable:
 ;	carry set if no attack
 ;	       OR if it's a Pokémon Power
 ;	       OR if not enough energy for attack
-CheckEnergyNeededForAttack:
+Old_CheckEnergyNeededForAttack:
 	call CopyAttackDataAndDamage_FromPlayAreaLocation
-	; jr CheckEnergyNeededForLoadedAttack
+	jr CheckEnergyNeededForLoadedAttack
+
+; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d
+; and checks if there is enough energy to execute the selected attack
+; input:
+;	[wSelectedAttack] = selected attack to examine
+;   [wTempCardDeckIndex] = card owning the selected attack
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+; output:
+;	b = basic energy still needed
+;	c = colorless energy still needed
+;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
+;	carry set if no attack
+;	       OR if it's a Pokémon Power
+;	       OR if not enough energy for attack
+CheckEnergyNeededForSelectedAttack:
+	ld a, [wSelectedAttack]
+	ld e, a
+	; jr CheckEnergyNeededForAttack
 	; fallthrough
 
 ; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d
 ; and checks if there is enough energy to execute the selected attack
 ; input:
+;	e = selected attack to examine
+;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-;	[wLoadedAttack] = selected (and loaded) attack to examine
+; output:
+;	b = basic energy still needed
+;	c = colorless energy still needed
+;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
+;	carry set if no attack
+;	       OR if it's a Pokémon Power
+;	       OR if not enough energy for attack
+CheckEnergyNeededForAttack:
+	ld a, [wTempCardDeckIndex]
+	ld d, a
+	call CopyAttackDataAndDamage_FromDeckIndex
+	; jr CheckEnergyNeededForLoadedAttack
+	; fallthrough
+
+; check if there is enough energy to execute the selected attack
+; input:
+;	[wLoadedAttack] = selected attack to examine
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ; output:
 ;	b = basic energy still needed
 ;	c = colorless energy still needed
@@ -1041,7 +1106,7 @@ INCLUDE "engine/duel/ai/init.asm"
 ;	carry set if no attack
 ;	       OR if it's a Pokémon Power
 ;	       OR if not enough energy for attack
-CheckEnergyNeededForAttackAfterDiscard:
+Old_CheckEnergyNeededForAttackAfterDiscard:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -1493,7 +1558,7 @@ CheckIfActivePokemonCanUseAnyNonResidualAttack:
 	ldh [hTempPlayAreaLocation_ff9d], a
 ; first atk
 	ld [wSelectedAttack], a ; FIRST_ATTACK_OR_PKMN_POWER
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	jr c, .next_atk
 	ld a, [wLoadedAttackCategory]
 	and RESIDUAL
@@ -1503,7 +1568,7 @@ CheckIfActivePokemonCanUseAnyNonResidualAttack:
 ; second atk
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	jr c, .fail
 	ld a, [wLoadedAttackCategory]
 	and RESIDUAL
@@ -1547,8 +1612,9 @@ LookForEnergyNeededInHand:
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ;	[wSelectedAttack]         = selected attack to examine
 LookForEnergyNeededForAttackInHand:
-	call CheckEnergyNeededForAttack
-	jr LookForEnergyNeededForLoadedAttackInHand.got_attack_data
+	call Old_CheckEnergyNeededForAttack
+	; jr LookForEnergyNeededForLoadedAttackInHand
+	; fallthrough
 
 ; looks for energy card(s) in hand depending on
 ; what is needed for selected card and attack
@@ -1560,9 +1626,13 @@ LookForEnergyNeededForAttackInHand:
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ;	[wLoadedAttack] = data of selected attack to examine
+;	b = basic energy still needed
+;	c = colorless energy still needed
+;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
 LookForEnergyNeededForLoadedAttackInHand:
-	call CheckEnergyNeededForLoadedAttack
-.got_attack_data
+	ld a, d
+	or e
+	ret z  ; return if no attack
 	ld a, b
 	add c
 	cp 1
@@ -2003,7 +2073,7 @@ CheckIfArenaCardIsFullyPowered:
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
 	push hl
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	pop hl
 	jr c, .no_carry
 	scf
@@ -2080,7 +2150,7 @@ CountNumberOfSetUpBenchPokemon:
 	ld [wSelectedAttack], a
 	push bc
 	push hl
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	pop hl
 	pop bc
 	jr c, .next
@@ -2422,7 +2492,9 @@ CheckIfCanDamageDefendingPokemon:
 ; so let's bake the check into this function
 CheckIfCardCanDamageDefendingPokemon:
 	ld e, FIRST_ATTACK_OR_PKMN_POWER
-	call CheckIfSelectedAttackOfCardIsUnusable
+	call CheckIfAttackIsUnusable  ; loads attack data
+	jr c, .second_attack
+	call CheckEnergyNeededForLoadedAttack
 	jr c, .second_attack
 	call EstimateDamageOfLoadedAttack_VersusDefendingCard
 	ld a, [wDamage]
@@ -2432,7 +2504,10 @@ CheckIfCardCanDamageDefendingPokemon:
 
 .second_attack
 	ld e, SECOND_ATTACK
-	call CheckIfSelectedAttackOfCardIsUnusable
+	call CheckIfAttackIsUnusable  ; loads attack data
+	ccf
+	ret nc  ; unusable
+	call CheckEnergyNeededForLoadedAttack
 	ccf
 	ret nc  ; unusable
 	call EstimateDamageOfLoadedAttack_VersusDefendingCard
@@ -2521,13 +2596,14 @@ CheckIfAnyAttackOfDefendingPokemonCardKnockOut:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call SwapTurn
-	call CheckIfSelectedAttackOfCardIsUnusable  ; loads attack data
+	call CheckIfAttackIsUnusable  ; loads attack data
+	call nc, CheckEnergyNeededForLoadedAttack
 	call SwapTurn
 	pop bc
 	ld a, b
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ccf
-	ret nc  ; unusable
+	ret nc  ; unusable or not enough energy
 
 ; player's active Pokémon can use attack
 ; attack data is already loaded
@@ -2686,7 +2762,7 @@ CheckForBenchIDAtHalfHPAndCanUseSecondAttack:
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
 	push bc
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	pop bc
 	jr c, .loop
 	inc b

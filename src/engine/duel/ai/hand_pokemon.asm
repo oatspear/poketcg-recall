@@ -163,11 +163,11 @@ AIDecideEvolution:
 	ld [wCurCardCanAttack], a
 	ld [wCurCardCanKO], a
 	ld [wSelectedAttack], a  ; FIRST_ATTACK_OR_PKMN_POWER
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	jr nc, .can_attack
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	jr c, .check_evolution_attacks
 .can_attack
 	ld a, TRUE
@@ -175,7 +175,7 @@ AIDecideEvolution:
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .check_evolution_attacks
 ; usability check is now baked in
-	; call CheckIfSelectedAttackIsUnusable
+	; call Old_CheckIfSelectedAttackIsUnusable
 	; jr c, .check_evolution_attacks
 	ld a, TRUE
 	ld [wCurCardCanKO], a
@@ -203,11 +203,11 @@ AIDecideEvolution:
 
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	jr nc, .evolution_can_attack
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	jr c, .evolution_cant_attack
 .evolution_can_attack
 	ld a, 5
@@ -240,7 +240,7 @@ AIDecideEvolution:
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .evolution_cant_ko
 ; usability check is now baked in
-	; call CheckIfSelectedAttackIsUnusable
+	; call Old_CheckIfSelectedAttackIsUnusable
 	; jr c, .evolution_cant_ko
 	ld a, 5
 	call AIEncourage

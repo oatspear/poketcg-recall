@@ -385,7 +385,7 @@ AIProcessEnergyCards:
 ;	[wSelectedAttack] = attack to check.
 DetermineAIScoreOfAttackEnergyRequirement:
 	ld [wSelectedAttack], a
-	call CheckEnergyNeededForAttack
+	call Old_CheckEnergyNeededForAttack
 	jp c, .not_enough_energy
 	ld a, ATTACK_FLAG2_ADDRESS | ATTACHED_ENERGY_BOOST_F
 	call CheckLoadedAttackFlag
@@ -538,7 +538,7 @@ DetermineAIScoreOfAttackEnergyRequirement:
 ; if FLAG_2_BIT_5 is not set, check what color is needed.
 ; if the energy card color needed is in hand, increase AI score.
 ; if a colorless card is needed, increase AI score.
-	call CheckEnergyNeededForAttack
+	call Old_CheckEnergyNeededForAttack
 	jr nc, .done
 	ld a, ATTACK_FLAG2_ADDRESS | FLAG_2_BIT_5_F
 	call CheckLoadedAttackFlag
@@ -664,7 +664,7 @@ CheckIfEvolutionNeedsEnergyForAttack:
 	call GetTurnDuelistVariable
 	push af
 	ld [hl], b
-	call CheckEnergyNeededForAttack
+	call Old_CheckEnergyNeededForAttack
 	jr c, .not_enough_energy
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD
@@ -785,7 +785,7 @@ AITryToPlayEnergyCard:
 	xor a
 	ld [wTempAI], a
 	ld [wSelectedAttack], a ; FIRST_ATTACK_OR_PKMN_POWER
-	call CheckEnergyNeededForAttack
+	call Old_CheckEnergyNeededForAttack
 	jr nc, .second_attack
 	ld a, b
 	or a
@@ -797,7 +797,7 @@ AITryToPlayEnergyCard:
 .second_attack
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckEnergyNeededForAttack
+	call Old_CheckEnergyNeededForAttack
 	jr nc, .check_discard_or_energy_boost
 	ld a, b
 	or a
@@ -817,7 +817,7 @@ AITryToPlayEnergyCard:
 ; discarding energy cards or attached energy boost.
 	xor a ; FIRST_ATTACK_OR_PKMN_POWER
 	ld [wSelectedAttack], a
-	call CheckEnergyNeededForAttack
+	call Old_CheckEnergyNeededForAttack
 	ld a, ATTACK_FLAG2_ADDRESS | ATTACHED_ENERGY_BOOST_F
 	call CheckLoadedAttackFlag
 	jr c, .energy_boost_or_discard_energy
@@ -827,7 +827,7 @@ AITryToPlayEnergyCard:
 
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckEnergyNeededForAttack
+	call Old_CheckEnergyNeededForAttack
 	ld a, ATTACK_FLAG2_ADDRESS | ATTACHED_ENERGY_BOOST_F
 	call CheckLoadedAttackFlag
 	jr c, .energy_boost_or_discard_energy

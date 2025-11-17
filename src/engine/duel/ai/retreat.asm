@@ -47,7 +47,7 @@ AIDecideWhetherToRetreat:
 	jr c, .active_can_use_atk
 	; jr nc, .active_cant_ko_1
 ; usability check is now baked in
-	; call CheckIfSelectedAttackIsUnusable
+	; call Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .active_can_use_atk
 	call LookForEnergyNeededForAttackInHand
 	jr nc, .active_cant_ko_1
@@ -249,7 +249,7 @@ AIDecideWhetherToRetreat:
 	; jr nc, .no_ko
 	jr c, .success
 ; ; usability check is now baked in
-	; call CheckIfSelectedAttackIsUnusable
+	; call Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .success
 	call LookForEnergyNeededForAttackInHand
 	jr c, .success
@@ -280,7 +280,7 @@ AIDecideWhetherToRetreat:
 	; jr nc, .active_cant_ko_2
 	jr c, .check_defending_id
 ; usability check is now baked in
-	; call CheckIfSelectedAttackIsUnusable
+	; call Old_CheckIfSelectedAttackIsUnusable
 	; jr nc, .check_defending_id
 .active_cant_ko_2
 	ld a, 40
@@ -518,7 +518,7 @@ AIDecideBenchPokemonToSwitchTo:
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	jr nc, .check_can_use_atks
 ; usability check is now baked in
-	; call CheckIfSelectedAttackIsUnusable
+	; call Old_CheckIfSelectedAttackIsUnusable
 	; jr c, .check_can_use_atks
 	ld a, 10
 	call AIEncourage

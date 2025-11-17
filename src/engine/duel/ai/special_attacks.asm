@@ -161,7 +161,7 @@ HandleSpecialAIAttacks:
 	jr nz, .swords_dance_focus_energy_success
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	call CheckIfSelectedAttackIsUnusable
+	call Old_CheckIfSelectedAttackIsUnusable
 	jr c, .swords_dance_focus_energy_success
 	ld a, SECOND_ATTACK
 	call EstimateDamage_VersusDefendingCard

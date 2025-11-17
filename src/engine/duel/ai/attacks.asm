@@ -254,7 +254,7 @@ GetAIScoreOfAttack:
 	ld a, AI_MINIMUM_SCORE_TO_USE_ATTACK
 	ld [wAIScore], a
 
-	call CheckIfSelectedAttackIsUnusable  ; loads attack data
+	call Old_CheckIfSelectedAttackIsUnusable  ; loads attack data
 	jr nc, .usable
 
 ; return zero AI score.
