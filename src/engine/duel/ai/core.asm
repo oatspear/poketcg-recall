@@ -158,7 +158,7 @@ CheckIfActiveCardCanKnockOut:
 	; ret
 
 ; returns carry if damage dealt from any of a Pokémon's attacks KOs defending Pokémon
-; it also checks whether the selected attack is usable
+; it also checks whether the selected attack is usable and has enough energy
 ; outputs index of the attack that KOs
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
@@ -166,48 +166,45 @@ CheckIfActiveCardCanKnockOut:
 ;	[wSelectedAttack] = attack index that KOs
 ;   [wTempCardDeckIndex] = deck index of the card owning the attack
 CheckIfAnyAttackKnocksOutDefendingCard:
-; preload previous stages
-	call GetCardOneStageBelow
-; basic stage, always exists
-	ld a, [wAllStagesIndices + BASIC]
-	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
-	ret c  ; can Knock Out
-; stage 1
-	ld a, [wAllStagesIndices + STAGE1]
-	cp $ff
-	jr z, .stage2
-	call CheckIfAnyAttackOfCardKnocksOutDefendingCard
-	ret c  ; can Knock Out
-.stage2
-	ld a, [wAllStagesIndices + STAGE2]
-	cp $ff
-	ret z  ; nothing here
-	; jr CheckIfAnyAttackOfCardKnocksOutDefendingCard
-	; fallthrough
+	ld hl, CheckIfAttackKnocksOutDefendingCard
+	jp FindMatchingAttack
 
-; now depends on [wTempCardDeckIndex]
-; the AI always checked whether the selected attack was usable right after,
-; so let's bake the check into this function
-CheckIfAnyAttackOfCardKnocksOutDefendingCard:
-	ld [wTempCardDeckIndex], a
-	ld e, FIRST_ATTACK_OR_PKMN_POWER
-	call .CheckAttack
-	ret c
-	ld a, [wTempCardDeckIndex]
-	ld e, SECOND_ATTACK
-	; jr .CheckAttack
-	; fallthrough
-
+; returns carry if damage dealt from any of a Pokémon's attacks KOs defending Pokémon
+; it also checks whether the selected attack is usable and has enough energy
+; or if the missing energy is found in the hand
+; outputs index of the attack that KOs
 ; input:
-;	e = attack index to take into account
-;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
-.CheckAttack:
-	call CheckIfSelectedAttackOfCardIsUnusable  ; loads attack data
-; this call returns carry if the attack cannot be used, must flip
+; output:
+;	[wSelectedAttack] = attack index that KOs
+;   [wTempCardDeckIndex] = deck index of the card owning the attack
+CheckIfAnyAttackCouldKnockOutDefendingCard:
+	ld hl, CheckIfAttackCouldKnockOutDefendingCard
+	jp FindMatchingAttack
+
+
+; returns carry if damage dealt from the loaded attack KOs defending Pokémon
+; the attack must be usable and have enough energy
+; input:
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
+;   [wTempCardDeckIndex] = card owning the selected attack
+;   [wLoadedAttack] = attack data to consider
+CheckIfAttackKnocksOutDefendingCard:
+	call CheckIfLoadedAttackIsUnusable
 	ccf
 	ret nc  ; unusable
-; usable attack, estimate damage and check KO
+	call CheckEnergyNeededForLoadedAttack
+	ccf
+	ret nc ; not enough energy
+	; jr CheckAttackDoesEnoughDamageToKnockOutDefendingCard
+	; fallthrough
+
+; returns carry if damage dealt from the loaded attack KOs defending Pokémon
+; input:
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
+;   [wTempCardDeckIndex] = card owning the selected attack
+;   [wLoadedAttack] = attack data to consider
+CheckAttackDoesEnoughDamageToKnockOutDefendingCard:
 	call EstimateDamageOfLoadedAttack_VersusDefendingCard
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
@@ -218,6 +215,26 @@ CheckIfAnyAttackOfCardKnocksOutDefendingCard:
 ; exact damage
 	scf
 	ret
+
+
+; returns carry if damage dealt from the loaded attack KOs defending Pokémon
+; the attack must be usable and have enough energy attached or available in hand
+; input:
+;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
+;   [wTempCardDeckIndex] = card owning the selected attack
+;   [wLoadedAttack] = attack data to consider
+CheckIfAttackCouldKnockOutDefendingCard:
+	call CheckIfLoadedAttackIsUnusable
+	ccf
+	ret nc  ; unusable
+	call CheckEnergyNeededForLoadedAttack
+	jr nc, CheckAttackDoesEnoughDamageToKnockOutDefendingCard
+; not enough energy
+	call LookForEnergyNeededForLoadedAttackInHand
+	ret nc  ; no energy in hand
+	; call LoadCardDataToBuffer1_FromDeckIndex
+	; call CheckIfLoadedCardCanBePlayed
+	jr CheckAttackDoesEnoughDamageToKnockOutDefendingCard
 
 
 ; checks AI scores for all benched Pokémon
@@ -833,6 +850,8 @@ ConvertColorToEnergyCardID:
 CheckIfCardCanBePlayed:
 	ldh [hTempCardIndex_ff9f], a
 	call LoadCardDataToBuffer1_FromDeckIndex
+
+CheckIfLoadedCardCanBePlayed:
 	ld a, [wLoadedCard1Type]
 	cp TYPE_ENERGY
 	jr c, .pokemon_card
@@ -1628,7 +1647,7 @@ LookForEnergyNeededForAttackInHand:
 ;	- if one colorless is required, create a list at wDuelTempList
 ;	  of all energy cards;
 ;	- if two colorless are required, look for double colorless;
-; return carry if successful in finding card
+; return carry if successful in finding card and if card is playable
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ;	[wLoadedAttack] = data of selected attack to examine
@@ -1656,21 +1675,36 @@ LookForEnergyNeededForLoadedAttackInHand:
 	ld a, b
 	or a
 	jr z, .one_colorless
+.check_specific_energy
 	call LookForCardIDInHandList_Bank5
-	ret c
-	jr .done
+	ret nc  ; not found
+; assume: energy card is in wLoadedCard1
+	call CheckIfLoadedCardCanBePlayed
+	ccf
+	ret ; carry if energy can be played
 
 .one_colorless
 	call CreateEnergyCardListFromHand
 	jr c, .done
-	scf
-	ret
+; this is a loop only because Rain Dance exists
+; a Water Energy might be in the list somewhere
+	ld hl, wDuelTempList
+.loop_cards
+	ld a, [hli]
+	cp $ff
+	ret z  ; no more energies
+	call LoadCardDataToBuffer1_FromDeckIndex
+	push hl
+	call CheckIfLoadedCardCanBePlayed
+	pop hl
+	ccf
+	ret c  ; energy can be played
+	jr .loop_cards
 
 .two_colorless
 	ld de, DOUBLE_COLORLESS_ENERGY
-	call LookForCardIDInHandList_Bank5
-	ret c
-	jr .done
+	jr .check_specific_energy
+
 
 ; goes through $00 terminated list pointed
 ; by wAICardListPlayFromHandPriority and compares it to each card in hand.
