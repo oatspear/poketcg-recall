@@ -1581,28 +1581,16 @@ CheckDamageToMrMime:
 CheckIfActivePokemonCanUseAnyNonResidualAttack:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-; first atk
-	ld [wSelectedAttack], a ; FIRST_ATTACK_OR_PKMN_POWER
-	call Old_CheckIfSelectedAttackIsUnusable
-	jr c, .next_atk
+	ld hl, CheckIfLoadedAttackIsUsableAndNonResidual
+	jp FindMatchingAttack
+
+CheckIfLoadedAttackIsUsableAndNonResidual:
+	call CheckIfLoadedAttackIsUnusableOrNotEnoughEnergy
+	ccf
+	ret nc  ; unusable or not enough energy
 	ld a, [wLoadedAttackCategory]
 	and RESIDUAL
-	jr z, .ok
-
-.next_atk
-; second atk
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	call Old_CheckIfSelectedAttackIsUnusable
-	jr c, .fail
-	ld a, [wLoadedAttackCategory]
-	and RESIDUAL
-	jr z, .ok
-.fail
-	or a
-	ret
-
-.ok
+	ret nz  ; fail
 	scf
 	ret
 
@@ -1912,9 +1900,7 @@ GetAttacksEnergyCostBits:
 	ld b, a
 	and $f0
 	jr z, .done
-	ld a, %11111111
-	or c ; unnecessary
-	ld c, a
+	ld c, %11111111
 .done
 	ld a, c
 	ret

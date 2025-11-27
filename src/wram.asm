@@ -1123,10 +1123,8 @@ wTempAI2::
 wTempAIPokemonCard:: ; cdf3
 	ds $1
 
-; used for AI to store whether this card can KO defending Pokémon
-; $00 = can't KO
-; $01 = can KO
-wCurCardCanKO:: ; cdf4
+; used for AI to backup HP amounts during calculations
+wTempHPBuffer:: ; cdf4
 	ds $1
 
 wSamePokemonCardID:: ; cdf9
@@ -1173,6 +1171,7 @@ wAISetupBasicPokemonCount:: ; ce06
 	ds $1
 
 wce07:: ; ce07
+wAIBackupPlayAreaPokemon:: ; ce07
 	ds $1
 
 wce08:: ; ce08
