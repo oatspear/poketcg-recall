@@ -151,11 +151,6 @@ CheckIfActiveCardCanKnockOut:
 	ldh [hTempPlayAreaLocation_ff9d], a
 	; jr CheckIfAnyAttackKnocksOutDefendingCard
 	; fallthrough
-; usability check is now baked in
-	; ret nc  ; fail
-	; call Old_CheckIfSelectedAttackIsUnusable
-	; ccf  ; nc: fail
-	; ret
 
 ; returns carry if damage dealt from any of a Pokémon's attacks KOs defending Pokémon
 ; it also checks whether the selected attack is usable and has enough energy
@@ -2491,51 +2486,16 @@ INCLUDE "engine/duel/ai/boss_deck_set_up.asm"
 ;	a = location of card to check
 CheckIfCanDamageDefendingPokemon:
 	ldh [hTempPlayAreaLocation_ff9d], a
-; preload previous stages
-	call GetCardOneStageBelow
-; basic stage, always exists
-	ld a, [wAllStagesIndices + BASIC]
-	ld [wTempCardDeckIndex], a
-	call CheckIfCardCanDamageDefendingPokemon
-	ret c  ; can damage
-; stage 1
-	ld a, [wAllStagesIndices + STAGE1]
-	cp $ff
-	jr z, .stage2
-	ld [wTempCardDeckIndex], a
-	call CheckIfCardCanDamageDefendingPokemon
-	ret c  ; can damage
-.stage2
-	ld a, [wAllStagesIndices + STAGE2]
-	cp $ff
-	ret z  ; nothing here
-	ld [wTempCardDeckIndex], a
-	; jr CheckIfCardCanDamageDefendingPokemon
-	; fallthrough
+	ld hl, CheckAttackCanBeUsedToDamageDefendingCard
+	jp FindMatchingAttack
 
-; now depends on [wTempCardDeckIndex]
-; the AI always checked whether the selected attack was usable right after,
-; so let's bake the check into this function
-CheckIfCardCanDamageDefendingPokemon:
-	ld e, FIRST_ATTACK_OR_PKMN_POWER
-	call CheckIfAttackIsUnusable  ; loads attack data
-	jr c, .second_attack
-	call CheckEnergyNeededForLoadedAttack
-	jr c, .second_attack
-	call EstimateDamageOfLoadedAttack_VersusDefendingCard
-	ld a, [wDamage]
-	cp 1
-	ccf
-	ret c  ; does damage
-
-.second_attack
-	ld e, SECOND_ATTACK
-	call CheckIfAttackIsUnusable  ; loads attack data
+CheckAttackCanBeUsedToDamageDefendingCard:
+	call CheckIfLoadedAttackIsUnusable
 	ccf
 	ret nc  ; unusable
 	call CheckEnergyNeededForLoadedAttack
 	ccf
-	ret nc  ; unusable
+	ret nc  ; not enough energy
 	call EstimateDamageOfLoadedAttack_VersusDefendingCard
 	ld a, [wDamage]
 	cp 1

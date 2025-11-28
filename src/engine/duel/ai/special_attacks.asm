@@ -159,15 +159,9 @@ HandleSpecialAIAttacks:
 	ld a, [wAICannotDamage]
 	or a
 	jr nz, .swords_dance_focus_energy_success
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	call Old_CheckIfSelectedAttackIsUnusable
-	jr c, .swords_dance_focus_energy_success
-	ld a, SECOND_ATTACK
-	call EstimateDamage_VersusDefendingCard
-	ld a, [wDamage]
-	or a
-	jp nz, .zero_score
+	ld hl, CheckAttackCanBeUsedToDamageDefendingCard
+	call FindMatchingAttack
+	jp c, .zero_score
 .swords_dance_focus_energy_success
 	ld a, $85
 	ret
