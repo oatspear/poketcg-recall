@@ -171,6 +171,7 @@ AIDecideEvolution:
 
 ; active spot
 	call AITemporarilyOverwritePlayAreaPokemon
+	call AITemporarilyOverwritePlayAreaPokemonHP
 ; check if the evolution can KO defending Pokémon
 ; consider possible energy attachments
 	call CheckIfAnyAttackCouldKnockOutDefendingCard
@@ -178,14 +179,16 @@ AIDecideEvolution:
 ; can KO on the active spot, raise score
 	ld a, 5
 	call AIEncourage
-	call AIRestorePlayAreaPokemon
+	call AIRestorePlayAreaPokemon_WRAMPlayArea_CardLocationHand
+	call AIRestorePlayAreaPokemonHP
 	jr .check_status
 
 ; if defending Pokémon can KO evolution card, lower AI score
 .check_defending_can_ko_evolution
 	call CheckIfDefendingPokemonCanKnockOut
 	push af
-	call AIRestorePlayAreaPokemon
+	call AIRestorePlayAreaPokemon_WRAMPlayArea_CardLocationHand
+	call AIRestorePlayAreaPokemonHP
 	pop af
 	jr nc, .check_defending_can_ko_current_card
 	ld a, 5
@@ -214,9 +217,11 @@ AIDecideEvolution:
 ; because it might be needed to retreat
 .check_benched_evolution
 	call AITemporarilyOverwritePlayAreaPokemon
+	call AITemporarilyOverwritePlayAreaPokemonHP
 	call CheckIfAnyAttackKnocksOutDefendingCard
 	push af
-	call AIRestorePlayAreaPokemon
+	call AIRestorePlayAreaPokemon_WRAMPlayArea_CardLocationHand
+	call AIRestorePlayAreaPokemonHP
 	pop af
 	jr nc, .check_2nd_stage_hand
 ; can KO right now, raise score
@@ -447,74 +452,4 @@ AIDecidePlayLegendaryBirds:
 	ld de, MUK
 	call CountPokemonWithActivePkmnPowerInBothPlayAreas
 	jr c, .subtract
-	ret
-
-
-; temporarily overwrite current play area card with a hand Pokémon
-; overwrites also the card's location and HP for damage calculation
-; used by AIDecideEvolution to evaluate the evolution
-; input:
-;   hTempPlayAreaLocation_ff9d = play area location
-;   wTempAIPokemonCard = hand Pokémon deck index
-;   wLoadedCard1 = hand Pokémon data
-;   wLoadedCard2 = play area Pokémon data
-AITemporarilyOverwritePlayAreaPokemon:
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	add DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld [wAIBackupPlayAreaPokemon], a
-; should be ok if AIDecideSpecialEvolutions does not modify it
-	; call LoadCardDataToBuffer2_FromDeckIndex
-	ld a, [wTempAIPokemonCard]  ; evolution card
-	ld [hl], a
-; temporarily overwrite evolution card's location 
-; this is necessary to make GetCardOneStageBelow work,
-; which is called by CheckIfAnyAttackKnocksOutDefendingCard
-	; ld a, [wTempAIPokemonCard]
-	ld l, a  ; DUELVARS_CARD_LOCATIONS + index
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	or CARD_LOCATION_ARENA
-	ld [hl], a
-; temporarily replace current HP for damage calculation
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	add DUELVARS_ARENA_CARD_HP
-	call GetTurnDuelistVariable
-	ld [wTempHPBuffer], a
-; should be ok if AIDecideSpecialEvolutions does not modify it
-	; ld a, [wTempAIPokemonCard]
-	; call LoadCardDataToBuffer1_FromDeckIndex
-; find the HP difference after evolving
-	ld a, [wLoadedCard2HP]
-	ld c, a
-	ld a, [wLoadedCard1HP]
-	sub c
-; add this difference to the current HP
-	add [hl]
-	ld [hl], a
-	ret
-
-; restore the a play area card that has been overwritten
-; also restores the card's location and HP
-; used by AIDecideEvolution after evaluating the evolution
-; input:
-;   wTempAI = play area location
-;   wTempAIPokemonCard = hand Pokémon deck index
-;   wAIBackupPlayAreaPokemon = backup of play area Pokémon deck index
-;   wTempHPBuffer = backup of play area Pokémon HP
-AIRestorePlayAreaPokemon:
-	ld a, [wTempAI]
-	add DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld a, [wAIBackupPlayAreaPokemon]
-	ld [hl], a
-; restore evolution card's location to the hand
-	ld a, [wTempAIPokemonCard]
-	ld l, a  ; DUELVARS_CARD_LOCATIONS
-	ld [hl], CARD_LOCATION_HAND
-; restore previous HP value
-	ld a, [wTempAI]
-	add DUELVARS_ARENA_CARD_HP
-	call GetTurnDuelistVariable
-	ld a, [wTempHPBuffer]
-	ld [hl], a
 	ret

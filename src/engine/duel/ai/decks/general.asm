@@ -66,9 +66,7 @@ AIMainTurnLogic:
 	ld a, AI_TRAINER_CARD_PHASE_12
 	call AIProcessHandTrainerCards
 ; play Energy card if possible
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	call z, AIProcessAndTryToPlayEnergy
+	call AIProcessAndTryToPlayEnergy
 .skip_energy_attach_1
 ; play Pokemon from hand again
 	call AIDecidePlayPokemonCard
@@ -114,9 +112,7 @@ AIMainTurnLogic:
 	call AIProcessHandTrainerCards
 	ld a, AI_TRAINER_CARD_PHASE_12
 	call AIProcessHandTrainerCards
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	call z, AIProcessAndTryToPlayEnergy
+	call AIProcessAndTryToPlayEnergy
 .skip_energy_attach_2
 	call AIDecidePlayPokemonCard
 	farcall HandleAIDamageSwap

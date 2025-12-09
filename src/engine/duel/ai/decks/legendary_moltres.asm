@@ -127,34 +127,7 @@ AIDoTurn_LegendaryMoltres:
 	ld a, AI_TRAINER_CARD_PHASE_11
 	call AIProcessHandTrainerCards
 ; play Energy card if possible
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	jr nz, .skip_attach_energy
-
-; if MagmarLv31 is the Arena card and has no energy attached,
-; try attaching an energy card to it from the hand.
-; otherwise, run normal AI energy attach routine.
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	call GetCardIDFromDeckIndex
-	cp16 MAGMAR_LV31
-	jr nz, .attach_normally
-	; MagmarLv31 is the Arena card
-	call CreateEnergyCardListFromHand
-	jr c, .skip_attach_energy
-	ld e, PLAY_AREA_ARENA
-	call CountNumberOfEnergyCardsAttached
-	or a
-	jr nz, .attach_normally
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
-	call AITryToPlayEnergyCard
-	jr c, .skip_attach_energy
-
-.attach_normally
-; play Energy card if possible
 	call AIProcessAndTryToPlayEnergy
-.skip_attach_energy
 ; try playing Pokemon cards from hand again
 	call AIDecidePlayPokemonCard
 	ld a, AI_TRAINER_CARD_PHASE_13
@@ -167,4 +140,24 @@ AIDoTurn_LegendaryMoltres:
 	ret c
 	ld a, OPPACTION_FINISH_NO_ATTACK
 	bank1call AIMakeDecision
+	ret
+
+
+; if Magmar Lv31 is the Arena card and has no energy attached, raise score.
+ScoreLegendaryMoltresCardsForEnergyAttachment:
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	call GetCardIDFromDeckIndex
+	cp16 MAGMAR_LV31
+	ret nz
+
+; Magmar Lv31 is the Arena card
+	ld e, PLAY_AREA_ARENA
+	call CountNumberOfEnergyCardsAttached
+	or a
+	ret nz
+
+	ld a, [wPlayAreaEnergyAIScore + PLAY_AREA_ARENA]
+	add 5
+	ld [wPlayAreaEnergyAIScore + PLAY_AREA_ARENA], a
 	ret

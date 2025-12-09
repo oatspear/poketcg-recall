@@ -93,44 +93,7 @@ AIDoTurn_LegendaryZapdos:
 	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
 ; play Energy card if possible.
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	jr nz, .skip_energy_attach
-
-; if Arena card is Voltorb and there's ElectrodeLv35 in hand,
-; or if it's Electabuzz, try attaching Energy card
-; to the Arena card if it doesn't have any energy attached.
-; Otherwise if Energy card is not needed,
-; go through normal AI energy attach routine.
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	call GetCardIDFromDeckIndex
-	cp16 VOLTORB
-	jr nz, .check_electabuzz
-	ld de, ELECTRODE_LV35
-	call LookForCardIDInHandList_Bank5
-	jr nc, .attach_normally
-	jr .voltorb_or_electabuzz
-.check_electabuzz
-	cp16 ELECTABUZZ_LV35
-	jr nz, .attach_normally
-
-.voltorb_or_electabuzz
-	call CreateEnergyCardListFromHand
-	jr c, .skip_energy_attach
-	ld e, PLAY_AREA_ARENA
-	call CountNumberOfEnergyCardsAttached
-	or a
-	jr nz, .attach_normally
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
-	call AITryToPlayEnergyCard
-	jr c, .skip_energy_attach
-
-.attach_normally
 	call AIProcessAndTryToPlayEnergy
-
-.skip_energy_attach
 ; play Pokemon from hand again
 	call AIDecidePlayPokemonCard
 	ret c ; return if turn ended
@@ -143,4 +106,33 @@ AIDoTurn_LegendaryZapdos:
 	ret c ; return if turn ended
 	ld a, OPPACTION_FINISH_NO_ATTACK
 	bank1call AIMakeDecision
+	ret
+
+
+; if Arena card is Voltorb and there's Electrode Lv35 in hand,
+; or if it's Electabuzz, raise score if it doesn't have any energy attached.
+ScoreLegendaryZapdosCardsForEnergyAttachment:
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	call GetCardIDFromDeckIndex
+	cp16 VOLTORB
+	jr nz, .check_electabuzz
+	ld de, ELECTRODE_LV35
+	call LookForCardIDInHandList_Bank5
+	jr c, .voltorb_or_electabuzz
+	ret
+
+.check_electabuzz
+	cp16 ELECTABUZZ_LV35
+	ret nz
+
+.voltorb_or_electabuzz
+	ld e, PLAY_AREA_ARENA
+	call CountNumberOfEnergyCardsAttached
+	or a
+	ret nz
+
+	ld a, [wPlayAreaEnergyAIScore + PLAY_AREA_ARENA]
+	add 5
+	ld [wPlayAreaEnergyAIScore + PLAY_AREA_ARENA], a
 	ret

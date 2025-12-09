@@ -1537,7 +1537,7 @@ AIDecide_EnergyRemoval:
 ; but second attack has enough energy to be used
 ; check if there's surplus energy for attack and, if so, return carry
 .check_surplus
-	farcall CheckIfNoSurplusEnergyForAttack
+	farcall CheckIfNoSurplusEnergyForLoadedAttack
 	pop de
 	ccf
 	ret
@@ -1820,7 +1820,7 @@ AIDecide_SuperEnergyRemoval:
 ; check if there's surplus energy for attack and, if so,
 ; return carry if this surplus energy is at least 2
 .check_surplus
-	farcall CheckIfNoSurplusEnergyForAttack
+	farcall CheckIfNoSurplusEnergyForLoadedAttack
 	cp 2
 	jr c, .enough_energy
 	pop de

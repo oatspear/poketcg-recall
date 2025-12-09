@@ -96,32 +96,7 @@ AIDoTurn_LegendaryDragonite:
 	ld a, AI_TRAINER_CARD_PHASE_11
 	call AIProcessHandTrainerCards
 ; play Energy card if possible
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	jr nz, .skip_energy_attach_1
-
-; if Arena card is Kangaskhan and doesn't
-; have Energy cards attached, try attaching from hand.
-; otherwise run normal AI energy attach routine.
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	call GetCardIDFromDeckIndex
-	cp16 KANGASKHAN
-	jr nz, .attach_normally
-	call CreateEnergyCardListFromHand
-	jr c, .skip_energy_attach_1
-	ld e, PLAY_AREA_ARENA
-	call CountNumberOfEnergyCardsAttached
-	or a
-	jr nz, .attach_normally
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
-	call AITryToPlayEnergyCard
-	jr c, .skip_energy_attach_1
-.attach_normally
 	call AIProcessAndTryToPlayEnergy
-
-.skip_energy_attach_1
 ; play Pokemon from hand again
 	call AIDecidePlayPokemonCard
 	ld a, AI_TRAINER_CARD_PHASE_15
@@ -144,9 +119,7 @@ AIDoTurn_LegendaryDragonite:
 	call AIProcessHandTrainerCards
 	ld a, AI_TRAINER_CARD_PHASE_11
 	call AIProcessHandTrainerCards
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	call z, AIProcessAndTryToPlayEnergy
+	call AIProcessAndTryToPlayEnergy
 .skip_energy_attach_2
 	call AIDecidePlayPokemonCard
 .try_attack
@@ -156,4 +129,25 @@ AIDoTurn_LegendaryDragonite:
 	ret c ; return if turn ended
 	ld a, OPPACTION_FINISH_NO_ATTACK
 	bank1call AIMakeDecision
+	ret
+
+
+; if Arena card is Kangaskhan and doesn't
+; have Energy cards attached, raise score.
+; otherwise run normal AI energy attach routine.
+ScoreLegendaryDragoniteCardsForEnergyAttachment:
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	call GetCardIDFromDeckIndex
+	cp16 KANGASKHAN
+	ret nz
+
+	ld e, PLAY_AREA_ARENA
+	call CountNumberOfEnergyCardsAttached
+	or a
+	ret nz  ; already has Energy attached
+
+	ld a, [wPlayAreaEnergyAIScore + PLAY_AREA_ARENA]
+	add 5
+	ld [wPlayAreaEnergyAIScore + PLAY_AREA_ARENA], a
 	ret

@@ -676,6 +676,9 @@ CheckEnergyNeededForSelectedAttack:
 ;	       OR if not enough energy for attack
 CheckEnergyNeededForAttack:
 	ld a, [wTempCardDeckIndex]
+	; fallthrough
+
+CheckEnergyNeededForAttackOfCard:
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
 	; jr CheckEnergyNeededForLoadedAttack
@@ -774,6 +777,7 @@ CheckEnergyNeededForLoadedAttack:
 	call ConvertColorToEnergyCardID
 	scf
 	ret
+
 
 ; takes as input the energy cost of an attack for a
 ; particular energy, stored in the lower nibble of a
@@ -1317,7 +1321,7 @@ CountNumberOfEnergyCardsAttached:
 
 	ld b, [hl]
 	srl b
-; counts colorless ad halves it
+; counts colorless and halves it
 	add b
 	pop bc
 	pop hl
@@ -2323,23 +2327,22 @@ AISelectSpecialAttackParameters:
 	scf
 	ret
 
-; return carry if Pokémon at play area location
-; in hTempPlayAreaLocation_ff9d does not have
-; energy required for the attack index in wSelectedAttack
+; return carry if Pokémon at the given play area location
+; does not have energy required for the loaded attack data
 ; or has exactly the same amount of energy needed
 ; input:
+;	[wLoadedAttack] = attack data to check
 ;	[hTempPlayAreaLocation_ff9d] = play area location
-;	[wSelectedAttack]         = attack index to check
 ; output:
 ;	a = number of extra energy cards attached
-CheckIfNoSurplusEnergyForAttack:
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	add DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld d, a
-	ld a, [wSelectedAttack]
-	ld e, a
-	call CopyAttackDataAndDamage_FromDeckIndex
+CheckIfNoSurplusEnergyForLoadedAttack:
+	; ldh a, [hTempPlayAreaLocation_ff9d]
+	; add DUELVARS_ARENA_CARD
+	; call GetTurnDuelistVariable
+	; ld d, a
+	; ld a, [wSelectedAttack]
+	; ld e, a
+	; call CopyAttackDataAndDamage_FromDeckIndex
 	ld hl, wLoadedAttackName
 	ld a, [hli]
 	or [hl]
@@ -2973,12 +2976,109 @@ HandleAIEnergyScoringForRepeatedBenchPokemon:
 	cp 2
 	ret
 
-; handle how AI scores giving out Energy Cards
-; when using Legendary Articuno deck
-HandleLegendaryArticunoEnergyScoring:
-	ld a, [wOpponentDeckID]
-	cp LEGENDARY_ARTICUNO_DECK_ID
-	jr z, .articuno_deck
+
+; temporarily overwrite current play area card with a hand Pokémon
+; overwrites also the card's location and HP for damage calculation
+; used by AIDecideEvolution to evaluate the evolution
+; input:
+;   hTempPlayAreaLocation_ff9d = play area location
+;   wTempAIPokemonCard = hand Pokémon deck index
+;   wLoadedCard1 = hand Pokémon data
+;   wLoadedCard2 = play area Pokémon data
+AITemporarilyOverwritePlayAreaPokemon:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld [wAIBackupPlayAreaPokemon], a
+; should be ok if AIDecideSpecialEvolutions does not modify it
+	; call LoadCardDataToBuffer2_FromDeckIndex
+	ld a, [wTempAIPokemonCard]  ; evolution card
+	ld [hl], a
+; temporarily overwrite evolution card's location 
+; this is necessary to make GetCardOneStageBelow work,
+; which is called by CheckIfAnyAttackKnocksOutDefendingCard
+	; ld a, [wTempAIPokemonCard]
+	ld l, a  ; DUELVARS_CARD_LOCATIONS + index
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	or CARD_LOCATION_ARENA
+	ld [hl], a
 	ret
-.articuno_deck
-	jp ScoreLegendaryArticunoCards
+
+; temporarily replace current HP for damage calculation
+; input:
+;   hTempPlayAreaLocation_ff9d = play area location
+;   wLoadedCard1 = hand Pokémon data
+;   wLoadedCard2 = play area Pokémon data
+AITemporarilyOverwritePlayAreaPokemonHP:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD_HP
+	call GetTurnDuelistVariable
+	ld [wTempHPBuffer], a
+; should be ok if AIDecideSpecialEvolutions does not modify it
+	; ld a, [wTempAIPokemonCard]
+	; call LoadCardDataToBuffer1_FromDeckIndex
+; find the HP difference after evolving
+	ld a, [wLoadedCard2HP]
+	ld c, a
+	ld a, [wLoadedCard1HP]
+	sub c
+; add this difference to the current HP
+	add [hl]
+	ld [hl], a
+	ret
+
+
+; restore the play area card that has been overwritten
+; also restores the overwriting card's location to the hand
+; input:
+;   hTempPlayAreaLocation_ff9d = play area location
+;   wTempAIPokemonCard = hand Pokémon deck index
+;   wAIBackupPlayAreaPokemon = backup of play area Pokémon deck index
+AIRestorePlayAreaPokemon_WRAMPlayArea_CardLocationHand:
+	ld e, CARD_LOCATION_HAND
+	; jr AIRestorePlayAreaPokemon_WRAMPlayArea
+	; fallthrough
+
+; restore the play area card that has been overwritten
+; also restores the overwriting card's location to the hand
+; input:
+;   e = CARD_LOCATION_*
+;   hTempPlayAreaLocation_ff9d = play area location
+;   wTempAIPokemonCard = hand Pokémon deck index
+;   wAIBackupPlayAreaPokemon = backup of play area Pokémon deck index
+AIRestorePlayAreaPokemon_WRAMPlayArea:
+	ld a, [wTempAI]
+	ldh [hTempPlayAreaLocation_ff9d], a
+	; jr AIRestorePlayAreaPokemon
+	; fallthrough
+
+; restore the play area card that has been overwritten
+; also restores the overwriting card's location
+; input:
+;   e = CARD_LOCATION_*
+;   hTempPlayAreaLocation_ff9d = play area location
+;   wTempAIPokemonCard = hand Pokémon deck index
+;   wAIBackupPlayAreaPokemon = backup of play area Pokémon deck index
+AIRestorePlayAreaPokemon:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	ld a, [wAIBackupPlayAreaPokemon]
+	ld [hl], a
+; restore evolution card's location to the hand
+	ld a, [wTempAIPokemonCard]
+	ld l, a  ; DUELVARS_CARD_LOCATIONS
+	ld [hl], e
+	ret
+
+; restore the play area card's HP that has been overwritten
+; input:
+;   hTempPlayAreaLocation_ff9d = play area location
+;   wTempHPBuffer = backup of play area Pokémon HP
+AIRestorePlayAreaPokemonHP:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD_HP
+	call GetTurnDuelistVariable
+	ld a, [wTempHPBuffer]
+	ld [hl], a
+	ret

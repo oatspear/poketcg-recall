@@ -77,7 +77,7 @@ AIActionTable_LegendaryArticuno:
 ; first, it makes sure that all Lapras have at least
 ; 3 energy cards before moving on to Articuno,
 ; and then to Dewgong and Seel
-ScoreLegendaryArticunoCards:
+ScoreLegendaryArticunoCardsForEnergyAttachment:
 	call SwapTurn
 	call CountPrizes
 	call SwapTurn
@@ -159,9 +159,7 @@ AIDoTurn_LegendaryArticuno:
 	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
 ; play Energy card if possible
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	call z, AIProcessAndTryToPlayEnergy
+	call AIProcessAndTryToPlayEnergy
 .skip_energy_attach_1
 ; play Pokemon from hand again
 	call AIDecidePlayPokemonCard
@@ -183,9 +181,7 @@ AIDoTurn_LegendaryArticuno:
 	call AIProcessRetreat
 	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
-	ld a, [wAlreadyPlayedEnergy]
-	or a
-	call z, AIProcessAndTryToPlayEnergy
+	call AIProcessAndTryToPlayEnergy
 .skip_energy_attach_2
 	call AIDecidePlayPokemonCard
 .try_attack
