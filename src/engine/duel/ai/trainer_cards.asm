@@ -593,7 +593,6 @@ CheckEnergyNeededForLoadedAttackAfterDiscard:
 	ret
 
 
-
 ; AI always attaches a Defender card to the Active Pokémon.
 AIPlay_Defender:
 	ld a, [wAITrainerCardToPlay]
@@ -613,9 +612,9 @@ AIDecide_Defender1:
 	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
 
-; .cannot_ko
+; cannot KO
 ; check if any of the defending Pokémon's attacks deal
-; enough damage to knock out.
+; enough damage to knock out this card.
 	farcall CheckIfDefendingPokemonCanKnockOut
 	ret nc  ; cannot KO, do not use Defender
 
@@ -654,8 +653,7 @@ AIDecide_Defender2:
 	ret
 
 .recoil
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+	ld a, [wTempAIPokemonCard]
 	call LoadCardDataToBuffer2_FromDeckIndex
 	ld a, [wSelectedAttack]
 	or a
