@@ -1013,8 +1013,7 @@ AICheckIfAttackIsHighRecoil:
 	ret nc
 	ld a, [wSelectedAttack]
 	ld e, a
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+	ld a, [wTempAIPokemonCard]
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
 	ld a, ATTACK_FLAG1_ADDRESS | HIGH_RECOIL_F

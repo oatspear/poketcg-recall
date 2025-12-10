@@ -177,6 +177,8 @@ AIProcessAttacks:
 
 ; enough score, check whether to execute the chosen attack
 .attack_chosen
+	ld a, [wTempCardDeckIndex]
+	ld [wTempAIPokemonCard], a
 	ld a, [wAIExecuteProcessedAttack]
 	or a
 	jr z, .execute
