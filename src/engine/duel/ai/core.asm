@@ -638,7 +638,22 @@ CheckEnergyNeededForLoadedAttack:
 	ld e, a
 	call GetPlayAreaCardAttachedEnergies
 	call HandleEnergyBurn
+	; jr CheckEnergyNeededForLoadedAttackWithAttachedEnergies
+	; fallthrough
 
+; check if there is enough energy to execute the selected attack
+; input:
+;	[wLoadedAttack] = selected attack to examine
+;   [wAttachedEnergies] = attached energies of Pokémon
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+; output:
+;	b = basic energy still needed
+;	c = colorless energy still needed
+;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
+;	carry set if no attack
+;	       OR if it's a Pokémon Power
+;	       OR if not enough energy for attack
+CheckEnergyNeededForLoadedAttackWithAttachedEnergies:
 	xor a
 	ld [wTempLoadedAttackEnergyCost], a
 	ld [wTempLoadedAttackEnergyNeededAmount], a
@@ -670,7 +685,7 @@ CheckEnergyNeededForLoadedAttack:
 ; two different basic energy types, then this routine only accounts
 ; for the type with the highest index
 
-	; colorless
+; colorless
 	ld a, [de]
 	swap a
 	and %00001111
@@ -762,6 +777,7 @@ ConvertColorToEnergyCardID:
 	dw FIGHTING_ENERGY
 	dw PSYCHIC_ENERGY
 	dw DOUBLE_COLORLESS_ENERGY
+
 
 ; return carry depending on card index in a:
 ;	- if energy card, return carry if an energy card has been played already
@@ -1040,120 +1056,6 @@ AIAttachEnergyInHandToCardInBench:
 
 INCLUDE "engine/duel/ai/init.asm"
 
-; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d,
-; gets an energy card to discard and subsequently
-; check if there is enough energy to execute the selected attack
-; after removing that attached energy card.
-; input:
-;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-;	[wSelectedAttack]         = selected attack to examine
-; output:
-;	b = basic energy still needed
-;	c = colorless energy still needed
-;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
-;	carry set if no attack
-;	       OR if it's a Pokémon Power
-;	       OR if not enough energy for attack
-Old_CheckEnergyNeededForAttackAfterDiscard:
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	add DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld d, a
-	ld a, [wSelectedAttack]
-	ld e, a
-	call CopyAttackDataAndDamage_FromDeckIndex
-	ld hl, wLoadedAttackName
-	ld a, [hli]
-	or [hl]
-	jr z, .no_attack
-	ld a, [wLoadedAttackCategory]
-	cp POKEMON_POWER
-	jr nz, .is_attack
-.no_attack
-	lb bc, 0, 0
-	ld e, c
-	scf
-	ret
-
-.is_attack
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	farcall AIPickEnergyCardToDiscard
-	call LoadCardDataToBuffer1_FromDeckIndex
-	ld hl, wLoadedCard1ID
-	cphl DOUBLE_COLORLESS_ENERGY
-	jr z, .colorless
-
-; color energy
-; decrease respective attached energy by 1.
-	ld hl, wAttachedEnergies
-	dec a
-	ld c, a
-	ld b, $00
-	add hl, bc
-	dec [hl]
-	ld hl, wTotalAttachedEnergies
-	dec [hl]
-	jr .asm_1570c
-; decrease attached colorless by 2.
-.colorless
-	ld hl, wAttachedEnergies + COLORLESS
-	dec [hl]
-	dec [hl]
-	ld hl, wTotalAttachedEnergies
-	dec [hl]
-	dec [hl]
-
-.asm_1570c
-	call HandleEnergyBurn
-	xor a
-	ld [wTempLoadedAttackEnergyCost], a
-	ld [wTempLoadedAttackEnergyNeededAmount], a
-	ld [wTempLoadedAttackEnergyNeededType], a
-	ld hl, wAttachedEnergies
-	ld de, wLoadedAttackEnergyCost
-	ld b, 0
-	ld c, (NUM_TYPES / 2) - 1
-.loop
-	; check all basic energy cards except colorless
-	ld a, [de]
-	swap a
-	call CheckIfEnoughParticularAttachedEnergy
-	ld a, [de]
-	call CheckIfEnoughParticularAttachedEnergy
-	inc de
-	dec c
-	jr nz, .loop
-
-	ld a, [de]
-	swap a
-	and $0f
-	ld b, a ; colorless energy still needed
-	ld a, [wTempLoadedAttackEnergyCost]
-	ld hl, wTempLoadedAttackEnergyNeededAmount
-	sub [hl]
-	ld c, a ; basic energy still needed
-	ld a, [wTotalAttachedEnergies]
-	sub c
-	sub b
-	jr c, .not_enough_energy
-
-	ld a, [wTempLoadedAttackEnergyNeededAmount]
-	or a
-	ret z
-
-; being here means the energy cost isn't satisfied,
-; including with colorless energy
-	xor a
-.not_enough_energy
-	cpl
-	inc a
-	ld c, a ; colorless energy still needed
-	ld a, [wTempLoadedAttackEnergyNeededAmount]
-	ld b, a ; basic energy still needed
-	ld a, [wTempLoadedAttackEnergyNeededType]
-	call ConvertColorToEnergyCardID
-	scf
-	ret
 
 ; zeroes a bytes starting from hl.
 ; this function is identical to 'ClearMemory_Bank2',

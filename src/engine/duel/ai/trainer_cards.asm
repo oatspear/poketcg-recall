@@ -267,7 +267,10 @@ AIDecide_Potion_Phase10:
 	call GetTurnDuelistVariable
 	cp $ff
 	ret z
-	call .check_boost_if_taken_damage
+	push de
+	ld hl, CheckUsableAttackWithBoostIfDamageTaken
+	call AILogic2_FindMatchingAttack
+	pop de
 	jr c, .has_boost_damage
 	call GetCardDamageAndMaxHP
 	cp 20 ; if damage >= 20
@@ -314,33 +317,16 @@ AIDecide_Potion_Phase10:
 	or a
 	ret
 
-; return carry if either of the attacks are usable
-; and have the BOOST_IF_TAKEN_DAMAGE effect.
-.check_boost_if_taken_damage
-	push de
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr c, .second_attack
+
+; return carry if an attack is usable, has enough energy,
+; and has the BOOST_IF_TAKEN_DAMAGE effect.
+CheckUsableAttackWithBoostIfDamageTaken:
+	farcall CheckIfLoadedAttackIsUnusableOrNotEnoughEnergy
+	ccf
+	ret nc
 	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
-	call CheckLoadedAttackFlag
-	jr c, .set_carry
-.second_attack
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr c, .false
-	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
-	call CheckLoadedAttackFlag
-	jr c, .set_carry
-.false
-	pop de
-	or a
-	ret
-.set_carry
-	pop de
-	scf
-	ret
+	jp CheckLoadedAttackFlag
+
 
 ; makes AI use Super Potion card.
 AIPlay_SuperPotion:
@@ -372,15 +358,18 @@ AIDecide_SuperPotion1:
 	jr c, .no_carry
 	call AICheckIfAttackIsHighRecoil
 	jr c, .no_carry
+
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ld e, a
-	call .check_attached_energy
-	ret nc
-	farcall CheckIfDefendingPokemonCanKnockOut
-	jr nc, .no_carry
+	call GetPlayAreaCardAttachedEnergies
+	ld a, [wTotalAttachedEnergies]
+	or a
+	ret z
 
-	ld d, a
+	farcall CheckIfDefendingPokemonCanKnockOut
+	ret nc
+
 	ld d, a
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
@@ -396,7 +385,7 @@ AIDecide_SuperPotion1:
 	add l
 	sub d
 	jr c, .no_carry
-	jr z, .no_carry
+	ret z
 
 ; return carry
 	ld a, e
@@ -406,14 +395,6 @@ AIDecide_SuperPotion1:
 	or a
 	ret
 
-; returns carry if card has energies attached.
-.check_attached_energy
-	call GetPlayAreaCardAttachedEnergies
-	ld a, [wTotalAttachedEnergies]
-	or a
-	ret z
-	scf
-	ret
 
 ; finds a card in Play Area to use Super Potion on.
 ; output:
@@ -469,16 +450,31 @@ AIDecide_SuperPotion2:
 	call GetTurnDuelistVariable
 	cp $ff
 	ret z
+
 	ld d, a
-	call .check_attached_energy
-	jr nc, .next
-	call .check_boost_if_taken_damage
+	call GetPlayAreaCardAttachedEnergies
+	ld a, [wTotalAttachedEnergies]
+	or a
+	jr z, .next
+
+	ld a, e
+	ldh [hTempPlayAreaLocation_ff9d], a
+	push de
+	ld hl, CheckUsableAttackWithBoostIfDamageTaken
+	call AILogic2_FindMatchingAttack
+	pop de
 	jr c, .next
-	call .check_energy_cost
+
+	push de
+	ld hl, CheckDiscardingEnergyRendersAttackUnusable
+	call AILogic2_FindMatchingAttack
+	pop de
 	jr c, .next
+
 	call GetCardDamageAndMaxHP
 	cp 40 ; if damage >= 40
 	jr nc, .found
+
 .next
 	inc e
 	jr .loop
@@ -521,76 +517,82 @@ AIDecide_SuperPotion2:
 	or a
 	ret
 
-; returns carry if card has energies attached.
-.check_attached_energy
-	call GetPlayAreaCardAttachedEnergies
-	ld a, [wTotalAttachedEnergies]
-	or a
-	ret z
-	scf
-	ret
-
-; return carry if either of the attacks are usable
-; and have the BOOST_IF_TAKEN_DAMAGE effect.
-.check_boost_if_taken_damage
-	push de
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr c, .second_attack_1
-	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
-	call CheckLoadedAttackFlag
-	jr c, .true_1
-.second_attack_1
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr c, .false_1
-	ld a, ATTACK_FLAG3_ADDRESS | BOOST_IF_TAKEN_DAMAGE_F
-	call CheckLoadedAttackFlag
-	jr c, .true_1
-.false_1
-	pop de
-	or a
-	ret
-.true_1
-	pop de
-	scf
-	ret
 
 ; returns carry if discarding energy card renders any attack unusable,
 ; given that they have enough energy to be used before discarding.
-.check_energy_cost
-	push de
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall Old_CheckEnergyNeededForAttack
-	jr c, .second_attack_2
-	farcall Old_CheckEnergyNeededForAttackAfterDiscard
-	jr c, .true_2
+CheckDiscardingEnergyRendersAttackUnusable:
+	farcall CheckEnergyNeededForLoadedAttack
+	ccf
+	ret nc  ; does not have enough energy to begin with
+; at this point, it is an attack and has enough energy
+	jr CheckEnergyNeededForLoadedAttackAfterDiscard.is_attack
 
-.second_attack_2
-	pop de
-	push de
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall Old_CheckEnergyNeededForAttack
-	jr c, .false_2
-	farcall Old_CheckEnergyNeededForAttackAfterDiscard
-	jr c, .true_2
-
-.false_2
-	pop de
-	or a
-	ret
-.true_2
-	pop de
+; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d,
+; gets an energy card to discard and subsequently
+; check if there is enough energy to execute the selected attack
+; after removing that attached energy card.
+; input:
+;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
+;	[wLoadedAttack] = selected attack to examine
+; output:
+;	b = basic energy still needed
+;	c = colorless energy still needed
+;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
+;	carry set if no attack
+;	       OR if it's a Pokémon Power
+;	       OR if not enough energy for attack
+CheckEnergyNeededForLoadedAttackAfterDiscard:
+	ld hl, wLoadedAttackName
+	ld a, [hli]
+	or [hl]
+	jr z, .no_attack
+	ld a, [wLoadedAttackCategory]
+	cp POKEMON_POWER
+	jr nz, .is_attack
+.no_attack
+	lb bc, 0, 0
+	ld de, 0
 	scf
 	ret
+
+.is_attack
+	ldh a, [hTempPlayAreaLocation_ff9d]
+; main difference from CheckEnergyNeededForLoadedAttack:
+; simulate the removal of an attached energy card instead
+; of using all attached energies as-is
+	call AIPickEnergyCardToDiscard
+	call LoadCardDataToBuffer1_FromDeckIndex
+	ld hl, wLoadedCard1ID
+	cphl DOUBLE_COLORLESS_ENERGY
+	jr z, .colorless
+
+; color energy
+; decrease respective attached energy by 1
+	ld hl, wAttachedEnergies
+	dec a
+	ld c, a
+	ld b, $00
+	add hl, bc
+	dec [hl]
+	ld hl, wTotalAttachedEnergies
+	dec [hl]
+	jr .got_final_energy_count
+
+; decrease attached colorless by 2
+.colorless
+	ld hl, wAttachedEnergies + COLORLESS
+	dec [hl]
+	dec [hl]
+	ld hl, wTotalAttachedEnergies
+	dec [hl]
+	dec [hl]
+
+.got_final_energy_count
+	call HandleEnergyBurn
+	farcall CheckEnergyNeededForLoadedAttackWithAttachedEnergies
+	ret
+
+
 
 ; AI always attaches a Defender card to the Active Pokémon.
 AIPlay_Defender:
