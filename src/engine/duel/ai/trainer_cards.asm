@@ -610,9 +610,7 @@ AIPlay_Defender:
 AIDecide_Defender1:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr c, .no_carry
-	farcall LookForEnergyNeededForAttackInHand
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
 
 ; .cannot_ko
@@ -743,9 +741,7 @@ AIDecide_Pluspower1:
 ; if there's an attack that can, only continue
 ; if it's unusable and there's no card in hand
 ; to fulfill its energy cost.
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr c, .no_carry
-	farcall LookForEnergyNeededForAttackInHand
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
 
 ; cannot use an attack that knocks out.
@@ -1016,10 +1012,8 @@ AIDecide_GustOfWind:
 
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry ; if KO attack is useable
-	farcall LookForEnergyNeededForAttackInHand
-	jr c, .no_carry ; if energy card is in hand
 
 .check_id
 	; skip if current active card is MEW_LV23 or MEWTWO_LV53
@@ -1242,11 +1236,7 @@ AIDecide_GustOfWind:
 
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	call .CheckIfAnyAttackKnocksOut
-	jr nc, .next
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr nc, .found
-	farcall LookForEnergyNeededForAttackInHand
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .found
 
 ; the following two local routines can be condensed into one
@@ -1278,30 +1268,6 @@ AIDecide_GustOfWind:
 	pop de
 	ld a, e
 	pop hl
-	scf
-	ret
-
-; returns carry if any of arena card's attacks
-; KOs player card in location stored in e
-.CheckIfAnyAttackKnocksOut
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	call .CheckIfAttackKnocksOut
-	ret c
-	ld a, SECOND_ATTACK
-
-; returns carry if attack KOs player card
-; in location stored in e
-.CheckIfAttackKnocksOut
-	push de
-	farcall EstimateDamage_VersusDefendingCard
-	pop de
-	ld a, DUELVARS_ARENA_CARD_HP
-	add e
-	call GetNonTurnDuelistVariable
-	ld hl, wDamage
-	sub [hl]
-	ret c
-	ret nz
 	scf
 	ret
 
@@ -1402,16 +1368,15 @@ AIDecide_EnergyRemoval:
 ; active card to remove its attached energy
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr c, .can_ko
-	farcall LookForEnergyNeededForAttackInHand
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr nc, .cannot_ko
 
-.can_ko
+; can KO
 	; start checking from the bench
 	ld a, PLAY_AREA_BENCH_1
 	ld [wce0f], a
 	jr .check_bench_energy
+
 .cannot_ko
 	; start checking from the arena card
 	xor a ; PLAY_AREA_ARENA
@@ -1668,16 +1633,15 @@ AIDecide_SuperEnergyRemoval:
 ; active card to remove its attached energy
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr c, .can_ko
-	farcall LookForEnergyNeededForAttackInHand
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr nc, .cannot_ko
 
-.can_ko
+; can KO
 	; start checking from the bench
 	call SwapTurn
 	ld e, PLAY_AREA_BENCH_1
 	jr .loop_3
+
 .cannot_ko
 	; start checking from the arena card
 	call SwapTurn
@@ -3057,9 +3021,7 @@ AIDecide_PokemonCenter:
 	ldh [hTempPlayAreaLocation_ff9d], a
 
 ; return if active Pokemon can KO player's card.
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr c, .no_carry
-	farcall LookForEnergyNeededForAttackInHand
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
 
 .start
@@ -3944,9 +3906,7 @@ AIDecide_ScoopUp:
 
 ; if it can KO the defending Pokemon this turn,
 ; return no carry.
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
-	jr c, .no_carry
-	farcall LookForEnergyNeededForAttackInHand
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
 
 .cannot_ko
@@ -4043,10 +4003,9 @@ AIDecide_ScoopUp:
 
 ; if it can KO the defending Pokemon this turn,
 ; return no carry.
-	farcall CheckIfAnyAttackKnocksOutDefendingCard
+	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
-	farcall LookForEnergyNeededForAttackInHand
-	jr c, .no_carry
+
 .check_ko
 	farcall CheckIfDefendingPokemonCanKnockOut
 	jr nc, .no_carry

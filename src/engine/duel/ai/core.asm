@@ -1419,40 +1419,6 @@ CheckIfLoadedAttackIsUsableAndNonResidual:
 	scf
 	ret
 
-; looks for energy card(s) in hand depending on
-; what is needed for selected card, for both attacks
-;	- if one basic energy is required, look for that energy;
-;	- if one colorless is required, create a list at wDuelTempList
-;	  of all energy cards;
-;	- if two colorless are required, look for double colorless;
-; return carry if successful in finding card
-; input:
-;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-LookForEnergyNeededInHand:
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	call LookForEnergyNeededForAttackInHand
-	ret c
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	; jr LookForEnergyNeededForAttackInHand
-	; fallthrough
-
-
-; looks for energy card(s) in hand depending on
-; what is needed for selected card and attack
-;	- if one basic energy is required, look for that energy;
-;	- if one colorless is required, create a list at wDuelTempList
-;	  of all energy cards;
-;	- if two colorless are required, look for double colorless;
-; return carry if successful in finding card
-; input:
-;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-;	[wSelectedAttack]         = selected attack to examine
-LookForEnergyNeededForAttackInHand:
-	call Old_CheckEnergyNeededForAttack
-	; jr LookForEnergyNeededForLoadedAttackInHand
-	; fallthrough
 
 ; looks for energy card(s) in hand depending on
 ; what is needed for selected card and attack
