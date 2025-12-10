@@ -2651,7 +2651,7 @@ AIDecide_EnergyRetrieval:
 
 	ld b, a
 	push hl
-	farcall CheckIfEnergyIsUseful
+	call CheckIfEnergyIsUseful
 	pop hl
 	jr nc, .loop_energy_cards_1
 
@@ -2926,7 +2926,7 @@ AIDecide_SuperEnergyRetrieval:
 
 	ld b, a
 	push hl
-	farcall CheckIfEnergyIsUseful
+	call CheckIfEnergyIsUseful
 	pop hl
 	jr nc, .loop_energy_cards_1
 
@@ -3277,7 +3277,7 @@ AIDecide_EnergySearch:
 	jr z, .none_found
 	ld b, a
 	push hl
-	farcall CheckIfEnergyIsUseful
+	call CheckIfEnergyIsUseful
 	pop hl
 	jr nc, .loop_energy_1
 
@@ -3340,7 +3340,7 @@ AIDecide_EnergySearch:
 ; return no carry.
 	ld b, a
 	push hl
-	farcall CheckIfEnergyIsUseful
+	call CheckIfEnergyIsUseful
 	pop hl
 	jr nc, .loop_energy_2
 
@@ -3402,7 +3402,7 @@ AIDecide_EnergySearch:
 ; return no carry.
 	ld b, a
 	push hl
-	farcall CheckIfEnergyIsUseful
+	call CheckIfEnergyIsUseful
 	pop hl
 	jr nc, .loop_energy_3
 
