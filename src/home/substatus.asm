@@ -32,61 +32,57 @@ HandleDoubleDamageSubstatus::
 ; reduces the damage dealt to it this turn (SUBSTATUS1 or Pkmn Powers).
 ; damage is given in de as input and the possibly updated damage is also returned in de.
 HandleDamageReduction::
-	call HandleDamageReductionExceptSubstatus2
+	ld a, [wNoDamageOrEffect]
+	or a
+	jr nz, NoDamage_DE
+	call HandleDamageReductionFromSubstatus1
+	call HandleDamageReductionFromPkmnPowers
+; handle Substatus2 damage reduction for the attacking card
 	ld a, DUELVARS_ARENA_CARD_SUBSTATUS2
 	call GetNonTurnDuelistVariable
 	or a
 	ret z
 	cp SUBSTATUS2_REDUCE_BY_20
-	jr z, .reduce_damage_by_20
+	jr z, ReduceDamageBy20_DE
 	cp SUBSTATUS2_POUNCE
-	jr z, .reduce_damage_by_10
+	jr z, ReduceDamageBy10_DE
 	cp SUBSTATUS2_GROWL
-	jr z, .reduce_damage_by_10
-	ret
-.reduce_damage_by_20
-	ld hl, -20
-	add hl, de
-	ld e, l
-	ld d, h
-	ret
-.reduce_damage_by_10
-	ld hl, -10
-	add hl, de
-	ld e, l
-	ld d, h
+	jr z, ReduceDamageBy10_DE
 	ret
 
+
 ; check if the defending card (turn holder's arena card) has any substatus that
-; reduces the damage dealt to it this turn. (SUBSTATUS1 or Pkmn Powers)
+; reduces the damage dealt to it this turn. (SUBSTATUS1)
 ; damage is given in de as input and the possibly updated damage is also returned in de.
-HandleDamageReductionExceptSubstatus2::
-	ld a, [wNoDamageOrEffect]
-	or a
-	jr nz, .no_damage
+HandleDamageReductionFromSubstatus1::
 	ld a, DUELVARS_ARENA_CARD_SUBSTATUS1
 	call GetTurnDuelistVariable
 	or a
-	jr z, .not_affected_by_substatus1
+	ret z  ; not affected by substatus1
 
 	cp SUBSTATUS1_NO_DAMAGE_STIFFEN
-	jr z, .no_damage
+	jr z, NoDamage_DE
 	cp SUBSTATUS1_NO_DAMAGE_10
-	jr z, .no_damage
+	jr z, NoDamage_DE
 	cp SUBSTATUS1_NO_DAMAGE_11
-	jr z, .no_damage
+	jr z, NoDamage_DE
 	cp SUBSTATUS1_NO_DAMAGE_17
-	jr z, .no_damage
+	jr z, NoDamage_DE
 	cp SUBSTATUS1_REDUCE_BY_10
-	jr z, .reduce_damage_by_10
+	jr z, ReduceDamageBy10_DE
 	cp SUBSTATUS1_REDUCE_BY_20
-	jr z, .reduce_damage_by_20
+	jr z, ReduceDamageBy20_DE
 	cp SUBSTATUS1_HARDEN
-	jr z, .prevent_less_than_40_damage
+	jr z, PreventLessThan40Damage_DE
 	cp SUBSTATUS1_HALVE_DAMAGE
-	jr z, .halve_damage
+	jr z, HalveDamage_DE
+	ret
 
-.not_affected_by_substatus1
+
+; check if the defending card (turn holder's arena card) has any
+; Pokémon Power that reduces the damage dealt to it.
+; damage is given in de as input and the possibly updated damage is also returned in de.
+HandleDamageReductionFromPkmnPowers::
 	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
 	ret c
 .pkmn_power
@@ -95,43 +91,42 @@ HandleDamageReductionExceptSubstatus2::
 	ret z
 	ld hl, wTempNonTurnDuelistCardID
 	cphl MR_MIME
-	jr z, .invisible_wall
+	jr z, PreventMoreThan20Damage_DE
 	cphl KABUTO
-	jr z, .kabuto_armor
+	jr z, HalveDamage_DE
 	ld a, [wTempNonTurnDuelistCardStage]
 	cp STAGE2
 	ret nz
 	cphl KABUTOPS
-	jr z, .kabuto_armor
+	jr z, HalveDamage_DE
 	ret
 
-.no_damage
+NoDamage_DE::
 	ld de, 0
 	ret
 
-.reduce_damage_by_10
+ReduceDamageBy10_DE::
 	ld hl, -10
 	add hl, de
 	ld e, l
 	ld d, h
 	ret
 
-.reduce_damage_by_20
+ReduceDamageBy20_DE::
 	ld hl, -20
 	add hl, de
 	ld e, l
 	ld d, h
 	ret
 
-.prevent_less_than_40_damage
+PreventLessThan40Damage_DE::
 	ld bc, 40
 	call CompareDEtoBC
 	ret nc
 	ld de, 0
 	ret
 
-.halve_damage
-.kabuto_armor
+HalveDamage_DE::
 	sra d
 	rr e
 	bit 0, e
@@ -142,10 +137,7 @@ HandleDamageReductionExceptSubstatus2::
 	ld d, h
 	ret
 
-.invisible_wall
-	ld a, [wLoadedAttackCategory]
-	cp POKEMON_POWER
-	ret z
+PreventMoreThan20Damage_DE::
 	ld bc, 30
 	call CompareDEtoBC
 	ret c
@@ -166,7 +158,7 @@ HandleDamageReductionOrNoDamageFromPkmnPowerEffects::
 	ret c
 	ld a, [wTempPlayAreaLocation_cceb]
 	or a
-	call nz, HandleDamageReductionExceptSubstatus2.pkmn_power
+	call nz, HandleDamageReductionFromPkmnPowers.pkmn_power
 	push de ; push damage from call above, which handles Invisible Wall and Kabuto Armor
 	call HandleNoDamageOrEffectSubstatus.pkmn_power
 	call nc, HandleTransparency
