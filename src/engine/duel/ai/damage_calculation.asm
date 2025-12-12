@@ -4,7 +4,6 @@
 ;	a = attack index to take into account
 ;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
 EstimateDamage_VersusDefendingCard:
-	ld [wSelectedAttack], a  ; redundant
 	ld e, a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD
