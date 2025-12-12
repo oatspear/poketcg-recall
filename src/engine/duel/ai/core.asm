@@ -214,6 +214,7 @@ CheckAttackDoesEnoughDamageToKnockOutDefendingCard:
 
 ; returns carry if damage dealt from the loaded attack KOs defending Pokémon
 ; the attack must be usable and have enough energy attached or available in hand
+; FIXME: maybe consider also wAIMaxDamage?
 ; input:
 ;	[hTempPlayAreaLocation_ff9d] = location of attacking card to consider
 ;   [wTempCardDeckIndex] = card owning the selected attack

@@ -24,6 +24,10 @@ AIProcessAttacks:
 	and AI_FLAG_USED_PLUSPOWER
 	jr z, .no_pluspower
 	ld a, [wAIPluspowerAttack]
+	srl a  ; shift right to get deck index
+	ld [wTempCardDeckIndex], a
+	ld a, [wAIPluspowerAttack]
+	and %00000001  ; get attack index
 	ld [wSelectedAttack], a
 	jp .attack_chosen
 

@@ -1045,8 +1045,10 @@ wTempCardIDToLook:: ; cdd4
 wAIPlayAreaCardToSwitch:: ; cdd5
 	ds $1
 
-; the index of attack chosen by AI
-; to use with Pluspower.
+; the index of attack chosen by AI to use with Pluspower.
+; format:
+;   deck index (0-59) shifted left by 1 bit
+;   attack index (0-1) in least significant bit
 wAIPluspowerAttack:: ; cdd6
 	ds $1
 

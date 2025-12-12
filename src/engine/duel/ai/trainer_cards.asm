@@ -728,10 +728,8 @@ AIPlay_Pluspower:
 ; returns carry if using a Pluspower can KO defending Pokémon
 ; if active card cannot KO without the boost.
 ; outputs in a the attack to use.
+; TODO: consider the total number of PLUSPOWER cards in hand
 AIDecide_Pluspower1:
-; this is mistakenly duplicated
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 
@@ -739,11 +737,13 @@ AIDecide_Pluspower1:
 ; if there's an attack that can, only continue
 ; if it's unusable and there's no card in hand
 ; to fulfill its energy cost.
-	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
+; FIXME: use the "could" variant if the evaluation moves
+; up to a phase before the last energy attachment.
+	farcall CheckIfAnyAttackKnocksOutDefendingCard
+	; farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
 
 ; cannot use an attack that knocks out.
-.cannot_ko
 ; get active Pokémon's info.
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -764,158 +764,100 @@ AIDecide_Pluspower1:
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempNonTurnDuelistCardID + 1], a
-	bank1call HandleNoDamageOrEffectSubstatus
+	call HandleNoDamageOrEffectSubstatus
 	call SwapTurn
 	jr c, .no_carry
 
-; check both attacks and decide which one
-; can KO with Pluspower boost.
-; if neither can KO, return no carry.
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	call .check_ko_with_pluspower
-	jr c, .kos_with_pluspower_1
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	call .check_ko_with_pluspower
-	jr c, .kos_with_pluspower_2
+; temporarily change this card's location to
+; recalculate damage with Pluspower boost.
+	ld a, [wAITrainerCardToPlay]
+	add DUELVARS_CARD_LOCATIONS
+	call GetTurnDuelistVariable
+	ld a, CARD_LOCATION_ARENA
+	ld [hl], a
+
+; FIXME: use the "could" variant if the evaluation moves
+; up to a phase before the last energy attachment.
+	farcall CheckIfAnyAttackKnocksOutDefendingCard
+	; farcall CheckIfAnyAttackCouldKnockOutDefendingCard
+
+; restore location after checking both attacks.
+	push af
+	ld a, [wAITrainerCardToPlay]
+	add DUELVARS_CARD_LOCATIONS
+	call GetTurnDuelistVariable
+	ld a, CARD_LOCATION_HAND
+	ld [hl], a
+	pop af
+	jr nc, .no_carry
+
+; can KO with an attack
+	ld a, [wTempCardDeckIndex]
+	rla
+	ld d, a  ; deck index, shifted left one position
+	ld a, [wSelectedAttack]
+	or d  ; attack index on the lowest bit
+	scf
+	ret
 
 .no_carry
 	or a
 	ret
 
-; first attack can KO with Pluspower.
-.kos_with_pluspower_1
-	call .check_mr_mime
-	jr nc, .no_carry
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	scf
-	ret
-; second attack can KO with Pluspower.
-.kos_with_pluspower_2
-	call .check_mr_mime
-	jr nc, .no_carry
-	ld a, SECOND_ATTACK
-	scf
-	ret
-
-; return carry if attack is useable and KOs
-; defending Pokémon with Pluspower boost.
-.check_ko_with_pluspower
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr c, .unusable
-	ld a, [wSelectedAttack]
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
-	ld b, a
-	ld hl, wDamage
-	sub [hl]
-	jr c, .no_carry
-	jr z, .no_carry
-	ld a, [hl]
-	add 10 ; add Pluspower boost
-	ld c, a
-	ld a, b
-	sub c
-	ret c ; return carry if damage > HP left
-	ret nz ; does not KO
-	scf
-	ret ; KOs with Pluspower boost
-.unusable
-	or a
-	ret
-
-; returns carry if Pluspower boost does
-; not exceed 30 damage when facing Mr. Mime.
-.check_mr_mime
-	ld a, [wDamage]
-	add 10 ; add Pluspower boost
-	cp 30 ; no danger in preventing damage
-	ret c
-	call SwapTurn
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	call GetCardIDFromDeckIndex
-	call SwapTurn
-	cp16 MR_MIME
-	ret z
-; damage is >= 30 but not Mr. Mime
-	scf
-	ret
 
 ; returns carry 7/10 of the time
 ; if selected attack is useable, can't KO without Pluspower boost
 ; can damage Mr. Mime even with Pluspower boost
 ; and has a minimum damage > 0.
 ; outputs in a the attack to use.
+; assume the selected attack is useable.
+; input:
+;	[wSelectedAttack] = selected attack to examine
+;   [wTempCardDeckIndex] = card owning the selected attack
 AIDecide_Pluspower2:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
-	call .check_can_ko
-	jr nc, .no_carry
-	call .check_random
-	jr nc, .no_carry
-	call .check_mr_mime
-	jr nc, .no_carry
-	scf
-	ret
-.no_carry
-	or a
-	ret
+	call AILogic2_LoadSelectedAttackData
+	; farcall CheckIfAttackKnocksOutDefendingCard
+	farcall CheckAttackDoesEnoughDamageToKnockOutDefendingCard
+	ccf
+	ret nc  ; the attack can already KO
+
+	ld a, [wAIMinDamage]
+	cp 10
+	ccf
+	ret nc  ; minimum damage < 10
+
+	ld a, 10
+	call Random
+	cp 3
+	ret nc  ; 3/10 chance of carry
 
 ; returns carry if Pluspower boost does
-; not exceed 30 damage when facing Mr. Mime.
-.check_mr_mime
+; not exceed 30 damage when facing Mr. Mime
 	ld a, [wDamage]
 	add 10 ; add Pluspower boost
-	cp 30 ; no danger in preventing damage
+	cp 30 ; no danger of preventing damage
 	ret c
+
 	call SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
 	call SwapTurn
 	cp16 MR_MIME
-	ret z
+	jr nz, .not_mr_mime
+; check if Mr. Mime can be damaged through Pokémon Power
+	call SwapTurn
+	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
+	call SwapTurn
+	ret  ; no carry = cannot damage Mr. Mime
+
 ; damage is >= 30 but not Mr. Mime
+.not_mr_mime
 	scf
 	ret
 
-; return carry if attack is useable but cannot KO.
-.check_can_ko
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr c, .unusable
-	ld a, [wSelectedAttack]
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
-	ld b, a
-	ld hl, wDamage
-	sub [hl]
-	jr c, .no_carry
-	jr z, .no_carry
-; can't KO.
-	scf
-	ret
-.unusable
-	or a
-	ret
-
-; return carry 7/10 of the time if
-; attack is useable and minimum damage > 0.
-.check_random
-	farcall Old_CheckIfSelectedAttackIsUnusable
-	jr c, .unusable
-	ld a, [wSelectedAttack]
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, [wAIMinDamage]
-	cp 10
-	jr c, .unusable
-	ld a, 10
-	call Random
-	cp 3
-	ret
 
 AIPlay_Switch:
 	ld a, [wCurrentAIFlags]

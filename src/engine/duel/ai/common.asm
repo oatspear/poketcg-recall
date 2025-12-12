@@ -1167,3 +1167,11 @@ AILogic2_EvaluateSelectedAttack:
 	ld a, [wAIEvaluationFunctionPointer + 1]
 	ld h, a
 	jp hl
+
+
+AILogic2_LoadSelectedAttackData:
+	ld a, [wTempCardDeckIndex]
+	ld d, a
+	ld a, [wSelectedAttack]
+	ld e, a
+	jp CopyAttackDataAndDamage_FromDeckIndex
