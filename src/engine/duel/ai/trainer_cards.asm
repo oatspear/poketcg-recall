@@ -941,8 +941,7 @@ AIDecide_GustOfWind:
 	or a
 	ret z ; no bench cards
 
-; if used Gust Of Wind already,
-; do not use it again.
+; if used Gust Of Wind already, do not use it again.
 	ld a, [wPreviousAIFlags]
 	and AI_FLAG_USED_GUST_OF_WIND
 	ret nz
@@ -955,8 +954,7 @@ AIDecide_GustOfWind:
 	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry ; if KO attack is useable
 
-.check_id
-	; skip if current active card is MEW_LV23 or MEWTWO_LV53
+; skip if current active card is MEW_LV23 or MEWTWO_LV53
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
@@ -965,16 +963,15 @@ AIDecide_GustOfWind:
 	cp16 MEWTWO_LV53
 	jr z, .no_carry
 
-	call .FindBenchCardToKnockOut
+	call AIFindBenchCardToKnockOut
 	ret c
 
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
-	call .CheckIfNoAttackDealsDamage
-	jr c, .check_bench_energy
+	xor a  ; PLAY_AREA_ARENA
+	farcall CheckIfCanDamageDefendingPokemon
+	jr nc, .check_bench_energy
 
-	; skip if current arena card's color is
-	; the defending card's weakness
+; can damage defending card
+; skip if current arena card's color is the defending card's weakness
 	call GetArenaCardColor
 	call TranslateColorToWR
 	ld b, a
@@ -985,10 +982,8 @@ AIDecide_GustOfWind:
 	jr nz, .no_carry
 
 ; check weakness
-	call .FindBenchCardWithWeakness
-	ret nc ; no bench card weak to arena card
-	scf
-	ret ; found bench card weak to arena card
+; carry if there's a bench card weak to arena card
+	jp AIFindBenchCardWithWeakness
 
 .no_carry
 	or a
@@ -997,12 +992,17 @@ AIDecide_GustOfWind:
 ; being here means AI's arena card cannot damage player's arena card
 
 ; first check if there is a card in player's bench that
-; has no attached energy cards and that the AI can damage
+; is weak to the Active Pokémon and that the AI can damage
 .check_bench_energy
-	; return carry if there's a bench card with weakness
-	call .FindBenchCardWithWeakness
+	call GetArenaCardColor
+	call TranslateColorToWR
+	ld b, a
+; return carry if there's a bench card with weakness
+	call AIFindBenchCardWithWeakness
 	ret c
 
+; next, loop through bench to find a card
+; that has no energy attached and that AI can damage
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetNonTurnDuelistVariable
 	ld d, a
@@ -1018,21 +1018,22 @@ AIDecide_GustOfWind:
 	ld a, [wTotalAttachedEnergies]
 	or a
 	jr nz, .loop_1 ; skip if has energy attached
-	call .CheckIfCanDamageBenchedCard
+	call AICheckIfCanDamageBenchedCard
 	jr nc, .loop_1
 	ld a, e
 	scf
 	ret
 
+; finally, find the benched card with the least amount of HP
 .check_bench_hp
 	ld a, $ff
 	ld [wce06], a
 	xor a
 	ld [wce08], a
-	ld e, a
+	ld e, a  ; PLAY_AREA_ARENA
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetNonTurnDuelistVariable
-	ld d, a
+	ld d, a  ; loop counter
 
 ; find bench card with least amount of available HP
 .loop_2
@@ -1047,7 +1048,7 @@ AIDecide_GustOfWind:
 	inc b
 	cp b
 	jr c, .loop_2
-	call .CheckIfCanDamageBenchedCard
+	call AICheckIfCanDamageBenchedCard
 	jr nc, .loop_2
 	dec b
 	ld a, b
@@ -1066,92 +1067,56 @@ AIDecide_GustOfWind:
 	scf
 	ret
 
-.check_can_damage
-	push bc
-	push hl
-	xor a ; PLAY_AREA_ARENA
-	farcall CheckIfCanDamageDefendingPokemon
-	pop hl
-	pop bc
-	jr nc, .loop_3
-	ld a, c
-	scf
-	ret
-
-; returns carry if any of the player's
-; benched cards is weak to color in b
-; and has a way to damage it
-.FindBenchCardWithWeakness
+; returns carry if any of the player's benched cards
+; is weak to color in b and has a way to damage it
+AIFindBenchCardWithWeakness:
 	ld a, DUELVARS_BENCH
 	call GetNonTurnDuelistVariable
 	ld c, PLAY_AREA_ARENA
-.loop_3
+.loop
 	inc c
 	ld a, [hli]
 	cp $ff
-	jr z, .no_carry
+	ret z  ; no carry
+
+	ld d, a  ; player's bench card deck index
 	call SwapTurn
 	call LoadCardDataToBuffer1_FromDeckIndex
 	call SwapTurn
 	ld a, [wLoadedCard1Weakness]
 	and b
-	jr nz, .check_can_damage
-	jr .loop_3
+	jr z, .loop
 
-; returns carry if neither attack can deal damage
-.CheckIfNoAttackDealsDamage
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	call .CheckIfAttackDealsNoDamage
-	jr c, .second_attack
-	ret
-.second_attack
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	call .CheckIfAttackDealsNoDamage
-	jr c, .true
-	ret
-.true
-	scf
-	ret
-
-; returns carry if attack is Pokemon Power
-; or otherwise doesn't deal any damage
-.CheckIfAttackDealsNoDamage
-	ld a, [wSelectedAttack]
-	ld e, a
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	ld d, a
-	call CopyAttackDataAndDamage_FromDeckIndex
-	ld a, [wLoadedAttackCategory]
-
-	; skip if attack is a Power or has 0 damage
-	cp POKEMON_POWER
-	jr z, .no_damage
-	ld a, [wDamage]
-	or a
-	ret z
-
-	; check damage against defending card
-	ld a, [wSelectedAttack]
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, [wAIMaxDamage]
-	or a
-	ret nz
-
-.no_damage
+; check if AI can damage this benched card
+	push bc
+	push hl
+; overwrite the player's active card and its HP
+; with the current bench card that is being checked
+	ld a, d  ; player's bench card deck index
+	ld e, c  ; player's bench card play area location
+	call AILogic2_ReplacePlayerArenaCardWithBenchCard
+; check if the current bench card can be damaged
+	xor a ; PLAY_AREA_ARENA
+	farcall CheckIfCanDamageDefendingPokemon
+; revert the player's arena card
+	push af
+	call AILogic2_RestorePlayerArenaCardAndBenchCard
+	pop af
+	pop hl
+	pop bc
+	jr nc, .loop
+	ld a, c
 	scf
 	ret
 
 ; returns carry if there is a player's bench card that
 ; the opponent's current active card can KO
-.FindBenchCardToKnockOut
+AIFindBenchCardToKnockOut:
 	ld a, DUELVARS_BENCH
 	call GetNonTurnDuelistVariable
 	ld e, PLAY_AREA_BENCH_1
 
-.loop_4
+.loop
 	ld a, [hli]
 	cp $ff
 	ret z
@@ -1160,121 +1125,79 @@ AIDecide_GustOfWind:
 ; with the current bench card that is being checked
 	push hl
 	push de
-	ld b, a
-	ld a, DUELVARS_ARENA_CARD
-	call GetNonTurnDuelistVariable
-	push af
-	ld [hl], b
-	ld a, e
-	add DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
-	ld b, a
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
-	push af
-	ld [hl], b
-
+	call AILogic2_ReplacePlayerArenaCardWithBenchCard
+; check if the current bench card can be KOed
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
-	jr c, .found
-
-; the following two local routines can be condensed into one
-; since they both revert the player's arena card
-.next
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
+; revert the player's arena card
+	push af
+	call AILogic2_RestorePlayerArenaCardAndBenchCard
 	pop af
-	ld [hl], a
-	ld a, DUELVARS_ARENA_CARD
-	call GetNonTurnDuelistVariable
-	pop af
-	ld [hl], a
-	pop de
-	inc e
-	pop hl
-	jr .loop_4
-
-; revert player's arena card and set carry
-.found
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
-	pop af
-	ld [hl], a
-	ld a, DUELVARS_ARENA_CARD
-	call GetNonTurnDuelistVariable
-	pop af
-	ld [hl], a
 	pop de
 	ld a, e
 	pop hl
-	scf
-	ret
+	ret c  ; found a bench card that can be KOed
 
-; returns carry if opponent's arena card can damage
-; this benched card if it were switched with
-; the player's arena card
-.CheckIfCanDamageBenchedCard
+; continue to next bench card
+	inc e
+	jr .loop
+
+
+; returns carry if opponent's arena card can damage this benched
+; card if it were switched with the player's arena card
+AICheckIfCanDamageBenchedCard:
 	push bc
 	push de
 	push hl
-
-	; overwrite arena card data
+; overwrite arena card data
 	ld a, e
 	add DUELVARS_ARENA_CARD
 	call GetNonTurnDuelistVariable
+	call AILogic2_ReplacePlayerArenaCardWithBenchCard
+; check if can damage
+	xor a ; PLAY_AREA_ARENA
+	farcall CheckIfCanDamageDefendingPokemon
+; revert arena card data
+	push af
+	call AILogic2_RestorePlayerArenaCardAndBenchCard
+	pop af
+	pop hl
+	pop de
+	pop bc
+	ret  ; carry set = can damage
+
+
+; input:
+;   a = player's bench card deck index
+;   e = player's bench card play area location
+AILogic2_ReplacePlayerArenaCardWithBenchCard:
 	ld b, a
 	ld a, DUELVARS_ARENA_CARD
 	call GetNonTurnDuelistVariable
-	push af
+	ld [wTempAIPokemonCard], a
 	ld [hl], b
-
-	; overwrite arena card HP
 	ld a, e
 	add DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
 	ld b, a
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
-	push af
+	ld [wTempHPBuffer], a
 	ld [hl], b
+	ret
 
-	xor a ; PLAY_AREA_ARENA
-	farcall CheckIfCanDamageDefendingPokemon
-	jr c, .can_damage
-
-; the following two local routines can be condensed into one
-; since they both revert the player's arena card
-
-; can't damage
+AILogic2_RestorePlayerArenaCardAndBenchCard:
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
-	pop af
+	ld a, [wTempHPBuffer]
 	ld [hl], a
 	ld a, DUELVARS_ARENA_CARD
 	call GetNonTurnDuelistVariable
-	pop af
+	ld a, [wTempAIPokemonCard]
 	ld [hl], a
-	pop hl
-	pop de
-	pop bc
-	or a
 	ret
 
-.can_damage
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetNonTurnDuelistVariable
-	pop af
-	ld [hl], a
-	ld a, DUELVARS_ARENA_CARD
-	call GetNonTurnDuelistVariable
-	pop af
-	ld [hl], a
-	pop hl
-	pop de
-	pop bc
-	scf
-	ret
 
 AIPlay_Bill:
 	ld a, [wAITrainerCardToPlay]
