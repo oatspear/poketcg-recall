@@ -1232,25 +1232,17 @@ AIDecide_EnergyRemoval:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
-	jr nc, .cannot_ko
+	ld a, PLAY_AREA_ARENA
+	jr nc, .check_bench_energy
 
-; can KO
-	; start checking from the bench
-	ld a, PLAY_AREA_BENCH_1
-	ld [wce0f], a
-	jr .check_bench_energy
-
-.cannot_ko
-	; start checking from the arena card
-	xor a ; PLAY_AREA_ARENA
-	ld [wce0f], a
-
+; can KO, start checking from the bench
+	inc a  ; PLAY_AREA_BENCH_1
 ; loop each card and check if it has enough energy to use any attack
 ; if it does, then proceed to pick an energy card to remove
 .check_bench_energy
-	call SwapTurn
-	ld a, [wce0f]
+	ld [wce0f], a
 	ld e, a
+	call SwapTurn
 .loop_1
 	ld a, DUELVARS_ARENA_CARD
 	add e
@@ -1261,7 +1253,7 @@ AIDecide_EnergyRemoval:
 	ld d, a
 	call .CheckIfCardHasEnergyAttached
 	jr nc, .next_1
-	call .CheckIfNotEnoughEnergyToAttack
+	call AICheckIfNotEnoughEnergyToAttack
 	jr nc, .pick_energy ; jump if enough energy to attack
 .next_1
 	inc e
@@ -1276,17 +1268,17 @@ AIDecide_EnergyRemoval:
 	call PickAttachedEnergyCardToRemove
 	ld [wce1a], a
 	pop af
-	call SwapTurn
 	scf
-	ret
+	jp SwapTurn
 
 ; if no card in player's Play Area was found with enough energy
 ; to attack, just pick an energy card from player's active card
 ; (in case the AI cannot KO it this turn)
 .default
 	ld a, [wce0f]
-	or a
+	or a  ; cp PLAY_AREA_ARENA
 	jr nz, .check_bench_damage ; not active card
+	ld e, a  ; PLAY_AREA_ARENA
 	call .CheckIfCardHasEnergyAttached
 	jr c, .pick_energy
 
@@ -1294,7 +1286,7 @@ AIDecide_EnergyRemoval:
 ; and pick an energy card attached to that Pokemon to remove
 .check_bench_damage
 	xor a
-	ld [wce06], a
+	ld [wAITempAttackDamage], a
 	ld [wce08], a
 
 	ld e, PLAY_AREA_BENCH_1
@@ -1308,7 +1300,7 @@ AIDecide_EnergyRemoval:
 	ld d, a
 	call .CheckIfCardHasEnergyAttached
 	jr nc, .next_2
-	call .FindHighestDamagingAttack
+	call AIFindHighestDamagingAttack
 .next_2
 	inc e
 	jr .loop_2
@@ -1316,13 +1308,9 @@ AIDecide_EnergyRemoval:
 .found_damage
 	ld a, [wce08]
 	or a
-	jr z, .no_carry ; skip if none found
+	jp z, SwapTurn ; skip if none found
 	ld e, a
 	jr .pick_energy
-.no_carry
-	call SwapTurn
-	or a
-	ret
 
 ; returns carry if this card has any energy cards attached
 .CheckIfCardHasEnergyAttached
@@ -1333,95 +1321,50 @@ AIDecide_EnergyRemoval:
 	scf
 	ret
 
-; returns carry if this card does not
-; have enough energy for either of its attacks
-.CheckIfNotEnoughEnergyToAttack
-	push de
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall Old_CheckEnergyNeededForAttack
-	jr nc, .enough_energy
-	pop de
 
-	push de
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall Old_CheckEnergyNeededForAttack
-	jr nc, .check_surplus
-	pop de
-
-; neither attack has enough energy
-	scf
-	ret
-
-.enough_energy
-	pop de
-	or a
-	ret
-
-; first attack doesn't have enough energy (or is just a Pokemon Power)
-; but second attack has enough energy to be used
-; check if there's surplus energy for attack and, if so, return carry
-.check_surplus
-	farcall CheckIfNoSurplusEnergyForLoadedAttack
-	pop de
-	ccf
-	ret
-
-; stores in wce06 the highest damaging attack
+; stores in wAITempAttackDamage the highest damaging attack
 ; for the card in play area location in e
 ; and stores this card's location in wce08
-.FindHighestDamagingAttack
+; input:
+;	[wAITempAttackDamage] = minimum damage to beat
+;   e = play area location of the card to check
+; output:
+;	[wAITempAttackDamage] = largest damage of all attacks
+;   [wce08] = play area location of the card, if any attack found
+AIFindHighestDamagingAttack:
 	push de
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, [wDamage]
-	or a
-	jr z, .skip_1
-	ld e, a
-	ld a, [wce06]
-	cp e
-	jr nc, .skip_1
-	ld a, e
-	ld [wce06], a ; store this damage value
-	pop de
-	ld a, e
-	ld [wce08], a ; store this location
-	jr .second_attack
-
-.skip_1
-	pop de
-
-.second_attack
-	push de
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-
-	ld a, SECOND_ATTACK
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, [wDamage]
-	or a
-	jr z, .skip_2
-	ld e, a
-	ld a, [wce06]
-	cp e
-	jr nc, .skip_2
-	ld a, e
-	ld [wce06], a ; store this damage value
-	pop de
-	ld a, e
-	ld [wce08], a ; store this location
-	ret
-.skip_2
+; estimate damage for all attacks of the card
+	ld hl, .EstimateDamage
+	call AILogic2_ForAllAttacksOfPokemon
+; loop through all attack scores and find the highest damaging attack
+	ld a, [wAITempAttackDamage]
+	ld d, a  ; initial highest damage
+	ld e, 6  ; number of attacks to check
+	ld hl, wAIScoreAllAttacks
+.loop
+	ld a, [hli]
+	cp d
+	jr c, .next_attack
+	jr z, .next_attack
+; found new highest damage
+	ld d, a
+	ld [wAITempAttackDamage], a
+; store this card's location
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ld [wce08], a
+.next_attack
+	dec e
+	jr nz, .loop
 	pop de
 	ret
+
+.EstimateDamage
+	farcall EstimateDamageOfLoadedAttack_VersusDefendingCard
+	ld a, [wDamage]
+	ret
+
 
 AIPlay_SuperEnergyRemoval:
 	ld a, [wAITrainerCardToPlay]
@@ -1446,14 +1389,14 @@ AIPlay_SuperEnergyRemoval:
 AIDecide_SuperEnergyRemoval:
 	ld e, PLAY_AREA_BENCH_1
 .loop_1
-; first find an Arena card with a color energy card
+; first find a Benched card with a color energy card
 ; to discard for card effect
-; return immediately if no Arena cards
+; return immediately if no Bench cards
 	ld a, DUELVARS_ARENA_CARD
 	add e
 	call GetTurnDuelistVariable
 	cp $ff
-	jr z, .exit
+	ret z  ; exit
 
 	ld d, a
 	push de
@@ -1463,30 +1406,7 @@ AIDecide_SuperEnergyRemoval:
 	inc e
 	jr .loop_1
 
-; returns carry if an energy card other than double colorless
-; is found attached to the card in play area location e
-.LookForNonDoubleColorless
-	ld a, e
-	call CreateArenaOrBenchEnergyCardList
-	ld hl, wDuelTempList
-.loop_2
-	ld a, [hli]
-	cp $ff
-	ret z
-	call LoadCardDataToBuffer1_FromDeckIndex
-	ld hl, wLoadedCard1ID
-	cphl DOUBLE_COLORLESS_ENERGY
-	; any basic energy card
-	; will set carry flag here
-	jr nc, .loop_2
-	ret
-
-.exit
-	or a
-	ret
-
-; card in Play Area location e was found with
-; a basic energy card
+; card in Play Area location e was found with a basic energy card
 .not_double_colorless
 	ld a, e
 	ld [wce0f], a
@@ -1497,18 +1417,11 @@ AIDecide_SuperEnergyRemoval:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
-	jr nc, .cannot_ko
-
-; can KO
-	; start checking from the bench
-	call SwapTurn
-	ld e, PLAY_AREA_BENCH_1
-	jr .loop_3
-
-.cannot_ko
-	; start checking from the arena card
 	call SwapTurn
 	ld e, PLAY_AREA_ARENA
+	jr nc, .loop_3
+; can KO, start checking from the bench
+	inc e  ; PLAY_AREA_BENCH_1
 
 ; loop each card and check if it has enough energy to use any attack
 ; if it does, then proceed to pick energy cards to remove
@@ -1522,7 +1435,7 @@ AIDecide_SuperEnergyRemoval:
 	ld d, a
 	call .CheckIfFewerThanTwoEnergyCards
 	jr c, .next_1
-	call .CheckIfNotEnoughEnergyToAttack
+	call AICheckIfNotEnoughEnergyToAttack
 	jr nc, .found_card ; jump if enough energy to attack
 .next_1
 	inc e
@@ -1557,7 +1470,7 @@ AIDecide_SuperEnergyRemoval:
 ; and pick an energy card attached to that Pokemon to remove
 .check_bench_damage
 	xor a
-	ld [wce06], a
+	ld [wAITempAttackDamage], a
 	ld [wce08], a
 
 	ld e, PLAY_AREA_BENCH_1
@@ -1571,9 +1484,9 @@ AIDecide_SuperEnergyRemoval:
 	ld d, a
 	call .CheckIfFewerThanTwoEnergyCards
 	jr c, .next_2
-	call .CheckIfNotEnoughEnergyToAttack
+	call AICheckIfNotEnoughEnergyToAttack
 	jr c, .next_2
-	call .FindHighestDamagingAttack
+	call AIFindHighestDamagingAttack
 .next_2
 	inc e
 	jr .loop_4
@@ -1583,9 +1496,27 @@ AIDecide_SuperEnergyRemoval:
 	or a
 	jr z, .no_carry
 	jr .pick_energy
+
 .no_carry
 	call SwapTurn
 	or a
+	ret
+
+; returns carry if an energy card other than double colorless
+; is found attached to the card in play area location e
+.LookForNonDoubleColorless
+	ld a, e
+	call CreateArenaOrBenchEnergyCardList
+	ld hl, wDuelTempList
+.loop_2
+	ld a, [hli]
+	cp $ff
+	ret z
+	call LoadCardDataToBuffer1_FromDeckIndex
+	ld hl, wLoadedCard1ID
+	cphl DOUBLE_COLORLESS_ENERGY
+; any basic energy card will set carry flag here
+	jr nc, .loop_2
 	ret
 
 ; returns carry if the number of energy cards attached
@@ -1608,104 +1539,35 @@ AIDecide_SuperEnergyRemoval:
 	inc hl
 	dec b
 	jr nz, .loop_5
-	ld b, [hl]
+; double colorless energy count
+	ld b, [hl]  ; colorless
 	srl b
 	add b
 	cp 2
 	ret
 
+
 ; returns carry if this card does not
-; have enough energy for either of its attacks
-.CheckIfNotEnoughEnergyToAttack
-	push de
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	ld [wSelectedAttack], a
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall Old_CheckEnergyNeededForAttack
-	jr nc, .enough_energy
-	pop de
-
-	push de
-	ld a, SECOND_ATTACK
-	ld [wSelectedAttack], a
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-	farcall Old_CheckEnergyNeededForAttack
-	jr nc, .check_surplus
-	pop de
-
-; neither attack has enough energy
-	scf
-	ret
-
-.enough_energy
-	pop de
-	or a
-	ret
-
-; first attack doesn't have enough energy (or is just a Pokemon Power)
-; but second attack has enough energy to be used
-; check if there's surplus energy for attack and, if so,
-; return carry if this surplus energy is at least 2
-.check_surplus
-	farcall CheckIfNoSurplusEnergyForLoadedAttack
-	cp 2
-	jr c, .enough_energy
-	pop de
-	scf
-	ret
-
-; stores in wce06 the highest damaging attack
-; for the card in play area location in e
-; and stores this card's location in wce08
-.FindHighestDamagingAttack
+; have enough energy for any of its attacks
+AICheckIfNotEnoughEnergyToAttack:
 	push de
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
-
-	xor a ; FIRST_ATTACK_OR_PKMN_POWER
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, [wDamage]
-	or a
-	jr z, .skip_1
-	ld e, a
-	ld a, [wce06]
-	cp e
-	jr nc, .skip_1
-	ld a, e
-	ld [wce06], a ; store this damage value
+	ld hl, .CheckEnoughEnergyToUseAttack
+	call AILogic2_FindMatchingAttack
 	pop de
-	ld a, e
-	ld [wce08], a ; store this location
-	jr .second_attack
-
-.skip_1
-	pop de
-
-.second_attack
-	push de
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-
-	ld a, SECOND_ATTACK
-	farcall EstimateDamage_VersusDefendingCard
-	ld a, [wDamage]
-	or a
-	jr z, .skip_2
-	ld e, a
-	ld a, [wce06]
-	cp e
-	jr nc, .skip_2
-	ld a, e
-	ld [wce06], a ; store this damage value
-	pop de
-	ld a, e
-	ld [wce08], a ; store this location
+; flip carry flag
+; carry would be set if an attack is usable
+	ccf
 	ret
-.skip_2
-	pop de
+
+; returns carry if the loaded attack is an actual attack
+; and the Pokémon has enough energy to use it
+.CheckEnoughEnergyToUseAttack
+	farcall CheckEnergyNeededForLoadedAttack
+	ccf
 	ret
+
 
 AIPlay_PokemonBreeder:
 	ld a, [wAITrainerCardToPlay]
