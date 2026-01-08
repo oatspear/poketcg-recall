@@ -1101,6 +1101,83 @@ AICheckIfAttackIsHighRecoil:
 	ret
 
 
+; initialize attack scores to zero
+AILogic2_ResetAIAttackScores:
+	xor a
+	; jr AILogic2_InitAIAttackScores
+	; fallthrough
+
+; initialize attack scores to value in a
+AILogic2_InitAIAttackScores:
+; basic stage
+	ld [wAIScoreAllAttacks + 0], a
+	ld [wAIScoreAllAttacks + 1], a
+; stage 1
+	ld [wAIScoreAllAttacks + 2], a
+	ld [wAIScoreAllAttacks + 3], a
+; stage 2
+	ld [wAIScoreAllAttacks + 4], a
+	ld [wAIScoreAllAttacks + 5], a
+	ret
+
+
+; input:
+;   hl = pointer to evaluation function
+;   [hTempPlayAreaLocation_ff9d] = location of the Pokémon to check
+AILogic2_ForAllAttacksOfPokemon:
+; preload previous stages
+	push hl
+	call GetCardOneStageBelow
+	pop hl
+	; jr AILogic2_ForAllAttacksOfAllPokemonStages
+	; fallthrough
+
+; input:
+;   hl = pointer to evaluation function
+;   [hTempPlayAreaLocation_ff9d] = location of the Pokémon to check
+;   [wAllStagesIndices] = stack of all Pokémon stages at location
+AILogic2_ForAllAttacksOfAllPokemonStages:
+; store evaluation function pointer
+	ld a, l
+	ld [wAIEvaluationFunctionPointer], a
+	ld a, h
+	ld [wAIEvaluationFunctionPointer + 1], a
+; initialize attack scores
+	call AILogic2_ResetAIAttackScores
+; basic stage, always exists
+	ld a, [wAllStagesIndices + BASIC]
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call AILogic2_EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 0], a
+	ld e, SECOND_ATTACK
+	call AILogic2_EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 1], a
+; stage 1
+	ld a, [wAllStagesIndices + STAGE1]
+	cp $ff
+	jr z, .stage2
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call AILogic2_EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 2], a
+	ld e, SECOND_ATTACK
+	call AILogic2_EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 3], a
+.stage2
+	ld a, [wAllStagesIndices + STAGE2]
+	cp $ff
+	ret z  ; nothing here
+	ld [wTempCardDeckIndex], a
+	ld e, FIRST_ATTACK_OR_PKMN_POWER
+	call AILogic2_EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 4], a
+	ld e, SECOND_ATTACK
+	call AILogic2_EvaluateSelectedAttack
+	ld [wAIScoreAllAttacks + 5], a
+	ret
+
+
 ; input:
 ;   hl = pointer to predicate function (carry if match)
 ;   [hTempPlayAreaLocation_ff9d] = location of the Pokémon to check
