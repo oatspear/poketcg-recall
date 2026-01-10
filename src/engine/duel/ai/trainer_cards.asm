@@ -2887,17 +2887,19 @@ AIDecide_EnergySearch:
 	ret
 
 .start
+; if no energy cards in deck, return no carry
+	ld a, CARD_LOCATION_DECK
+	call FindBasicEnergyCardsInLocation
+	jr c, .no_carry
+
+; handle Heated Battle and Wonders of Science decks
 	ld a, [wOpponentDeckID]
 	cp HEATED_BATTLE_DECK_ID
 	jr z, .heated_battle
 	cp WONDERS_OF_SCIENCE_DECK_ID
 	jr z, .wonders_of_science
 
-; if no energy cards in deck, return no carry
-	ld a, CARD_LOCATION_DECK
-	call FindBasicEnergyCardsInLocation
-	jr c, .no_carry
-
+; general case for other decks
 ; if any of the energy cards in deck is useful
 ; return carry right away...
 	call .CheckForUsefulEnergyCards
@@ -2914,18 +2916,12 @@ AIDecide_EnergySearch:
 ; Heated Battle deck only searches for Fire and Lightning
 ; if they are found to be useful to some card in Play Area
 .heated_battle
-	ld a, CARD_LOCATION_DECK
-	call FindBasicEnergyCardsInLocation
-	jr c, .no_carry
 	call .CheckUsefulFireOrLightningEnergy
 	jr c, .no_carry
 	scf
 	ret
 
 .wonders_of_science
-	ld a, CARD_LOCATION_DECK
-	call FindBasicEnergyCardsInLocation
-	jr c, .no_carry
 	call .CheckUsefulGrassEnergy
 	jr c, .no_carry
 	scf
@@ -3052,7 +3048,6 @@ AIDecide_EnergySearch:
 ; only for Grass type Pokemon cards
 ; in Play Area. If none found, return carry.
 .CheckUsefulGrassEnergy
-; unreferenced
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ld d, a
