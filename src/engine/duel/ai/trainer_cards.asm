@@ -4210,18 +4210,12 @@ AIPlay_Gambler:
 	ret
 
 ; checks whether to play Gambler.
-; aside from Imakuni?, all other opponents only
-; play this card if Player is running MewtwoLv53-only deck.
+; opponents play this card differently if Player is running MewtwoLv53-only deck.
 AIDecide_Gambler:
-; Imakuni? has his own routine
-	ld a, [wOpponentDeckID]
-	cp IMAKUNI_DECK_ID
-	jr z, .imakuni
-
 ; check if flag is set for Player using MewtwoLv53 only deck
 	ld a, [wAIBarrierFlagCounter]
 	and AI_MEWTWO_MILL
-	jr z, .no_carry
+	jr z, .not_mewtwo_mill
 
 ; set carry if number of cards in deck <= 4.
 ; this is done to counteract the deck out strategy
@@ -4229,20 +4223,16 @@ AIDecide_Gambler:
 	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
 	call GetTurnDuelistVariable
 	cp DECK_SIZE - 4
-	jr nc, .set_carry
-.no_carry
-	or a
+	ccf
 	ret
 
-.imakuni
-; has a 2 in 10 chance of returning carry
-	ld a, 10
-	call Random
+; set carry if this is the only card left in hand
+.not_mewtwo_mill
+	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
+	call GetTurnDuelistVariable
 	cp 2
-	jr nc, .no_carry
-.set_carry
-	scf
 	ret
+
 
 AIPlay_Revive:
 	ld a, [wAITrainerCardToPlay]
