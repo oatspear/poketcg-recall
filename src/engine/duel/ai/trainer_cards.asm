@@ -4028,7 +4028,7 @@ AIDecide_Lass:
 	call CreateHandCardList
 	ld hl, wDuelTempList
 	ld c, 0
-.loop
+.loop_player
 	ld a, [hli]
 	cp $ff
 	jr z, .tally
@@ -4037,9 +4037,9 @@ AIDecide_Lass:
 	call GetCardType
 	pop bc
 	cp TYPE_TRAINER
-	jr nz, .loop
+	jr nz, .loop_player
 	inc c
-	jr .loop
+	jr .loop_player
 .tally
 	call SwapTurn
 ; return carry if 3 or more Trainer cards in hand
