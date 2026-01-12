@@ -3808,11 +3808,6 @@ AIPlay_Maintenance:
 
 ; AI logic for playing Maintenance
 AIDecide_Maintenance:
-; Imakuni? has his own thing
-	ld a, [wOpponentDeckID]
-	cp IMAKUNI_DECK_ID
-	jr z, .imakuni
-
 ; skip if number of cars in hand < 4.
 	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
 	call GetTurnDuelistVariable
@@ -3827,7 +3822,7 @@ AIDecide_Maintenance:
 	call FindAndRemoveCardFromList
 ; if duplicates are not found, return no carry.
 	call FindDuplicateCards
-	jp c, .no_carry
+	jr c, .no_carry
 
 ; store the first duplicate card and remove it from the list.
 ; run duplicate check again.
@@ -3836,7 +3831,7 @@ AIDecide_Maintenance:
 	call FindAndRemoveCardFromList
 ; if duplicates are not found, return no carry.
 	call FindDuplicateCards
-	jp c, .no_carry
+	jr c, .no_carry
 
 ; store the second duplicate card and return carry.
 	ld [wce1b], a
@@ -3845,48 +3840,6 @@ AIDecide_Maintenance:
 
 .no_carry
 	or a
-	ret
-
-.imakuni
-; has a 2 in 10 chance of not skipping.
-	ld a, 10
-	call Random
-	cp 2
-	jr nc, .no_carry
-
-; skip if number of cards in hand < 3.
-	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
-	call GetTurnDuelistVariable
-	cp 3
-	jr c, .no_carry
-
-; shuffle hand cards
-	call CreateHandCardList
-	ld hl, wDuelTempList
-	call CountCardsInDuelTempList
-	call ShuffleCards
-
-; go through each card and find
-; cards that are different from wAITrainerCardToPlay.
-; if found, add those cards to wce1a and wce1a+1.
-	ld a, [wAITrainerCardToPlay]
-	ld b, a
-	ld c, 2
-	ld de, wce1a
-
-.loop
-	ld a, [hli]
-	cp $ff
-	jr z, .no_carry
-	cp b
-	jr z, .loop
-	ld [de], a
-	inc de
-	dec c
-	jr nz, .loop
-
-; two cards were found, return carry.
-	scf
 	ret
 
 AIPlay_Recycle:
