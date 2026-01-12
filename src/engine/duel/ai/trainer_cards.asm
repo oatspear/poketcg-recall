@@ -4370,7 +4370,7 @@ AIDecide_ClefairyDollOrMysteriousFossil:
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	cp MAX_PLAY_AREA_POKEMON
-	jr nc, .no_carry
+	ret nc
 
 ; store number of Play Area Pokemon cards
 	ld [wce06], a
@@ -4380,18 +4380,14 @@ AIDecide_ClefairyDollOrMysteriousFossil:
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
 	cp16 WIGGLYTUFF
-	jr z, .set_carry
-
-; if number of Play Area Pokemon >= 4, return no carry
-	ld a, [wce06]
-	cp 4
-	jr nc, .no_carry
-
-.set_carry
+	jr nz, .not_wigglytuff
 	scf
 	ret
-.no_carry
-	or a
+
+; if number of Play Area Pokemon >= 4, return no carry
+.not_wigglytuff
+	ld a, [wce06]
+	cp 4
 	ret
 
 AIPlay_Pokeball:
