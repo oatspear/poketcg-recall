@@ -12,6 +12,7 @@
 - Card art can now use up to 8 colors grouped in up to 3 palettes of 4 colors each.
 - The tutorial duel is no longer mandatory.
 - Text speed starts in the fastest setting by default.
+- Slight AI improvements, for example when deciding whether to play certain Trainer cards.
 
 ### Fixed
 - Fixed an assortment of known bugs and glitches in the original game.
