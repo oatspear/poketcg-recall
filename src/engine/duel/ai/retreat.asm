@@ -66,11 +66,41 @@ AIDecideWhetherToRetreat:
 	; call CheckIfNotABossDeckID
 	; jr c, .check_resistance_1
 ; encourage the AI to play an energy to retreat if the Player has only 1 Prize
+; but only if there is a Benched Pokémon that can survive the Defending Pokémon's attacks
 	ld a, [wAIPlayerPrizeCount]
 	cp 2
 	jr nc, .check_prize_count
+
+	ld a, DUELVARS_BENCH
+	call GetTurnDuelistVariable
+	ld b, PLAY_AREA_BENCH_1
+.loop_survivor
+	ld a, [hli]
+	cp $ff
+	jr z, .exit_loop_survivor
+	ld a, b
+	ldh [hTempPlayAreaLocation_ff9d], a
+	inc b
+	push hl
+	push bc
+	call CheckIfDefendingPokemonCanKnockOut
+	pop bc
+	pop hl
+	jr c, .loop_survivor
+	jr .found_bench_survivor
+
+; discourage retreat if all Benched Pokémon can be knocked out by the Player
+.exit_loop_survivor
+	xor a
+	ld [wAIScore], a
+	ret  ; no carry
+
+; found a Benched Pokémon that can survive, encourage retreat
+.found_bench_survivor
 	ld a, TRUE
 	ld [wAIPlayEnergyCardForRetreat], a
+	xor a ; PLAY_AREA_ARENA
+	ldh [hTempPlayAreaLocation_ff9d], a
 
 .defending_cant_ko
 ; smarter AI: do not restrict logic only to boss decks or post-game
