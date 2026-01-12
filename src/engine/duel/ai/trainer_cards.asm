@@ -3564,15 +3564,12 @@ AIDecide_MrFuji:
 	jr z, .next
 
 ; a = damage counters
-; b = hp left
+; b = max hp
 	call CalculateBDividedByA_Bank8
 	cp 20
 	jr nc, .next
 
-; here, HP left in counters is less than twice
-; the number of damage counters, that is:
-; HP < 1/3 max HP
-
+; HP < 1/2 max HP
 ; if value is less than the one found before, store this one.
 	ld hl, wce08
 	cp [hl]
