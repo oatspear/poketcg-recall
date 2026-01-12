@@ -4041,10 +4041,16 @@ AIDecide_Lass:
 	inc c
 	jr .loop
 .tally
-	ld a, c
-	cp 3
-	ccf
-	jp SwapTurn
+	call SwapTurn
+; return carry if 3 or more Trainer cards in hand
+	ld a, 2
+	cp c
+	ret c
+; 20% chance to play Lass even if condition not met
+	ld a, 10
+	call Random
+	cp 2
+	ret
 
 
 AIPlay_ItemFinder:
