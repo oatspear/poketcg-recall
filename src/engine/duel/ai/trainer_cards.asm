@@ -4000,21 +4000,14 @@ AIPlay_Lass:
 	ret
 
 AIDecide_Lass:
-; skip if player has less than 7 cards in hand
-	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
-	call GetNonTurnDuelistVariable
-	cp 7
-	jr c, .no_carry
-
 ; look for Trainer cards in hand (except for Lass)
 ; if any is found, return no carry.
-; otherwise, return carry.
 	call CreateHandCardList
 	ld hl, wDuelTempList
 .loop
 	ld a, [hli]
 	cp $ff
-	jr z, .set_carry
+	jr z, .player_hand
 	ld b, a
 	call LoadCardDataToBuffer1_FromDeckIndex
 	push hl
@@ -4028,9 +4021,31 @@ AIDecide_Lass:
 .no_carry
 	or a
 	ret
-.set_carry
-	scf
-	ret
+
+; skip if the player has less than 3 Trainer cards in hand.
+.player_hand
+	call SwapTurn
+	call CreateHandCardList
+	ld hl, wDuelTempList
+	ld c, 0
+.loop
+	ld a, [hli]
+	cp $ff
+	jr z, .tally
+	push bc
+	call GetCardIDFromDeckIndex
+	call GetCardType
+	pop bc
+	cp TYPE_TRAINER
+	jr nz, .loop
+	inc c
+	jr .loop
+.tally
+	ld a, c
+	cp 3
+	ccf
+	jp SwapTurn
+
 
 AIPlay_ItemFinder:
 	ld a, [wCurrentAIFlags]
