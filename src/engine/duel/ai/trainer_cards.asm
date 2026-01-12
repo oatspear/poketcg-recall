@@ -3667,7 +3667,7 @@ AIDecide_ScoopUp:
 	jr z, .no_carry
 
 ; if (total damage / total HP counters) < 7
-; return carry.
+; return no carry.
 ; (this corresponds to damage counters
 ; being under 70% of the max HP)
 	ld b, a
@@ -3687,8 +3687,8 @@ AIDecide_ScoopUp:
 
 ; this deck will use Scoop Up on a benched ArticunoLv37.
 ; it checks if the defending Pokemon is a Snorlax,
-; but interestingly does not check for Muk in both Play Areas.
-; will also use Scoop Up on
+; or if Muk is in both Play Areas.
+; will also use Scoop Up on Chansey
 .HandleLegendaryArticuno
 ; if less than 3 Play Area Pokemon cards, skip.
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
@@ -3711,15 +3711,13 @@ AIDecide_ScoopUp:
 	cp16 CHANSEY
 	jr nz, .no_carry
 
-; here either ArticunoLv37 or Chansey
-; is the Arena Card.
+; here either ArticunoLv37 or Chansey is the Arena Card.
 .articuno_or_chansey
 ; if can't KO defending Pokemon, check if defending Pokemon
 ; can KO this card. If so, then continue.
 ; If not, return no carry.
 
-; if it can KO the defending Pokemon this turn,
-; return no carry.
+; if it can KO the defending Pokemon this turn, return no carry.
 	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr c, .no_carry
 
@@ -3740,6 +3738,11 @@ AIDecide_ScoopUp:
 	pop bc
 	jp z, .no_carry
 
+; skip if Muk is in play area
+	ld de, MUK
+	call CountPokemonWithActivePkmnPowerInBothPlayAreas  ; preserves bc
+	jp c, .no_carry
+
 ; check attached energy cards.
 ; if it has any, return no carry.
 	ld a, b
@@ -3750,10 +3753,8 @@ AIDecide_ScoopUp:
 	or a
 	pop bc
 	ld a, b
-	jr z, .no_energy
-	jp .no_carry
+	jp nz, .no_carry
 
-.no_energy
 ; has decided to Scoop Up benched card,
 ; store $ff as the Pokemon card to switch to
 ; because there's no need to switch.
@@ -3765,12 +3766,16 @@ AIDecide_ScoopUp:
 	ret
 
 ; this deck will use Scoop Up on a benched ArticunoLv37, ZapdosLv68 or MoltresLv37.
-; interestingly, does not check for Muk in both Play Areas.
 .HandleLegendaryRonald
 ; if less than 3 Play Area Pokemon cards, skip.
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	cp 3
+	jp c, .no_carry
+
+; skip if Muk is in play area
+	ld de, MUK
+	call CountPokemonWithActivePkmnPowerInBothPlayAreas  ; preserves bc
 	jp c, .no_carry
 
 	ld de, ARTICUNO_LV37
