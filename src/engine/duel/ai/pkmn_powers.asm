@@ -145,6 +145,7 @@ HandleAIEnergyTrans:
 .CheckEnoughGrassEnergyCardsForAttack
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
+	ld [wTempCardDeckIndex], a
 	call GetCardIDFromDeckIndex
 	cp16 EXEGGUTOR
 	jr z, .is_exeggutor
@@ -153,7 +154,7 @@ HandleAIEnergyTrans:
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ld a, SECOND_ATTACK
 	ld [wSelectedAttack], a
-	farcall Old_CheckEnergyNeededForAttack
+	farcall CheckEnergyNeededForSelectedAttack
 	jr nc, .attack_false ; return if no energy needed
 
 ; check if colorless energy is needed...
@@ -534,24 +535,12 @@ HandleAIHeal:
 	ld d, a
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
-	ld h, a
-	ld e, PLAY_AREA_ARENA
-	call GetCardDamageAndMaxHP
-	; this seems useless since it was already
-	; checked that Arena card has damage,
-	; so card damage is at least 10.
-	cp 10 + 1
-	jr c, .check_remaining
-	ld a, 10
-	; a = min(10, CardDamage)
 
 ; checks if Defending Pokemon can still KO
 ; if Heal is used on this card.
 ; if Heal prevents KO, return carry.
 .check_remaining
-	ld l, a
-	ld a, h ; load remaining HP
-	add l ; add 1 counter to account for heal
+	add 10 ; add 1 counter to account for heal
 	sub d ; subtract damage of strongest opponent attack
 	jr c, .check_bench
 	jr z, .check_bench
@@ -1123,10 +1112,6 @@ HandleAIDamageSwap:
 ; handles AI logic for attaching energy cards
 ; in Go Go Rain Dance deck.
 HandleAIGoGoRainDanceEnergy:
-	ld a, [wOpponentDeckID]
-	cp GO_GO_RAIN_DANCE_DECK_ID
-	ret nz ; return if not Go Go Rain Dance deck
-
 	ld de, BLASTOISE
 	call CountTurnDuelistPokemonWithActivePkmnPower
 	ret nc ; return if no Blastoise

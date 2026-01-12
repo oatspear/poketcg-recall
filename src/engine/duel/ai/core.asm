@@ -554,22 +554,6 @@ CheckIfLoadedAttackIsUnusableOrNotEnoughEnergy:
 ; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d
 ; and checks if there is enough energy to execute the selected attack
 ; input:
-;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
-;	[wSelectedAttack]         = selected attack to examine
-; output:
-;	b = basic energy still needed
-;	c = colorless energy still needed
-;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
-;	carry set if no attack
-;	       OR if it's a Pokémon Power
-;	       OR if not enough energy for attack
-Old_CheckEnergyNeededForAttack:
-	call CopyAttackDataAndDamage_FromPlayAreaLocation
-	jr CheckEnergyNeededForLoadedAttack
-
-; load selected attack from Pokémon in hTempPlayAreaLocation_ff9d
-; and checks if there is enough energy to execute the selected attack
-; input:
 ;	[wSelectedAttack] = selected attack to examine
 ;   [wTempCardDeckIndex] = card owning the selected attack
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
@@ -2440,9 +2424,8 @@ CheckIfNotABossDeckID:
 	ret
 
 ; probability to return carry:
-; - 50% if deck AI is playing is on the list;
-; - 25% for all other decks;
-; - 0% for boss decks.
+; - 0% for boss decks
+; - 25% for all other decks
 ; used for certain decks to randomly choose
 ; not to play Trainer card or use PKMN Power
 AIChooseRandomlyNotToDoAction:
@@ -2450,38 +2433,15 @@ AIChooseRandomlyNotToDoAction:
 	push hl
 	push de
 	call CheckIfNotABossDeckID
-	jr c, .check_deck
+	jr c, .carry_25_percent
 	pop de
 	pop hl
 	ret
 
-.check_deck
-	ld a, [wOpponentDeckID]
-	cp MUSCLES_FOR_BRAINS_DECK_ID
-	jr z, .carry_50_percent
-	cp BLISTERING_POKEMON_DECK_ID
-	jr z, .carry_50_percent
-	cp WATERFRONT_POKEMON_DECK_ID
-	jr z, .carry_50_percent
-	cp BOOM_BOOM_SELFDESTRUCT_DECK_ID
-	jr z, .carry_50_percent
-	cp KALEIDOSCOPE_DECK_ID
-	jr z, .carry_50_percent
-	cp RESHUFFLE_DECK_ID
-	jr z, .carry_50_percent
-
-; carry 25 percent
+.carry_25_percent
 	ld a, 4
 	call Random
 	cp 1
-	pop de
-	pop hl
-	ret
-
-.carry_50_percent
-	ld a, 4
-	call Random
-	cp 2
 	pop de
 	pop hl
 	ret
