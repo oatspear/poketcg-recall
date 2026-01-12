@@ -1,4 +1,4 @@
-rom := poketcg_evo.gbc
+rom := poketcg_recall.gbc
 
 rom_obj := \
 	src/main.o \
