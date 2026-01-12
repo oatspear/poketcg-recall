@@ -4307,10 +4307,6 @@ AIDecide_PokemonFlute:
 	cp MAX_PLAY_AREA_POKEMON
 	jr nc, .no_carry
 
-	ld a, [wOpponentDeckID]
-	cp IMAKUNI_DECK_ID
-	jr z, .imakuni
-
 	ld a, $ff
 	ld [wce06], a
 	ld [wce08], a
@@ -4359,35 +4355,6 @@ AIDecide_PokemonFlute:
 	ret
 .no_carry
 	or a
-	ret
-
-.imakuni
-; has 2 in 10 chance of not skipping
-	ld a, 10
-	call Random
-	cp 2
-	jr nc, .no_carry
-
-; look for any Basic Pokemon card
-	ld hl, wDuelTempList
-.loop_2
-	ld a, [hli]
-	cp $ff
-	jr z, .no_carry
-	ld b, a
-	call SwapTurn
-	call LoadCardDataToBuffer1_FromDeckIndex
-	call SwapTurn
-	ld a, [wLoadedCard1Type]
-	cp TYPE_ENERGY
-	jr nc, .loop_2
-	ld a, [wLoadedCard1Stage]
-	or a ; BASIC
-	jr nz, .loop_2
-
-; a Basic stage Pokemon was found, return carry
-	ld a, b
-	scf
 	ret
 
 AIPlay_ClefairyDollOrMysteriousFossil:
