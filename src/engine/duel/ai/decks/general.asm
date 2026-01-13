@@ -67,7 +67,6 @@ AIMainTurnLogic:
 	call AIProcessHandTrainerCards
 ; play Energy card if possible
 	call AIProcessAndTryToPlayEnergy
-.skip_energy_attach_1
 ; play Pokemon from hand again
 	call AIDecidePlayPokemonCard
 ; handle Pkmn Powers again
