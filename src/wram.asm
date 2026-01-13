@@ -891,8 +891,7 @@ wTempNonTurnDuelistCardStage:: ;cda2
 	ds $2
 
 wAIDuelVars::
-; unused
-wcda5:: ; cda5
+wAIJustPlacedArenaCardAfterKnockOut:: ; cda5
 	ds $1
 
 ; this is used by AI in order to determine whether

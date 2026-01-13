@@ -5,6 +5,10 @@ AIDecideWhetherToRetreat:
 	or a
 	ret nz  ; unable to retreat
 
+	ld a, [wAIJustPlacedArenaCardAfterKnockOut]
+	or a
+	ret nz  ; just placed arena card after KO
+
 	xor a
 	ld [wAIPlayEnergyCardForRetreat], a
 	call LoadDefendingPokemonColorWRAndPrizeCards
@@ -13,6 +17,7 @@ AIDecideWhetherToRetreat:
 	ld a, [wAIRetreatScore]
 	or a
 	jr z, .check_status
+
 ; boost retreat score if other routines suggested it
 ; add wAIRetreatScore * 8 to score
 	srl a
@@ -25,6 +30,8 @@ AIDecideWhetherToRetreat:
 	call GetTurnDuelistVariable
 	or a
 	jr z, .skip_status_check ; no status
+
+; check for poison
 	and DOUBLE_POISONED
 	jr z, .check_cnf ; no poison
 ; encourage retreat if poisoned
@@ -59,6 +66,7 @@ AIDecideWhetherToRetreat:
 .active_cant_ko
 	call CheckIfDefendingPokemonCanKnockOut
 	jr nc, .defending_cant_ko
+
 	ld a, 3
 	call AIEncourage
 
@@ -107,11 +115,12 @@ AIDecideWhetherToRetreat:
 	; call CheckIfNotABossDeckID
 	; jr c, .check_resistance_1
 ; encourage the AI to retreat if the Player has only 1 Prize
-	ld a, [wAIPlayerPrizeCount]
-	cp 2
-	jr nc, .check_prize_count
-	ld a, 3
-	call AIEncourage
+; FIXME needs better logic to not retreat into worse matchups
+	; ld a, [wAIPlayerPrizeCount]
+	; cp 2
+	; jr nc, .check_prize_count
+	; ld a, 3
+	; call AIEncourage
 
 .check_prize_count
 	ld a, [wAIOpponentPrizeCount]

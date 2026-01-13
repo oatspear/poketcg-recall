@@ -47,7 +47,10 @@ LoadOpponentDeck::
 
 AIDoAction_Turn::
 	ld a, AIACTION_DO_TURN
-	jr AIDoAction
+	call AIDoAction
+	xor a
+	ld [wAIJustPlacedArenaCardAfterKnockOut], a
+	ret
 
 AIDoAction_StartDuel::
 	ld a, AIACTION_START_DUEL
@@ -60,6 +63,8 @@ AIDoAction_ForcedSwitch::
 	ret
 
 AIDoAction_KOSwitch::
+	ld a, TRUE
+	ld [wAIJustPlacedArenaCardAfterKnockOut], a
 	ld a, AIACTION_KO_SWITCH
 	call AIDoAction
 	ldh [hTemp_ffa0], a
