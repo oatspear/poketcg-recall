@@ -400,7 +400,7 @@ BulbasaurExtraDeck:
 	deck_list_end
 	tx BulbasaurExtraDeckName
 
-LightningAndFireDeck:
+LightningAndFireDeck:  ; LIGHTNING_AND_FIRE_DECK
 	deck_list_start
 	card_item FIRE_ENERGY,             10
 	card_item LIGHTNING_ENERGY,        10
@@ -434,7 +434,7 @@ LightningAndFireDeck:
 	deck_list_end
 	tx LightningAndFireDeckName
 
-WaterAndFightingDeck:
+WaterAndFightingDeck:  ; WATER_AND_FIGHTING_DECK
 	deck_list_start
 	card_item WATER_ENERGY,            12
 	card_item FIGHTING_ENERGY,         10
@@ -464,7 +464,7 @@ WaterAndFightingDeck:
 	deck_list_end
 	tx WaterAndFightingDeckName
 
-GrassAndPsychicDeck:
+GrassAndPsychicDeck:  ; GRASS_AND_PSYCHIC_DECK
 	deck_list_start
 	card_item GRASS_ENERGY,   12
 	card_item PSYCHIC_ENERGY, 12
