@@ -119,13 +119,13 @@ AIProcessEnergyCards:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
-	ld [wCurCardCanAttack], a
+	ld [wTempAI2], a
 	call GetAttacksEnergyCostBits
 	ld hl, wDuelTempList
 	call CheckEnergyFlagsNeededInList
 	jp nc, .store_score
 
-	ld a, [wCurCardCanAttack]
+	ld a, [wTempAI2]
 	call CheckForEvolutionInList
 	jr nc, .no_evolution_in_hand
 
@@ -135,7 +135,7 @@ AIProcessEnergyCards:
 	jr .check_venusaur
 
 .no_evolution_in_hand
-	ld a, [wCurCardCanAttack]
+	ld a, [wTempAI2]
 	call CheckForEvolutionInDeck
 	jr nc, .check_venusaur
 	ld a, 1
@@ -484,12 +484,26 @@ DetermineAIScoreOfAttackEnergyRequirement:
 .not_enough_energy
 	ld a, ATTACK_FLAG2_ADDRESS | FLAG_2_BIT_5_F
 	call CheckLoadedAttackFlag
-	jr nc, .check_color_needed
+	jr nc, .check_double_colorless_needed
 	ld a, 5
 	call AIDiscourage
 
 ; if the energy card color needed is in hand, increase AI score.
 ; if a colorless card is needed, increase AI score.
+.check_double_colorless_needed
+	ld a, c
+	cp 2
+	jr c, .check_color_needed
+; needs two colorless energy cards or more
+	push de
+	ld de, DOUBLE_COLORLESS_ENERGY
+	call LookForCardIDInHand  ; preserves bc
+	pop de
+	jr c, .check_color_needed
+	ld a, 5
+	call AIEncourage
+	jr .needs_one_energy
+
 .check_color_needed
 	ld a, b
 	or a
@@ -499,6 +513,7 @@ DetermineAIScoreOfAttackEnergyRequirement:
 	ld a, 4
 	call AIEncourage
 	jr .check_total_needed
+
 .check_colorless_needed
 	ld a, c
 	or a
@@ -515,6 +530,7 @@ DetermineAIScoreOfAttackEnergyRequirement:
 	dec a
 	ret nz  ; done
 
+.needs_one_energy
 	ld a, 3
 	call AIEncourage
 
@@ -709,6 +725,9 @@ GetEnergyCardForDiscardOrEnergyBoostAttack:
 AITryToPlayEnergyCard:
 	ld a, $ff
 	ld [wTempAI], a
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	add DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
 	call CheckCardEvolutionInHandOrDeck
 	jr nc, .check_energy_needs
 
