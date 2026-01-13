@@ -511,6 +511,15 @@ CheckIfAttackIsUnusable:
 ;	[hTempPlayAreaLocation_ff9d] = location of Pokémon card
 ;	[wSelectedAttack] = selected attack to examine
 CheckIfLoadedAttackIsUnusable:
+	ld hl, wLoadedAttackName
+	ld a, [hli]
+	or [hl]
+	jr nz, .attack_or_power
+; empty slot, not an attack
+	scf
+	ret
+
+.attack_or_power
 	ld a, [wLoadedAttackCategory]
 	sub POKEMON_POWER
 	cp 1
@@ -2344,7 +2353,7 @@ CheckIfAnyAttackOfDefendingPokemonCardKnockOut:
 	ld a, [wDamage]
 	ld hl, wAITempAttackDamage
 	cp [hl]
-	jr c, .second_attack  ; not the highest
+	ret c  ; not the highest
 ; new maximum value
 	ld [hl], a
 	ret
