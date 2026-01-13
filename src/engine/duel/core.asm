@@ -977,6 +977,10 @@ DuelMenu_Attack:
 	ldh [hTempCardIndex_ff98], a
 	ld l, DUELVARS_ARENA_CARD_STAGE
 	ld a, [hl]
+	cp STAGE2_WITHOUT_STAGE1
+	jr c, .set_valid_attack_stage
+	ld a, STAGE2
+.set_valid_attack_stage
 	ld [wDuelAttackSubMenuSelectedStage], a
 .try_open_attack_menu
 	call PrintAndLoadAttacksToDuelTempList
@@ -1258,7 +1262,13 @@ PrintAttackMenuSelectButtonHint:
 	ld d, $00
 	ld hl, wAllStagesIndices
 	add hl, de
+.loop
 	ld a, [hl]
+	cp $ff
+	jr nz, .load_card
+	dec hl
+	jr .loop
+.load_card
 	call LoadCardDataToBuffer2_FromDeckIndex
 	call LoadCard2NameToRamText
 	ld d, 2
