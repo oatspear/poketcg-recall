@@ -478,8 +478,10 @@ ENDC
 	ret c ; return if no Bench Pokemon
 
 IF AI_DEBUG_PRINTS
+	push af
 	ldtx hl, AlakazamName
 	call DrawWideTextBox_WaitForInput
+	pop af
 ENDC
 
 ; store Play Area to retreat to and
