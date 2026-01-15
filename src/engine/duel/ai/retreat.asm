@@ -1,3 +1,34 @@
+; Offense check
+; 1. Can I knock out the foe this turn? 
+; 2. If yes, do not retreat. 
+
+; Pivot check
+; 1. Is my EFFECTIVE retreat cost zero? 
+; 2. If no, skip to KO check. 
+; 3. If yes, can an ally do more damage than me this turn?
+; 4. If yes, encourage retreating. (50/50 chance) 
+
+; KO check
+; 1. Is the opponent able to KO me next turn?
+; 2. If no, skip to defensive check. 
+; 3. If yes, can an ally survive that attack?
+; 4. If yes, retreat immediately. 
+
+; Defensive check
+; 1. Do I resist the enemy type?
+; 2. If yes, discourage retreating. 
+; 3. If no, does an ally resist it?
+; 4. If yes, encourage retreating.
+
+; Cost check
+; 1. Is my EFFECTIVE retreat cost greater than 1?
+; 2. If yes, do not retreat. 
+; 3. If no, do not apply modifier.
+
+; I forgot: The ones that encourage retreating should forward to the cost check.
+; And obviously there's a laundry list of mechanical checks this doesn't cover.
+; (IE. Is my player holding Switch, can I even afford to retreat, etc.)
+
 ; determine AI score for retreating
 ; return carry if AI decides to retreat
 AIDecideWhetherToRetreat:
@@ -54,14 +85,24 @@ AIDecideWhetherToRetreat:
 	jr nc, .active_cant_ko
 ; the active Pokémon can KO the Defending Pokémon right now,
 ; or after energy attachment from the hand, discourage retreat
-	ld a, 5
+; this value counters a lot of the other encouragements:
+;   +3: Defending can KO Active
+;   +3: Defending can KO Active, Player on last Prize, Bench survives Defending
+;   +2: Defending resists Active
+;   +3: Active Weakness to Defending
+;   +2: Defending Weakness to Bench
+;   +1: Bench resists Defending
+; So, if another Bench Pokémon can KO the Defending Pokémon,
+; and the Active Pokémon is Poisoned or Confused, the AI will retreat.
+	ld a, 15
 	call AIDiscourage
 ; discourage retreat strongly if the AI is at the last prize card
 	ld a, [wAIOpponentPrizeCount]
 	cp 2
 	jr nc, .active_cant_ko
-	ld a, 35
-	call AIDiscourage
+	xor a
+	ld [wAIScore], a
+	ret  ; no carry
 
 .active_cant_ko
 	call CheckIfDefendingPokemonCanKnockOut
@@ -105,6 +146,8 @@ AIDecideWhetherToRetreat:
 
 ; found a Benched Pokémon that can survive, encourage retreat
 .found_bench_survivor
+	ld a, 3
+	call AIEncourage
 	ld a, TRUE
 	ld [wAIPlayEnergyCardForRetreat], a
 	xor a ; PLAY_AREA_ARENA
@@ -299,24 +342,24 @@ AIDecideWhetherToRetreat:
 
 ; if the AI is at the last prize card and the arena Pokémon cannot KO,
 ; add to AI score and set wAIPlayEnergyCardForRetreat to TRUE
-	ld a, [wAIOpponentPrizeCount]
-	cp 2
-	jr nc, .check_defending_id
+	; ld a, [wAIOpponentPrizeCount]
+	; cp 2
+	; jr nc, .check_defending_id
 ; smarter AI: unlock better logic to all duels
 	; call CheckIfNotABossDeckID
 	; jr c, .check_defending_id
 
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTempPlayAreaLocation_ff9d], a
-	call CheckIfAnyAttackKnocksOutDefendingCard
-	jr c, .check_defending_id
+	; xor a ; PLAY_AREA_ARENA
+	; ldh [hTempPlayAreaLocation_ff9d], a
+	; call CheckIfAnyAttackKnocksOutDefendingCard
+	; jr c, .check_defending_id
 ; Benched Pokémon can take the last Prize, encourage retreat
-	ld a, 40
-	call AIEncourage
+	; ld a, 40
+	; call AIEncourage
 ; FIXME it is dumb to spend the energy to retreat if the KO check above
 ; also requires attaching energy to the bench to get that KO...
-	ld a, TRUE
-	ld [wAIPlayEnergyCardForRetreat], a
+	; ld a, TRUE
+	; ld [wAIPlayEnergyCardForRetreat], a
 
 .check_defending_id
 	ld a, DUELVARS_ARENA_CARD
@@ -387,13 +430,12 @@ AIDecideWhetherToRetreat:
 	jr c, .check_defending_can_ko
 	call AIEncourage
 
-; check bench for Pokémon that
-; the defending Pokémon can't knock out
+; check Bench for Pokémon that the Defending Pokémon cannot knock out
 ; if none is found, skip AIDiscourage
 .check_defending_can_ko
 	ld a, DUELVARS_BENCH
 	call GetTurnDuelistVariable
-	ld e, 0
+	ld e, PLAY_AREA_BENCH_1 - 1
 .loop_ko_2
 	inc e
 	ld a, [hli]
@@ -429,11 +471,16 @@ AIDecideWhetherToRetreat:
 	pop hl
 	pop de
 	jr c, .loop_ko_2
+; found a bench Pokémon that cannot be KO'd by defending Pokémon
 	jr .check_active_id
+
+; no bench Pokémon can survive, discourage retreat
 .exit_loop_ko
 	ld a, 20
 	call AIDiscourage
 
+; check if active card is Mysterious Fossil or Clefairy Doll
+; those are handled differently
 .check_active_id
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -443,7 +490,7 @@ AIDecideWhetherToRetreat:
 	cp16 CLEFAIRY_DOLL
 	jr z, .mysterious_fossil_or_clefairy_doll
 
-; if wAIScore is at least 131, set carry
+; if wAIScore is at least +3 from base, set carry
 	ld a, [wAIScore]
 	cp $83
 	jr nc, .set_carry
@@ -459,7 +506,7 @@ AIDecideWhetherToRetreat:
 ; and there's a bench Pokémon who is not KO'd
 ; by defending Pokémon and can damage it
 .mysterious_fossil_or_clefairy_doll
-	ld e, 0
+	ld e, PLAY_AREA_BENCH_1 - 1
 .loop_ko_3
 	inc e
 	ld a, e

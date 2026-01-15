@@ -490,6 +490,12 @@ ENDC
 	ld a, TRUE
 	ld [wAIRetreatedThisTurn], a
 
+	xor a ; PLAY_AREA_ARENA
+	ldh [hTempPlayAreaLocation_ff9d], a
+	call GetPlayAreaCardRetreatCost
+	or a
+	jr z, .retreat_free ; free retreat
+
 ; if AI can use Switch from hand, use it instead...
 	ld a, AI_TRAINER_CARD_PHASE_09
 	call AIProcessHandTrainerCards
@@ -504,6 +510,7 @@ ENDC
 	jr nz, .used_switch
 
 ; ... else try retreating normally.
+.retreat_free
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, SlowbroName
