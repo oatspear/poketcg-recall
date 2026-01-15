@@ -2304,12 +2304,20 @@ CheckAttackCanBeUsedToDamageDefendingCard:
 ;	[wAITempAttackDamage] = largest damage of all attacks
 ;	carry set if can knock out
 CheckIfDefendingPokemonCanKnockOut:
+; backup play area location
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	push af
+; reset max damage and set play area to arena
 	xor a
 	ld [wAITempAttackDamage], a
+	ldh [hTempPlayAreaLocation_ff9d], a  ; PLAY_AREA_ARENA
 ; preload previous stages
 	call SwapTurn
 	call GetCardOneStageBelow
 	call SwapTurn
+; restore play area location
+	pop af
+	ldh [hTempPlayAreaLocation_ff9d], a
 ; basic stage, always exists
 	ld a, [wAllStagesIndices + BASIC]
 	call CheckIfAnyAttackOfDefendingPokemonCardKnockOut
