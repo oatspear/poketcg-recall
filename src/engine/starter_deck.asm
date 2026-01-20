@@ -1,4 +1,4 @@
-DEF DEBUG_FULL_COLLECTION_AT_START EQU TRUE
+DEF DEBUG_FULL_COLLECTION_AT_START EQU FALSE
 
 ; adds the chosen starter deck to the player's first deck configuration
 ; and also adds to the collection its corresponding extra cards
@@ -51,7 +51,11 @@ _AddStarterDeck:
 
 	ld hl, sCardCollection
 	ld de, wOpponentDeck
+IF PURIST_PATCH
 	ld c, 30 ; number of extra cards
+ELSE
+	ld c, 60 ; number of extra cards
+ENDC
 .loop_extra_cards
 	push hl
 	ld a, [de]
