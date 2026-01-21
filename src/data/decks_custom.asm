@@ -436,12 +436,11 @@ BulbasaurExtraDeck:
 
 LightningAndFireDeck:  ; LIGHTNING_AND_FIRE_DECK
 	deck_list_start
-	card_item FIRE_ENERGY,             10
-	card_item LIGHTNING_ENERGY,        10
+	card_item FIRE_ENERGY,              8
+	card_item LIGHTNING_ENERGY,         8
 	card_item DOUBLE_COLORLESS_ENERGY,  2
-	card_item CHARMANDER,               2
-	card_item CHARMELEON,               1
-	card_item CHARIZARD,                1
+	card_item VULPIX,                   2
+	card_item NINETALES_LV35,           1
 	card_item GROWLITHE,                2
 	card_item ARCANINE_LV45,            1
 	card_item PONYTA,                   2
@@ -464,17 +463,19 @@ LightningAndFireDeck:  ; LIGHTNING_AND_FIRE_DECK
 	card_item SWITCH,                   2
 	card_item PLUSPOWER,                2
 	card_item DEFENDER,                 2
-	card_item POTION,                   1
+	card_item POTION,                   2
+	card_item POKEDEX,                  2
+	card_item FULL_HEAL,                2
 	deck_list_end
 	tx LightningAndFireDeckName
 
 WaterAndFightingDeck:  ; WATER_AND_FIGHTING_DECK
 	deck_list_start
-	card_item WATER_ENERGY,            12
-	card_item FIGHTING_ENERGY,         10
+	card_item WATER_ENERGY,             8
+	card_item FIGHTING_ENERGY,          8
 	card_item DOUBLE_COLORLESS_ENERGY,  2
-	card_item POLIWAG,                  2
-	card_item POLIWHIRL,                1
+	card_item POLIWAG,                  3
+	card_item POLIWHIRL,                2
 	card_item POLIWRATH,                1
 	card_item SEEL,                     2
 	card_item DEWGONG,                  1
@@ -495,15 +496,18 @@ WaterAndFightingDeck:  ; WATER_AND_FIGHTING_DECK
 	card_item ENERGY_SEARCH,            2
 	card_item POTION,                   3
 	card_item FULL_HEAL,                2
+	card_item SWITCH,                   2
+	card_item POKEDEX,                  2
 	deck_list_end
 	tx WaterAndFightingDeckName
 
 GrassAndPsychicDeck:  ; GRASS_AND_PSYCHIC_DECK
 	deck_list_start
-	card_item GRASS_ENERGY,   12
-	card_item PSYCHIC_ENERGY, 12
-	card_item WEEDLE,          2
-	card_item KAKUNA,          1
+	card_item GRASS_ENERGY,    8
+	card_item PSYCHIC_ENERGY,  8
+	card_item DOUBLE_COLORLESS_ENERGY, 2
+	card_item WEEDLE,          3
+	card_item KAKUNA,          2
 	card_item BEEDRILL,        1
 	card_item NIDORANF,        2
 	card_item NIDORINA,        1
@@ -511,21 +515,22 @@ GrassAndPsychicDeck:  ; GRASS_AND_PSYCHIC_DECK
 	card_item PARASECT,        1
 	card_item EXEGGCUTE,       2
 	card_item EXEGGUTOR,       1
-	card_item PINSIR,          1
 	card_item ABRA,            3
 	card_item KADABRA,         2
+	card_item ALAKAZAM,        1
 	card_item DROWZEE,         3
 	card_item HYPNO,           2
 	card_item JYNX,            1
 	card_item FARFETCHD,       1
 	card_item TAUROS,          1
+	card_item PROFESSOR_OAK,   1
 	card_item BILL,            2
 	card_item ENERGY_SEARCH,   2
-	card_item GUST_OF_WIND,    2
+	card_item POKEDEX,         2
 	card_item POTION,          2
 	card_item FULL_HEAL,       2
-	; this deck list has 61 cards
-	;deck_list_end
+	card_item SWITCH,          2
+	deck_list_end
 	db 0 ; end
 	tx GrassAndPsychicDeckName
 
