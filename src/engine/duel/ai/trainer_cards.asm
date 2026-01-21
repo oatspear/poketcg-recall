@@ -3146,9 +3146,9 @@ AIDecide_Pokedex:
 	ret
 
 .pick_cards
-	ld a, [wOpponentDeckID]
-	cp WONDERS_OF_SCIENCE_DECK_ID
-	jp nz, PickPokedexCards
+	; ld a, [wOpponentDeckID]
+	; cp WONDERS_OF_SCIENCE_DECK_ID
+	; jp nz, PickPokedexCards
 	; fallthrough
 
 ; picks order of the cards in deck from the effects of Pokedex.
