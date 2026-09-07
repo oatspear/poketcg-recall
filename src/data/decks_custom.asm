@@ -695,21 +695,22 @@ GoGoRainDanceDeck:
 
 ZappingSelfdestructDeck:
 	deck_list_start
-	card_item LIGHTNING_ENERGY,        24
-	card_item DOUBLE_COLORLESS_ENERGY,  2
+	card_item LIGHTNING_ENERGY,        10
+	card_item DOUBLE_COLORLESS_ENERGY,  4
 	card_item MAGNEMITE_LV13,           4
 	card_item MAGNETON_LV28,            3
-	card_item VOLTORB,                  4
-	card_item ELECTRODE_LV35,           2
 	card_item ELECTABUZZ_LV35,          4
-	card_item KANGASKHAN,               2
-	card_item TAUROS,                   1
-	card_item PROFESSOR_OAK,            1
-	card_item BILL,                     2
-	card_item SWITCH,                   2
+	card_item SPEAROW,                  3
+	card_item FEAROW,                   2
+	card_item PROFESSOR_OAK,            2
+	card_item BILL,                     4
+	card_item SWITCH,                   4
+	card_item PLUSPOWER,                4
 	card_item DEFENDER,                 4
-	card_item GUST_OF_WIND,             1
-	card_item POTION,                   4
+	card_item GUST_OF_WIND,             4
+	card_item ENERGY_RETRIEVAL,         2
+	card_item ENERGY_REMOVAL,           4
+	card_item SUPER_POTION,             2
 	deck_list_end
 	tx ZappingSelfdestructDeckName
 
