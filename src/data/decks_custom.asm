@@ -672,23 +672,23 @@ RockCrusherDeck:
 
 GoGoRainDanceDeck:
 	deck_list_start
-	card_item WATER_ENERGY,           24
+	card_item WATER_ENERGY,           14
 	card_item SQUIRTLE,                4
-	card_item WARTORTLE,               3
-	card_item BLASTOISE,               2
+	card_item WARTORTLE,               2
+	card_item BLASTOISE,               3
 	card_item GOLDEEN,                 4
 	card_item SEAKING,                 3
-	card_item HORSEA,                  3
-	card_item SEADRA,                  2
-	card_item LAPRAS,                  2
+	card_item LAPRAS,                  4
 	card_item PROFESSOR_OAK,           2
-	card_item POKEMON_BREEDER,         1
-	card_item ENERGY_RETRIEVAL,        1
+	card_item BILL,                    4
+	card_item POKEMON_BREEDER,         2
+	card_item ENERGY_RETRIEVAL,        2
 	card_item SUPER_ENERGY_RETRIEVAL,  1
-	card_item ENERGY_REMOVAL,          2
+	card_item ENERGY_REMOVAL,          4
 	card_item SUPER_ENERGY_REMOVAL,    1
-	card_item SWITCH,                  2
-	card_item POTION,                  2
+	card_item SWITCH,                  3
+	card_item PLUSPOWER,               4
+	card_item SUPER_POTION,            2
 	card_item GAMBLER,                 1
 	deck_list_end
 	tx GoGoRainDanceDeckName
