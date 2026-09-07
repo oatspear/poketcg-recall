@@ -786,25 +786,24 @@ WondersofScienceDeck:
 
 FireChargeDeck:
 	deck_list_start
-	card_item FIRE_ENERGY,             21
+	card_item FIRE_ENERGY,             12
 	card_item DOUBLE_COLORLESS_ENERGY,  4
 	card_item GROWLITHE,                4
 	card_item ARCANINE_LV45,            3
-	card_item MAGMAR_LV24,              2
-	card_item JIGGLYPUFF_LV12,          3
-	card_item JIGGLYPUFF_LV14,          1
-	card_item WIGGLYTUFF,               1
-	card_item CHANSEY,                  2
+	card_item MAGMAR_LV31,              4
+	card_item JIGGLYPUFF_LV14,          4
+	card_item WIGGLYTUFF,               3
 	card_item TAUROS,                   2
-	card_item PROFESSOR_OAK,            1
-	card_item BILL,                     2
+	card_item PROFESSOR_OAK,            2
+	card_item BILL,                     4
 	card_item ENERGY_RETRIEVAL,         2
+	card_item ENERGY_REMOVAL,           4
 	card_item POKE_BALL,                1
 	card_item COMPUTER_SEARCH,          1
+	card_item PLUSPOWER,                3
 	card_item DEFENDER,                 2
-	card_item POTION,                   3
+	card_item SUPER_POTION,             3
 	card_item FULL_HEAL,                1
-	card_item RECYCLE,                  3
 	card_item GAMBLER,                  1
 	deck_list_end
 	tx FireChargeDeckName

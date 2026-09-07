@@ -4571,7 +4571,7 @@ AIDecide_Pokeball:
 ; this deck runs a deck check for specific
 ; card IDs in order of decreasing priority
 .fire_charge
-	ld de, CHANSEY
+	ld de, MAGMAR_LV31
 	ld a, CARD_LOCATION_DECK
 	call LookForCardIDInLocation_Bank8
 	ret c
@@ -4579,11 +4579,13 @@ AIDecide_Pokeball:
 	ld a, CARD_LOCATION_DECK
 	call LookForCardIDInLocation_Bank8
 	ret c
-	ld de, JIGGLYPUFF_LV12
+	ld de, JIGGLYPUFF_LV14
 	ld a, CARD_LOCATION_DECK
 	call LookForCardIDInLocation_Bank8
 	ret c
-	ret
+	ld de, GROWLITHE
+	ld a, CARD_LOCATION_DECK
+	jp LookForCardIDInLocation_Bank8
 
 ; this deck runs a deck check for specific
 ; card IDs in order of decreasing priority
@@ -4867,15 +4869,12 @@ AIDecide_ComputerSearch_WondersOfScience:
 AIDecide_ComputerSearch_FireCharge:
 ; pick target card in deck from highest to lowest priority.
 ; if not found in hand, go to corresponding branch.
-	ld de, CHANSEY
+	ld de, MAGMAR_LV31
 	call LookForCardIDInHandList_Bank8
-	jr nc, .chansey
+	jr nc, .magmar
 	ld de, TAUROS
 	call LookForCardIDInHandList_Bank8
 	jr nc, .tauros
-	ld de, JIGGLYPUFF_LV12
-	call LookForCardIDInHandList_Bank8
-	jr nc, .jigglypuff
 	; fallthrough
 
 .no_carry
@@ -4885,8 +4884,8 @@ AIDecide_ComputerSearch_FireCharge:
 ; for each card targeted, check if it's in deck and,
 ; if not, then return no carry.
 ; else, look for cards to discard.
-.chansey
-	ld de, CHANSEY
+.magmar
+	ld de, MAGMAR_LV31
 	ld a, CARD_LOCATION_DECK
 	call LookForCardIDInLocation_Bank8
 	jp nc, .no_carry
@@ -4894,13 +4893,6 @@ AIDecide_ComputerSearch_FireCharge:
 	jr .find_discard_cards
 .tauros
 	ld de, TAUROS
-	ld a, CARD_LOCATION_DECK
-	call LookForCardIDInLocation_Bank8
-	jp nc, .no_carry
-	ld [wce06], a
-	jr .find_discard_cards
-.jigglypuff
-	ld de, JIGGLYPUFF_LV12
 	ld a, CARD_LOCATION_DECK
 	call LookForCardIDInLocation_Bank8
 	jp nc, .no_carry
