@@ -761,25 +761,26 @@ StrangePsyshockDeck:
 
 WondersofScienceDeck:
 	deck_list_start
-	card_item GRASS_ENERGY,           15
-	card_item PSYCHIC_ENERGY,          8
-	card_item GRIMER,                  4
-	card_item MUK,                     3
-	card_item KOFFING,                 4
-	card_item WEEZING,                 3
-	card_item MEWTWO_LV53,             2
-	card_item MEWTWO_ALT_LV60,         1
-	card_item MEWTWO_LV60,             1
-	card_item PORYGON,                 2
-	card_item IMPOSTER_PROFESSOR_OAK,  1
-	card_item PROFESSOR_OAK,           2
-	card_item BILL,                    2
-	card_item ENERGY_SEARCH,           2
-	card_item SWITCH,                  2
-	card_item COMPUTER_SEARCH,         2
-	card_item POKEDEX,                 2
-	card_item MAINTENANCE,             2
-	card_item FULL_HEAL,               2
+	card_item GRASS_ENERGY,           7
+	card_item PSYCHIC_ENERGY,         7
+	card_item GRIMER,                 4
+	card_item MUK,                    3
+	card_item EXEGGCUTE,              3
+	card_item EXEGGUTOR,              2
+	card_item MEW_LV8,                2
+	card_item MEWTWO_ALT_LV60,        1
+	card_item MEWTWO_LV60,            1
+	card_item PORYGON,                2
+	card_item IMPOSTER_PROFESSOR_OAK, 1
+	card_item PROFESSOR_OAK,          2
+	card_item BILL,                   4
+	card_item ENERGY_SEARCH,          4
+	card_item ENERGY_RETRIEVAL,       2
+	card_item ENERGY_REMOVAL,         4
+	card_item SWITCH,                 4
+	card_item COMPUTER_SEARCH,        2
+	card_item SUPER_POTION,           3
+	card_item FULL_HEAL,              2
 	deck_list_end
 	tx WondersofScienceDeckName
 
