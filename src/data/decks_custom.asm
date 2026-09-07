@@ -716,22 +716,23 @@ ZappingSelfdestructDeck:
 
 FlowerPowerDeck:
 	deck_list_start
-	card_item GRASS_ENERGY,     18
-	card_item PSYCHIC_ENERGY,    4
-	card_item BULBASAUR,         4
-	card_item IVYSAUR,           3
-	card_item VENUSAUR_LV67,     2
-	card_item ODDISH,            4
-	card_item GLOOM,             3
-	card_item VILEPLUME,         2
-	card_item EXEGGCUTE,         4
-	card_item EXEGGUTOR,         3
-	card_item PROFESSOR_OAK,     2
-	card_item BILL,              3
-	card_item POKEMON_BREEDER,   2
-	card_item ENERGY_RETRIEVAL,  2
-	card_item SWITCH,            2
-	card_item POTION,            2
+	card_item GRASS_ENERGY,            10
+	card_item DOUBLE_COLORLESS_ENERGY,  4
+	card_item BULBASAUR,                4
+	card_item IVYSAUR,                  3
+	card_item VENUSAUR_LV67,            3
+	card_item EXEGGCUTE,                4
+	card_item EXEGGUTOR,                3
+	card_item KANGASKHAN,               2
+	card_item PROFESSOR_OAK,            2
+	card_item BILL,                     4
+	card_item POKEMON_BREEDER,          2
+	card_item ENERGY_RETRIEVAL,         3
+	card_item ENERGY_REMOVAL,           4
+	card_item GUST_OF_WIND,             3
+	card_item DEFENDER,                 3
+	card_item SWITCH,                   4
+	card_item SUPER_POTION,             2
 	deck_list_end
 	tx FlowerPowerDeckName
 
