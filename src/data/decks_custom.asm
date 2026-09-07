@@ -738,21 +738,24 @@ FlowerPowerDeck:
 
 StrangePsyshockDeck:
 	deck_list_start
-	card_item PSYCHIC_ENERGY, 22
-	card_item ABRA,            4
-	card_item KADABRA,         3
-	card_item ALAKAZAM,        2
-	card_item MR_MIME,         2
-	card_item CHANSEY,         3
-	card_item KANGASKHAN,      3
-	card_item SNORLAX,         2
-	card_item PROFESSOR_OAK,   2
-	card_item POKEMON_CENTER,  2
-	card_item ENERGY_REMOVAL,  3
-	card_item GUST_OF_WIND,    3
-	card_item SCOOP_UP,        4
-	card_item SWITCH,          4
-	card_item GAMBLER,         1
+	card_item PSYCHIC_ENERGY,          12
+	card_item DOUBLE_COLORLESS_ENERGY,  2
+	card_item ABRA,                     4
+	card_item KADABRA,                  3
+	card_item ALAKAZAM,                 3
+	card_item MR_MIME,                  2
+	card_item CHANSEY,                  3
+	card_item SNORLAX,                  2
+	card_item PROFESSOR_OAK,            2
+	card_item BILL,                     4
+	card_item POKEMON_BREEDER,          2
+	card_item POKEMON_CENTER,           2
+	card_item ENERGY_RETRIEVAL,         2
+	card_item ENERGY_REMOVAL,           4
+	card_item GUST_OF_WIND,             4
+	card_item SCOOP_UP,                 4
+	card_item SWITCH,                   4
+	card_item GAMBLER,                  1
 	deck_list_end
 	tx StrangePsyshockDeckName
 
