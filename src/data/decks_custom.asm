@@ -1094,30 +1094,33 @@ LonelyFriendsDeck:
 
 SoundoftheWavesDeck:
 	deck_list_start
-	card_item WATER_ENERGY,   24
-	card_item TENTACOOL,       2
-	card_item TENTACRUEL,      1
+	card_item WATER_ENERGY,   14
+	card_item TENTACOOL,       3
+	card_item TENTACRUEL,      2
 	card_item SEEL,            3
 	card_item DEWGONG,         2
 	card_item SHELLDER,        3
 	card_item CLOYSTER,        2
 	card_item KRABBY,          3
 	card_item KINGLER,         2
-	card_item HORSEA,          2
-	card_item SEADRA,          1
+	card_item HORSEA,          3
+	card_item SEADRA,          2
 	card_item LAPRAS,          3
 	card_item BILL,            3
 	card_item POKEMON_TRADER,  2
 	card_item ENERGY_REMOVAL,  2
 	card_item PLUSPOWER,       3
+	card_item DEFENDER,        2
+	card_item SWITCH,          2
+	card_item POTION,          2
 	card_item FULL_HEAL,       2
 	deck_list_end
 	tx SoundoftheWavesDeckName
 
 PikachuDeck:
 	deck_list_start
-	card_item WATER_ENERGY,             6
-	card_item LIGHTNING_ENERGY,        16
+	card_item WATER_ENERGY,             4
+	card_item LIGHTNING_ENERGY,        12
 	card_item PIKACHU_LV12,             1
 	card_item PIKACHU_LV14,             1
 	card_item PIKACHU_LV16,             1
@@ -1128,6 +1131,8 @@ PikachuDeck:
 	card_item RAICHU_LV40,              2
 	card_item RAICHU_LV45,              2
 	card_item BILL,                     4
+	card_item ENERGY_SEARCH,            4
+	card_item ENERGY_RETRIEVAL,         2
 	card_item SWITCH,                   4
 	card_item POKE_BALL,                4
 	card_item POTION,                   4
@@ -1138,9 +1143,9 @@ PikachuDeck:
 
 BoomBoomSelfdestructDeck:
 	deck_list_start
-	card_item GRASS_ENERGY,      8
-	card_item LIGHTNING_ENERGY, 14
-	card_item FIGHTING_ENERGY,   8
+	card_item GRASS_ENERGY,      4
+	card_item LIGHTNING_ENERGY,  8
+	card_item FIGHTING_ENERGY,   6
 	card_item KOFFING,           4
 	card_item WEEZING,           3
 	card_item MAGNEMITE_LV15,    4
@@ -1150,18 +1155,23 @@ BoomBoomSelfdestructDeck:
 	card_item GRAVELER,          3
 	card_item GOLEM,             2
 	card_item PROFESSOR_OAK,     2
-	card_item ENERGY_SEARCH,     2
-	card_item DEFENDER,          2
+	card_item BILL,              2
+	card_item ENERGY_SEARCH,     4
+	card_item ENERGY_RETRIEVAL,  2
+	card_item DEFENDER,          4
+	card_item POKEMON_CENTER,    1
+	card_item MR_FUJI,           1
+	card_item POTION,            2
 	deck_list_end
 	tx BoomBoomSelfdestructDeckName
 
 PowerGeneratorDeck:
 	deck_list_start
-	card_item LIGHTNING_ENERGY, 26
+	card_item LIGHTNING_ENERGY, 16
 	card_item PIKACHU_LV12,      2
 	card_item PIKACHU_LV14,      1
-	card_item RAICHU_LV40,       1
-	card_item MAGNEMITE_LV13,    1
+	card_item RAICHU_LV40,       2
+	card_item MAGNEMITE_LV13,    2
 	card_item MAGNEMITE_LV15,    1
 	card_item MAGNETON_LV28,     1
 	card_item MAGNETON_LV35,     1
@@ -1170,65 +1180,62 @@ PowerGeneratorDeck:
 	card_item ELECTRODE_LV42,    1
 	card_item ELECTABUZZ_LV20,   1
 	card_item ELECTABUZZ_LV35,   1
-	card_item JOLTEON_LV29,      3
+	card_item JOLTEON_LV29,      2
 	card_item ZAPDOS_LV64,       2
-	card_item EEVEE,             4
-	card_item BILL,              2
+	card_item EEVEE,             3
+	card_item BILL,              4
+	card_item POKEDEX,           2
 	card_item POKEMON_TRADER,    2
+	card_item ENERGY_REMOVAL,    2
 	card_item SWITCH,            2
 	card_item DEFENDER,          4
+	card_item POTION,            2
+	card_item MR_FUJI,           2
 	deck_list_end
 	tx PowerGeneratorDeckName
 
 EtceteraDeck:
 	deck_list_start
-	card_item GRASS_ENERGY,     8
-	card_item FIRE_ENERGY,      4
-	card_item LIGHTNING_ENERGY, 4
-	card_item FIGHTING_ENERGY,  4
-	card_item PSYCHIC_ENERGY,   4
-	card_item CATERPIE,         1
-	card_item WEEDLE,           1
-	card_item NIDORANF,         2
-	card_item ODDISH,           2
+	card_item GRASS_ENERGY,     5
+	card_item FIRE_ENERGY,      5
+	card_item LIGHTNING_ENERGY, 5
+	card_item PSYCHIC_ENERGY,   5
+	card_item CATERPIE,         3
+	card_item METAPOD,          2
 	card_item TANGELA_LV12,     2
-	card_item CHARMANDER,       2
-	card_item MAGMAR_LV31,      1
-	card_item PIKACHU_LV12,     2
-	card_item MAGNEMITE_LV13,   1
-	card_item DIGLETT,          1
-	card_item MACHOP,           2
-	card_item GASTLY_LV8,       2
+	card_item MAGMAR_LV31,      2
+	card_item PIKACHU_LV12,     3
+	card_item RAICHU_LV40,      2
+	card_item GASTLY_LV8,       3
+	card_item HAUNTER_LV17,     2
 	card_item JYNX,             1
-	card_item BILL,             3
+	card_item BILL,             4
 	card_item ENERGY_RETRIEVAL, 2
-	card_item ENERGY_SEARCH,    3
-	card_item POKE_BALL,        3
-	card_item PLUSPOWER,        3
+	card_item ENERGY_SEARCH,    4
+	card_item POKE_BALL,        4
+	card_item PLUSPOWER,        4
 	card_item DEFENDER,         2
 	deck_list_end
 	tx EtceteraDeckName
 
 FlowerGardenDeck:
 	deck_list_start
-	card_item GRASS_ENERGY,            24
-	card_item DOUBLE_COLORLESS_ENERGY,  2
-	card_item BULBASAUR,                3
-	card_item IVYSAUR,                  2
+	card_item GRASS_ENERGY,            14
+	card_item BULBASAUR,                4
+	card_item IVYSAUR,                  3
 	card_item VENUSAUR_LV67,            2
-	card_item ODDISH,                   3
-	card_item GLOOM,                    2
+	card_item ODDISH,                   4
+	card_item GLOOM,                    3
 	card_item VILEPLUME,                2
-	card_item BELLSPROUT,               2
-	card_item WEEPINBELL,               1
-	card_item VICTREEBEL,               1
+	card_item BELLSPROUT,               3
+	card_item WEEPINBELL,               2
+	card_item VICTREEBEL,               2
 	card_item TANGELA_LV8,              2
-	card_item TANGELA_LV12,             1
-	card_item LICKITUNG,                2
-	card_item POKEMON_TRADER,           2
-	card_item POKEMON_BREEDER,          3
-	card_item ENERGY_SEARCH,            1
-	card_item SWITCH,                   2
+	card_item LICKITUNG,                1
+	card_item BILL,                     3
+	card_item POKEMON_TRADER,           4
+	card_item POKEMON_BREEDER,          4
+	card_item SWITCH,                   4
 	card_item POTION,                   2
 	card_item FULL_HEAL,                1
 	deck_list_end
@@ -1236,7 +1243,7 @@ FlowerGardenDeck:
 
 KaleidoscopeDeck:
 	deck_list_start
-	card_item GRASS_ENERGY,            10
+	card_item GRASS_ENERGY,             4
 	card_item FIRE_ENERGY,              4
 	card_item WATER_ENERGY,             4
 	card_item LIGHTNING_ENERGY,         4
@@ -1251,36 +1258,37 @@ KaleidoscopeDeck:
 	card_item JOLTEON_LV29,             1
 	card_item DITTO,                    4
 	card_item EEVEE,                    4
-	card_item PORYGON,                  4
-	card_item BILL,                     2
+	card_item PORYGON,                  2
+	card_item BILL,                     4
 	card_item MR_FUJI,                  2
-	card_item ENERGY_SEARCH,            2
+	card_item ENERGY_SEARCH,            4
+	card_item ENERGY_RETRIEVAL,         2
 	card_item SWITCH,                   4
 	card_item GUST_OF_WIND,             2
+	card_item REVIVE,                   2
 	deck_list_end
 	tx KaleidoscopeDeckName
 
 GhostDeck:
 	deck_list_start
 	card_item PSYCHIC_ENERGY,          15
-	card_item GRASS_ENERGY,             6
 	card_item DOUBLE_COLORLESS_ENERGY,  3
-	card_item ZUBAT,                    4
-	card_item GOLBAT,                   3
-	card_item GASTLY_LV8,               2
-	card_item GASTLY_LV17,              2
-	card_item HAUNTER_LV17,             2
-	card_item HAUNTER_LV22,             2
+	card_item GASTLY_LV17,              4
+	card_item HAUNTER_LV17,             3
 	card_item GENGAR,                   4
 	card_item MEOWTH_LV15,              3
+	card_item PERSIAN,                  2
 	card_item DITTO,                    3
 	card_item PROFESSOR_OAK,            2
-	card_item BILL,                     1
+	card_item BILL,                     4
 	card_item POKEMON_BREEDER,          2
-	card_item GUST_OF_WIND,             1
+	card_item GUST_OF_WIND,             2
+	card_item ENERGY_REMOVAL,           2
 	card_item POTION,                   2
+	card_item DEFENDER,                 4
 	card_item FULL_HEAL,                1
 	card_item RECYCLE,                  2
+	card_item MR_FUJI,                  2
 	deck_list_end
 	tx GhostDeckName
 
