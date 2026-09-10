@@ -4700,15 +4700,40 @@ DisplayPlayAreaScreen:
 	ldh a, [hKeysPressed]
 	and b
 	jr z, .asm_6091
+; a Play Area slot was selected for inspection
 	ld a, [wCurPlayAreaSlot]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	cp -1
 	jr z, .asm_6022
-	call GetCardIDFromDeckIndex
-	call LoadCardDataToBuffer1_FromCardID
-	call OpenCardPage_FromCheckPlayArea
-	jr .asm_6022
+; view the selected card
+	; call GetCardIDFromDeckIndex
+	; call LoadCardDataToBuffer1_FromCardID
+	; call OpenCardPage_FromCheckPlayArea
+	; jr .asm_6022
+; view all cards in the selected location
+	ld a, [wCurPlayAreaSlot]
+	call .CreateArenaOrBenchCardList
+	jr c, .skip_ahead ; no cards found
+	ld a, [wSelectedDuelSubMenuItem]
+	ld b, a
+	ld a, [wNoItemSelectionMenuKeys]
+	ld c, a
+	push bc
+	call InitAndDrawCardListScreenLayout
+	ldtx hl, ChooseTheCardYouWishToExamineText
+	ldtx de, DuelistPlayAreaText
+	call SetCardListHeaderText
+	ld a, A_BUTTON | START
+	ld [wNoItemSelectionMenuKeys], a
+	call DisplayCardList
+	pop bc
+	ld a, b
+	ld [wSelectedDuelSubMenuItem], a
+	ld a, c
+	ld [wNoItemSelectionMenuKeys], a
+	jp .asm_6022
+
 .asm_6091
 	ld a, [wExcludeArenaPokemon]
 	ld c, a
@@ -4723,7 +4748,8 @@ DisplayPlayAreaScreen:
 	call GetTurnDuelistVariable
 	or a
 	jr nz, .asm_60ac
-	jr .skip_ahead
+	jp .skip_ahead
+
 .asm_60ac
 	pop af
 	ldh [hTempCardIndex_ff98], a
@@ -4738,6 +4764,42 @@ DisplayPlayAreaScreen:
 	ldh [hCurMenuItem], a
 	scf
 	ret
+
+; fill wDuelTempList with the turn holder's cards
+; in the arena or in a bench slot (their 0-59 deck indexes).
+; if a == 0: search in CARD_LOCATION_ARENA
+; if a != 0: search in CARD_LOCATION_BENCH_[A]
+; return carry if no cards were found
+.CreateArenaOrBenchCardList
+	or CARD_LOCATION_PLAY_AREA
+	ld c, a
+	ld de, wDuelTempList
+	ld a, DUELVARS_CARD_LOCATIONS
+	call GetTurnDuelistVariable
+.next_card_loop
+	ld a, [hl]
+	cp c
+	jr nz, .skip_card ; jump if not in specified play area location
+	ld a, l
+	ld [de], a ; add to wDuelTempList
+	inc de
+.skip_card
+	inc l
+	ld a, l
+	cp DECK_SIZE
+	jr c, .next_card_loop
+; all cards checked
+	ld a, $ff
+	ld [de], a
+	ld a, [wDuelTempList]
+	cp $ff
+	jr z, .no_cards_found
+	or a
+	ret
+.no_cards_found
+	scf
+	ret
+
 
 PlayAreaScreenMenuParameters_ActivePokemonIncluded:
 	db 0, 0 ; cursor x, cursor y
