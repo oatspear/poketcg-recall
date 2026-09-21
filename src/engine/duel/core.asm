@@ -1788,8 +1788,12 @@ HandleDuelSetup:
 	ld a, PLAYER_TURN
 	ldh [hWhoseTurn], a
 	call ChooseInitialArenaAndBenchPokemon
+	call SetAdaptiveEvolutionPokemonCanEvolve
 	call SwapTurn
 	call ChooseInitialArenaAndBenchPokemon
+	push af
+	call SetAdaptiveEvolutionPokemonCanEvolve
+	pop af
 	call SwapTurn
 	jp c, .error
 	call DrawPlayAreaToPlacePrizeCards
@@ -7208,6 +7212,44 @@ SetAllPlayAreaPokemonCanEvolve:
 	dec c
 	jr nz, .next_pkmn_loop
 	ret
+
+
+SetAdaptiveEvolutionPokemonCanEvolve:
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetTurnDuelistVariable
+	ld b, 0
+	ld c, a
+.loop
+	ld a, DUELVARS_ARENA_CARD
+	add b
+	call GetTurnDuelistVariable
+	call GetCardIDFromDeckIndex
+	cp16 CATERPIE
+	jr z, .can_evolve
+	cp16 WEEDLE
+	jr z, .can_evolve
+; Stage 1 inherit from the Basics
+	ld a, b
+	add DUELVARS_ARENA_CARD_STAGE
+	ld l, a
+	ld a, [hl]
+	cp STAGE1
+	jr nz, .next
+	cp16 METAPOD
+	jr z, .can_evolve
+	cp16 KAKUNA
+	jr nz, .next
+.can_evolve
+	ld a, b
+	add DUELVARS_ARENA_CARD_FLAGS
+	ld l, a
+	set CAN_EVOLVE_THIS_TURN_F, [hl]
+.next
+	inc b
+	dec c
+	jr nz, .loop
+	ret
+
 
 ; initializes duel variables such as cards in deck and in hand, or Pokemon in play area
 ; player turn: [c200, c2ff]

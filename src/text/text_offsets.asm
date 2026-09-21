@@ -1990,13 +1990,14 @@ TextOffsets::
 	textpointer SolarBeamName
 	textpointer VenusaurLv67Description
 	textpointer CaterpieName
+	textpointer AdaptiveEvolutionName
+	textpointer AdaptiveEvolutionDescription
 	textpointer StringShotName
 	textpointer MayInflictParalysisDescription
 	textpointer WormName
 	textpointer CaterpieDescription
 	textpointer MetapodName
 	textpointer StiffenName
-	textpointer MetapodsStiffenDescription
 	textpointer StunSporeName
 	textpointer CocoonName
 	textpointer MetapodDescription
@@ -2524,7 +2525,7 @@ TextOffsets::
 	textpointer GeodudeDescription
 	textpointer GravelerName
 	textpointer HardenName
-	textpointer GravelersHardenDescription
+	textpointer HardenDescription
 	textpointer RockThrowName
 	textpointer GravelerDescription
 	textpointer GolemName
@@ -2533,7 +2534,6 @@ TextOffsets::
 	textpointer MegatonName
 	textpointer GolemDescription
 	textpointer OnixName
-	textpointer OnixsHardenDescription
 	textpointer RockSnakeName
 	textpointer OnixDescription
 	textpointer CuboneName

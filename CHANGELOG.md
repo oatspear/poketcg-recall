@@ -4,20 +4,32 @@
 
 ### Bulbasaur
 - Increased HP from 40 to 50.
-- **New attack: (C) Growl** - reduces damage taken from attacks from the Defending Pokémon by 10.
-- **Leech Seed:** reduced cost from (G)(G) to (G)(C).
+- **New attack: (C) Growl**: reduces damage taken from attacks from the Defending Pokémon by 10.
+- **Leech Seed**: reduced cost from (G)(G) to (G)(C).
 
 ### Ivysaur
 - Increased HP from 60 to 80.
-- **Vine Whip:** increased damage from 30 to 40.
+- **Vine Whip**: increased damage from 30 to 40.
 - **Poison Powder**: reduced cost from (G)(G)(G) to (G)(G).
 
 ### Venusaur Lv64
-- **Solar Power:** now only affects the player's Active Pokémon.
-- **Mega Drain:** reduced cost from (G)(G)(G)(G) to (G)(G)(G).
+- **Solar Power**: now only affects the player's Active Pokémon.
+- **Mega Drain**: reduced cost from (G)(G)(G)(G) to (G)(G)(G).
 
 ### Venusaur Lv67
-- **Solarbeam:** reduced cost from (G)(G)(G)(G) to (G)(G)(G).
+- **Solarbeam**: reduced cost from (G)(G)(G)(G) to (G)(G)(G).
+
+### Caterpie
+- **New Pokémon Power: Adaptive Evolution**: can evolve on the first turn.
+
+### Metapod
+- Reduced HP from 70 to 60.
+- **Stiffen**: removed.
+- **New attack: (G) Harden**: prevents damage from attacks if that damage is 30 or less.
+
+### Butterfree
+- Increased HP from 70 to 90.
+- **Mega Drain**: reduced cost from (G)(G)(G)(G) to (G)(G)(C)(C).
 
 
 ## Version 1.0

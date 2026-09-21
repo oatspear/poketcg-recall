@@ -1355,6 +1355,15 @@ CaterpieName:
 	text "Caterpie"
 	done
 
+AdaptiveEvolutionName:
+	text "Adaptive Evolution"
+	done
+
+AdaptiveEvolutionDescription:
+	text "This Pokémon can evolve during your"
+	line "first turn or the turn you play it."
+	done
+
 StringShotName:
 	text "String Shot"
 	done
@@ -1380,13 +1389,6 @@ MetapodName:
 
 StiffenName:
 	text "Stiffen"
-	done
-
-MetapodsStiffenDescription:
-	text "Flip a coin. If heads, prevent all"
-	line "damage done to Metapod during your"
-	line "opponent's next turn. (Any other"
-	line "effects of attacks still happen.)"
 	done
 
 StunSporeName:

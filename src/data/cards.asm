@@ -210,32 +210,32 @@ CaterpieCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
+	energy 0 ; energies
+	tx AdaptiveEvolutionName ; name
+	tx AdaptiveEvolutionDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db POKEMON_POWER ; category
+	dw AdaptiveEvolutionEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_NONE ; animation
+
+	; attack 2
 	energy GRASS, 1 ; energies
 	tx StringShotName ; name
 	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw CaterpieStringShotEffectCommands ; effect commands
+	dw StringShotEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_STRING_SHOT ; animation
-
-	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
 	db WR_FIRE ; weakness
@@ -255,37 +255,37 @@ MetapodCard:
 	db CIRCLE ; rarity
 	db EVOLUTION | NONE ; sets
 	dw METAPOD
-	db 70 ; hp
+	db 60 ; hp
 	db STAGE1 ; stage
 	tx CaterpieName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
-	tx StiffenName ; name
-	tx MetapodsStiffenDescription ; description
+	energy GRASS, 1 ; energies
+	tx HardenName ; name
+	tx HardenDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
-	dw MetapodStiffenEffectCommands ; effect commands
+	dw HardenEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_PROTECT ; animation
 
 	; attack 2
-	energy GRASS, 2 ; energies
-	tx StunSporeName ; name
-	tx MayInflictParalysisDescription ; description
+	energy 0 ; energies
+	dw NONE ; name
+	dw NONE ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw MetapodStunSporeEffectCommands ; effect commands
-	db INFLICT_PARALYSIS ; flags 1
+	dw NONE ; effect commands
+	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_POWDER_EFFECT_CHANCE ; animation
+	db ATK_ANIM_NONE ; animation
 
 	db 2 ; retreat cost
 	db WR_FIRE ; weakness
@@ -305,7 +305,7 @@ ButterfreeCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | JUNGLE ; sets
 	dw BUTTERFREE
-	db 70 ; hp
+	db 90 ; hp
 	db STAGE2 ; stage
 	tx MetapodName ; pre-evo name
 
@@ -316,7 +316,7 @@ ButterfreeCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ButterfreeWhirlwindEffectCommands ; effect commands
+	dw WhirlwindEffectCommands ; effect commands
 	db NONE ; flags 1
 	db SWITCH_OPPONENT_POKEMON ; flags 2
 	db NONE ; flags 3
@@ -324,7 +324,7 @@ ButterfreeCard:
 	db ATK_ANIM_WHIRLWIND ; animation
 
 	; attack 2
-	energy GRASS, 4 ; energies
+	energy GRASS, 2, COLORLESS, 2 ; energies
 	tx MegaDrainName ; name
 	tx MegaDrainDescription ; description
 	dw NONE ; description (cont)
@@ -6062,11 +6062,11 @@ GravelerCard:
 	; attack 1
 	energy FIGHTING, 2 ; energies
 	tx HardenName ; name
-	tx GravelersHardenDescription ; description
+	tx HardenDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
-	dw GravelerHardenEffectCommands ; effect commands
+	dw HardenEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
@@ -6176,11 +6176,11 @@ OnixCard:
 	; attack 2
 	energy FIGHTING, 2 ; energies
 	tx HardenName ; name
-	tx OnixsHardenDescription ; description
+	tx HardenDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
-	dw OnixHardenEffectCommands ; effect commands
+	dw HardenEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
@@ -7766,7 +7766,7 @@ PidgeyCard:
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw PidgeyWhirlwindEffectCommands ; effect commands
+	dw WhirlwindEffectCommands ; effect commands
 	db NONE ; flags 1
 	db SWITCH_OPPONENT_POKEMON ; flags 2
 	db NONE ; flags 3
@@ -7816,7 +7816,7 @@ PidgeottoCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw PidgeottoWhirlwindEffectCommands ; effect commands
+	dw WhirlwindEffectCommands ; effect commands
 	db NONE ; flags 1
 	db SWITCH_OPPONENT_POKEMON ; flags 2
 	db NONE ; flags 3

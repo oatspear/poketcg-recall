@@ -5242,6 +5242,7 @@ TantrumEffect:
 
 StrikesBackEffect:
 KabutoArmorEffect:
+PassivePowerEffect:
 	scf
 	ret
 
@@ -10111,4 +10112,12 @@ HealPlayAreaCardHP:
 	call GetTurnDuelistVariable
 	add e
 	ld [hl], a
+	ret
+
+
+AdaptiveEvolution_AllowEvolutionEffect:
+	ldh a, [hTempPlayAreaLocation_ff9d]  ; triggering Pokémon
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set CAN_EVOLVE_THIS_TURN_F, [hl]
 	ret

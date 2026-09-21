@@ -1029,13 +1029,13 @@ HardenName:
 	text "Harden"
 	done
 
-GravelersHardenDescription:
+HardenDescription:
 	text "During your opponent's next turn,"
 	line "whenever 30 or less damage is done"
-	line "to Graveler (after applying"
+	line "to this Pokémon (after applying"
 	line "Weakness and Resistance), prevent"
-	line "that damage. (Any other effects of"
-	line "attacks still happen.)"
+	line "that damage. (Any other effects"
+	line "of attacks still happen.)"
 	done
 
 RockThrowName:
@@ -1076,15 +1076,6 @@ GolemDescription:
 
 OnixName:
 	text "Onix"
-	done
-
-OnixsHardenDescription:
-	text "During your opponent's next turn,"
-	line "whenever 30 or less damage is done"
-	line "to Onix (after applying Weakness and"
-	line "Resistance), prevent that damage."
-	line "(Any other effects of attacks still"
-	line "happen.)"
 	done
 
 RockSnakeName:

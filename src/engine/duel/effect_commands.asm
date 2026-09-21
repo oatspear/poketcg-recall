@@ -35,6 +35,11 @@ EffectCommands::
 ;	SpitPoison_Poison50PercentEffect ; unique effect made of more than one command.
 ;	SpitPoison_AIEffect              ;
 
+AdaptiveEvolutionEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, PassivePowerEffect
+	dbw EFFECTCMDTYPE_PKMN_POWER_TRIGGER, AdaptiveEvolution_AllowEvolutionEffect
+	db  $00
+
 EkansSpitPoisonEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SpitPoison_Poison50PercentEffect
 	dbw EFFECTCMDTYPE_AI, SpitPoison_AIEffect
@@ -72,10 +77,7 @@ VictreebelAcidEffectCommands:
 	db  $00
 
 PinsirIronGripEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
-CaterpieStringShotEffectCommands:
+StringShotEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
@@ -88,6 +90,7 @@ GloomFoulOdorEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FoulOdorEffect
 	db  $00
 
+MetapodStiffenEffectCommands:
 KakunaStiffenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, StiffenEffect
 	db  $00
@@ -142,14 +145,6 @@ ExeggcuteLeechSeedEffectCommands:
 KoffingFoulGasEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FoulGas_PoisonOrConfusionEffect
 	dbw EFFECTCMDTYPE_AI, FoulGas_AIEffect
-	db  $00
-
-MetapodStiffenEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, StiffenEffect
-	db  $00
-
-MetapodStunSporeEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
 OddishStunSporeEffectCommands:
@@ -219,12 +214,6 @@ NidorinaDoubleKickEffectCommands:
 NidorinoDoubleKickEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DoubleKick30_MultiplierEffect
 	dbw EFFECTCMDTYPE_AI, DoubleKick30_AIEffect
-	db  $00
-
-ButterfreeWhirlwindEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Whirlwind_SwitchEffect
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Whirlwind_SelectEffect
-	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, Whirlwind_SelectEffect
 	db  $00
 
 ParasSporeEffectCommands:
@@ -889,10 +878,6 @@ GeodudeStoneBarrageEffectCommands:
 	dbw EFFECTCMDTYPE_AI, StoneBarrage_AIEffect
 	db  $00
 
-OnixHardenEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HardenEffect
-	db  $00
-
 PrimeapeFurySwipesEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FurySwipes20_MultiplierEffect
 	dbw EFFECTCMDTYPE_AI, FurySwipes20_AIEffect
@@ -948,7 +933,7 @@ GolemSelfdestructEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, GolemSelfdestructEffect
 	db  $00
 
-GravelerHardenEffectCommands:
+HardenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HardenEffect
 	db  $00
 
@@ -1268,12 +1253,6 @@ PidgeotHurricaneEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HurricaneEffect
 	db  $00
 
-PidgeottoWhirlwindEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Whirlwind_SwitchEffect
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Whirlwind_SelectEffect
-	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, Whirlwind_SelectEffect
-	db  $00
-
 PidgeottoMirrorMoveEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, MirrorMove_InitialEffect1
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, MirrorMove_InitialEffect2
@@ -1328,7 +1307,7 @@ LickitungSupersonicEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SupersonicEffect
 	db  $00
 
-PidgeyWhirlwindEffectCommands:
+WhirlwindEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Whirlwind_SwitchEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Whirlwind_SelectEffect
 	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, Whirlwind_SelectEffect
