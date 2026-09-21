@@ -55,6 +55,7 @@ ArbokTerrorStrikeEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, TerrorStrike_50PercentSelectSwitchPokemon
 	db  $00
 
+InflictPoisonEffectCommands:
 ArbokPoisonFangEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
 	dbw EFFECTCMDTYPE_AI, PoisonFang_AIEffect
@@ -90,14 +91,8 @@ GloomFoulOdorEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FoulOdorEffect
 	db  $00
 
-MetapodStiffenEffectCommands:
-KakunaStiffenEffectCommands:
+StiffenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, StiffenEffect
-	db  $00
-
-KakunaPoisonPowderEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Poison50PercentEffect
-	dbw EFFECTCMDTYPE_AI, KakunaPoisonPowder_AIEffect
 	db  $00
 
 GolbatLeechLifeEffectCommands:
@@ -124,14 +119,9 @@ ZubatLeechLifeEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ZubatLeechLifeEffect
 	db  $00
 
-BeedrillTwineedleEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Twineedle_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, Twineedle_AIEffect
-	db  $00
-
-BeedrillPoisonStingEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Poison50PercentEffect
-	dbw EFFECTCMDTYPE_AI, BeedrillPoisonSting_AIEffect
+DoubleAttackX30EffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DoubleAttackX30_MultiplierEffect
+	dbw EFFECTCMDTYPE_AI, DoubleAttackX30_AIEffect
 	db  $00
 
 ExeggcuteHypnosisEffectCommands:
@@ -224,9 +214,9 @@ ParasectSporeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00
 
-WeedlePoisonStingEffectCommands:
+Poison50PercentEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Poison50PercentEffect
-	dbw EFFECTCMDTYPE_AI, WeedlePoisonSting_AIEffect
+	dbw EFFECTCMDTYPE_AI, Poison50Percent_AIEffect
 	db  $00
 
 PoisonPowderEffectCommands:

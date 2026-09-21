@@ -1458,9 +1458,9 @@ KakunaName:
 	text "Kakuna"
 	done
 
-KakunasStiffenDescription:
+StiffenDescription:
 	text "Flip a coin. If heads, prevent all"
-	line "damage done to Kakuna during your"
-	line "opponent's next turn. (Any other"
+	line "damage done to this Pokémon during"
+	line "your opponent's next turn. (Other"
 	line "effects of attacks still happen.)"
 	done

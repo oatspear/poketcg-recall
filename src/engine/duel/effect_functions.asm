@@ -1475,11 +1475,6 @@ StiffenEffect:
 	ld a, SUBSTATUS1_NO_DAMAGE_STIFFEN
 	jp ApplySubstatus1ToDefendingCard
 
-KakunaPoisonPowder_AIEffect:
-	ld a, 5
-	lb de, 0, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
-
 GolbatLeechLifeEffect:
 	ld hl, wDealtDamage
 	ld e, [hl]
@@ -1515,28 +1510,6 @@ ZubatLeechLifeEffect:
 	ld d, [hl]
 	jp ApplyAndAnimateHPRecovery
 
-Twineedle_AIEffect:
-	ld a, 60 / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
-; Flip 2 coins; deal 30x number of heads
-Twineedle_MultiplierEffect:
-	ld hl, 30
-	call LoadTxRam3
-	ldtx de, DamageCheckIfHeadsXDamageText
-	ld a, 2
-	call TossCoinATimes
-	ld e, a
-	add a
-	add e
-	call ATimes10
-	jp SetDefiniteDamage
-
-BeedrillPoisonSting_AIEffect:
-	ld a, 5
-	lb de, 0, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
 
 ExeggcuteLeechSeedEffect:
 	ld hl, wDealtDamage
@@ -1931,11 +1904,27 @@ HornHazard_NoDamage50PercentEffect:
 	ld [wLoadedAttackAnimation], a
 	ret
 
+DoubleAttackX30_AIEffect:
+OmastarSpikeCannon_AIEffect:
+CloysterSpikeCannon_AIEffect:
+PoliwhirlDoubleslap_AIEffect:
+FurySwipes20_AIEffect:
+Bonemerang_AIEffect:
+DragonairSlam_AIEffect:
+DragoniteLv41Slam_AIEffect:
 DoubleKick30_AIEffect:
 	ld a, 60 / 2
 	lb de, 0, 60
 	jp SetExpectedAIDamage
 
+; Flip 2 coins; deal 30x number of heads
+DoubleAttackX30_MultiplierEffect:
+OmastarSpikeCannon_MultiplierEffect:
+CloysterSpikeCannon_MultiplierEffect:
+PoliwhirlDoubleslap_MultiplierEffect:
+Bonemerang_MultiplierEffect:
+DragonairSlam_MultiplierEffect:
+DragoniteLv41Slam_MultiplierEffect:
 DoubleKick30_MultiplierEffect:
 	ld hl, 30
 	call LoadTxRam3
@@ -1968,7 +1957,7 @@ Whirlwind_SwitchEffect:
 	jp HandleSwitchDefendingPokemonEffect
 
 
-WeedlePoisonSting_AIEffect:
+Poison50Percent_AIEffect:
 	ld a, 5
 	lb de, 0, 10
 	jp UpdateExpectedAIDamage_AccountForPoison
@@ -2608,24 +2597,6 @@ OmastarWaterGunEffect:
 	lb bc, 1, 1
 	jr ApplyExtraWaterEnergyDamageBonus
 
-OmastarSpikeCannon_AIEffect:
-	ld a, 60 / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
-OmastarSpikeCannon_MultiplierEffect:
-	ld hl, 30
-	call LoadTxRam3
-	ld a, 2
-	ldtx de, DamageCheckIfHeadsXDamageText
-	call TossCoinATimes
-	ld e, a
-	add a
-	add e
-	call ATimes10
-	call SetDefiniteDamage ; 3 * 10 * heads
-	ret
-
 ClairvoyanceEffect:
 	scf
 	ret
@@ -2902,23 +2873,6 @@ ApplyAmnesiaToAttack:
 	call DrawWideTextBox_WaitForInput
 	jp SwapTurn
 
-PoliwhirlDoubleslap_AIEffect:
-	ld a, 60 / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
-PoliwhirlDoubleslap_MultiplierEffect:
-	ld hl, 30
-	call LoadTxRam3
-	ldtx de, DamageCheckIfHeadsXDamageText
-	ld a, 2
-	call TossCoinATimes
-	ld e, a
-	add a
-	add e
-	call ATimes10
-	jp SetDefiniteDamage
-
 PoliwrathWaterGunEffect:
 	lb bc, 2, 1
 	jp ApplyExtraWaterEnergyDamageBonus
@@ -2938,23 +2892,6 @@ ClampEffect:
 	ld [wLoadedAttackAnimation], a
 	call SetDefiniteDamage
 	jp SetWasUnsuccessful
-
-CloysterSpikeCannon_AIEffect:
-	ld a, 60 / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
-CloysterSpikeCannon_MultiplierEffect:
-	ld hl, 30
-	call LoadTxRam3
-	ldtx de, DamageCheckIfHeadsXDamageText
-	ld a, 2
-	call TossCoinATimes
-	ld e, a
-	add a
-	add e
-	call ATimes10
-	jp SetDefiniteDamage
 
 Blizzard_BenchDamage50PercentEffect:
 	ldtx de, DamageToOppBenchIfHeadsDamageToYoursIfTailsText
@@ -5213,11 +5150,6 @@ HardenEffect:
 	ld a, SUBSTATUS1_HARDEN
 	jp ApplySubstatus1ToDefendingCard
 
-FurySwipes20_AIEffect:
-	ld a, 60 / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
 FurySwipes20_MultiplierEffect:
 	ld hl, 20
 	call LoadTxRam3
@@ -5251,22 +5183,6 @@ SnivelEffect:
 	ld a, SUBSTATUS2_REDUCE_BY_20
 	jp ApplySubstatus2ToDefendingCard
 
-Bonemerang_AIEffect:
-	ld a, 60 / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
-Bonemerang_MultiplierEffect:
-	ld hl, 30
-	call LoadTxRam3
-	ldtx de, DamageCheckIfHeadsXDamageText
-	ld a, 2
-	call TossCoinATimes
-	ld e, a
-	add a ; a = 2 * heads
-	add e ; a = 3 * heads
-	call ATimes10
-	jp SetDefiniteDamage
 
 ; returns carry if can't add Pokemon from deck
 MarowakCallForFamily_CheckDeckAndPlayArea:
@@ -6955,23 +6871,6 @@ PayDayEffect:
 	bank1call OpenCardPage_FromHand
 	ret
 
-DragonairSlam_AIEffect:
-	ld a, (30 * 2) / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
-DragonairSlam_MultiplierEffect:
-	ld hl, 30
-	call LoadTxRam3
-	ld a, 2
-	ldtx de, DamageCheckIfHeadsXDamageText
-	call TossCoinATimes
-	ld e, a
-	add a
-	add e
-	call ATimes10
-	jp SetDefiniteDamage
-
 HyperBeam_PlayerSelectEffect:
 	jp HandleEnergyDiscardEffectSelection
 
@@ -7513,23 +7412,6 @@ HealingWind_PlayAreaHealEffect:
 	jr nz, .loop_play_area
 
 	ret
-
-DragoniteLv41Slam_AIEffect:
-	ld a, (30 * 2) / 2
-	lb de, 0, 60
-	jp SetExpectedAIDamage
-
-DragoniteLv41Slam_MultiplierEffect:
-	ld hl, 30
-	call LoadTxRam3
-	ldtx de, DamageCheckIfHeadsXDamageText
-	ld a, 2
-	call TossCoinATimes
-	ld c, a
-	add a
-	add c
-	call ATimes10
-	jp SetDefiniteDamage
 
 CatPunchEffect:
 	call SwapTurn

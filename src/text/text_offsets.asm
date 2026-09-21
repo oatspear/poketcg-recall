@@ -2012,7 +2012,7 @@ TextOffsets::
 	textpointer HairyBugName
 	textpointer WeedleDescription
 	textpointer KakunaName
-	textpointer KakunasStiffenDescription
+	textpointer StiffenDescription
 	textpointer KakunaDescription
 	textpointer BeedrillName
 	textpointer TwineedleName
