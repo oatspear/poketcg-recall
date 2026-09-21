@@ -1967,34 +1967,18 @@ Whirlwind_SwitchEffect:
 	ldh a, [hTemp_ffa0]
 	jp HandleSwitchDefendingPokemonEffect
 
-ButterfreeMegaDrainEffect:
-	ld hl, wDealtDamage
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	srl h
-	rr l
-	bit 0, l
-	jr z, .rounded
-	; round up to nearest 10
-	ld de, 10 / 2
-	add hl, de
-.rounded
-	ld e, l
-	ld d, h
-	jp ApplyAndAnimateHPRecovery
 
 WeedlePoisonSting_AIEffect:
 	ld a, 5
 	lb de, 0, 10
 	jp UpdateExpectedAIDamage_AccountForPoison
 
-IvysaurPoisonPowder_AIEffect:
+PoisonPowder_AIEffect:
 	ld a, 10
 	lb de, 10, 10
 	jp UpdateExpectedAIDamage_AccountForPoison
 
-BulbasaurLeechSeedEffect:
+LeechSeedEffect:
 	ld hl, wDealtDamage
 	ld a, [hli]
 	or [hl]
@@ -2507,12 +2491,7 @@ SolarPower_CheckUse:
 	ld a, DUELVARS_ARENA_CARD_STATUS
 	call GetTurnDuelistVariable
 	or a
-	jr nz, .has_status
-	ld a, DUELVARS_ARENA_CARD_STATUS
-	call GetNonTurnDuelistVariable
-	or a
 	jr z, .no_status
-.has_status
 	or a
 	ret
 .already_used
@@ -2525,9 +2504,10 @@ SolarPower_CheckUse:
 	ret
 
 SolarPower_RemoveStatusEffect:
-	ld a, ATK_ANIM_HEAL_BOTH_SIDES
+	ld a, ATK_ANIM_HEAL
 	ld [wLoadedAttackAnimation], a
-	bank1call Func_7415
+	xor a
+	ld [wce7e], a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld b, a
 	ld c, $00
@@ -2543,13 +2523,11 @@ SolarPower_RemoveStatusEffect:
 	ld l, DUELVARS_ARENA_CARD_STATUS
 	ld [hl], NO_STATUS
 
-	ld a, DUELVARS_ARENA_CARD_STATUS
-	call GetNonTurnDuelistVariable
-	ld [hl], NO_STATUS
 	bank1call DrawDuelHUDs
 	ret
 
-VenusaurMegaDrainEffect:
+AbsorbEffect:
+MegaDrainEffect:
 	ld hl, wDealtDamage
 	ld a, [hli]
 	ld h, [hl]
@@ -2565,6 +2543,7 @@ VenusaurMegaDrainEffect:
 	ld e, l
 	ld d, h
 	jp ApplyAndAnimateHPRecovery
+
 
 ; applies the damage bonus for attacks that get bonus
 ; from extra Water energy cards.
@@ -5260,30 +5239,12 @@ TantrumEffect:
 	call ConfusionEffect
 	jp SwapTurn
 
-StrikesBackEffect:
-	scf
-	ret
 
+StrikesBackEffect:
 KabutoArmorEffect:
 	scf
 	ret
 
-AbsorbEffect:
-	ld hl, wDealtDamage
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	srl h
-	rr l
-	bit 0, l
-	jr z, .rounded
-	; round up to nearest 10
-	ld de, 5
-	add hl, de
-.rounded
-	ld e, l
-	ld d, h
-	jp ApplyAndAnimateHPRecovery
 
 SnivelEffect:
 	ld a, SUBSTATUS2_REDUCE_BY_20

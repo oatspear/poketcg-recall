@@ -227,10 +227,6 @@ ButterfreeWhirlwindEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, Whirlwind_SelectEffect
 	db  $00
 
-ButterfreeMegaDrainEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ButterfreeMegaDrainEffect
-	db  $00
-
 ParasSporeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00
@@ -244,13 +240,13 @@ WeedlePoisonStingEffectCommands:
 	dbw EFFECTCMDTYPE_AI, WeedlePoisonSting_AIEffect
 	db  $00
 
-IvysaurPoisonPowderEffectCommands:
+PoisonPowderEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
-	dbw EFFECTCMDTYPE_AI, IvysaurPoisonPowder_AIEffect
+	dbw EFFECTCMDTYPE_AI, PoisonPowder_AIEffect
 	db  $00
 
-BulbasaurLeechSeedEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, BulbasaurLeechSeedEffect
+LeechSeedEffectCommands:
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, LeechSeedEffect
 	db  $00
 
 VenusaurEnergyTransEffectCommands:
@@ -332,13 +328,13 @@ TangelaPoisonWhipEffectCommands:
 	dbw EFFECTCMDTYPE_AI, PoisonWhip_AIEffect
 	db  $00
 
-VenusaurSolarPowerEffectCommands:
+SolarPowerEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, SolarPower_CheckUse
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SolarPower_RemoveStatusEffect
 	db  $00
 
-VenusaurMegaDrainEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, VenusaurMegaDrainEffect
+MegaDrainEffectCommands:
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, MegaDrainEffect
 	db  $00
 
 OmastarWaterGunEffectCommands:
@@ -1074,7 +1070,7 @@ PikachuSparkEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, Spark_AISelectEffect
 	db  $00
 
-PikachuLv16GrowlEffectCommands:
+GrowlEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, GrowlEffect
 	db  $00
 

@@ -1247,10 +1247,10 @@ LeechSeedName:
 	text "Leech Seed"
 	done
 
-BulbasaursLeechSeedDescription:
+LeechSeedDescription:
 	text "Unless all damage from this attack"
-	line "is prevented, you may remove 1"
-	line "damage counter from Bulbasaur."
+	line "is prevented, heal 10 damage from"
+	line "this Pokémon."
 	done
 
 SeedName:
@@ -1298,35 +1298,27 @@ SolarPowerName:
 SolarPowerDescription:
 	text "Once during your turn (before your"
 	line "attack), you may use this power."
-	line "Your Active Pokémon and the"
-	line "Defending Pokémon are no longer"
+	line "Your Active Pokémon is no longer"
 	line "Asleep, Confused, Paralyzed, or"
 	line "Poisoned."
 	done
 
 SolarPowerDescriptionCont:
-	text "This power can't be used if"
-	line "Venusaur is Asleep, Confused,"
-	line "or Paralyzed."
+	text "This power cannot be used if this"
+	line "Pokémon is Asleep, Confused or"
+	line "Paralyzed."
 	done
 
 MegaDrainName:
 	text "Mega Drain"
 	done
 
-VenusaursMegaDrainDescription:
-	text "Remove a number of damage counters"
-	line "from Venusaur equal to half the"
-	line "damage done to the Defending Pokémon"
-	line "(after applying Weakness and"
-	line "Resistance) (rounded up to the"
-	line "nearest 10)."
-	done
-
-VenusaursMegaDrainDescriptionCont:
-	text "If Venusaur has fewer damage"
-	line "counters than that, remove all of"
-	line "them."
+MegaDrainDescription:
+	text "Heal damage from this Pokémon equal"
+	line "to half the damage done to the"
+	line "Defending Pokémon (after applying"
+	line "Weakness and Resistance) (rounded up"
+	line "to the nearest 10)."
 	done
 
 VenusaurLv64Description:
@@ -1425,21 +1417,6 @@ WhirlwindDescription:
 	line "and switches it with the Defending"
 	line "Pokémon. (Do the damage before"
 	line "switching the Pokémon.)"
-	done
-
-ButterfreesMegaDrainDescription:
-	text "Remove a number of damage counters"
-	line "from Butterfree equal to half the"
-	line "damage done to the Defending Pokémon"
-	line "(after applying Weakness and"
-	line "Resistance) (rounded up to the"
-	line "nearest 10)."
-	done
-
-ButterfreesMegaDrainDescriptionCont:
-	text "If Butterfree has fewer damage"
-	line "counters than that, remove all of"
-	line "them."
 	done
 
 ButterflyName:

@@ -1970,7 +1970,7 @@ TextOffsets::
 	textpointer DoubleColorlessEnergyDescription
 	textpointer BulbasaurName
 	textpointer LeechSeedName
-	textpointer BulbasaursLeechSeedDescription
+	textpointer LeechSeedDescription
 	textpointer SeedName
 	textpointer BulbasaurDescription
 	textpointer IvysaurName
@@ -1983,8 +1983,7 @@ TextOffsets::
 	textpointer SolarPowerDescription
 	textpointer SolarPowerDescriptionCont
 	textpointer MegaDrainName
-	textpointer VenusaursMegaDrainDescription
-	textpointer VenusaursMegaDrainDescriptionCont
+	textpointer MegaDrainDescription
 	textpointer VenusaurLv64Description
 	textpointer EnergyTransName
 	textpointer EnergyTransDescription
@@ -2004,8 +2003,6 @@ TextOffsets::
 	textpointer ButterfreeName
 	textpointer WhirlwindName
 	textpointer WhirlwindDescription
-	textpointer ButterfreesMegaDrainDescription
-	textpointer ButterfreesMegaDrainDescriptionCont
 	textpointer ButterflyName
 	textpointer ButterfreeDescription
 	textpointer WeedleName

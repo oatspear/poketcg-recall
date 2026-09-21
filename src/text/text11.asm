@@ -382,12 +382,10 @@ GrowlName:
 
 GrowlDescription:
 	text "If the Defending Pokémon attacks"
-	line "Pikachu during your opponent's next"
-	line "turn, any damage done by the attack"
-	line "is reduced by 10 (after applying"
-	line "Weakness and Resistance). "
-	line "(Benching or evolving either Pokémon"
-	line "ends this effect.)"
+	line "this Pokémon during your opponent's"
+	line "next turn, any damage done by the"
+	line "attack is reduced by 10 (after"
+	line "applying Weakness and Resistance)."
 	done
 
 ThundershockName:

@@ -5,37 +5,37 @@ BulbasaurCard:
 	db CIRCLE ; rarity
 	db EVOLUTION | NONE ; sets
 	dw BULBASAUR
-	db 40 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 2 ; energies
+	energy COLORLESS, 1 ; energies
+	tx GrowlName ; name
+	tx GrowlDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db DAMAGE_NORMAL ; category
+	dw GrowlEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
+	db NONE ; flags 3
+	db 10
+	db ATK_ANIM_SUPERSONIC ; animation
+
+	; attack 2
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx LeechSeedName ; name
-	tx BulbasaursLeechSeedDescription ; description
+	tx LeechSeedDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw BulbasaurLeechSeedEffectCommands ; effect commands
+	dw LeechSeedEffectCommands ; effect commands
 	db NONE ; flags 1
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
 	db 1
 	db ATK_ANIM_DRAIN ; animation
-
-	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
 	db WR_FIRE ; weakness
@@ -55,16 +55,30 @@ IvysaurCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | NONE ; sets
 	dw IVYSAUR
-	db 60 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx BulbasaurName ; pre-evo name
 
 	; attack 1
+	energy GRASS, 2 ; energies
+	tx PoisonPowderName ; name
+	tx InflictPoisonDescription ; description
+	dw NONE ; description (cont)
+	db 20 ; damage
+	db DAMAGE_NORMAL ; category
+	dw PoisonPowderEffectCommands ; effect commands
+	db INFLICT_POISON ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_POWDER_HIT_POISON ; animation
+
+	; attack 2
 	energy GRASS, 1, COLORLESS, 2 ; energies
 	tx VineWhipName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -72,20 +86,6 @@ IvysaurCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_WHIP ; animation
-
-	; attack 2
-	energy GRASS, 3 ; energies
-	tx PoisonPowderName ; name
-	tx InflictPoisonDescription ; description
-	dw NONE ; description (cont)
-	db 20 ; damage
-	db DAMAGE_NORMAL ; category
-	dw IvysaurPoisonPowderEffectCommands ; effect commands
-	db INFLICT_POISON ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_POWDER_HIT_POISON ; animation
 
 	db 1 ; retreat cost
 	db WR_FIRE ; weakness
@@ -116,7 +116,7 @@ VenusaurLv64Card:
 	tx SolarPowerDescriptionCont ; description (cont)
 	db 0 ; damage
 	db POKEMON_POWER ; category
-	dw VenusaurSolarPowerEffectCommands ; effect commands
+	dw SolarPowerEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -124,13 +124,13 @@ VenusaurLv64Card:
 	db ATK_ANIM_SOLAR_POWER ; animation
 
 	; attack 2
-	energy GRASS, 4 ; energies
+	energy GRASS, 3 ; energies
 	tx MegaDrainName ; name
-	tx VenusaursMegaDrainDescription ; description
-	tx VenusaursMegaDrainDescriptionCont ; description (cont)
+	tx MegaDrainDescription ; description
+	dw NONE ; description (cont)
 	db 40 ; damage
 	db DAMAGE_NORMAL ; category
-	dw VenusaurMegaDrainEffectCommands ; effect commands
+	dw MegaDrainEffectCommands ; effect commands
 	db NONE ; flags 1
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
@@ -174,7 +174,7 @@ VenusaurLv67Card:
 	db ATK_ANIM_PKMN_POWER_1 ; animation
 
 	; attack 2
-	energy GRASS, 4 ; energies
+	energy GRASS, 3 ; energies
 	tx SolarBeamName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -326,11 +326,11 @@ ButterfreeCard:
 	; attack 2
 	energy GRASS, 4 ; energies
 	tx MegaDrainName ; name
-	tx ButterfreesMegaDrainDescription ; description
-	tx ButterfreesMegaDrainDescriptionCont ; description (cont)
+	tx MegaDrainDescription ; description
+	dw NONE ; description (cont)
 	db 40 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ButterfreeMegaDrainEffectCommands ; effect commands
+	dw MegaDrainEffectCommands ; effect commands
 	db NONE ; flags 1
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
@@ -4516,7 +4516,7 @@ PikachuLv16Card:
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw PikachuLv16GrowlEffectCommands ; effect commands
+	dw GrowlEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
