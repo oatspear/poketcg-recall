@@ -17,7 +17,7 @@
 - **Mega Drain**: reduced cost from (G)(G)(G)(G) to (G)(G)(G).
 
 ### Venusaur Lv67
-- **Solarbeam**: reduced cost from (G)(G)(G)(G) to (G)(G)(G).
+- **Solarbeam**: reduced cost from (G)(G)(G)(G) to (G)(G)(G)(C).
 
 ### Caterpie
 - **New Pokémon Power: Adaptive Evolution**: can evolve on the first turn.

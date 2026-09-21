@@ -174,7 +174,7 @@ VenusaurLv67Card:
 	db ATK_ANIM_PKMN_POWER_1 ; animation
 
 	; attack 2
-	energy GRASS, 3 ; energies
+	energy GRASS, 3, COLORLESS, 1 ; energies
 	tx SolarBeamName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
