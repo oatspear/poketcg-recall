@@ -578,7 +578,7 @@ ArbokCard:
 	tx TerrorStrikeName ; name
 	tx TerrorStrikeDescription ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
 	dw TerrorStrikeEffectCommands ; effect commands
 	db NONE ; flags 1

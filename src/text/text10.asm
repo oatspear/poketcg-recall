@@ -58,13 +58,10 @@ TerrorStrikeName:
 	done
 
 TerrorStrikeDescription:
-	text "Flip a coin. If heads and if your"
-	line "opponent has any Benched Pokémon,"
-	line "he or she chooses 1 of them and"
-	line "switches it with the Defending"
-	line "Pokémon."
-	line "(Do the damage before switching"
-	line "the Pokémon.)"
+	text "Before doing damage, your opponent"
+	line "chooses 1 of their Benched Pokémon,"
+	line "if any, and switches it with the"
+	line "Defending Pokémon."
 	done
 
 PoisonFangName:
