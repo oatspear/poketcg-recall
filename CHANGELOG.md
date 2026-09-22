@@ -47,6 +47,16 @@
 - **Poison Sting**: reduced cost from (G)(G)(G) to (G)(G)(C).
 - **Poison Sting**: now always inflicts Poison.
 
+### Ekans
+- **Spit Poison**: now always inflicts Poison.
+
+### Arbok
+- Increased HP from 60 to 80.
+- **Poison Fang**: reduced cost from (G)(G)(C) to (G)(C).
+- **Terror Strike**: increased cost from (G) to (G)(C)(C).
+- **Terror Strike**: now always switches the Defending Pokémon, but the switch happens before damage is dealt.
+- **Terror Strike**: damage increased from 10 to 30.
+
 ## Version 1.0
 
 ### Added

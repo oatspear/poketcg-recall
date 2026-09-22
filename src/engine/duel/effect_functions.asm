@@ -1345,55 +1345,7 @@ BenchSelectionMenuParameters:
 	db SYM_SPACE ; tile behind cursor
 	dw NULL ; function pointer if non-0
 
-SpitPoison_AIEffect:
-	ld a, 10 / 2
-	lb de, 0, 10
-	jp SetExpectedAIDamage
-
-; If heads, defending Pokemon becomes poisoned
-SpitPoison_Poison50PercentEffect:
-	ldtx de, PoisonCheckText
-	call TossCoin
-	jp c, PoisonEffect
-	ld a, ATK_ANIM_SPIT_POISON_SUCCESS
-	ld [wLoadedAttackAnimation], a
-	jp SetNoEffectFromStatus
-
-; outputs in hTemp_ffa0 the result of the coin toss (0 = tails, 1 = heads).
-; in case it was heads, stores in hTempPlayAreaLocation_ffa1
-; the PLAY_AREA_* location of the Bench Pokemon that was selected for switch.
-TerrorStrike_50PercentSelectSwitchPokemon:
-	xor a ; PLAY_AREA_ARENA
-	ldh [hTemp_ffa0], a
-
-; return failure if no Pokemon to switch to
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetNonTurnDuelistVariable
-	cp 2
-	ret c
-
-; toss coin and store whether it was tails (0) or heads (1) in hTemp_ffa0.
-; return if it was tails.
-	ldtx de, IfHeadsChangeOpponentsActivePokemonText
-	call TossCoin
-	ldh [hTemp_ffa0], a
-	ret nc
-
-	call DuelistSelectForcedSwitch
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTempPlayAreaLocation_ffa1], a
-	ret
-
-; if coin toss at hTemp_ffa0 was heads and it's possible,
-; switch the Defending Pokemon
-TerrorStrike_SwitchDefendingPokemon:
-	ldh a, [hTemp_ffa0]
-	or a
-	ret z
-	ldh a, [hTempPlayAreaLocation_ffa1]
-	jp HandleSwitchDefendingPokemonEffect
-
-PoisonFang_AIEffect:
+InflictPoison_AIEffect:
 	ld a, 10
 	lb de, 10, 10
 	jp UpdateExpectedAIDamage_AccountForPoison
@@ -1404,7 +1356,7 @@ WeepinbellPoisonPowder_AIEffect:
 	jp UpdateExpectedAIDamage_AccountForPoison
 
 ; return carry if there are no Pokemon cards in the non-turn holder's bench
-VictreebelLure_AssertPokemonInBench:
+CheckOpponentBenchIsNotEmpty:
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetNonTurnDuelistVariable
 	ldtx hl, EffectNoPokemonOnTheBenchText
@@ -1413,7 +1365,7 @@ VictreebelLure_AssertPokemonInBench:
 
 ; return in hTempPlayAreaLocation_ffa1 the PLAY_AREA_* location
 ; of the Bench Pokemon that was selected for switch
-VictreebelLure_SelectSwitchPokemon:
+Lure_SelectSwitchPokemon:
 	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText
 	call DrawWideTextBox_WaitForInput
 	call SwapTurn
@@ -1937,16 +1889,59 @@ DoubleKick30_MultiplierEffect:
 	call ATimes10
 	jp SetDefiniteDamage
 
+
+; carry set if the Defending Pokémon is immune to effects from attacks
+CheckDefendingPokemonImmuneToAttackEffects:
+	ld a, DUELVARS_ARENA_CARD_SUBSTATUS1
+	call GetNonTurnDuelistVariable
+	cp SUBSTATUS1_FLY
+	jr z, .no_damage_or_effect
+	cp SUBSTATUS1_BARRIER
+	jr z, .no_damage_or_effect
+	cp SUBSTATUS1_AGILITY
+	jr z, .no_damage_or_effect
+	call SwapTurn
+	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
+	call SwapTurn
+	ccf
+	ret nc
+; Pokémon Powers
+	call SwapTurn
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	call GetCardIDFromDeckIndex
+	call SwapTurn
+	cp16 MEW_LV8
+	jr z, .neutralizing_shield
+	or a
+	ret
+.neutralizing_shield
+; prevent damage and effects if attacked by a non-basic Pokémon
+	ld a, [wLoadedCard1Stage]
+	or a  ; BASIC
+	ret z
+.no_damage_or_effect
+	scf
+	ret
+
+
+TerrorStrike_SelectEffect:
+	ld a, $ff
+	ldh [hTemp_ffa0], a
+	call CheckDefendingPokemonImmuneToAttackEffects
+	ret c
+	; jr Whirlwind_SelectEffect
+	; fallthrough
+
 Whirlwind_SelectEffect:
+	ld a, $ff
+	ldh [hTemp_ffa0], a
+; check bench
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetNonTurnDuelistVariable
 	cp 2
-	jr nc, .has_bench
-	; no bench, do not do effect
-	ld a, $ff
-	ldh [hTemp_ffa0], a
-	ret
-.has_bench
+	ret c
+; has bench
 	call DuelistSelectForcedSwitch
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTemp_ffa0], a
@@ -1955,6 +1950,25 @@ Whirlwind_SelectEffect:
 Whirlwind_SwitchEffect:
 	ldh a, [hTemp_ffa0]
 	jp HandleSwitchDefendingPokemonEffect
+
+
+BeforeDamage_SwitchEffect:
+	ldh a, [hTemp_ffa0]
+	cp $ff
+	ret z
+
+; attack seems successful, switch Defending Pokemon
+	ld e, a
+	call SwapTurn
+	call SwapArenaWithBenchPokemon
+	call SwapTurn
+
+	xor a
+	ld [wccc5], a
+	ld [wDuelDisplayedScreen], a
+	inc a
+	ld [wDefendingWasForcedToSwitch], a
+	ret
 
 
 Poison50Percent_AIEffect:
@@ -3151,14 +3165,6 @@ RapidashStomp_DamageBoostEffect:
 	ret nc ; return if tails
 	ld a, 10
 	jp AddToDamage
-
-; returns carry if Opponent has no Pokemon in bench
-NinetalesLure_CheckBench:
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetNonTurnDuelistVariable
-	ldtx hl, EffectNoPokemonOnTheBenchText
-	cp 2
-	ret
 
 NinetalesLure_PlayerSelectEffect:
 	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText

@@ -512,11 +512,11 @@ EkansCard:
 	; attack 1
 	energy GRASS, 1 ; energies
 	tx SpitPoisonName ; name
-	tx MayInflictPoisonDescription ; description
+	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw EkansSpitPoisonEffectCommands ; effect commands
+	dw InflictPoisonEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -555,37 +555,37 @@ ArbokCard:
 	db DIAMOND ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw ARBOK
-	db 60 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx EkansName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
-	tx TerrorStrikeName ; name
-	tx TerrorStrikeDescription ; description
-	dw NONE ; description (cont)
-	db 10 ; damage
-	db DAMAGE_NORMAL ; category
-	dw ArbokTerrorStrikeEffectCommands ; effect commands
-	db NONE ; flags 1
-	db SWITCH_OPPONENT_POKEMON ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_HIT ; animation
-
-	; attack 2
-	energy GRASS, 2, COLORLESS, 1 ; energies
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx PoisonFangName ; name
 	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ArbokPoisonFangEffectCommands ; effect commands
+	dw InflictPoisonEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_POISON_FANG ; animation
+
+	; attack 2
+	energy GRASS, 1, COLORLESS, 2 ; energies
+	tx TerrorStrikeName ; name
+	tx TerrorStrikeDescription ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_NORMAL ; category
+	dw TerrorStrikeEffectCommands ; effect commands
+	db NONE ; flags 1
+	db SWITCH_OPPONENT_POKEMON ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_HIT ; animation
 
 	db 2 ; retreat cost
 	db WR_PSYCHIC ; weakness

@@ -40,25 +40,19 @@ AdaptiveEvolutionEffectCommands:
 	dbw EFFECTCMDTYPE_PKMN_POWER_TRIGGER, AdaptiveEvolution_AllowEvolutionEffect
 	db  $00
 
-EkansSpitPoisonEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SpitPoison_Poison50PercentEffect
-	dbw EFFECTCMDTYPE_AI, SpitPoison_AIEffect
-	db  $00
-
 EkansWrapEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
-ArbokTerrorStrikeEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, TerrorStrike_SwitchDefendingPokemon
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, TerrorStrike_50PercentSelectSwitchPokemon
-	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, TerrorStrike_50PercentSelectSwitchPokemon
+TerrorStrikeEffectCommands:
+	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, TerrorStrike_SelectEffect
+	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, TerrorStrike_SelectEffect
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, BeforeDamage_SwitchEffect
 	db  $00
 
 InflictPoisonEffectCommands:
-ArbokPoisonFangEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
-	dbw EFFECTCMDTYPE_AI, PoisonFang_AIEffect
+	dbw EFFECTCMDTYPE_AI, InflictPoison_AIEffect
 	db  $00
 
 WeepinbellPoisonPowderEffectCommands:
@@ -67,9 +61,9 @@ WeepinbellPoisonPowderEffectCommands:
 	db  $00
 
 VictreebelLureEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, VictreebelLure_AssertPokemonInBench
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, CheckOpponentBenchIsNotEmpty
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, VictreebelLure_SwitchDefendingPokemon
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, VictreebelLure_SelectSwitchPokemon
+	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Lure_SelectSwitchPokemon
 	dbw EFFECTCMDTYPE_AI_SELECTION, VictreebelLure_GetBenchPokemonWithLowestHP
 	db  $00
 
@@ -562,7 +556,7 @@ RapidashAgilityEffectCommands:
 	db  $00
 
 NinetalesLureEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, NinetalesLure_CheckBench
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, CheckOpponentBenchIsNotEmpty
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, NinetalesLure_SwitchEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, NinetalesLure_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, NinetalesLure_AISelectEffect
