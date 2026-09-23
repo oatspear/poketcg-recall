@@ -1374,31 +1374,27 @@ Lure_SelectSwitchPokemon:
 
 ; Return in hTemp_ffa0 the PLAY_AREA_* of the non-turn holder's Pokemon card in bench with the lowest (remaining) HP.
 ; if multiple cards are tied for the lowest HP, the one with the highest PLAY_AREA_* is returned.
-VictreebelLure_GetBenchPokemonWithLowestHP:
+Lure_GetBenchPokemonWithLowestHP:
 	call GetBenchPokemonWithLowestHP
 	ldh [hTemp_ffa0], a
 	ret
 
 ; Defending Pokemon is swapped out for the one with the PLAY_AREA_* at hTemp_ffa0
 ; unless Mew's Neutralizing Shield or Haunter's Transparency prevents it.
-VictreebelLure_SwitchDefendingPokemon:
+Lure_SwitchDefendingPokemon:
 	call SwapTurn
 	ldh a, [hTemp_ffa0]
 	ld e, a
 	call HandleNShieldAndTransparency
-	call nc, SwapArenaWithBenchPokemon
+	jr c, .unable
+	call SwapArenaWithBenchPokemon
+	ld a, SUBSTATUS2_UNABLE_RETREAT
+	call ApplySubstatus2ToDefendingCard
+.unable
 	call SwapTurn
 	xor a
 	ld [wDuelDisplayedScreen], a
 	ret
-
-; If heads, defending Pokemon can't retreat next turn
-AcidEffect:
-	ldtx de, AcidCheckText
-	call TossCoin
-	ret nc
-	ld a, SUBSTATUS2_UNABLE_RETREAT
-	jp ApplySubstatus2ToDefendingCard
 
 
 ; Defending Pokemon and user become confused
@@ -3137,33 +3133,6 @@ RapidashStomp_DamageBoostEffect:
 	ld a, 10
 	jp AddToDamage
 
-NinetalesLure_PlayerSelectEffect:
-	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText
-	call DrawWideTextBox_WaitForInput
-	call SwapTurn
-	bank1call HasAlivePokemonInBench
-.loop_input
-	bank1call OpenPlayAreaScreenForSelection
-	jr c, .loop_input
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
-	jp SwapTurn
-
-NinetalesLure_AISelectEffect:
-	call GetBenchPokemonWithLowestHP
-	ldh [hTemp_ffa0], a
-	ret
-
-NinetalesLure_SwitchEffect:
-	call SwapTurn
-	ldh a, [hTemp_ffa0]
-	ld e, a
-	call HandleNShieldAndTransparency
-	call nc, SwapArenaWithBenchPokemon
-	call SwapTurn
-	xor a
-	ld [wDuelDisplayedScreen], a
-	ret
 
 ; return carry if no Fire energy cards
 FireBlast_CheckEnergy:
@@ -6846,6 +6815,24 @@ PayDayEffect:
 	ret nz
 	; show card on screen if it was Player
 	bank1call OpenCardPage_FromHand
+	ret
+
+AcidSpray_PlayerSelectEffect:
+	ld a, $ff
+	ldh [hTemp_ffa0], a
+	ldtx de, AcidSprayCheckText
+	call TossCoin
+	ret nc
+	jp HandleEnergyDiscardEffectSelection
+
+AcidSpray_AISelectEffect:
+	ld a, $ff
+	ldh [hTemp_ffa0], a
+	ldtx de, AcidSprayCheckText
+	call TossCoin
+	ret nc
+	call AIPickEnergyCardToDiscardFromDefendingPokemon
+	ldh [hTemp_ffa0], a
 	ret
 
 HyperBeam_PlayerSelectEffect:

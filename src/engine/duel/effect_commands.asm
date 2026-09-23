@@ -55,15 +55,17 @@ InflictPoisonEffectCommands:
 	dbw EFFECTCMDTYPE_AI, InflictPoison_AIEffect
 	db  $00
 
-VictreebelLureEffectCommands:
+LureEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, CheckOpponentBenchIsNotEmpty
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, VictreebelLure_SwitchDefendingPokemon
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Lure_SelectSwitchPokemon
-	dbw EFFECTCMDTYPE_AI_SELECTION, VictreebelLure_GetBenchPokemonWithLowestHP
+	dbw EFFECTCMDTYPE_AI_SELECTION, Lure_GetBenchPokemonWithLowestHP
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Lure_SwitchDefendingPokemon
 	db  $00
 
-VictreebelAcidEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AcidEffect
+AcidSprayEffectCommands:
+	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, AcidSpray_PlayerSelectEffect
+	dbw EFFECTCMDTYPE_AI_SELECTION, AcidSpray_AISelectEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HyperBeam_DiscardEffect
 	db  $00
 
 PinsirIronGripEffectCommands:
@@ -495,13 +497,6 @@ RapidashStompEffectCommands:
 
 RapidashAgilityEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AgilityEffect
-	db  $00
-
-NinetalesLureEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, CheckOpponentBenchIsNotEmpty
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, NinetalesLure_SwitchEffect
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, NinetalesLure_PlayerSelectEffect
-	dbw EFFECTCMDTYPE_AI_SELECTION, NinetalesLure_AISelectEffect
 	db  $00
 
 NinetalesFireBlastEffectCommands:

@@ -213,7 +213,7 @@ TextOffsets::
 	textpointer IfHeadsNoDamageNextTurnText
 	textpointer DamageCheckIfHeadsPlusDamageText
 	textpointer DamageCheckIfHeadsXDamageText
-	textpointer AcidCheckText
+	textpointer AcidSprayCheckText
 	textpointer TransparencyCheckText
 	textpointer ConfusionCheckDamageText
 	textpointer ConfusionCheckRetreatText
@@ -2114,9 +2114,10 @@ TextOffsets::
 	textpointer WeepinbellDescription
 	textpointer VictreebelName
 	textpointer LureName
-	textpointer VictreebelsLureDescription
+	textpointer LureDescription
 	textpointer AcidName
-	textpointer VictreebelsAcidDescription
+	textpointer AcidSprayName
+	textpointer AcidSprayDescription
 	textpointer VictreebelDescription
 	textpointer GrimerName
 	textpointer NastyGooName
@@ -2187,7 +2188,6 @@ TextOffsets::
 	textpointer FoxName
 	textpointer VulpixDescription
 	textpointer NinetalesName
-	textpointer NinetalesLureDescription
 	textpointer FireBlastName
 	textpointer FireBlastDescription
 	textpointer NinetalesLv32Description

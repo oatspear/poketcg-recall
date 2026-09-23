@@ -104,7 +104,7 @@
 - **Foul Odor**: removed.
 - **Poison Powder**: increased cost from (G) to (G)(C).
 - **Poison Powder**: increased base damage from 0 to 20.
-- **New Pokémon Power: Heal**: moved from Vileplume. Flips a coin; if heads, heals 10 damage from 1 of the user's Pokémon.
+- **New Pokémon Power: Heal**: Once per turn, flips a coin; if heads, heals 10 damage from 1 of the user's Pokémon.
 
 ### Vileplume
 - Increased HP from 80 to 100.
@@ -129,6 +129,24 @@
 
 ### Venomoth
 - **Venom Powder**: increased damage from 10 to 20.
+
+### Bellsprout
+- **Call for Family**: reduced cost from (G) to (C).
+- **Vine Whip**: increased damage from 10 to 20.
+
+### Weepinbell
+- **Razor Leaf**: removed.
+- **Poison Powder**: increased cost from (G) to (G)(C).
+- **Poison Powder**: increased damage from 10 to 20.
+- **Poison Powder**: now always inflicts Poison.
+- **New attack: (G) Lure**: Switch 1 of the opponent's Benched Pokémon with their Active Pokémon. The new Active Pokémon is also unable to retreat during the opponent's next turn.
+
+### Victreebel
+- Increased HP from 80 to 100.
+- **Lure**: removed.
+- **Acid**: removed.
+- **New attack: (G)(G) Acid Spray**: 30 damage. Flips a coin. If heads, discards 1 energy from the Defending Pokémon.
+- **New attack: (G)(G)(C) Razor Leaf**: 50 damage.
 
 ## Version 1.0
 

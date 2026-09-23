@@ -1,6 +1,6 @@
-AcidCheckText:
-	text "Acid check! If Heads,"
-	line "unable to Retreat during next turn."
+AcidSprayCheckText:
+	text "Acid Spray check! If Heads,"
+	line "discard an Energy card."
 	done
 
 TransparencyCheckText:

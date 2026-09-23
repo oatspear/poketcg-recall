@@ -1360,21 +1360,7 @@ BellsproutCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
-	tx VineWhipName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 10 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_WHIP ; animation
-
-	; attack 2
-	energy GRASS, 1 ; energies
+	energy COLORLESS, 1 ; energies
 	tx CallForFamilyName ; name
 	tx BellsproutsCallForFamilyDescription ; description
 	dw NONE ; description (cont)
@@ -1386,6 +1372,20 @@ BellsproutCard:
 	db SPECIAL_AI_HANDLING ; flags 3
 	db 0
 	db ATK_ANIM_GLOW_EFFECT ; animation
+
+	; attack 2
+	energy GRASS, 1 ; energies
+	tx VineWhipName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 20 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_WHIP ; animation
 
 	db 1 ; retreat cost
 	db WR_FIRE ; weakness
@@ -1411,31 +1411,31 @@ WeepinbellCard:
 
 	; attack 1
 	energy GRASS, 1 ; energies
-	tx PoisonPowderName ; name
-	tx MayInflictPoisonDescription ; description
+	tx LureName ; name
+	tx LureDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 0 ; damage
+	db RESIDUAL ; category
+	dw LureEffectCommands ; effect commands
+	db NONE ; flags 1
+	db SWITCH_OPPONENT_POKEMON ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_LURE ; animation
+
+	; attack 2
+	energy GRASS, 1, COLORLESS, 1 ; energies
+	tx PoisonPowderName ; name
+	tx InflictPoisonDescription ; description
+	dw NONE ; description (cont)
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw Poison50PercentEffectCommands ; effect commands
+	dw InflictPoisonEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_POWDER_EFFECT_CHANCE ; animation
-
-	; attack 2
-	energy GRASS, 2 ; energies
-	tx RazorLeafName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_WHIP ; animation
+	db ATK_ANIM_POWDER_HIT_POISON ; animation
 
 	db 1 ; retreat cost
 	db WR_FIRE ; weakness
@@ -1455,37 +1455,37 @@ VictreebelCard:
 	db STAR ; rarity
 	db EVOLUTION | JUNGLE ; sets
 	dw VICTREEBEL
-	db 80 ; hp
+	db 100 ; hp
 	db STAGE2 ; stage
 	tx WeepinbellName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
-	tx LureName ; name
-	tx VictreebelsLureDescription ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw VictreebelLureEffectCommands ; effect commands
-	db NONE ; flags 1
-	db SWITCH_OPPONENT_POKEMON ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_LURE ; animation
-
-	; attack 2
 	energy GRASS, 2 ; energies
-	tx AcidName ; name
-	tx VictreebelsAcidDescription ; description
+	tx AcidSprayName ; name
+	tx AcidSprayDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
-	dw VictreebelAcidEffectCommands ; effect commands
+	dw AcidSprayEffectCommands ; effect commands
 	db NONE ; flags 1
-	db FLAG_2_BIT_6 ; flags 2
-	db NONE ; flags 3
+	db NONE ; flags 2
+	db SPECIAL_AI_HANDLING ; flags 3
 	db 1
 	db ATK_ANIM_GOO ; animation
+
+	; attack 2
+	energy GRASS, 2, COLORLESS, 1 ; energies
+	tx RazorLeafName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 50 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_WHIP ; animation
 
 	db 2 ; retreat cost
 	db WR_FIRE ; weakness
@@ -2212,11 +2212,11 @@ NinetalesLv32Card:
 	; attack 1
 	energy COLORLESS, 2 ; energies
 	tx LureName ; name
-	tx NinetalesLureDescription ; description
+	tx LureDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
-	dw NinetalesLureEffectCommands ; effect commands
+	dw LureEffectCommands ; effect commands
 	db NONE ; flags 1
 	db SWITCH_OPPONENT_POKEMON ; flags 2
 	db NONE ; flags 3

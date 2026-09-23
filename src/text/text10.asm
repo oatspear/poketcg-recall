@@ -446,11 +446,9 @@ BellsproutName:
 	done
 
 BellsproutsCallForFamilyDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Bellsprout and put it onto"
-	line "your Bench. Shuffle your deck"
-	line "afterward. (You can't use this"
-	line "attack if your Bench is full.)"
+	text "Search your deck for a Bellsprout"
+	line "and put it onto your Bench."
+	line "Shuffle your deck afterward."
 	done
 
 BellsproutDescription:
@@ -486,20 +484,25 @@ LureName:
 	text "Lure"
 	done
 
-VictreebelsLureDescription:
-	text "If your opponent has any Benched"
-	line "Pokémon, choose 1 of them and switch"
-	line "it with his or her Active Pokémon."
+LureDescription:
+	text "Switch 1 of your opponent's Benched"
+	line "Pokémon with their Active Pokémon."
+	line "The new Active Pokémon can't retreat"
+	line "during your opponent's next turn."
 	done
 
 AcidName:
 	text "Acid"
 	done
 
-VictreebelsAcidDescription:
-	text "Flip a coin. If heads, the Defending"
-	line "Pokémon can't retreat during your"
-	line "opponent's next turn."
+AcidSprayName:
+	text "Acid Spray"
+	done
+
+AcidSprayDescription:
+	text "Flip a coin. If heads, discard"
+	line "1 Energy card attached to the"
+	line "Defending Pokémon."
 	done
 
 VictreebelDescription:
@@ -844,12 +847,6 @@ VulpixDescription:
 
 NinetalesName:
 	text "Ninetales"
-	done
-
-NinetalesLureDescription:
-	text "If your opponent has any Benched"
-	line "Pokémon, choose 1 of them and switch"
-	line "it with the Defending Pokémon."
 	done
 
 FireBlastName:
