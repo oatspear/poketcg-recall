@@ -1710,18 +1710,18 @@ KoffingCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 2 ; energies
+	energy GRASS, 1 ; energies
 	tx FoulGasName ; name
 	tx FoulGasDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw KoffingFoulGasEffectCommands ; effect commands
+	dw FoulGasEffectCommands ; effect commands
 	db INFLICT_POISON | INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_FOUL_GAS ; animation
+	db ATK_ANIM_SLEEPING_GAS ; ATK_ANIM_FOUL_GAS ; animation
 
 	; attack 2
 	energy 0 ; energies
@@ -1755,36 +1755,36 @@ WeezingCard:
 	db DIAMOND ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw WEEZING
-	db 60 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx KoffingName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 2 ; energies
-	tx SmogName ; name
-	tx MayInflictPoisonDescription ; description
+	energy GRASS, 1, COLORLESS, 1 ; energies
+	tx SmokescreenName ; name
+	tx SmokescreenDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw WeezingSmogEffectCommands ; effect commands
-	db INFLICT_POISON ; flags 1
-	db NONE ; flags 2
+	dw SmokescreenEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_SMOG ; animation
+	db ATK_ANIM_DARK_GAS ; animation
 
 	; attack 2
 	energy GRASS, 2, COLORLESS, 1 ; energies
 	tx SelfdestructName ; name
 	tx WeezingsSelfdestructDescription ; description
 	dw NONE ; description (cont)
-	db 60 ; damage
+	db 80 ; damage
 	db DAMAGE_NORMAL ; category
 	dw WeezingSelfdestructEffectCommands ; effect commands
 	db HIGH_RECOIL ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
-	db 60
+	db 80
 	db ATK_ANIM_SELFDESTRUCT ; animation
 
 	db 1 ; retreat cost
@@ -2612,11 +2612,11 @@ MagmarLv31Card:
 	; attack 1
 	energy FIRE, 1 ; energies
 	tx SmokescreenName ; name
-	tx MagmarsSmokescreenDescription ; description
+	tx SmokescreenDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw MagmarSmokescreenEffectCommands ; effect commands
+	dw SmokescreenEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3

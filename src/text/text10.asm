@@ -651,11 +651,11 @@ SelfdestructName:
 	done
 
 WeezingsSelfdestructDescription:
-	text "Does 10 damage to each Pokémon on"
-	line "each player's Bench. (Don't apply"
-	line "Weakness and Resistance for Benched"
-	line "Pokémon.) Weezing does 60 damage to"
-	line "itself."
+	text "This attack does 10 damage to each"
+	line "Pokémon on each player's Bench."
+	line "(Don't apply Weakness and Resistance"
+	line "for Benched Pokémon.)  This Pokémon"
+	line "does 80 damage to itself."
 	done
 
 WeezingDescription:
@@ -1050,7 +1050,7 @@ SmokescreenName:
 	text "Smokescreen"
 	done
 
-MagmarsSmokescreenDescription:
+SmokescreenDescription:
 	text "If the Defending Pokémon tries to"
 	line "attack during your opponent's next"
 	line "turn, your opponent flips a coin. If"

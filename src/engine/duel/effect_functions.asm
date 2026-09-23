@@ -2235,13 +2235,9 @@ BellsproutCallForFamily_PutInPlayAreaEffect:
 .shuffle
 	jp ShuffleCardsInDeck
 
-WeezingSmog_AIEffect:
-	ld a, 5
-	lb de, 0, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
 
 WeezingSelfdestructEffect:
-	ld a, 60
+	ld a, 80
 	call DealRecoilDamageToSelf
 	ld a, TRUE
 	ld [wIsDamageToSelf], a

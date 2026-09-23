@@ -111,7 +111,7 @@ ExeggcuteLeechSeedEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ExeggcuteLeechSeedEffect
 	db  $00
 
-KoffingFoulGasEffectCommands:
+FoulGasEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FoulGas_PoisonOrConfusionEffect
 	dbw EFFECTCMDTYPE_AI, FoulGas_AIEffect
 	db  $00
@@ -200,11 +200,6 @@ BellsproutCallForFamilyEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, BellsproutCallForFamily_PutInPlayAreaEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, BellsproutCallForFamily_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, BellsproutCallForFamily_AISelectEffect
-	db  $00
-
-WeezingSmogEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Poison50PercentEffect
-	dbw EFFECTCMDTYPE_AI, WeezingSmog_AIEffect
 	db  $00
 
 WeezingSelfdestructEffectCommands:
@@ -537,7 +532,7 @@ MagmarFlamethrowerEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, Flamethrower_AISelectEffect
 	db  $00
 
-MagmarSmokescreenEffectCommands:
+SmokescreenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SmokescreenEffect
 	db  $00
 

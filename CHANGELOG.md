@@ -164,6 +164,16 @@
 - Reduced retreat cost from 3 to 2.
 - **Leech Seed**: reduced cost from (G)(G) to (G)(C).
 
+### Koffing
+- **Foul Gas**: reduced cost from (G)(G) to (G).
+- **Foul Gas**: no longer does direct damage.
+
+### Weezing
+- Increased HP from 60 to 80.
+- **Smog**: removed.
+- **Selfdestruct**: increased damage and recoil from 60 to 80.
+- **New attack: (G)(C) Smokescreen**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
+
 ## Version 1.0
 
 ### Added
