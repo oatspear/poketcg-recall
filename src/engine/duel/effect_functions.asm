@@ -1350,11 +1350,6 @@ InflictPoison_AIEffect:
 	lb de, 10, 10
 	jp UpdateExpectedAIDamage_AccountForPoison
 
-WeepinbellPoisonPowder_AIEffect:
-	ld a, 5
-	lb de, 0, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
-
 ; return carry if there are no Pokemon cards in the non-turn holder's bench
 CheckOpponentBenchIsNotEmpty:
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
@@ -1405,10 +1400,6 @@ AcidEffect:
 	ld a, SUBSTATUS2_UNABLE_RETREAT
 	jp ApplySubstatus2ToDefendingCard
 
-GloomPoisonPowder_AIEffect:
-	ld a, 10
-	lb de, 10, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
 
 ; Defending Pokemon and user become confused
 FoulOdorEffect:
@@ -1965,11 +1956,6 @@ Poison50Percent_AIEffect:
 	lb de, 0, 10
 	jp UpdateExpectedAIDamage_AccountForPoison
 
-PoisonPowder_AIEffect:
-	ld a, 10
-	lb de, 10, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
-
 LeechSeedEffect:
 	ld hl, wDealtDamage
 	ld a, [hli]
@@ -2374,10 +2360,6 @@ VenomPowder_PoisonConfusion50PercentEffect:
 	ld [wNoEffectFromWhichStatus], a
 	ret
 
-TangelaPoisonPowder_AIEffect:
-	ld a, 5
-	lb de, 0, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
 
 Heal_OncePerTurnCheck:
 	ldh a, [hTempPlayAreaLocation_ff9d]

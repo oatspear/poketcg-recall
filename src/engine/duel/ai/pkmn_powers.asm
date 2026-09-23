@@ -454,6 +454,12 @@ HandleAIPkmnPowers:
 	push bc
 
 ; heal
+	cp16 GLOOM
+	jr nz, .heal
+	call HandleAIHeal
+	jr .next_1
+
+.heal
 	cp16 VILEPLUME
 	jr nz, .shift
 	call HandleAIHeal

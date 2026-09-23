@@ -96,6 +96,22 @@
 - **Wing Attack**: reduced cost from (C)(C)(C) to (C)(C).
 - **Leech Life**: reduced cost from (G)(G)(C) to (G)(C)(C).
 
+### Oddish
+- **Sprout**: reduced cost from (G)(G) to (C).
+
+### Gloom
+- Increased HP from 60 to 70.
+- **Foul Odor**: removed.
+- **Poison Powder**: increased cost from (G) to (G)(C).
+- **Poison Powder**: increased base damage from 0 to 20.
+- **New Pokémon Power: Heal**: moved from Vileplume. Flips a coin; if heads, heals 10 damage from 1 of the user's Pokémon.
+
+### Vileplume
+- Increased HP from 80 to 100.
+- **Heal**: removed.
+- **Petal Dance**: reduced cost from (G)(G)(G) to (G)(G)(C).
+- **New attack: (G)(G)(G)(C) Mega Drain**: 60 damage. Heals the user for half the damage done.
+
 ## Version 1.0
 
 ### Added

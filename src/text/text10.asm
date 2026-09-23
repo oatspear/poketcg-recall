@@ -279,11 +279,9 @@ SproutName:
 	done
 
 SproutDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Oddish and put it onto your"
-	line "Bench. Shuffle your deck afterward."
-	line "(You can't use this attack if your"
-	line "Bench is full.)"
+	text "Search your deck for an Oddish and"
+	line "put it onto your Bench."
+	line "Shuffle your deck afterward."
 	done
 
 WeedName:
@@ -325,12 +323,11 @@ HealName:
 	done
 
 HealDescription:
-	text "Once during your turn (before your"
-	line "attack), you may flip a coin. If"
-	line "heads, remove 1 damage counter from"
-	line "1 of your Pokémon. This power can't"
-	line "be used if Vileplume is Asleep,"
-	line "Confused, or Paralyzed."
+	text "Once during your turn, you may flip"
+	line "a coin. If heads, heal 10 damage"
+	line "from 1 of your Pokémon. This power"
+	line "cannot be used if this Pokémon is"
+	line "Asleep, Confused, or Paralyzed."
 	done
 
 PetalDanceName:
@@ -338,10 +335,9 @@ PetalDanceName:
 	done
 
 PetalDanceDescription:
-	text "Flip 3 coins. This attack does 40"
-	line "damage times the number of heads."
-	line "Vileplume is now Confused (after"
-	line "doing damage)."
+	text "Flip 3 coins. This attack does"
+	line "40 damage for each heads."
+	line "This Pokémon is now Confused."
 	done
 
 FlowerName:
