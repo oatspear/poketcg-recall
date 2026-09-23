@@ -866,7 +866,7 @@ NidokingCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw NidokingToxicEffectCommands ; effect commands
+	dw ToxicEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1
 	db FLAG_2_BIT_6 ; flags 2
 	db NONE ; flags 3
@@ -1510,7 +1510,7 @@ GrimerCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 1 ; energies
+	energy GRASS, 1 ; energies
 	tx NastyGooName ; name
 	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
@@ -1524,13 +1524,13 @@ GrimerCard:
 	db ATK_ANIM_GOO ; animation
 
 	; attack 2
-	energy GRASS, 1 ; energies
+	energy COLORLESS, 2 ; energies
 	tx MinimizeName ; name
-	tx GrimersMinimizeDescription ; description
+	tx MinimizeDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
-	dw GrimerMinimizeEffectCommands ; effect commands
+	dw MinimizeEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
@@ -1555,7 +1555,7 @@ MukCard:
 	db STAR ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw MUK
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx GrimerName ; pre-evo name
 
@@ -1586,6 +1586,19 @@ MukCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_GOO ; animation
+
+	energy GRASS, 2, COLORLESS, 1 ; energies
+	tx ToxicName ; name
+	tx ToxicDescription ; description
+	dw NONE ; description (cont)
+	db 10 ; damage
+	db DAMAGE_NORMAL ; category
+	dw ToxicEffectCommands ; effect commands
+	db INFLICT_POISON ; flags 1
+	db FLAG_2_BIT_6 ; flags 2
+	db NONE ; flags 3
+	db 2
+	db ATK_ANIM_TOXIC ; animation
 
 	db 2 ; retreat cost
 	db WR_PSYCHIC ; weakness
@@ -8226,11 +8239,11 @@ ClefableCard:
 	; attack 2
 	energy COLORLESS, 2 ; energies
 	tx MinimizeName ; name
-	tx ClefablesMinimizeDescription ; description
+	tx MinimizeDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
-	dw ClefableMinimizeEffectCommands ; effect commands
+	dw MinimizeEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3

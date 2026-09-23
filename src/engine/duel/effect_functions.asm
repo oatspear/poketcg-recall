@@ -2135,11 +2135,6 @@ ToxicGasEffect:
 	scf
 	ret
 
-Sludge_AIEffect:
-	ld a, 5
-	lb de, 0, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
-
 ; returns carry if no cards in Deck
 ; or if Play Area is full already.
 BellsproutCallForFamily_CheckDeckAndPlayArea:

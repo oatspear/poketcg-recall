@@ -523,11 +523,11 @@ MinimizeName:
 	text "Minimize"
 	done
 
-GrimersMinimizeDescription:
-	text "All damage done by attacks to Grimer"
-	line "during your opponent's next turn is"
-	line "reduced by 20 (after applying"
-	line "Weakness and Resistance)."
+MinimizeDescription:
+	text "All damage done by attacks to this"
+	line "Pokémon during your opponent's next"
+	line "turn is reduced by 20 (after"
+	line "applying Weakness and Resistance)."
 	done
 
 SludgeName:

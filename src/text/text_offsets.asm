@@ -2122,7 +2122,7 @@ TextOffsets::
 	textpointer GrimerName
 	textpointer NastyGooName
 	textpointer MinimizeName
-	textpointer GrimersMinimizeDescription
+	textpointer MinimizeDescription
 	textpointer SludgeName
 	textpointer GrimerDescription
 	textpointer MukName
@@ -2721,7 +2721,6 @@ TextOffsets::
 	textpointer ClefairyDescription
 	textpointer ClefableName
 	textpointer ClefablesMetronomeDescription
-	textpointer ClefablesMinimizeDescription
 	textpointer ClefableDescription
 	textpointer JigglypuffName
 	textpointer FirstAidName

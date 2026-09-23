@@ -657,13 +657,6 @@ ClefablesMetronomeDescription:
 	line "still Colorless.)"
 	done
 
-ClefablesMinimizeDescription:
-	text "All damage done by attacks to"
-	line "Clefable during your opponent's next"
-	line "turn is reduced by 20 (after"
-	line "applying Weakness and Resistance)."
-	done
-
 ClefableDescription:
 	text "A timid Fairy Pokémon that is rarely"
 	line "seen. It will run and hide the"

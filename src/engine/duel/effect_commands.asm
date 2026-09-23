@@ -40,6 +40,7 @@ AdaptiveEvolutionEffectCommands:
 	dbw EFFECTCMDTYPE_PKMN_POWER_TRIGGER, AdaptiveEvolution_AllowEvolutionEffect
 	db  $00
 
+Paralysis50PercentEffectCommands:
 EkansWrapEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
@@ -144,7 +145,7 @@ NidokingThrashEffectCommands:
 	dbw EFFECTCMDTYPE_AI, Thrash_AIEffect
 	db  $00
 
-NidokingToxicEffectCommands:
+ToxicEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Toxic_DoublePoisonEffect
 	dbw EFFECTCMDTYPE_AI, Toxic_AIEffect
 	db  $00
@@ -186,21 +187,12 @@ VenusaurEnergyTransEffectCommands:
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, EnergyTrans_PrintProcedure
 	db  $00
 
-GrimerNastyGooEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
-GrimerMinimizeEffectCommands:
+MinimizeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MinimizeEffect
 	db  $00
 
 MukToxicGasEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ToxicGasEffect
-	db  $00
-
-MukSludgeEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Poison50PercentEffect
-	dbw EFFECTCMDTYPE_AI, Sludge_AIEffect
 	db  $00
 
 BellsproutCallForFamilyEffectCommands:
@@ -1156,10 +1148,6 @@ ClefableMetronomeEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ClefableMetronome_CheckAttacks
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, ClefableMetronome_UseAttackEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, ClefableMetronome_AISelectEffect
-	db  $00
-
-ClefableMinimizeEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MinimizeEffect
 	db  $00
 
 PidgeotHurricaneEffectCommands:

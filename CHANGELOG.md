@@ -148,6 +148,15 @@
 - **New attack: (G)(G) Acid Spray**: 30 damage. Flips a coin. If heads, discards 1 energy from the Defending Pokémon.
 - **New attack: (G)(G)(C) Razor Leaf**: 50 damage.
 
+### Grimer
+- **Nasty Goo**: increased cost from (C) to (G).
+- **Minimize**: increased cost from (G) to (C)(C).
+
+### Muk
+- Increased HP from 70 to 80.
+- **Sludge**: removed.
+- **New attack: (G)(G)(C) Toxic**: 10 damage. Inflicts double Poison.
+
 ## Version 1.0
 
 ### Added
