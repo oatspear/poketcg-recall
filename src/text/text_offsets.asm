@@ -2064,12 +2064,11 @@ TextOffsets::
 	textpointer NidokingDescription
 	textpointer ZubatName
 	textpointer LeechLifeName
-	textpointer ZubatsLeechLifeDescription
+	textpointer LeechLifeDescription
 	textpointer BatName
 	textpointer ZubatDescription
 	textpointer GolbatName
 	textpointer WingAttackName
-	textpointer GolbatsLeechLifeDescription
 	textpointer GolbatDescription
 	textpointer OddishName
 	textpointer SproutName
@@ -2097,7 +2096,6 @@ TextOffsets::
 	textpointer SlashName
 	textpointer ParasectDescription
 	textpointer VenonatName
-	textpointer VenonatLeechLifeDescription
 	textpointer InsectName
 	textpointer VenonatDescription
 	textpointer VenomothName

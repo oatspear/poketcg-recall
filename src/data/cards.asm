@@ -910,13 +910,13 @@ ZubatCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
+	energy COLORLESS, 1 ; energies
 	tx SupersonicName ; name
 	tx MayInflictConfusionDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ZubatSupersonicEffectCommands ; effect commands
+	dw SupersonicEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -924,13 +924,13 @@ ZubatCard:
 	db ATK_ANIM_SUPERSONIC ; animation
 
 	; attack 2
-	energy GRASS, 1, COLORLESS, 1 ; energies
+	energy GRASS, 1 ; energies
 	tx LeechLifeName ; name
-	tx ZubatsLeechLifeDescription ; description
+	tx LeechLifeDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ZubatLeechLifeEffectCommands ; effect commands
+	dw LeechLifeEffectCommands ; effect commands
 	db NONE ; flags 1
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
@@ -955,12 +955,12 @@ GolbatCard:
 	db DIAMOND ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw GOLBAT
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx ZubatName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 3 ; energies
+	energy COLORLESS, 2 ; energies
 	tx WingAttackName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -974,13 +974,13 @@ GolbatCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 1 ; energies
+	energy GRASS, 1, COLORLESS, 2 ; energies
 	tx LeechLifeName ; name
-	tx GolbatsLeechLifeDescription ; description
+	tx LeechLifeDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw GolbatLeechLifeEffectCommands ; effect commands
+	dw LeechLifeEffectCommands ; effect commands
 	db NONE ; flags 1
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
@@ -1276,11 +1276,11 @@ VenonatCard:
 	; attack 2
 	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx LeechLifeName ; name
-	tx VenonatLeechLifeDescription ; description
+	tx LeechLifeDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw VenonatLeechLifeEffectCommands ; effect commands
+	dw LeechLifeEffectCommands ; effect commands
 	db NONE ; flags 1
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
@@ -3316,7 +3316,7 @@ TentacruelCard:
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw TentacruelSupersonicEffectCommands ; effect commands
+	dw SupersonicEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -3466,7 +3466,7 @@ ShellderCard:
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ShellderSupersonicEffectCommands ; effect commands
+	dw SupersonicEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -8780,7 +8780,7 @@ LickitungCard:
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw LickitungSupersonicEffectCommands ; effect commands
+	dw SupersonicEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3

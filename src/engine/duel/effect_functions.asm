@@ -1427,19 +1427,14 @@ StiffenEffect:
 	ld a, SUBSTATUS1_NO_DAMAGE_STIFFEN
 	jp ApplySubstatus1ToDefendingCard
 
-GolbatLeechLifeEffect:
+
+LeechLifeEffect:
 	ld hl, wDealtDamage
 	ld e, [hl]
 	inc hl ; wDamageEffectiveness
 	ld d, [hl]
 	jp ApplyAndAnimateHPRecovery
 
-VenonatLeechLifeEffect:
-	ld hl, wDealtDamage
-	ld e, [hl]
-	inc hl ; wDamageEffectiveness
-	ld d, [hl]
-	jp ApplyAndAnimateHPRecovery
 
 ; During your next turn, double damage
 SwordsDanceEffect:
@@ -1454,13 +1449,6 @@ SupersonicEffect:
 	call Confusion50PercentEffect
 	call nc, SetNoEffectFromStatus
 	ret
-
-ZubatLeechLifeEffect:
-	ld hl, wDealtDamage
-	ld e, [hl]
-	inc hl
-	ld d, [hl]
-	jp ApplyAndAnimateHPRecovery
 
 
 ExeggcuteLeechSeedEffect:

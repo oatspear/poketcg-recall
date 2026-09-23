@@ -89,28 +89,20 @@ StiffenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, StiffenEffect
 	db  $00
 
-GolbatLeechLifeEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, GolbatLeechLifeEffect
+LeechLifeEffectCommands:
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, LeechLifeEffect
 	db  $00
 
 VenonatStunSporeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
-VenonatLeechLifeEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, VenonatLeechLifeEffect
-	db  $00
-
 ScytherSwordsDanceEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SwordsDanceEffect
 	db  $00
 
-ZubatSupersonicEffectCommands:
+SupersonicEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SupersonicEffect
-	db  $00
-
-ZubatLeechLifeEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ZubatLeechLifeEffect
 	db  $00
 
 DoubleAttackX30EffectCommands:
@@ -184,10 +176,6 @@ NidoranFCallForFamilyEffectCommands:
 NidoranMHornHazardEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HornHazard_NoDamage50PercentEffect
 	dbw EFFECTCMDTYPE_AI, HornHazard_AIEffect
-	db  $00
-
-NidorinaSupersonicEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SupersonicEffect
 	db  $00
 
 ParasSporeEffectCommands:
@@ -381,10 +369,6 @@ SeadraAgilityEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AgilityEffect
 	db  $00
 
-ShellderSupersonicEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SupersonicEffect
-	db  $00
-
 ShellderHideInShellEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HideInShellEffect
 	db  $00
@@ -425,10 +409,6 @@ SquirtleWithdrawEffectCommands:
 
 HorseaSmokescreenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SmokescreenEffect
-	db  $00
-
-TentacruelSupersonicEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SupersonicEffect
 	db  $00
 
 TentacruelJellyfishStingEffectCommands:
@@ -1275,10 +1255,6 @@ PersianPounceEffectCommands:
 
 LickitungTongueWrapEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
-LickitungSupersonicEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SupersonicEffect
 	db  $00
 
 WhirlwindEffectCommands:

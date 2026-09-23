@@ -87,6 +87,15 @@
 - **Thrash**: increased bonus damage and recoil from 10 to 20.
 - **Toxic**: reduced cost from (G)(G)(G) to (G)(G)(C).
 
+### Zubat
+- **Supersonic**: reduced cost from (C)(C) to (C).
+- **Leech Life**: reduced cost from (G)(C) to (G).
+
+### Golbat
+- Increased HP from 60 to 70.
+- **Wing Attack**: reduced cost from (C)(C)(C) to (C)(C).
+- **Leech Life**: reduced cost from (G)(G)(C) to (G)(C)(C).
+
 ## Version 1.0
 
 ### Added

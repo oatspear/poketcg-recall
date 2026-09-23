@@ -240,13 +240,10 @@ LeechLifeName:
 	text "Leech Life"
 	done
 
-ZubatsLeechLifeDescription:
-	text "Remove a number of damage counters"
-	line "from Zubat equal to the damage done"
-	line "to the Defending Pokémon (after"
-	line "applying Weakness and Resistance)."
-	line "If Zubat has fewer damage counters"
-	line "than that, remove all of them."
+LeechLifeDescription:
+	text "Heal from this Pokémon the same"
+	line "amount of damage you did to your"
+	line "opponent's Active Pokémon."
 	done
 
 BatName:
@@ -265,15 +262,6 @@ GolbatName:
 
 WingAttackName:
 	text "Wing Attack"
-	done
-
-GolbatsLeechLifeDescription:
-	text "Remove a number of damage counters"
-	line "from Golbat equal to the damage done"
-	line "to the Defending Pokémon (after"
-	line "applying Weakness and Resistance)."
-	line "If Golbat has fewer damage counters"
-	line "than that, remove all of them."
 	done
 
 GolbatDescription:
@@ -408,15 +396,6 @@ ParasectDescription:
 
 VenonatName:
 	text "Venonat"
-	done
-
-VenonatLeechLifeDescription:
-	text "Remove a number of damage counters"
-	line "from Venonat equal to the damage"
-	line "done to the Defending Pokémon (after"
-	line "applying Weakness and Resistance)."
-	line "If Venonat has fewer damage counters"
-	line "than that, remove all of them."
 	done
 
 InsectName:
