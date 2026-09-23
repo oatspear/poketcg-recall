@@ -2058,6 +2058,7 @@ TextOffsets::
 	textpointer NidokingName
 	textpointer ThrashName
 	textpointer ThrashDescription
+	textpointer IfHeadPlus20IfTails20ToYourselfText
 	textpointer ToxicName
 	textpointer ToxicDescription
 	textpointer NidokingDescription

@@ -1667,24 +1667,24 @@ SetDamageToATimes20:
 	ret
 
 Thrash_AIEffect:
-	ld a, (30 + 40) / 2
-	lb de, 30, 40
+	ld a, (60 + 80) / 2
+	lb de, 60, 80
 	jp SetExpectedAIDamage
 
-; If heads 10 more damage; if tails, 10 damage to itself
+; If heads 20 more damage; if tails, 20 damage to itself
 Thrash_ModifierEffect:
-	ldtx de, IfHeadPlus10IfTails10ToYourselfText
+	ldtx de, IfHeadPlus20IfTails20ToYourselfText
 	call TossCoin
 	ldh [hTemp_ffa0], a
 	ret nc
-	ld a, 10
+	ld a, 20
 	jp AddToDamage
 
 Thrash_RecoilEffect:
 	ldh a, [hTemp_ffa0]
 	or a
 	ret nz
-	ld a, 10
+	ld a, 20
 	jp DealRecoilDamageToSelf
 
 Toxic_AIEffect:

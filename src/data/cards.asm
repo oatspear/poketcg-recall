@@ -605,7 +605,7 @@ NidoranFCard:
 	db CIRCLE ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw NIDORANF
-	db 60 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -760,6 +760,20 @@ NidoranMCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
+	energy COLORLESS, 1 ; energies
+	tx CallForFamilyName ; name
+	tx NidoranFsCallForFamilyDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db RESIDUAL ; category
+	dw NidoranFCallForFamilyEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db SPECIAL_AI_HANDLING ; flags 3
+	db 0
+	db ATK_ANIM_GLOW_EFFECT ; animation
+
+	; attack 2
 	energy GRASS, 1 ; energies
 	tx HornHazardName ; name
 	tx MayDoNothingDescription ; description
@@ -767,20 +781,6 @@ NidoranMCard:
 	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NidoranMHornHazardEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
-
-	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -805,12 +805,12 @@ NidorinoCard:
 	db DIAMOND ; rarity
 	db COLOSSEUM | NONE ; sets
 	dw NIDORINO
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx NidoranMName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx DoubleKickName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
@@ -824,7 +824,7 @@ NidorinoCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 2 ; energies
+	energy GRASS, 1, COLORLESS, 2 ; energies
 	tx HornDrillName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -855,26 +855,12 @@ NidokingCard:
 	db STAR ; rarity
 	db EVOLUTION | NONE ; sets
 	dw NIDOKING
-	db 90 ; hp
+	db 100 ; hp
 	db STAGE2 ; stage
 	tx NidorinoName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
-	tx ThrashName ; name
-	tx ThrashDescription ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_PLUS ; category
-	dw NidokingThrashEffectCommands ; effect commands
-	db LOW_RECOIL ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_MULTIPLE_SLASH ; animation
-
-	; attack 2
-	energy GRASS, 3 ; energies
+	energy GRASS, 2, COLORLESS, 1 ; energies
 	tx ToxicName ; name
 	tx ToxicDescription ; description
 	dw NONE ; description (cont)
@@ -886,6 +872,20 @@ NidokingCard:
 	db NONE ; flags 3
 	db 2
 	db ATK_ANIM_TOXIC ; animation
+
+	; attack 2
+	energy GRASS, 2, COLORLESS, 2 ; energies
+	tx ThrashName ; name
+	tx ThrashDescription ; description
+	dw NONE ; description (cont)
+	db 60 ; damage
+	db DAMAGE_PLUS ; category
+	dw NidokingThrashEffectCommands ; effect commands
+	db LOW_RECOIL ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_MULTIPLE_SLASH ; animation
 
 	db 3 ; retreat cost
 	db WR_PSYCHIC ; weakness

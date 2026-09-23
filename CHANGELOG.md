@@ -58,6 +58,7 @@
 - **Terror Strike**: damage increased from 10 to 30.
 
 ### Nidoran (F)
+- Reduced HP from 60 to 50.
 - **Call for Family**: reduced cost from (G)(G) to (C).
 
 ### Nidorina
@@ -70,6 +71,21 @@
 - Increased HP from 90 to 100.
 - **Boyfriends**: now counts Nidorino, in addition to Nidoking.
 - **Mega Punch**: increased damage from 50 to 60.
+
+### Nidoran (M)
+- **New attack: (C) Call for Family**: searches the deck for a Nidoran F/M and puts it onto the Bench.
+
+### Nidorino
+- Increased HP from 60 to 70.
+- **Double Kick**: reduced cost from (G)(C)(C) to (G)(C).
+- **Horn Drill**: reduced cost from (G)(G)(C)(C) to (G)(C)(C).
+
+### Nidoking
+- Increased HP from 90 to 100.
+- **Thrash**: increased cost from (G)(C)(C) to (G)(G)(C)(C).
+- **Thrash**: increased base damage from 30 to 60.
+- **Thrash**: increased bonus damage and recoil from 10 to 20.
+- **Toxic**: reduced cost from (G)(G)(G) to (G)(G)(C).
 
 ## Version 1.0
 

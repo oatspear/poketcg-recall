@@ -211,6 +211,11 @@ ThrashDescription:
 	line "itself."
 	done
 
+IfHeadPlus20IfTails20ToYourselfText:
+	text "If Heads, + 20 damage!"
+	line "If Tails, +20 damage to yourself!"
+	done
+
 ToxicName:
 	text "Toxic"
 	done
