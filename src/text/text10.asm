@@ -205,10 +205,8 @@ ThrashName:
 
 ThrashDescription:
 	text "Flip a coin. If heads, this attack"
-	line "does 30 damage plus 10 more damage;"
-	line "if tails, this attack does 30 damage"
-	line "and Nidoking does 10 damage to"
-	line "itself."
+	line "does 20 more damage. If tails, this"
+	line "Pokémon does 20 damage to itself."
 	done
 
 IfHeadPlus20IfTails20ToYourselfText:
