@@ -54,6 +54,8 @@ HandleSpecialAIAttacks:
 	jp z, .HyperBeam
 	cp16 DRAGONAIR
 	jp z, .HyperBeam
+	cp16 VICTREEBEL
+	jp z, .HyperBeam
 
 ; return zero score.
 .zero_score
@@ -408,21 +410,14 @@ HandleSpecialAIAttacks:
 	ld a, $83
 	ret
 
-; only incentivize attack if player's active card,
-; has any energy cards attached, and if so,
-; return a score of $80 + 3.
+; encourage this attack based on the number
+; of energies attached to the player's active card.
 .HyperBeam:
 	call SwapTurn
 	ld e, PLAY_AREA_ARENA
 	call CountNumberOfEnergyCardsAttached
-	call SwapTurn
-	or a
-	jr z, .hyper_beam_neutral
-	ld a, $83
-	ret
-.hyper_beam_neutral
-	ld a, $80
-	ret
+	add $80
+	jp SwapTurn
 
 
 ; returns carry if there are
