@@ -123,6 +123,13 @@
 - **Slash**: increased damage from 30 to 40.
 - **New attack: (G)(C) Leech Life**: 20 damage. Heals the user for the same amount of damage done.
 
+### Venonat
+- Increased HP from 40 to 50.
+- **Leech Life**: reduced cost from (G)(C) to (C)(C).
+
+### Venomoth
+- **Venom Powder**: increased damage from 10 to 20.
+
 ## Version 1.0
 
 ### Added

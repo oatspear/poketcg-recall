@@ -413,12 +413,11 @@ ShiftName:
 	done
 
 ShiftDescription:
-	text "Once during your turn (before your"
-	line "attack), you may change the type of"
-	line "Venomoth to the type of any other"
-	line "Pokémon in play other than"
-	line "Colorless."
-	line "This power can't be used if Venomoth"
+	text "Once during your turn, you may"
+	line "change this Pokémon's type to"
+	line "the type of any other Pokémon"
+	line "in play (except Colorless). This"
+	line "power cannot be used if this Pokémon"
 	line "is Asleep, Confused, or Paralyzed."
 	done
 

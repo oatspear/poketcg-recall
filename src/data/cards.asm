@@ -1255,7 +1255,7 @@ VenonatCard:
 	db CIRCLE ; rarity
 	db LABORATORY | JUNGLE ; sets
 	dw VENONAT
-	db 40 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -1274,7 +1274,7 @@ VenonatCard:
 	db ATK_ANIM_POWDER_EFFECT_CHANCE ; animation
 
 	; attack 2
-	energy GRASS, 1, COLORLESS, 1 ; energies
+	energy COLORLESS, 2 ; energies
 	tx LeechLifeName ; name
 	tx LeechLifeDescription ; description
 	dw NONE ; description (cont)
@@ -1328,7 +1328,7 @@ VenomothCard:
 	tx VenomPowderName ; name
 	tx VenomPowderDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
 	dw VenomothVenomPowderEffectCommands ; effect commands
 	db INFLICT_POISON | INFLICT_CONFUSION ; flags 1
