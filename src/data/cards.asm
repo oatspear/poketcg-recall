@@ -960,21 +960,7 @@ GolbatCard:
 	tx ZubatName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
-	tx WingAttackName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_HIT ; animation
-
-	; attack 2
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx LeechLifeName ; name
 	tx LeechLifeDescription ; description
 	dw NONE ; description (cont)
@@ -986,6 +972,20 @@ GolbatCard:
 	db NONE ; flags 3
 	db 3
 	db ATK_ANIM_DRAIN ; animation
+
+	; attack 2
+	energy COLORLESS, 3 ; energies
+	tx WingAttackName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 40 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_HIT ; animation
 
 	db 0 ; retreat cost
 	db WR_PSYCHIC ; weakness

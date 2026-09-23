@@ -93,8 +93,8 @@
 
 ### Golbat
 - Increased HP from 60 to 70.
-- **Wing Attack**: reduced cost from (C)(C)(C) to (C)(C).
-- **Leech Life**: reduced cost from (G)(G)(C) to (G)(C)(C).
+- **Wing Attack**: increased damage from 30 to 40.
+- **Leech Life**: reduced cost from (G)(G)(C) to (G)(C).
 
 ### Oddish
 - **Sprout**: reduced cost from (G)(G) to (C).
