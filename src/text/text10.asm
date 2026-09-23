@@ -569,12 +569,6 @@ HypnosisName:
 	text "Hypnosis"
 	done
 
-ExeggcutesLeechSeedDescription:
-	text "Unless all damage from this attack"
-	line "is prevented, you may remove 1"
-	line "damage counter from Exeggcute."
-	done
-
 EggName:
 	text "Egg"
 	done
@@ -594,7 +588,7 @@ TeleportName:
 	done
 
 TeleportDescription:
-	text "Switch Exeggutor with 1 of your"
+	text "Switch this Pokémon with 1 of your"
 	line "Benched Pokémon."
 	done
 
@@ -604,9 +598,9 @@ BigEggsplosionName:
 
 BigEggsplosionDescription:
 	text "Flip a number of coins equal to the"
-	line "number of Energy attached to"
-	line "Exeggutor. This attack does 20"
-	line "damage times the number of heads."
+	line "number of Energies attached to"
+	line "this Pokémon. This attack does 20"
+	line "damage for each heads."
 	done
 
 CoconutName:

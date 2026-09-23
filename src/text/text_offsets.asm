@@ -2131,7 +2131,6 @@ TextOffsets::
 	textpointer MukDescription
 	textpointer ExeggcuteName
 	textpointer HypnosisName
-	textpointer ExeggcutesLeechSeedDescription
 	textpointer EggName
 	textpointer ExeggcuteDescription
 	textpointer ExeggutorName

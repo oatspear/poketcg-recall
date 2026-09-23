@@ -157,6 +157,13 @@
 - **Sludge**: removed.
 - **New attack: (G)(G)(C) Toxic**: 10 damage. Inflicts double Poison.
 
+### Exeggcute
+- **Leech Seed**: reduced cost from (G)(G) to (G)(C).
+
+### Exeggutor
+- Reduced retreat cost from 3 to 2.
+- **Leech Seed**: reduced cost from (G)(G) to (G)(C).
+
 ## Version 1.0
 
 ### Added

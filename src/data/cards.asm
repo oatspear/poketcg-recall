@@ -1624,9 +1624,9 @@ ExeggcuteCard:
 	db ATK_ANIM_HYPNOSIS ; animation
 
 	; attack 2
-	energy GRASS, 2 ; energies
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx LeechSeedName ; name
-	tx ExeggcutesLeechSeedDescription ; description
+	tx LeechSeedDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
@@ -1687,7 +1687,7 @@ ExeggutorCard:
 	db MAX_ENERGY_BOOST_IS_NOT_LIMITED
 	db ATK_ANIM_BIG_HIT ; animation
 
-	db 3 ; retreat cost
+	db 2 ; retreat cost
 	db WR_FIRE ; weakness
 	db NONE ; resistance
 	tx CoconutName ; category
