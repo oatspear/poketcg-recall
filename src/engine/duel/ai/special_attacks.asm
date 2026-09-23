@@ -12,6 +12,8 @@ HandleSpecialAIAttacks:
 
 	cp16 NIDORANF
 	jp z, .NidoranFCallForFamily
+	cp16 NIDORANM
+	jp z, .NidoranFCallForFamily
 	cp16 ODDISH
 	jp z, .CallForFamily
 	cp16 BELLSPROUT
@@ -58,7 +60,7 @@ HandleSpecialAIAttacks:
 	xor a
 	ret
 
-; if any of card ID in a is found in deck,
+; if any of card ID in de is found in deck,
 ; return a score of $80 + slots available in bench.
 .CallForFamily:
 	ld a, CARD_LOCATION_DECK
