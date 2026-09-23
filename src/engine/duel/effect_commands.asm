@@ -190,16 +190,6 @@ NidorinaSupersonicEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SupersonicEffect
 	db  $00
 
-NidorinaDoubleKickEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DoubleKick30_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, DoubleKick30_AIEffect
-	db  $00
-
-NidorinoDoubleKickEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DoubleKick30_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, DoubleKick30_AIEffect
-	db  $00
-
 ParasSporeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00

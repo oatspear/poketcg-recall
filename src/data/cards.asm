@@ -610,6 +610,20 @@ NidoranFCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
+	energy COLORLESS, 1 ; energies
+	tx CallForFamilyName ; name
+	tx NidoranFsCallForFamilyDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db RESIDUAL ; category
+	dw NidoranFCallForFamilyEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db SPECIAL_AI_HANDLING ; flags 3
+	db 0
+	db ATK_ANIM_GLOW_EFFECT ; animation
+
+	; attack 2
 	energy GRASS, 1 ; energies
 	tx FurySwipesName ; name
 	tx TripleAttackX10Description ; description
@@ -622,20 +636,6 @@ NidoranFCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_MULTIPLE_SLASH ; animation
-
-	; attack 2
-	energy GRASS, 2 ; energies
-	tx CallForFamilyName ; name
-	tx NidoranFsCallForFamilyDescription ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw NidoranFCallForFamilyEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db SPECIAL_AI_HANDLING ; flags 3
-	db 0
-	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	db 1 ; retreat cost
 	db WR_PSYCHIC ; weakness
@@ -655,37 +655,37 @@ NidorinaCard:
 	db DIAMOND ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw NIDORINA
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx NidoranFName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1 ; energies
-	tx SupersonicName ; name
-	tx MayInflictConfusionDescription ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NidorinaSupersonicEffectCommands ; effect commands
-	db INFLICT_CONFUSION ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_SUPERSONIC ; animation
-
-	; attack 2
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx DoubleKickName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_X ; category
-	dw NidorinaDoubleKickEffectCommands ; effect commands
+	dw DoubleAttackX30EffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_HIT ; animation
+
+	; attack 2
+	energy GRASS, 1, COLORLESS, 2 ; energies
+	tx PoisonFangName ; name
+	tx InflictPoisonDescription ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_NORMAL ; category
+	dw InflictPoisonEffectCommands ; effect commands
+	db INFLICT_POISON ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_POISON_FANG ; animation
 
 	db 1 ; retreat cost
 	db WR_PSYCHIC ; weakness
@@ -705,7 +705,7 @@ NidoqueenCard:
 	db STAR ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw NIDOQUEEN
-	db 90 ; hp
+	db 100 ; hp
 	db STAGE2 ; stage
 	tx NidorinaName ; pre-evo name
 
@@ -728,7 +728,7 @@ NidoqueenCard:
 	tx MegaPunchName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 50 ; damage
+	db 60 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -816,7 +816,7 @@ NidorinoCard:
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_X ; category
-	dw NidorinoDoubleKickEffectCommands ; effect commands
+	dw DoubleAttackX30EffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3

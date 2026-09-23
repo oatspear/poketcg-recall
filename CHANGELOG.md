@@ -57,6 +57,20 @@
 - **Terror Strike**: now always switches the Defending Pokémon, but the switch happens before damage is dealt.
 - **Terror Strike**: damage increased from 10 to 30.
 
+### Nidoran (F)
+- **Call for Family**: reduced cost from (G)(G) to (C).
+
+### Nidorina
+- Increased HP from 70 to 80.
+- **Supersonic**: removed.
+- **Double Kick**: reduced cost from (G)(C)(C) to (G)(C).
+- **New attack: (G)(C)(C) Poison Fang**: 30 damage. Inflicts Poison.
+
+### Nidoqueen
+- Increased HP from 90 to 100.
+- **Boyfriends**: now counts Nidorino, in addition to Nidoking.
+- **Mega Punch**: increased damage from 50 to 60.
+
 ## Version 1.0
 
 ### Added

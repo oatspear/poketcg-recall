@@ -1705,19 +1705,22 @@ BoyfriendsEffect:
 	cp $ff
 	jr z, .done
 	call GetCardIDFromDeckIndex
+	cp16 NIDORINO
+	jr z, .count
 	cp16 NIDOKING
 	jr nz, .next
+.count
 	inc c
 .next
 	inc hl
 	jr .loop
 .done
-; c holds number of Nidoking found in Play Area
+; c holds number of matches found in Play Area
 	ld a, c
 	add a
 	call ATimes10
-	call AddToDamage ; adds 2 * 10 * c
-	ret
+	jp AddToDamage ; adds 2 * 10 * c
+
 
 FurySwipes10_AIEffect:
 	ld a, 30 / 2
@@ -1864,7 +1867,6 @@ FurySwipes20_AIEffect:
 Bonemerang_AIEffect:
 DragonairSlam_AIEffect:
 DragoniteLv41Slam_AIEffect:
-DoubleKick30_AIEffect:
 	ld a, 60 / 2
 	lb de, 0, 60
 	jp SetExpectedAIDamage
@@ -1877,7 +1879,6 @@ PoliwhirlDoubleslap_MultiplierEffect:
 Bonemerang_MultiplierEffect:
 DragonairSlam_MultiplierEffect:
 DragoniteLv41Slam_MultiplierEffect:
-DoubleKick30_MultiplierEffect:
 	ld hl, 30
 	call LoadTxRam3
 	ldtx de, DamageCheckIfHeadsXDamageText

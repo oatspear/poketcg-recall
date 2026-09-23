@@ -96,11 +96,9 @@ CallForFamilyName:
 	done
 
 NidoranFsCallForFamilyDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Nidoran♀ or Nidoran♂ and put"
-	line "it onto your Bench. Shuffle your"
-	line "deck afterward. (You can't use this"
-	line "attack if your Bench is full.)"
+	text "Search your deck for a Nidoran♀"
+	line "or Nidoran♂ and put it onto your"
+	line "Bench. Shuffle your deck afterward."
 	done
 
 PoisonPinName:
@@ -145,8 +143,9 @@ BoyfriendsName:
 	done
 
 BoyfriendsDescription:
-	text "Does 20 damage plus 20 more damage"
-	line "for each Nidoking you have in play."
+	text "This attack does 20 more damage"
+	line "for each Nidorino or Nidoking"
+	line "you have in play."
 	done
 
 MegaPunchName:
