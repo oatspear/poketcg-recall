@@ -112,6 +112,17 @@
 - **Petal Dance**: reduced cost from (G)(G)(G) to (G)(G)(C).
 - **New attack: (G)(G)(G)(C) Mega Drain**: 60 damage. Heals the user for half the damage done.
 
+### Paras
+- **Scratch**: reduced cost from (C)(C) to (C).
+- **Scratch**: reduced damage from 20 to 10.
+- **Spore**: reduced cost from (G)(G) to (G).
+
+### Parasect
+- Increased HP from 60 to 70.
+- **Spore**: removed.
+- **Slash**: increased damage from 30 to 40.
+- **New attack: (G)(C) Leech Life**: 20 damage. Heals the user for the same amount of damage done.
+
 ## Version 1.0
 
 ### Added

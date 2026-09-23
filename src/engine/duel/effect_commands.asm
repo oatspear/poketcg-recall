@@ -100,7 +100,7 @@ DoubleAttackX30EffectCommands:
 	dbw EFFECTCMDTYPE_AI, DoubleAttackX30_AIEffect
 	db  $00
 
-ExeggcuteHypnosisEffectCommands:
+InflictSleepEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00
 
@@ -166,11 +166,6 @@ NidoranFCallForFamilyEffectCommands:
 NidoranMHornHazardEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HornHazard_NoDamage50PercentEffect
 	dbw EFFECTCMDTYPE_AI, HornHazard_AIEffect
-	db  $00
-
-ParasSporeEffectCommands:
-ParasectSporeEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00
 
 Poison50PercentEffectCommands:
@@ -649,20 +644,12 @@ GastlyEnergyConversionEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, EnergyConversion_AISelectEffect
 	db  $00
 
-HaunterHypnosisEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
-	db  $00
-
 HaunterDreamEaterEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, DreamEaterEffect
 	db  $00
 
 HaunterTransparencyEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, TransparencyEffect
-	db  $00
-
-HaunterNightmareEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00
 
 HypnoProphecyEffectCommands:
@@ -1204,17 +1191,9 @@ ClefairyMetronomeEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, ClefairyMetronome_AISelectEffect
 	db  $00
 
-WigglytuffLullabyEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
-	db  $00
-
 WigglytuffDoTheWaveEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DoTheWaveEffect
 	dbw EFFECTCMDTYPE_AI, DoTheWaveEffect
-	db  $00
-
-JigglypuffLullabyEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00
 
 JigglypuffFirstAidEffectCommands:
