@@ -2431,11 +2431,6 @@ PetalDance_MultiplierEffect:
 	call ConfusionEffect
 	jp SwapTurn
 
-PoisonWhip_AIEffect:
-	ld a, 10
-	lb de, 10, 10
-	jp UpdateExpectedAIDamage_AccountForPoison
-
 SolarPower_CheckUse:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTemp_ffa0], a

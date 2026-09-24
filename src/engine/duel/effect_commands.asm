@@ -217,10 +217,6 @@ VenomothVenomPowderEffectCommands:
 	dbw EFFECTCMDTYPE_AI, VenomPowder_AIEffect
 	db  $00
 
-TangelaBindEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
 HealEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Heal_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Heal_RemoveDamageEffect
@@ -229,15 +225,6 @@ HealEffectCommands:
 VileplumePetalDanceEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PetalDance_MultiplierEffect
 	dbw EFFECTCMDTYPE_AI, PetalDance_AIEffect
-	db  $00
-
-TangelaStunSporeEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
-TangelaPoisonWhipEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
-	dbw EFFECTCMDTYPE_AI, PoisonWhip_AIEffect
 	db  $00
 
 SolarPowerEffectCommands:

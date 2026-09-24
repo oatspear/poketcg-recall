@@ -174,6 +174,16 @@
 - **Selfdestruct**: increased damage and recoil from 60 to 80.
 - **New attack: (G)(C) Smokescreen**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
 
+### Tangela Lv8
+- Increased HP from 50 to 70.
+- Reduced retreat cost from 2 to 1.
+- **Poison Powder**: reduced cost from (G)(G)(G) to (G)(G)(C).
+
+### Tangela Lv12
+- Increased HP from 50 to 60.
+- Reduced retreat cost from 2 to 1.
+- **Poison Whip**: reduced cost from (G)(G)(C) to (G)(C).
+
 ## Version 1.0
 
 ### Added
