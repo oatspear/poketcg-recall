@@ -184,6 +184,10 @@
 - Reduced retreat cost from 2 to 1.
 - **Poison Whip**: reduced cost from (G)(G)(C) to (G)(C).
 
+### Pinsir
+- Increased HP from 60 to 70.
+- **Irongrip**: reduced cost from (G)(G) to (G)(C).
+
 ## Version 1.0
 
 ### Added
