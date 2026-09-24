@@ -105,7 +105,7 @@ VenusaurLv64Card:
 	db STAR ; rarity
 	db PROMOTIONAL | GB ; sets
 	dw VENUSAUR_LV64
-	db 100 ; hp
+	db 110 ; hp
 	db STAGE2 ; stage
 	tx IvysaurName ; pre-evo name
 
@@ -155,7 +155,7 @@ VenusaurLv67Card:
 	db STAR ; rarity
 	db EVOLUTION | NONE ; sets
 	dw VENUSAUR_LV67
-	db 100 ; hp
+	db 110 ; hp
 	db STAGE2 ; stage
 	tx IvysaurName ; pre-evo name
 

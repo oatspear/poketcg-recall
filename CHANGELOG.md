@@ -13,10 +13,12 @@
 - **Poison Powder**: reduced cost from (G)(G)(G) to (G)(G).
 
 ### Venusaur Lv64
+- Increased HP from 100 to 110.
 - **Solar Power**: now only affects the player's Active Pokémon.
 - **Mega Drain**: reduced cost from (G)(G)(G)(G) to (G)(G)(G).
 
 ### Venusaur Lv67
+- Increased HP from 100 to 110.
 - **Solarbeam**: reduced cost from (G)(G)(G)(G) to (G)(G)(G)(C).
 
 ### Caterpie
