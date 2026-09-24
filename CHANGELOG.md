@@ -188,7 +188,7 @@
 - Reduced HP from 70 to 60.
 
 ### Pinsir
-- Increased HP from 60 to 70.
+- Increased HP from 60 to 80.
 - **Irongrip**: reduced cost from (G)(G) to (G)(C).
 
 ## Version 1.0
