@@ -38,15 +38,31 @@ HandleDamageReduction::
 	call HandleDamageReductionFromSubstatus1
 	call HandleDamageReductionFromPkmnPowers
 ; handle Substatus2 damage reduction for the attacking card
+	; ld a, DUELVARS_ARENA_CARD_SUBSTATUS2
+	; call GetNonTurnDuelistVariable
+	; or a
+	; ret z
+	; cp SUBSTATUS2_REDUCE_BY_20
+	; jr z, ReduceDamageBy20_DE
+	; cp SUBSTATUS2_REDUCE_BY_10
+	; jr z, ReduceDamageBy10_DE
+	ret
+
+; check if the attacking card (turn holder's arena card) has any substatus that
+; reduces the damage dealt this turn (SUBSTATUS2).
+; damage is given in de as input and the possibly updated damage is also returned in de.
+HandleDamageReductionBeforeWeaknessResistance::
+	; ld a, [wNoDamageOrEffect]
+	; or a
+	; jr nz, NoDamage_DE
+; handle Substatus2 damage reduction for the attacking card
 	ld a, DUELVARS_ARENA_CARD_SUBSTATUS2
-	call GetNonTurnDuelistVariable
+	call GetTurnDuelistVariable
 	or a
 	ret z
 	cp SUBSTATUS2_REDUCE_BY_20
 	jr z, ReduceDamageBy20_DE
-	cp SUBSTATUS2_POUNCE
-	jr z, ReduceDamageBy10_DE
-	cp SUBSTATUS2_GROWL
+	cp SUBSTATUS2_REDUCE_BY_10
 	jr z, ReduceDamageBy10_DE
 	ret
 
@@ -726,20 +742,15 @@ IsPrehistoricPowerActive::
 	ccf
 	ret
 
+
 ; clears some SUBSTATUS2 conditions from the turn holder's active Pokemon.
-; more specifically, those conditions that reduce the damage from an attack
-; or prevent the opposing Pokemon from attacking the substatus condition inducer.
-ClearDamageReductionSubstatus2::
+; more specifically, those conditions that
+; prevent the opposing Pokemon from attacking the substatus condition inducer.
+ClearDamagePreventionSubstatus2::
 	ld a, DUELVARS_ARENA_CARD_SUBSTATUS2
 	call GetTurnDuelistVariable
 	or a
 	ret z
-	cp SUBSTATUS2_REDUCE_BY_20
-	jr z, .zero
-	cp SUBSTATUS2_POUNCE
-	jr z, .zero
-	cp SUBSTATUS2_GROWL
-	jr z, .zero
 	cp SUBSTATUS2_TAIL_WAG
 	jr z, .zero
 	cp SUBSTATUS2_LEER

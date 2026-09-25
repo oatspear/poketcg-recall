@@ -1925,9 +1925,11 @@ ApplyDamageModifiers_DamageToTarget::
 	res UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
 	xor a
 	ld [wDamageEffectiveness], a
+	call HandleDamageReductionBeforeWeaknessResistance
 	call HandleDoubleDamageSubstatus
 	jr .check_pluspower_and_defender
 .affected_by_wr
+	call HandleDamageReductionBeforeWeaknessResistance
 	call HandleDoubleDamageSubstatus
 	ld a, e
 	or d
@@ -2189,6 +2191,18 @@ DealDamageToPlayAreaPokemon::
 	call GetTurnDuelistVariable
 	ld [wTempNonTurnDuelistCardStage], a
 	pop de
+; attack power reduction substatus
+	ld a, [wLoadedAttackCategory]
+	cp POKEMON_POWER
+	jr z, .skip_attacker_substatus
+	ld a, [wIsDamageToSelf]
+	or a
+	push af
+	call z, SwapTurn
+	call HandleDamageReductionBeforeWeaknessResistance
+	pop af
+	call z, SwapTurn
+.skip_attacker_substatus
 	ld a, [wTempPlayAreaLocation_cceb]
 	or a ; cp PLAY_AREA_ARENA
 	jr nz, .next

@@ -6870,7 +6870,7 @@ HandleDestinyBondAndBetweenTurnKnockOuts::
 	; fallthrough
 
 HandleBetweenTurnKnockOuts:
-	call .ClearDamageReductionSubstatus2OfKnockedOutPokemon
+	call .ClearDamagePreventionSubstatus2OfKnockedOutPokemon
 	xor a
 	ld [wDuelFinishParam], a
 	call SwapTurn
@@ -6942,9 +6942,9 @@ HandleBetweenTurnKnockOuts:
 	db TURN_PLAYER_WON,   TURN_PLAYER_TIED, TURN_PLAYER_WON,  TURN_PLAYER_WON
 	db TURN_PLAYER_TIED,  TURN_PLAYER_LOST, TURN_PLAYER_WON,  TURN_PLAYER_TIED
 
-; clears SUBSTATUS2_REDUCE_BY_20, SUBSTATUS2_POUNCE, SUBSTATUS2_GROWL,
+; clears SUBSTATUS2_REDUCE_BY_20, SUBSTATUS2_REDUCE_BY_10,
 ; SUBSTATUS2_TAIL_WAG, and SUBSTATUS2_LEER for each arena Pokemon with 0 HP
-.ClearDamageReductionSubstatus2OfKnockedOutPokemon:
+.ClearDamagePreventionSubstatus2OfKnockedOutPokemon:
 	call SwapTurn
 	call .clear
 	call SwapTurn
@@ -6953,7 +6953,7 @@ HandleBetweenTurnKnockOuts:
 	call GetNonTurnDuelistVariable
 	or a
 	ret nz
-	jp ClearDamageReductionSubstatus2
+	jp ClearDamagePreventionSubstatus2
 
 .Func_6ef6:
 	call Func_6fa5

@@ -5760,7 +5760,8 @@ Spark_BenchDamageEffect:
 	jp SwapTurn
 
 GrowlEffect:
-	ld a, SUBSTATUS2_GROWL
+PounceEffect:
+	ld a, SUBSTATUS2_REDUCE_BY_10
 	jp ApplySubstatus2ToDefendingCard
 
 ChainLightningEffect:
@@ -7046,9 +7047,6 @@ JigglypuffDoubleEdgeEffect:
 	ld a, 20
 	jp DealRecoilDamageToSelf
 
-PounceEffect:
-	ld a, SUBSTATUS2_POUNCE
-	jp ApplySubstatus2ToDefendingCard
 
 ; return carry if Defending card has no weakness
 Conversion1_WeaknessCheck:
@@ -9881,7 +9879,7 @@ GustOfWind_SwitchEffect:
 	ld e, a
 	call SwapArenaWithBenchPokemon
 	call SwapTurn
-	call ClearDamageReductionSubstatus2
+	call ClearDamagePreventionSubstatus2
 	xor a
 	ld [wDuelDisplayedScreen], a
 	ret
