@@ -2,6 +2,9 @@
 
 ## Version 2.0
 
+### General Changes
+- Resistance changed from -30 damage to -20 damage.
+
 ### Bulbasaur
 - Increased HP from 40 to 50.
 - **New attack: (C) Growl**: reduces damage taken from attacks from the Defending Pokémon by 10.

@@ -1951,7 +1951,7 @@ ApplyDamageModifiers_DamageToTarget::
 	call SwapTurn
 	and b
 	jr z, .check_pluspower_and_defender ; jump if not resistant
-	ld hl, -30
+	ld hl, RESISTANCE_AMOUNT
 	add hl, de
 	ld e, l
 	ld d, h
@@ -2014,7 +2014,7 @@ ApplyDamageModifiers_DamageToSelf::
 	call GetArenaCardResistance
 	and b
 	jr z, .not_resistant
-	ld hl, -30
+	ld hl, RESISTANCE_AMOUNT
 	add hl, de
 	ld e, l
 	ld d, h

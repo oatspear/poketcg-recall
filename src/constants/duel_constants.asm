@@ -3,6 +3,8 @@ DEF MAX_PLAY_AREA_POKEMON EQU 6 ; arena + bench
 DEF MAX_HP                EQU 120
 DEF HP_BAR_LENGTH         EQU MAX_HP / 10
 
+DEF RESISTANCE_AMOUNT     EQU -20
+
 DEF STARTING_HAND_SIZE EQU 7
 
 ; hWhoseTurn constants
