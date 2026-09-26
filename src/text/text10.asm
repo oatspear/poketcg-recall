@@ -794,12 +794,10 @@ EnergyBurnName:
 	done
 
 EnergyBurnDescription:
-	text "As often as you like during your"
-	line "turn (before your attack), you may"
-	line "turn all Energy attached to"
-	line "Charizard into <FIRE> Energy for the"
-	line "rest of the turn. This power can't"
-	line "be used if Charizard is Asleep,"
+	text "All Energy attached to this Pokémon"
+	line "are <FIRE> Energy instead of their usual"
+	line "type. This Pokémon Power stops"
+	line "working if this Pokémon is Asleep,"
 	line "Confused, or Paralyzed."
 	done
 

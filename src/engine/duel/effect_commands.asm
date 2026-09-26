@@ -514,8 +514,8 @@ FlamethrowerEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, Flamethrower_AISelectEffect
 	db  $00
 
-CharizardEnergyBurnEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, EnergyBurnEffect
+EnergyBurnEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, PassivePowerEffect
 	db  $00
 
 CharizardFireSpinEffectCommands:

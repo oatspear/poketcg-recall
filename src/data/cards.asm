@@ -2105,7 +2105,7 @@ CharizardCard:
 	db STAR ; rarity
 	db EVOLUTION | NONE ; sets
 	dw CHARIZARD
-	db 120 ; hp
+	db 100 ; hp
 	db STAGE2 ; stage
 	tx CharmeleonName ; pre-evo name
 
@@ -2116,7 +2116,7 @@ CharizardCard:
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db POKEMON_POWER ; category
-	dw CharizardEnergyBurnEffectCommands ; effect commands
+	dw EnergyBurnEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -2137,7 +2137,7 @@ CharizardCard:
 	db 6
 	db ATK_ANIM_FIRE_SPIN ; animation
 
-	db 3 ; retreat cost
+	db 2 ; retreat cost
 	db WR_WATER ; weakness
 	db WR_FIGHTING ; resistance
 	tx FlameName ; category

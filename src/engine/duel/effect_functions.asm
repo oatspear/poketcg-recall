@@ -3286,9 +3286,6 @@ MagmarSmog_AIEffect:
 	lb de, 0, 10
 	jp UpdateExpectedAIDamage_AccountForPoison
 
-EnergyBurnEffect:
-	scf
-	ret
 
 ; return carry if has less than 2 Fire Energy cards
 FireSpin_CheckEnergy:

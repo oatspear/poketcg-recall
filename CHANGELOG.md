@@ -197,6 +197,10 @@
 - Increased HP from 60 to 80.
 - **Irongrip**: reduced cost from (G)(G) to (G)(C).
 
+### Charizard
+- Reduced HP from 120 to 100.
+- Reduced retreat cost from 3 to 2.
+
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
