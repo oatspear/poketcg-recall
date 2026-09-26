@@ -2224,7 +2224,7 @@ NinetalesLv32Card:
 	db ATK_ANIM_LURE ; animation
 
 	; attack 2
-	energy FIRE, 4 ; energies
+	energy FIRE, 3, COLORLESS, 1 ; energies
 	tx FireBlastName ; name
 	tx FireBlastDescription ; description
 	dw NONE ; description (cont)
@@ -2255,12 +2255,12 @@ NinetalesLv35Card:
 	db STAR ; rarity
 	db LABORATORY | GB ; sets
 	dw NINETALES_LV35
-	db 80 ; hp
+	db 90 ; hp
 	db STAGE1 ; stage
 	tx VulpixName ; pre-evo name
 
 	; attack 1
-	energy FIRE, 2 ; energies
+	energy COLORLESS, 2 ; energies
 	tx MixUpName ; name
 	tx MixUpDescription ; description
 	tx MixUpDescriptionCont ; description (cont)
@@ -2274,7 +2274,7 @@ NinetalesLv35Card:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	; attack 2
-	energy FIRE, 3 ; energies
+	energy FIRE, 1, COLORLESS, 2 ; energies
 	tx DancingEmbersName ; name
 	tx DancingEmbersDescription ; description
 	dw NONE ; description (cont)

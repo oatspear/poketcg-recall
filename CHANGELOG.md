@@ -16,12 +16,12 @@
 - **Vine Whip**: increased damage from 30 to 40.
 - **Poison Powder**: reduced cost from (G)(G)(G) to (G)(G).
 
-### Venusaur Lv64
+### Venusaur (Promo)
 - Increased HP from 100 to 110.
 - **Solar Power**: now only affects the player's Active Pokémon.
 - **Mega Drain**: reduced cost from (G)(G)(G)(G) to (G)(G)(G).
 
-### Venusaur Lv67
+### Venusaur (Base Set)
 - Increased HP from 100 to 110.
 - **Solarbeam**: reduced cost from (G)(G)(G)(G) to (G)(G)(G)(C).
 
@@ -180,12 +180,12 @@
 - **Selfdestruct**: increased damage and recoil from 60 to 80.
 - **New attack: (G)(C) Smokescreen**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
 
-### Tangela Lv8
+### Tangela (Base Set)
 - Increased HP from 50 to 70.
 - Reduced retreat cost from 2 to 1.
 - **Poison Powder**: reduced cost from (G)(G)(G) to (G)(G)(C).
 
-### Tangela Lv12
+### Tangela (GB)
 - Increased HP from 50 to 60.
 - Reduced retreat cost from 2 to 1.
 - **Poison Whip**: reduced cost from (G)(G)(C) to (G)(C).
@@ -204,6 +204,15 @@
 ### Vulpix
 - **Confuse Ray**: reduced cost from (R)(R) to (R)(C).
 - **New attack: (C) Tail Wag**: flips a coin. On heads, prevents the Defending Pokémon from attacking next turn.
+
+### Ninetales (Base Set)
+- **Lure**: After switching, the new Active Pokémon is also unable to retreat during the opponent's next turn.
+- **Fire Blast**: reduced cost from (R)(R)(R)(R) to (R)(R)(R)(C).
+
+### Ninetales (GB)
+- Increased HP from 80 to 90.
+- **Mix Up**: reduced cost from (R)(R) to (C)(C).
+- **Dancing Embers**: reduced cost from (R)(R)(R) to (R)(C)(C).
 
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).

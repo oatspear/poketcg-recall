@@ -845,8 +845,7 @@ FireBlastName:
 
 FireBlastDescription:
 	text "Discard 1 <FIRE> Energy card attached"
-	line "to Ninetales in order to use this"
-	line "attack."
+	line "to this Pokémon."
 	done
 
 NinetalesLv32Description:
