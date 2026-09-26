@@ -2252,7 +2252,7 @@ NinetalesLv35Card:
 	db TYPE_PKMN_FIRE ; type
 	gfx NinetalesLv35CardGfx ; gfx
 	tx NinetalesName ; name
-	db STAR ; rarity
+	db DIAMOND ; rarity
 	db LABORATORY | GB ; sets
 	dw NINETALES_LV35
 	db 90 ; hp

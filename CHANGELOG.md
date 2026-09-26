@@ -211,6 +211,7 @@
 
 ### Ninetales (GB)
 - Increased HP from 80 to 90.
+- Reduced rarity from Rare to Uncommon.
 - **Mix Up**: reduced cost from (R)(R) to (C)(C).
 - **Dancing Embers**: reduced cost from (R)(R)(R) to (R)(C)(C).
 
