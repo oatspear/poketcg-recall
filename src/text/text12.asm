@@ -1025,10 +1025,10 @@ TailWagName:
 
 TailWagDescription:
 	text "Flip a coin. If heads, the Defending"
-	line "Pokémon can't attack Eevee during"
-	line "your opponent's next turn. (Benching"
-	line "or evolving either Pokémon ends this"
-	line "effect.)"
+	line "Pokémon cannot attack this Pokémon"
+	line "during your opponent's next turn."
+	line "(Benching or evolving either Pokémon"
+	line "ends this effect.)"
 	done
 
 EvolutionName:

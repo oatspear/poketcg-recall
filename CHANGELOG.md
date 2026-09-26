@@ -201,6 +201,10 @@
 - Reduced HP from 120 to 100.
 - Reduced retreat cost from 3 to 2.
 
+### Vulpix
+- **Confuse Ray**: reduced cost from (R)(R) to (R)(C).
+- **New attack: (C) Tail Wag**: flips a coin. On heads, prevents the Defending Pokémon from attacking next turn.
+
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 

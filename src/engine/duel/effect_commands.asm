@@ -1009,7 +1009,7 @@ JolteonStunNeedleEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
-EeveeTailWagEffectCommands:
+TailWagEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, TailWagEffect
 	db  $00
 

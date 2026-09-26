@@ -2160,7 +2160,21 @@ VulpixCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy FIRE, 2 ; energies
+	energy COLORLESS, 1 ; energies
+	tx TailWagName ; name
+	tx TailWagDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db DAMAGE_NORMAL ; category
+	dw TailWagEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_NONE ; animation
+
+	; attack 2
+	energy FIRE, 1, COLORLESS, 1 ; energies
 	tx ConfuseRayName ; name
 	tx MayInflictConfusionDescription ; description
 	dw NONE ; description (cont)
@@ -2172,20 +2186,6 @@ VulpixCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_CONFUSE_RAY ; animation
-
-	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
 	db WR_WATER ; weakness
@@ -9016,7 +9016,7 @@ EeveeCard:
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw EeveeTailWagEffectCommands ; effect commands
+	dw TailWagEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
