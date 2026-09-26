@@ -197,6 +197,15 @@
 - Increased HP from 60 to 80.
 - **Irongrip**: reduced cost from (G)(G) to (G)(C).
 
+### Pikachu Lv16
+- **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
+
+### Cubone
+- **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
+
+### Persian
+- **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
+
 ## Version 1.0
 
 ### Added
