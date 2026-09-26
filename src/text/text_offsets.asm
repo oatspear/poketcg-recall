@@ -2401,7 +2401,7 @@ TextOffsets::
 	textpointer SparkDescription
 	textpointer PikachuLv14Description
 	textpointer GrowlName
-	textpointer GrowlDescription
+	textpointer ReduceAttackBy10Description
 	textpointer ThundershockName
 	textpointer PikachuLv16Description
 	textpointer FlyingPikachuName
@@ -2536,7 +2536,7 @@ TextOffsets::
 	textpointer OnixDescription
 	textpointer CuboneName
 	textpointer SnivelName
-	textpointer SnivelDescription
+	textpointer ReduceAttackBy20Description
 	textpointer CubonesRageDescription
 	textpointer LonelyName
 	textpointer CuboneDescription
@@ -2749,7 +2749,6 @@ TextOffsets::
 	textpointer MeowthLv15Description
 	textpointer PersianName
 	textpointer PounceName
-	textpointer PounceDescription
 	textpointer ClassyCatName
 	textpointer PersianDescription
 	textpointer FarfetchdName

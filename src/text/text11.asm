@@ -380,12 +380,12 @@ GrowlName:
 	text "Growl"
 	done
 
-GrowlDescription:
-	text "If the Defending Pokémon attacks"
-	line "this Pokémon during your opponent's"
-	line "next turn, any damage done by the"
-	line "attack is reduced by 10 (after"
-	line "applying Weakness and Resistance)."
+ReduceAttackBy10Description:
+	text "During your opponent's next turn,"
+	line "any damage from attacks done by the"
+	line "Defending Pokémon is reduced by 10"
+	line "(before applying Weakness and"
+	line "Resistance)."
 	done
 
 ThundershockName:
@@ -1096,14 +1096,12 @@ SnivelName:
 	text "Snivel"
 	done
 
-SnivelDescription:
-	text "If the Defending Pokémon attacks"
-	line "Cubone during your opponent's next"
-	line "turn, any damage done by the attack"
-	line "is reduced by 20 (after applying"
-	line "Weakness and Resistance). (Benching"
-	line "or evolving either Pokémon ends this"
-	line "effect.)"
+ReduceAttackBy20Description:
+	text "During your opponent's next turn,"
+	line "any damage from attacks done by the"
+	line "Defending Pokémon is reduced by 20"
+	line "(before applying Weakness and"
+	line "Resistance)."
 	done
 
 CubonesRageDescription:

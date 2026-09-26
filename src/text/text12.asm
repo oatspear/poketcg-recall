@@ -803,16 +803,6 @@ PounceName:
 	text "Pounce"
 	done
 
-PounceDescription:
-	text "If the Defending Pokémon attacks"
-	line "Persian during your opponent's next"
-	line "turn, any damage done by the attack"
-	line "is reduced by 10 (after applying"
-	line "Weakness and Resistance). (Benching"
-	line "or evolving either Pokémon ends this"
-	line "effect.)"
-	done
-
 ClassyCatName:
 	text "Classy Cat"
 	done

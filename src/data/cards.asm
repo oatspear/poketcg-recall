@@ -12,7 +12,7 @@ BulbasaurCard:
 	; attack 1
 	energy COLORLESS, 1 ; energies
 	tx GrowlName ; name
-	tx GrowlDescription ; description
+	tx ReduceAttackBy10Description ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
@@ -4512,7 +4512,7 @@ PikachuLv16Card:
 	; attack 1
 	energy COLORLESS, 1 ; energies
 	tx GrowlName ; name
-	tx GrowlDescription ; description
+	tx ReduceAttackBy10Description ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
@@ -4562,7 +4562,7 @@ PikachuAltLv16Card:
 	; attack 1
 	energy COLORLESS, 1 ; energies
 	tx GrowlName ; name
-	tx GrowlDescription ; description
+	tx ReduceAttackBy10Description ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
@@ -6212,7 +6212,7 @@ CuboneCard:
 	; attack 1
 	energy COLORLESS, 1 ; energies
 	tx SnivelName ; name
-	tx SnivelDescription ; description
+	tx ReduceAttackBy20Description ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
@@ -8576,7 +8576,7 @@ PersianCard:
 	; attack 2
 	energy COLORLESS, 3 ; energies
 	tx PounceName ; name
-	tx PounceDescription ; description
+	tx ReduceAttackBy10Description ; description
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_NORMAL ; category
