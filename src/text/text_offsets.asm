@@ -2173,7 +2173,7 @@ TextOffsets::
 	textpointer CharmanderDescription
 	textpointer CharmeleonName
 	textpointer FlamethrowerName
-	textpointer CharmeleonsFlamethrowerDescription
+	textpointer FlamethrowerDescription
 	textpointer FlameName
 	textpointer CharmeleonDescription
 	textpointer CharizardName
@@ -2207,7 +2207,6 @@ TextOffsets::
 	textpointer FlamesOfRageDescription
 	textpointer LegendaryName
 	textpointer ArcanineLv34Description
-	textpointer ArcaninesFlamethrowerDescription
 	textpointer TakeDownName
 	textpointer TakeDownDescription
 	textpointer ArcanineLv45Description
@@ -2224,7 +2223,6 @@ TextOffsets::
 	textpointer RapidashDescription
 	textpointer MagmarName
 	textpointer FirePunchName
-	textpointer FirePunchDescription
 	textpointer SpitfireName
 	textpointer MagmarLv24Description
 	textpointer SmokescreenName
@@ -2236,7 +2234,6 @@ TextOffsets::
 	textpointer RageName
 	textpointer FlareonsRageDescription
 	textpointer FlareonLv22Description
-	textpointer FlareonsFlamethrowerDescription
 	textpointer FlareonLv28Description
 	textpointer MoltresName
 	textpointer WildfireName

@@ -771,10 +771,9 @@ FlamethrowerName:
 	text "Flamethrower"
 	done
 
-CharmeleonsFlamethrowerDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Charmeleon in order to use this"
-	line "attack."
+FlamethrowerDescription:
+	text "Discard 1 <FIRE> Energy card attached"
+	line "to this Pokémon."
 	done
 
 FlameName:
@@ -949,12 +948,6 @@ ArcanineLv34Description:
 	line "flies when it runs."
 	done
 
-ArcaninesFlamethrowerDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Arcanine in order to use this"
-	line "attack."
-	done
-
 TakeDownName:
 	text "Take Down"
 	done
@@ -1031,11 +1024,6 @@ FirePunchName:
 	text "Fire Punch"
 	done
 
-FirePunchDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Magmar in order to use this attack."
-	done
-
 SpitfireName:
 	text "Spitfire"
 	done
@@ -1089,11 +1077,6 @@ FlareonLv22Description:
 	text "It has a flame chamber inside its"
 	line "body. It inhales, then blows out"
 	line "fire that is over 3,000 degrees."
-	done
-
-FlareonsFlamethrowerDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Flareon in order to use this attack."
 	done
 
 FlareonLv28Description:
