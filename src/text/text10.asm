@@ -747,9 +747,8 @@ EmberName:
 	done
 
 EmberDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Charmander in order to use this"
-	line "attack."
+	text "Discard 1 <FIRE> Energy card attached"
+	line "to this Pokémon."
 	done
 
 LizardName:
