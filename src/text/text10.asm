@@ -917,9 +917,7 @@ QuickAttackName:
 
 QuickAttackDescription:
 	text "Flip a coin. If heads, this attack"
-	line "does 10 damage plus 20 more damage;"
-	line "if tails, this attack does 10"
-	line "damage."
+	line "does 20 more damage."
 	done
 
 FlamesOfRageName:
@@ -949,7 +947,8 @@ TakeDownName:
 	done
 
 TakeDownDescription:
-	text "Arcanine does 30 damage to itself."
+	text "This Pokémon does 30 damage to"
+	line "itself."
 	done
 
 ArcanineLv45Description:

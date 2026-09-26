@@ -321,11 +321,6 @@ ShellderHideInShellEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HideInShellEffect
 	db  $00
 
-VaporeonQuickAttackEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, QuickAttack_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, QuickAttack_AIEffect
-	db  $00
-
 VaporeonWaterGunEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, VaporeonWaterGunEffect
 	dbw EFFECTCMDTYPE_AI, VaporeonWaterGunEffect
@@ -439,13 +434,8 @@ VaporeonFocusEnergyEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FocusEnergyEffect
 	db  $00
 
-ArcanineTakeDownEffectCommands:
+TakeDownEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, TakeDownEffect
-	db  $00
-
-ArcanineQuickAttackEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, QuickAttack_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, QuickAttack_AIEffect
 	db  $00
 
 ArcanineFlamesOfRageEffectCommands:
@@ -491,11 +481,6 @@ MoltresWildfireEffectCommands:
 MoltresLv35DiveBombEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MoltresLv35DiveBomb_Success50PercentEffect
 	dbw EFFECTCMDTYPE_AI, MoltresLv35DiveBomb_AIEffect
-	db  $00
-
-FlareonQuickAttackEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, QuickAttack_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, QuickAttack_AIEffect
 	db  $00
 
 SmokescreenEffectCommands:
@@ -865,11 +850,6 @@ ElectabuzzLightScreenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, LightScreenEffect
 	db  $00
 
-ElectabuzzQuickAttackEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, QuickAttack_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, QuickAttack_AIEffect
-	db  $00
-
 MagnemiteThunderWaveEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
@@ -889,11 +869,6 @@ ZapdosThunderboltEffectCommands:
 
 ZapdosThunderstormEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ThunderstormEffect
-	db  $00
-
-JolteonQuickAttackEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, QuickAttack_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, QuickAttack_AIEffect
 	db  $00
 
 JolteonPinMissileEffectCommands:
@@ -1013,7 +988,7 @@ TailWagEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, TailWagEffect
 	db  $00
 
-EeveeQuickAttackEffectCommands:
+QuickAttackEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, QuickAttack_DamageBoostEffect
 	dbw EFFECTCMDTYPE_AI, QuickAttack_AIEffect
 	db  $00

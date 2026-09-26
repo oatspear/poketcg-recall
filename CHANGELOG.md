@@ -215,6 +215,16 @@
 - **Mix Up**: reduced cost from (R)(R) to (C)(C).
 - **Dancing Embers**: reduced cost from (R)(R)(R) to (R)(C)(C).
 
+### Growlithe
+- **New attack: (C) Growl**: reduces the Defending Pokémon's attack damage by 10.
+
+### Arcanine (Promo)
+- Increased HP from 70 to 80.
+- **Flames of Rage**: reduced base damage from 40 to 30.
+
+### Arcanine (Base Set)
+- Reduced retreat cost from 3 to 2.
+
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
