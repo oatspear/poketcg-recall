@@ -313,9 +313,6 @@ SeadraWaterGunEffectCommands:
 	dbw EFFECTCMDTYPE_AI, SeadraWaterGunEffect
 	db  $00
 
-SeadraAgilityEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AgilityEffect
-	db  $00
 
 ShellderHideInShellEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HideInShellEffect
@@ -448,11 +445,11 @@ ArcanineFlamesOfRageEffectCommands:
 	db  $00
 
 RapidashStompEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, RapidashStomp_DamageBoostEffect
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, CoinFlip20MoreDamage_DamageBoostEffect
 	dbw EFFECTCMDTYPE_AI, RapidashStomp_AIEffect
 	db  $00
 
-RapidashAgilityEffectCommands:
+AgilityEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AgilityEffect
 	db  $00
 
@@ -916,9 +913,6 @@ ElectrodeChainLightningEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ChainLightningEffect
 	db  $00
 
-RaichuAgilityEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AgilityEffect
-	db  $00
 
 RaichuThunderEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Thunder_Recoil50PercentEffect
@@ -1003,9 +997,6 @@ SpearowMirrorMoveEffectCommands:
 	dbw EFFECTCMDTYPE_AI, MirrorMove_AIEffect
 	db  $00
 
-FearowAgilityEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AgilityEffect
-	db  $00
 
 DragoniteStepInEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, StepIn_BenchCheck
@@ -1042,7 +1033,7 @@ KangaskhanCometPunchEffectCommands:
 	db  $00
 
 TaurosStompEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, TaurosStomp_DamageBoostEffect
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Stomp_DamageBoostEffect
 	dbw EFFECTCMDTYPE_AI, TaurosStomp_AIEffect
 	db  $00
 

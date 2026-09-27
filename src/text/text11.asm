@@ -16,13 +16,6 @@ SeadrasWaterGunDescription:
 	line "more than 20 damage in this way."
 	done
 
-SeadrasAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all "
-	line "effects of attacks, including"
-	line "damage, done to Seadra."
-	done
-
 SeadraDescription:
 	text "Capable of swimming backward by"
 	line "rapidly flapping its wing-like"
@@ -439,13 +432,6 @@ RaichuName:
 	text "Raichu"
 	done
 
-RaichusAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all"
-	line "effects of attacks, including"
-	line "damage, done to Raichu."
-	done
-
 ThunderName:
 	text "Thunder"
 	done
@@ -642,13 +628,6 @@ LightScreenDescription:
 LightScreenDescriptionCont:
 	text "(Any other effects of attacks still"
 	line "happen.)"
-	done
-
-ElectabuzzsQuickAttackDescription:
-	text "Flip a coin. If heads, this attack"
-	line "does 10 damage plus 20 more damage; "
-	line "if tails, this attack does"
-	line "10 damage."
 	done
 
 ElectricName:

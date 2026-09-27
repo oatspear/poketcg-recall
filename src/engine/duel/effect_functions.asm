@@ -2731,6 +2731,7 @@ QuickAttack_AIEffect:
 	lb de, 10, 30
 	jp SetExpectedAIDamage
 
+CoinFlip20MoreDamage_DamageBoostEffect:
 QuickAttack_DamageBoostEffect:
 	ld hl, 20
 	call LoadTxRam3
@@ -3103,20 +3104,6 @@ FlamesOfRage_AIEffect:
 FlamesOfRage_DamageBoostEffect:
 	ld e, PLAY_AREA_ARENA
 	call GetCardDamageAndMaxHP
-	jp AddToDamage
-
-RapidashStomp_AIEffect:
-	ld a, (20 + 30) / 2
-	lb de, 20, 30
-	jp SetExpectedAIDamage
-
-RapidashStomp_DamageBoostEffect:
-	ld hl, 10
-	call LoadTxRam3
-	ldtx de, DamageCheckIfHeadsPlusDamageText
-	call TossCoin
-	ret nc ; return if tails
-	ld a, 10
 	jp AddToDamage
 
 
@@ -6734,12 +6721,18 @@ CometPunch_MultiplierEffect:
 	call ATimes10
 	jp SetDefiniteDamage
 
+
+RapidashStomp_AIEffect:
+	ld a, (30 + 50) / 2
+	lb de, 30, 50
+	jp SetExpectedAIDamage
+
 TaurosStomp_AIEffect:
 	ld a, (20 + 30) / 2
 	lb de, 20, 30
 	jp SetExpectedAIDamage
 
-TaurosStomp_DamageBoostEffect:
+Stomp_DamageBoostEffect:
 	ld hl, 10
 	call LoadTxRam3
 	ldtx de, DamageCheckIfHeadsPlusDamageText

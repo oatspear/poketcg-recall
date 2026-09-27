@@ -915,7 +915,7 @@ QuickAttackName:
 	text "Quick Attack"
 	done
 
-QuickAttackDescription:
+CoinFlip20MoreDamageDescription:
 	text "Flip a coin. If heads, this attack"
 	line "does 20 more damage."
 	done
@@ -989,20 +989,18 @@ StompName:
 
 StompDescription:
 	text "Flip a coin. If heads, this attack"
-	line "does 20 damage plus 10 more damage;"
-	line "if tails, this attack does 20"
-	line "damage."
+	line "does 10 more damage."
 	done
 
 AgilityName:
 	text "Agility"
 	done
 
-RapidashsAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all"
+AgilityDescription:
+	text "Flip a coin. If heads, prevent all"
 	line "effects of attacks, including"
-	line "damage, done to Rapidash."
+	line "damage, done to this Pokémon during"
+	line "your opponent's next turn."
 	done
 
 RapidashDescription:

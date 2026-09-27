@@ -2202,7 +2202,7 @@ TextOffsets::
 	textpointer GrowlitheDescription
 	textpointer ArcanineName
 	textpointer QuickAttackName
-	textpointer QuickAttackDescription
+	textpointer CoinFlip20MoreDamageDescription
 	textpointer FlamesOfRageName
 	textpointer FlamesOfRageDescription
 	textpointer LegendaryName
@@ -2219,7 +2219,7 @@ TextOffsets::
 	textpointer StompName
 	textpointer StompDescription
 	textpointer AgilityName
-	textpointer RapidashsAgilityDescription
+	textpointer AgilityDescription
 	textpointer RapidashDescription
 	textpointer MagmarName
 	textpointer FirePunchName
@@ -2327,7 +2327,6 @@ TextOffsets::
 	textpointer HorseaDescription
 	textpointer SeadraName
 	textpointer SeadrasWaterGunDescription
-	textpointer SeadrasAgilityDescription
 	textpointer SeadraDescription
 	textpointer GoldeenName
 	textpointer HornAttackName
@@ -2409,7 +2408,6 @@ TextOffsets::
 	textpointer SurfName
 	textpointer SurfingPikachuDescription
 	textpointer RaichuName
-	textpointer RaichusAgilityDescription
 	textpointer ThunderName
 	textpointer RaichusThunderDescription
 	textpointer RaichuLv40Description
@@ -2445,7 +2443,6 @@ TextOffsets::
 	textpointer LightScreenName
 	textpointer LightScreenDescription
 	textpointer LightScreenDescriptionCont
-	textpointer ElectabuzzsQuickAttackDescription
 	textpointer ElectricName
 	textpointer ElectabuzzLv20Description
 	textpointer ThunderpunchName
@@ -2705,7 +2702,6 @@ TextOffsets::
 	textpointer SpearowsMirrorMoveDescription
 	textpointer SpearowDescription
 	textpointer FearowName
-	textpointer FearowsAgilityDescription
 	textpointer DrillPeckName
 	textpointer BeakName
 	textpointer FearowDescription

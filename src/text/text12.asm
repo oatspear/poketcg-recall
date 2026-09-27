@@ -592,13 +592,6 @@ FearowName:
 	text "Fearow"
 	done
 
-FearowsAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all"
-	line "effects of attacks, including"
-	line "damage, done to Fearow."
-	done
-
 DrillPeckName:
 	text "Drill Peck"
 	done

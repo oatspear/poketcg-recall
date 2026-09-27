@@ -225,6 +225,16 @@
 ### Arcanine (Base Set)
 - Reduced retreat cost from 3 to 2.
 
+### Ponyta
+- Increased HP from 40 to 50.
+- Reduced retreat cost from 1 to 0.
+
+### Rapidash
+- Increased HP from 70 to 80.
+- **Stomp**: increased cost from (C)(C) to (C)(C)(C).
+- **Stomp**: increased base damage from 20 to 30.
+- **Stomp**: increased bonus damage from 10 to 20.
+
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
