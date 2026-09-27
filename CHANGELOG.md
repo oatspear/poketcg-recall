@@ -235,6 +235,9 @@
 - **Stomp**: increased base damage from 20 to 30.
 - **Stomp**: increased bonus damage from 10 to 20.
 
+### Magmar (Base Set)
+- Increased HP from 50 to 70.
+
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
