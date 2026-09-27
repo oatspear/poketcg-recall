@@ -2230,7 +2230,7 @@ NinetalesLv32Card:
 	dw NONE ; description (cont)
 	db 80 ; damage
 	db DAMAGE_NORMAL ; category
-	dw NinetalesFireBlastEffectCommands ; effect commands
+	dw FireBlastEffectCommands ; effect commands
 	db NONE ; flags 1
 	db DISCARD_ENERGY ; flags 2
 	db NONE ; flags 3
@@ -2655,11 +2655,25 @@ FlareonLv22Card:
 	db DIAMOND ; rarity
 	db MYSTERY | GB ; sets
 	dw FLAREON_LV22
-	db 60 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx EeveeName ; pre-evo name
 
 	; attack 1
+	energy COLORLESS, 2 ; energies
+	tx RageName ; name
+	tx RageDescription ; description
+	dw NONE ; description (cont)
+	db 10 ; damage
+	db DAMAGE_PLUS ; category
+	dw RageEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db BOOST_IF_TAKEN_DAMAGE ; flags 3
+	db 0
+	db ATK_ANIM_HIT ; animation
+
+	; attack 2
 	energy COLORLESS, 3 ; energies
 	tx BiteName ; name
 	dw NONE ; description
@@ -2670,20 +2684,6 @@ FlareonLv22Card:
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_HIT ; animation
-
-	; attack 2
-	energy COLORLESS, 3 ; energies
-	tx RageName ; name
-	tx FlareonsRageDescription ; description
-	dw NONE ; description (cont)
-	db 10 ; damage
-	db DAMAGE_PLUS ; category
-	dw FlareonRageEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db BOOST_IF_TAKEN_DAMAGE ; flags 3
 	db 0
 	db ATK_ANIM_HIT ; animation
 
@@ -2705,30 +2705,16 @@ FlareonLv28Card:
 	db STAR ; rarity
 	db EVOLUTION | JUNGLE ; sets
 	dw FLAREON_LV28
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx EeveeName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
-	tx QuickAttackName ; name
-	tx CoinFlip20MoreDamageDescription ; description
-	dw NONE ; description (cont)
-	db 10 ; damage
-	db DAMAGE_PLUS ; category
-	dw QuickAttackEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_QUICK_ATTACK ; animation
-
-	; attack 2
-	energy FIRE, 2, COLORLESS, 2 ; energies
+	energy FIRE, 2, COLORLESS, 1 ; energies
 	tx FlamethrowerName ; name
 	tx FlamethrowerDescription ; description
 	dw NONE ; description (cont)
-	db 60 ; damage
+	db 50 ; damage
 	db DAMAGE_NORMAL ; category
 	dw FlamethrowerEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -2736,6 +2722,20 @@ FlareonLv28Card:
 	db NONE ; flags 3
 	db 3
 	db ATK_ANIM_BIG_FLAME ; animation
+
+	; attack 2
+	energy FIRE, 2, COLORLESS, 2 ; energies
+	tx FireBlastName ; name
+	tx FireBlastDescription ; description
+	dw NONE ; description (cont)
+	db 70 ; damage
+	db DAMAGE_NORMAL ; category
+	dw FireBlastEffectCommands ; effect commands
+	db NONE ; flags 1
+	db DISCARD_ENERGY ; flags 2
+	db NONE ; flags 3
+	db 3
+	db ATK_ANIM_FIRE_SPIN ; animation
 
 	db 1 ; retreat cost
 	db WR_WATER ; weakness
@@ -6226,11 +6226,11 @@ CuboneCard:
 	; attack 2
 	energy FIGHTING, 2 ; energies
 	tx RageName ; name
-	tx CubonesRageDescription ; description
+	tx RageDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_PLUS ; category
-	dw CuboneRageEffectCommands ; effect commands
+	dw RageEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db BOOST_IF_TAKEN_DAMAGE ; flags 3
@@ -8726,11 +8726,11 @@ DodrioCard:
 	; attack 2
 	energy COLORLESS, 3 ; energies
 	tx RageName ; name
-	tx DodriosRageDescription ; description
+	tx RageDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_PLUS ; category
-	dw DodrioRageEffectCommands ; effect commands
+	dw RageEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db BOOST_IF_TAKEN_DAMAGE ; flags 3

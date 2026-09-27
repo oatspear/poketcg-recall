@@ -453,7 +453,7 @@ AgilityEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, AgilityEffect
 	db  $00
 
-NinetalesFireBlastEffectCommands:
+FireBlastEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, FireBlast_CheckEnergy
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, FireBlast_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_DISCARD_ENERGY, FireBlast_DiscardEffect
@@ -511,7 +511,7 @@ VulpixConfuseRayEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Confusion50PercentEffect
 	db  $00
 
-FlareonRageEffectCommands:
+RageEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Rage_DamageBoostEffect
 	dbw EFFECTCMDTYPE_AI, Rage_AIEffect
 	db  $00
@@ -749,11 +749,6 @@ KabutopsAbsorbEffectCommands:
 
 CuboneSnivelEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SnivelEffect
-	db  $00
-
-CuboneRageEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Rage_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, Rage_AIEffect
 	db  $00
 
 MarowakBonemerangEffectCommands:
@@ -1049,11 +1044,6 @@ DoduoFuryAttackEffectCommands:
 
 DodrioRetreatAidEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, RetreatAidEffect
-	db  $00
-
-DodrioRageEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Rage_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, Rage_AIEffect
 	db  $00
 
 MeowthPayDayEffectCommands:

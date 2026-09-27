@@ -238,6 +238,17 @@
 ### Magmar (Base Set)
 - Increased HP from 50 to 70.
 
+### Flareon (GB)
+- Increased HP from 60 to 80.
+- **Rage**: reduced cost from (C)(C)(C) to (C)(C).
+
+### Flareon (Jungle)
+- Increased HP from 70 to 80.
+- **Quick Attack**: removed.
+- **Flamethrower**: reduced cost from (R)(R)(C)(C) to (R)(R)(C).
+- **Flamethrower**: reduced damage from 60 to 50.
+- **New attack: (R)(R)(C)(C) Fire Blast**: 70 damage. Discard 1 (R) Energy attached to this Pokémon.
+
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 

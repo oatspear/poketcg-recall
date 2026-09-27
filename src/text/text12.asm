@@ -869,11 +869,6 @@ RetreatAidDescription:
 	line "Pokémon."
 	done
 
-DodriosRageDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each damage counter on Dodrio."
-	done
-
 TriplebirdName:
 	text "Triplebird"
 	done

@@ -1083,11 +1083,6 @@ ReduceAttackBy20Description:
 	line "Resistance)."
 	done
 
-CubonesRageDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each damage counter on Cubone."
-	done
-
 LonelyName:
 	text "Lonely"
 	done

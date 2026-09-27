@@ -926,10 +926,9 @@ FlamesOfRageName:
 
 FlamesOfRageDescription:
 	text "Discard 2 <FIRE> Energy cards attached"
-	line "to Arcanine in order to use this"
-	line "attack. This attack does 40 damage"
-	line "plus 10 more damage for each damage"
-	line "counter on Arcanine."
+	line "to this Pokémon. This attack does"
+	line "10 more damage for each damage"
+	line "counter on this Pokémon."
 	done
 
 LegendaryName:
@@ -1061,9 +1060,9 @@ RageName:
 	text "Rage"
 	done
 
-FlareonsRageDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each damage counter on Flareon."
+RageDescription:
+	text "This attack does 10 more damage for"
+	line "each damage counter on this Pokémon."
 	done
 
 FlareonLv22Description:

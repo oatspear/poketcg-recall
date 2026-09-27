@@ -2232,7 +2232,7 @@ TextOffsets::
 	textpointer EeveeName
 	textpointer BiteName
 	textpointer RageName
-	textpointer FlareonsRageDescription
+	textpointer RageDescription
 	textpointer FlareonLv22Description
 	textpointer FlareonLv28Description
 	textpointer MoltresName
@@ -2531,7 +2531,6 @@ TextOffsets::
 	textpointer CuboneName
 	textpointer SnivelName
 	textpointer ReduceAttackBy20Description
-	textpointer CubonesRageDescription
 	textpointer LonelyName
 	textpointer CuboneDescription
 	textpointer MarowakName
@@ -2757,7 +2756,6 @@ TextOffsets::
 	textpointer DodrioName
 	textpointer RetreatAidName
 	textpointer RetreatAidDescription
-	textpointer DodriosRageDescription
 	textpointer TriplebirdName
 	textpointer DodrioDescription
 	textpointer LickitungName
