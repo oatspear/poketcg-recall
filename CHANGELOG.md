@@ -247,7 +247,7 @@
 - **Quick Attack**: removed.
 - **Flamethrower**: reduced cost from (R)(R)(C)(C) to (R)(R)(C).
 - **Flamethrower**: reduced damage from 60 to 50.
-- **New attack: (R)(R)(C)(C) Fire Blast**: 70 damage. Discard 1 (R) Energy attached to this Pokémon.
+- **New attack: (R)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
 
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).

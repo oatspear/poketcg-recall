@@ -797,7 +797,7 @@ HitmonleeStretchKickEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, StretchKick_AISelectEffect
 	db  $00
 
-SandshrewSandAttackEffectCommands:
+SandAttackEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SandAttackEffect
 	db  $00
 
