@@ -250,7 +250,7 @@
 - **New attack: (R)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
 
 ### Moltres (Fossil)
-- Increased HP frmo 70 to 90.
+- Increased HP from 70 to 90.
 - **Dive Bomb**: removed.
 - **Wildfire**: increased cost from (R) to (R)(R)(C)(C).
 - **Wildfire**: increased base damage from zero to 40.
