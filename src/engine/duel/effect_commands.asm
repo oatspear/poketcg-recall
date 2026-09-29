@@ -393,12 +393,7 @@ CloysterSpikeCannonEffectCommands:
 	dbw EFFECTCMDTYPE_AI, CloysterSpikeCannon_AIEffect
 	db  $00
 
-ArticunoFreezeDryEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
-ArticunoBlizzardEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Blizzard_BenchDamage50PercentEffect
+BlizzardEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Blizzard_BenchDamageEffect
 	db  $00
 
@@ -497,6 +492,7 @@ FlamethrowerEffectCommands:
 	db  $00
 
 EnergyBurnEffectCommands:
+PassivePowerEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, PassivePowerEffect
 	db  $00
 
@@ -860,6 +856,8 @@ ZapdosThunderboltEffectCommands:
 	db  $00
 
 ZapdosThunderstormEffectCommands:
+	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Thunderstorm_PlayerSelectEffect
+	dbw EFFECTCMDTYPE_AI_SELECTION, Thunderstorm_AISelectEffect
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ThunderstormEffect
 	db  $00
 

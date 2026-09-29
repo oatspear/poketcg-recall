@@ -2755,37 +2755,37 @@ MoltresLv35Card:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw MOLTRES_LV35
-	db 70 ; hp
+	db 90 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy FIRE, 1 ; energies
+	energy 0 ; energies
+	tx FlareFloatName ; name
+	tx FlareFloatDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db POKEMON_POWER ; category
+	dw PassivePowerEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_PKMN_POWER_1 ; animation
+
+	; attack 2
+	energy FIRE, 2, COLORLESS, 2 ; energies
 	tx WildfireName ; name
 	tx WildfireDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
+	db 40 ; damage
+	db DAMAGE_NORMAL ; category
 	dw MoltresWildfireEffectCommands ; effect commands
 	db NONE ; flags 1
 	db FLAG_2_BIT_5 ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_GLOW_EFFECT ; animation
-
-	; attack 2
-	energy FIRE, 4 ; energies
-	tx DiveBombName ; name
-	tx MayDoNothingDescription ; description
-	dw NONE ; description (cont)
-	db 80 ; damage
-	db DAMAGE_NORMAL ; category
-	dw MoltresLv35DiveBombEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_FIRE_SPIN ; animation
 
 	db 2 ; retreat cost
 	db NONE ; weakness
@@ -4305,32 +4305,32 @@ ArticunoLv35Card:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw ARTICUNO_LV35
-	db 70 ; hp
+	db 90 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy WATER, 3 ; energies
-	tx FreezeDryName ; name
-	tx MayInflictParalysisDescription ; description
+	energy 0 ; energies
+	tx IceFloatName ; name
+	tx IceFloatDescription ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw ArticunoFreezeDryEffectCommands ; effect commands
-	db INFLICT_PARALYSIS ; flags 1
+	db 0 ; damage
+	db POKEMON_POWER ; category
+	dw PassivePowerEffectCommands ; effect commands
+	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_BEAM ; animation
+	db ATK_ANIM_PKMN_POWER_1 ; animation
 
 	; attack 2
-	energy WATER, 4 ; energies
+	energy WATER, 2, COLORLESS, 2 ; energies
 	tx BlizzardName ; name
 	tx BlizzardDescription ; description
 	dw NONE ; description (cont)
-	db 50 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ArticunoBlizzardEffectCommands ; effect commands
+	dw BlizzardEffectCommands ; effect commands
 	db DAMAGE_TO_OPPONENT_BENCH ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -5405,12 +5405,26 @@ ZapdosLv40Card:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw ZAPDOS_LV40
-	db 80 ; hp
+	db 90 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy LIGHTNING, 4 ; energies
+	energy 0 ; energies
+	tx VoltaicFloatName ; name
+	tx VoltaicFloatDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db POKEMON_POWER ; category
+	dw PassivePowerEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_PKMN_POWER_1 ; animation
+
+	; attack 2
+	energy LIGHTNING, 2, COLORLESS, 2 ; energies
 	tx ThunderstormName ; name
 	tx ThunderstormDescription ; description
 	dw NONE ; description (cont)
@@ -5422,20 +5436,6 @@ ZapdosLv40Card:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_THUNDERSTORM ; animation
-
-	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
 
 	db 2 ; retreat cost
 	db NONE ; weakness
@@ -5926,7 +5926,7 @@ MachokeCard:
 	; attack 2
 	energy FIGHTING, 2, COLORLESS, 2 ; energies
 	tx SubmissionName ; name
-	tx SubmissionDescription ; description
+	tx Recoil20Description ; description
 	dw NONE ; description (cont)
 	db 60 ; damage
 	db DAMAGE_NORMAL ; category

@@ -1081,16 +1081,28 @@ MoltresName:
 	text "Moltres"
 	done
 
+FlareFloatName:
+	text "Flare Float"
+	done
+
+FlareFloatDescription:
+	text "If this Pokémon has any <FIRE> Energy"
+	line "attached, it has no Retreat Cost."
+	line "This Pokémon Power stops working if"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
+	done
+
 WildfireName:
 	text "Wildfire"
 	done
 
 WildfireDescription:
 	text "You may discard any number of <FIRE>"
-	line "Energy cards attached to Moltres"
-	line "when you use this attack. If you do,"
-	line "discard that many cards from the top"
-	line "of your opponent's deck."
+	line "Energy cards attached to this"
+	line "Pokémon. If you do, discard that"
+	line "many cards from the top of your"
+	line "opponent's deck."
 	done
 
 DiveBombName:

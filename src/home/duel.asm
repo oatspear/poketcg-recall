@@ -2487,3 +2487,45 @@ CopyOpponentName::
 .print_player2
 	ldtx hl, Player2Text
 	jp CopyText
+
+
+; Returns in a the deck index of the first instance
+; of card with ID equal to the ID in de in card location a.
+; Sets carry if found.
+; input:
+;   a = CARD_LOCATION_*
+;   de = card ID to look for
+; output:
+;   a = deck index (if found)
+;   e = deck index (if found)
+;   carry = set if found
+LookForCardIDInLocation:
+	ld b, d
+	ld c, e
+	ld d, a
+	ld e, 0
+.loop
+	ld a, DUELVARS_CARD_LOCATIONS
+	add e
+	call GetTurnDuelistVariable
+	cp d
+	jr nz, .next
+	ld a, e
+	push de
+	call GetCardIDFromDeckIndex
+	call CompareDEtoBC
+	pop de
+	jr z, .found
+.next
+	inc e
+	ld a, DECK_SIZE
+	cp e
+	jr nz, .loop
+
+; not found
+	or a
+	ret
+.found
+	ld a, e
+	scf
+	ret

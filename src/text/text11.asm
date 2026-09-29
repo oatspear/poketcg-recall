@@ -265,6 +265,18 @@ ArticunoName:
 	text "Articuno"
 	done
 
+IceFloatName:
+	text "Ice Float"
+	done
+
+IceFloatDescription:
+	text "If this Pokémon has any <WATER> Energy"
+	line "attached, it has no Retreat Cost."
+	line "This Pokémon Power stops working if"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
+	done
+
 FreezeDryName:
 	text "Freeze Dry"
 	done
@@ -274,11 +286,8 @@ BlizzardName:
 	done
 
 BlizzardDescription:
-	text "Flip a coin. If heads, this attack"
-	line "does 10 damage to each of your"
-	line "opponent's Benched Pokémon."
-	line "If tails, this attack does 10 damage"
-	line "to each of your own Benched Pokémon."
+	text "This attack does 10 damage to each"
+	line "of your opponent's Benched Pokémon."
 	line "(Don't apply Weakness and Resistance"
 	line "for Benched Pokémon.)"
 	done
@@ -700,18 +709,28 @@ ZapdosName:
 	text "Zapdos"
 	done
 
+VoltaicFloatName:
+	text "Voltaic Float"
+	done
+
+VoltaicFloatDescription:
+	text "If this Pokémon has any <LIGHTNING> Energy"
+	line "attached, it has no Retreat Cost."
+	line "This Pokémon Power stops working if"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
+	done
+
 ThunderstormName:
 	text "Thunderstorm"
 	done
 
 ThunderstormDescription:
-	text "For each of your opponent's Benched"
-	line "Pokémon, flip a coin. If heads,"
-	line "this attack does 20 damage to that"
-	line "Pokémon. (Don't apply Weakness and"
-	line "Resistance for Benched Pokémon.)"
-	line "Then, Zapdos does 10 damage times"
-	line "the number of tails to itself."
+	text "This attack does 20 damage to 1 of"
+	line "your opponent's Benched Pokémon"
+	line "and to 1 of your Benched Pokémon."
+	line "(Don't apply Weakness and Resistance"
+	line "for Benched Pokémon.)"
 	done
 
 ZapdosLv40Description:
@@ -932,8 +951,9 @@ SubmissionName:
 	text "Submission"
 	done
 
-SubmissionDescription:
-	text "Machoke does 20 damage to itself."
+Recoil20Description:
+	text "This Pokémon does 20 damage to"
+	line "itself."
 	done
 
 MachokeDescription:

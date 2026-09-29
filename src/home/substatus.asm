@@ -675,6 +675,40 @@ CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower::
 ; return, in a, the retreat cost of the card in wLoadedCard1,
 ; adjusting for any Dodrio's Retreat Aid Pkmn Power that is active.
 GetLoadedCard1RetreatCost::
+	ld de, MUK
+	call CountPokemonWithActivePkmnPowerInBothPlayAreas
+	jr nc, .check_modifiers
+; Muk found, return regular retreat cost
+	ld a, [wLoadedCard1RetreatCost]
+	ret
+
+.check_modifiers
+; Ice Float
+; If this Pokémon has any {W} Energy attached, it has no Retreat Cost.
+	ld hl, wLoadedCard1ID
+	cphl ARTICUNO_LV35
+	ld de, WATER_ENERGY
+	jr z, .color_float_power
+; Voltaic Float
+; If this Pokémon has any {L} Energy attached, it has no Retreat Cost.
+	cphl ZAPDOS_LV40
+	ld de, LIGHTNING_ENERGY
+	jr z, .color_float_power
+; Flare Float
+; If this Pokémon has any {R} Energy attached, it has no Retreat Cost.
+	cphl MOLTRES_LV35
+	ld de, FIRE_ENERGY
+	jr nz, .normal_check
+.color_float_power
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	or CARD_LOCATION_PLAY_AREA
+	call LookForCardIDInLocation
+	jr nc, .normal_check
+	xor a
+	ret
+
+; proceed with normal retreat cost check
+.normal_check
 	ld c, 0
 	ld a, DUELVARS_BENCH
 	call GetTurnDuelistVariable
@@ -692,13 +726,10 @@ GetLoadedCard1RetreatCost::
 	ld a, c
 	or a
 	jr nz, .dodrio_found
-.muk_found
+; not found
 	ld a, [wLoadedCard1RetreatCost] ; return regular retreat cost
 	ret
 .dodrio_found
-	ld de, MUK
-	call CountPokemonWithActivePkmnPowerInBothPlayAreas
-	jr c, .muk_found
 	ld a, [wLoadedCard1RetreatCost]
 	sub c ; apply Retreat Aid for each Pkmn Power-capable Dodrio
 	ret nc

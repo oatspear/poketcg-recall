@@ -249,8 +249,29 @@
 - **Flamethrower**: reduced damage from 60 to 50.
 - **New attack: (R)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
 
+### Moltres (Fossil)
+- Increased HP frmo 70 to 90.
+- **Dive Bomb**: removed.
+- **Wildfire**: increased cost from (R) to (R)(R)(C)(C).
+- **Wildfire**: increased base damage from zero to 40.
+- **New Pokémon Power: Flare Float**: retreat cost becomes zero if the Pokémon has (R) Energy attached.
+
 ### Pikachu Lv16
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
+
+### Zapdos (Fossil)
+- Increased HP from 80 to 90.
+- **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C)(C).
+- **Thunderstorm**: no coin flips. Does 20 damage to 1 of the opponent's benched Pokémon and to 1 of the user's Benched Pokémon.
+- **New Pokémon Power: Voltaic Float**: retreat cost becomes zero if the Pokémon has (L) Energy attached.
+
+### Articuno (Fossil)
+- Increased HP from 70 to 90.
+- **Freeze Dry**: removed.
+- **Blizzard**: reduced cost from (W)(W)(W)(W) to (W)(W)(C)(C).
+- **Blizzard**: reduced damage from 50 to 40.
+- **Blizzard**: no coin flip. Only does damage to the opponent's Bench.
+- **New Pokémon Power: Ice Float**: retreat cost becomes zero if the Pokémon has (W) Energy attached.
 
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).

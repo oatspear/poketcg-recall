@@ -1107,6 +1107,34 @@ GetBenchPokemonWithLowestHP:
 	ld a, d
 	jp SwapTurn
 
+; Return in a the PLAY_AREA_* of the turn holder's Pokemon card in bench with the most remaining HP.
+; if multiple cards are tied for the most HP, the one with the highest PLAY_AREA_* is returned.
+GetBenchPokemonWithMostHP:
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetTurnDuelistVariable
+	ld c, a
+	lb de, PLAY_AREA_ARENA, 0
+	ld b, d
+	ld a, DUELVARS_BENCH1_CARD_HP
+	call GetTurnDuelistVariable
+	jr .start
+; find Play Area location with least amount of HP
+.loop_bench
+	ld a, e
+	cp [hl]
+	jr nc, .next ; skip if HP is lower
+	ld e, [hl]
+	ld d, b
+.next
+	inc hl
+.start
+	inc b
+	dec c
+	jr nz, .loop_bench
+
+	ld a, d
+	ret
+
 ; handles drawing and selection of screen for
 ; choosing a color (excluding colorless), for use
 ; of Shift Pkmn Power and Conversion attacks.
@@ -2861,28 +2889,13 @@ ClampEffect:
 	call SetDefiniteDamage
 	jp SetWasUnsuccessful
 
-Blizzard_BenchDamage50PercentEffect:
-	ldtx de, DamageToOppBenchIfHeadsDamageToYoursIfTailsText
-	call TossCoin
-	ldh [hTemp_ffa0], a ; store coin result
-	ret
 
 Blizzard_BenchDamageEffect:
-	ldh a, [hTemp_ffa0]
-	or a
-	jr nz, .opp_bench
-
-; own bench
-	ld a, TRUE
-	ld [wIsDamageToSelf], a
-	ld a, 10
-	jp DealDamageToAllBenchedPokemon
-
-.opp_bench
 	call SwapTurn
 	ld a, 10
 	call DealDamageToAllBenchedPokemon
 	jp SwapTurn
+
 
 ; return carry if can't use Cowardice
 Cowardice_Check:
@@ -3192,9 +3205,20 @@ Wildfire_PlayerSelectEffect:
 	ret
 
 Wildfire_AISelectEffect:
-; AI always chooses 0 cards to discard
+	call CreateListOfFireEnergyAttachedToArena
+	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+	call GetNonTurnDuelistVariable
+	ld a, DECK_SIZE
+	sub [hl]  ; = number of cards in deck
+; check if number of cards in deck <= number of (R) energy
+	inc c
+	cp c
+	ld a, c
+	jr c, .store
+; otherwise, AI always chooses 0 cards to discard
 	xor a
-	ldh [hTempList], a
+.store
+	ldh [hTemp_ffa0], a
 	ret
 
 Wildfire_DiscardEnergyEffect:
@@ -5545,104 +5569,60 @@ ThunderboltEffect:
 	call PutCardInDiscardPile
 	jr .loop
 
-ThunderstormEffect:
-	ld a, 1
-	ldh [hCurSelectionItem], a
 
+Thunderstorm_PlayerSelectEffect:
+	ld a, $ff
+	ldh [hTempList + 0], a
+	ldh [hTempList + 1], a
+; choose opponent's Pokémon
+	call Spark_PlayerSelectEffect
+	ldh a, [hTempList + 0]
+	ldh [hTempList + 1], a
+; choose own Pokémon
 	call SwapTurn
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetTurnDuelistVariable
-	ld c, a
-	ld b, 0
-	ld e, b
-	jr .next_pkmn
-
-.check_damage
-	push de
-	push bc
-	call .DisplayText
-	ld de, $0
-	call SwapTurn
-	call TossCoin
-	call SwapTurn
-	push af
-	call GetNextPositionInTempList
-	pop af
-	ld [hl], a ; store result in list
-	pop bc
-	pop de
-	jr c, .next_pkmn
-	inc b ; increase number of tails
-
-.next_pkmn
-	inc e
-	dec c
-	jr nz, .check_damage
-
-; all coins were tossed for each Benched Pokemon
-	call GetNextPositionInTempList
-	ld [hl], $ff
-	ld a, b
-	ldh [hTemp_ffa0], a
-	call ResetAnimationQueue
-	call SwapTurn
-
-; tally recoil damage
-	ldh a, [hTemp_ffa0]
-	or a
-	jr z, .skip_recoil
-	; deal number of tails times 10 to self
-	call ATimes10
-	call DealRecoilDamageToSelf
-.skip_recoil
-
-; deal damage for Bench Pokemon that got heads
-	call SwapTurn
-	ld hl, hTempPlayAreaLocation_ffa1
-	ld b, PLAY_AREA_BENCH_1
-.loop_bench
-	ld a, [hli]
-	cp $ff
-	jr z, .done
-	or a
-	jr z, .skip_damage ; skip if tails
-	ld de, 20
-	call DealDamageToPlayAreaPokemon_RegularAnim
-.skip_damage
-	inc b
-	jr .loop_bench
-
-.done
+	call Spark_PlayerSelectEffect
 	jp SwapTurn
 
-; displays text for current Bench Pokemon,
-; printing its Bench number and name.
-.DisplayText
-	ld b, e
-	ldtx hl, BenchText
-	ld de, wDefaultText
-	call CopyText
-	ld a, $30 ; 0 FW character
-	add b
-	ld [de], a
-	inc de
-	ld a, $20 ; space FW character
-	ld [de], a
-	inc de
 
-	ld a, DUELVARS_ARENA_CARD
-	add b
+Thunderstorm_AISelectEffect:
+	ld a, $ff
+	ldh [hTempList + 0], a
+	ldh [hTempList + 1], a
+; choose opponent's Pokémon
+	call Spark_AISelectEffect
+	ldh a, [hTempList + 0]
+	ldh [hTempList + 1], a
+; choose own Pokémon
+	ld a, $ff
+	ldh [hTempList + 0], a
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
-	call LoadCardDataToBuffer2_FromDeckIndex
-	ld hl, wLoadedCard2Name
-	ld a, [hli]
-	ld h, [hl]
-	ld l, a
-	call CopyText
-
-	xor a
-	ld [wDuelDisplayedScreen], a
+	cp 2
+	ret c ; has no Bench Pokemon
+; AI always picks Pokemon with highest HP remaining
+	call GetBenchPokemonWithMostHP
+	ldh [hTemp_ffa0], a
 	ret
+
+
+ThunderstormEffect:
+; damage the opponent's Pokémon
+	ldh a, [hTempList + 1]
+	cp $ff
+	jr z, .own_pokemon
+	ld b, a
+	ld de, 20
+	call SwapTurn
+	call DealDamageToPlayAreaPokemon_RegularAnim
+	call SwapTurn
+.own_pokemon
+	ldh a, [hTempList + 0]
+	cp $ff
+	ret z
+	ld b, a
+	ld de, 20
+	jp DealDamageToPlayAreaPokemon_RegularAnim
+
 
 PinMissile_AIEffect:
 	ld a, (20 * 4) / 2
@@ -5702,16 +5682,17 @@ Spark_PlayerSelectEffect:
 	call GetNonTurnDuelistVariable
 	cp 2
 	ret c ; has no Bench Pokemon
+	cp 3
+	jr nc, .manual_choice
+	ld a, PLAY_AREA_BENCH_1
+	ldh [hTempPlayAreaLocation_ff9d], a
+	ret
 
+.manual_choice
 	ldtx hl, ChoosePkmnInTheBenchToGiveDamageText
 	call DrawWideTextBox_WaitForInput
 	call SwapTurn
 	bank1call HasAlivePokemonInBench
-
-	; the following two instructions can be removed
-	; since Player selection will overwrite it.
-	ld a, PLAY_AREA_BENCH_1
-	ldh [hTempPlayAreaLocation_ff9d], a
 
 .loop_input
 	bank1call OpenPlayAreaScreenForSelection
@@ -5719,6 +5700,7 @@ Spark_PlayerSelectEffect:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTemp_ffa0], a
 	jp SwapTurn
+
 
 Spark_AISelectEffect:
 	ld a, $ff
@@ -5797,17 +5779,35 @@ ChainLightningEffect:
 	ret
 
 Gigashock_PlayerSelectEffect:
+	ld a, $ff
+	ldh [hTempList + 0], a
+	ldh [hTempList + 1], a
+	ldh [hTempList + 2], a
+	ldh [hTempList + 3], a
 	call SwapTurn
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	cp 2
-	jr nc, .has_bench
-	call SwapTurn
-	ld a, $ff
-	ldh [hTempList], a
-	ret
+	jp c, SwapTurn
 
-.has_bench
+; has Benched Pokémon
+	cp 5
+	jr nc, .manual_choice
+	cp 3
+	jr c, .only_one
+	cp 4
+	jr c, .two
+; exactly three
+	ld a, PLAY_AREA_BENCH_3
+	ldh [hTempList + 2], a
+.two
+	ld a, PLAY_AREA_BENCH_2
+	ldh [hTempList + 1], a
+.only_one
+	ld a, PLAY_AREA_BENCH_1
+	ldh [hTempList + 0], a
+
+.manual_choice
 	ldtx hl, ChooseUpTo3PkmnOnBenchToGiveDamageText
 	call DrawWideTextBox_WaitForInput
 

@@ -2236,6 +2236,8 @@ TextOffsets::
 	textpointer FlareonLv22Description
 	textpointer FlareonLv28Description
 	textpointer MoltresName
+	textpointer FlareFloatName
+	textpointer FlareFloatDescription
 	textpointer WildfireName
 	textpointer WildfireDescription
 	textpointer DiveBombName
@@ -2377,6 +2379,8 @@ TextOffsets::
 	textpointer OmastarsWaterGunDescription
 	textpointer OmastarDescription
 	textpointer ArticunoName
+	textpointer IceFloatName
+	textpointer IceFloatDescription
 	textpointer FreezeDryName
 	textpointer BlizzardName
 	textpointer BlizzardDescription
@@ -2457,6 +2461,8 @@ TextOffsets::
 	textpointer QuadrupleAttackX20Description
 	textpointer JolteonLv29Description
 	textpointer ZapdosName
+	textpointer VoltaicFloatName
+	textpointer VoltaicFloatDescription
 	textpointer ThunderstormName
 	textpointer ThunderstormDescription
 	textpointer ZapdosLv40Description
@@ -2502,7 +2508,7 @@ TextOffsets::
 	textpointer KarateChopName
 	textpointer KarateChopDescription
 	textpointer SubmissionName
-	textpointer SubmissionDescription
+	textpointer Recoil20Description
 	textpointer MachokeDescription
 	textpointer MachampName
 	textpointer StrikesBackName
