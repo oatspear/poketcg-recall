@@ -7238,7 +7238,7 @@ ScrunchEffect:
 	jp ApplySubstatus1ToDefendingCard
 
 ChanseyDoubleEdgeEffect:
-	ld a, 80
+	ld a, 60
 	jp DealRecoilDamageToSelf
 
 SuperFang_AIEffect:

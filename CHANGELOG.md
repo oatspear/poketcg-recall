@@ -258,6 +258,11 @@
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
+### Chansey
+- Reduced HP from 120 to 100.
+- Increased retreat cost from 1 to 2.
+- **Double-edge**: reduced damage and recoil from 80 to 60.
+
 ## Version 1.0
 
 ### Added

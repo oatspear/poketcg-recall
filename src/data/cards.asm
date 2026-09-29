@@ -8805,7 +8805,7 @@ ChanseyCard:
 	db STAR ; rarity
 	db COLOSSEUM | NONE ; sets
 	dw CHANSEY
-	db 120 ; hp
+	db 100 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -8828,16 +8828,16 @@ ChanseyCard:
 	tx DoubleEdgeName ; name
 	tx ChanseysDoubleEdgeDescription ; description
 	dw NONE ; description (cont)
-	db 80 ; damage
+	db 60 ; damage
 	db DAMAGE_NORMAL ; category
 	dw ChanseyDoubleEdgeEffectCommands ; effect commands
 	db HIGH_RECOIL ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
-	db 80
+	db 60
 	db ATK_ANIM_HIT_RECOIL ; animation
 
-	db 1 ; retreat cost
+	db 2 ; retreat cost
 	db WR_FIGHTING ; weakness
 	db WR_PSYCHIC ; resistance
 	tx EggName ; category
