@@ -2755,30 +2755,30 @@ MoltresLv35Card:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw MOLTRES_LV35
-	db 90 ; hp
+	db 80 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy 0 ; energies
-	tx FlareFloatName ; name
-	tx FlareFloatDescription ; description
+	energy COLORLESS, 1 ; energies
+	tx CollectFireName ; name
+	tx CollectFireDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db POKEMON_POWER ; category
-	dw PassivePowerEffectCommands ; effect commands
+	db 10 ; damage
+	db DAMAGE_NORMAL ; category
+	dw CollectFireEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_PKMN_POWER_1 ; animation
+	db ATK_ANIM_SMALL_FLAME ; animation
 
 	; attack 2
-	energy FIRE, 2, COLORLESS, 2 ; energies
+	energy FIRE, 2, COLORLESS, 1 ; energies
 	tx WildfireName ; name
 	tx WildfireDescription ; description
 	dw NONE ; description (cont)
-	db 40 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw MoltresWildfireEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -4305,26 +4305,26 @@ ArticunoLv35Card:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw ARTICUNO_LV35
-	db 90 ; hp
+	db 80 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy 0 ; energies
-	tx IceFloatName ; name
-	tx IceFloatDescription ; description
+	energy WATER, 1, COLORLESS, 1 ; energies
+	tx FreezeDryName ; name
+	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db POKEMON_POWER ; category
-	dw PassivePowerEffectCommands ; effect commands
-	db NONE ; flags 1
+	db 20 ; damage
+	db DAMAGE_NORMAL ; category
+	dw Paralysis50PercentEffectCommands ; effect commands
+	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_PKMN_POWER_1 ; animation
+	db ATK_ANIM_BEAM ; animation
 
 	; attack 2
-	energy WATER, 2, COLORLESS, 2 ; energies
+	energy WATER, 3, COLORLESS, 1 ; energies
 	tx BlizzardName ; name
 	tx BlizzardDescription ; description
 	dw NONE ; description (cont)
@@ -5405,26 +5405,26 @@ ZapdosLv40Card:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw ZAPDOS_LV40
-	db 90 ; hp
+	db 80 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy 0 ; energies
-	tx VoltaicFloatName ; name
-	tx VoltaicFloatDescription ; description
+	energy COLORLESS, 1 ; energies
+	tx PlasmaName ; name
+	tx PlasmaDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db POKEMON_POWER ; category
-	dw PassivePowerEffectCommands ; effect commands
+	db 10 ; damage
+	db DAMAGE_NORMAL ; category
+	dw PlasmaEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_PKMN_POWER_1 ; animation
+	db ATK_ANIM_THUNDER_WAVE ; animation
 
 	; attack 2
-	energy LIGHTNING, 2, COLORLESS, 2 ; energies
+	energy LIGHTNING, 2, COLORLESS, 1 ; energies
 	tx ThunderstormName ; name
 	tx ThunderstormDescription ; description
 	dw NONE ; description (cont)

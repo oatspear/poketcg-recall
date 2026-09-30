@@ -1163,6 +1163,56 @@ DragoniteDescription:
 	line "to match that of humans."
 	done
 
+
+EnergizeName:
+	text "Energize"
+	done
+
+EnergizeDescription:
+	text "Attach a Basic <LIGHTNING> Energy card from"
+	line "your discard pile to this Pokémon."
+	done
+
+DrawInName:
+	text "Draw In"
+	done
+
+DrawInDescription:
+	text "Attach a Basic <FIRE> Energy card from"
+	line "your discard pile to this Pokémon."
+	done
+
+PlasmaName:
+	text "Plasma"
+	done
+
+PlasmaDescription:
+	text "If there are any Basic <LIGHTNING> Energy"
+	line "cards in your discard pile, flip a"
+	line "coin. If heads, attach 1 of them to"
+	line "this Pokémon."
+	done
+
+CollectFireName:
+	text "Collect Fire"
+	done
+
+CollectFireDescription:
+	text "If there are any Basic <FIRE> Energy"
+	line "cards in your discard pile, flip a"
+	line "coin. If heads, attach 1 of them to"
+	line "this Pokémon."
+	done
+
+IfHeadsAttachEnergyFromDiscardPileText:
+	text "If Heads, attach an Energy card"
+	line "from your discard pile!"
+	done
+
+; ------------------------------------------------------------------------------
+; TRAINER CARDS
+; ------------------------------------------------------------------------------
+
 ProfessorOakName:
 	text "Professor Oak"
 	done

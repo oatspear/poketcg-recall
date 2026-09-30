@@ -522,6 +522,24 @@ CreateTrainerCardListFromDiscardPile:
 	ret
 
 ; makes a list in wDuelTempList with the deck indices
+; of all basic Fire energy cards found in Turn Duelist's Discard Pile.
+CreateEnergyCardListFromDiscardPile_OnlyFire:
+	ld c, TYPE_ENERGY_FIRE
+	jr CreateEnergyCardListFromDiscardPile
+
+; makes a list in wDuelTempList with the deck indices
+; of all basic Lightning energy cards found in Turn Duelist's Discard Pile.
+CreateEnergyCardListFromDiscardPile_OnlyLightning:
+	ld c, TYPE_ENERGY_LIGHTNING
+	jr CreateEnergyCardListFromDiscardPile
+
+; makes a list in wDuelTempList with the deck indices
+; of all basic Lightning energy cards found in Turn Duelist's Discard Pile.
+CreateEnergyCardListFromDiscardPile_OnlyWater:
+	ld c, TYPE_ENERGY_WATER
+	jr CreateEnergyCardListFromDiscardPile
+
+; makes a list in wDuelTempList with the deck indices
 ; of all basic energy cards found in Turn Duelist's Discard Pile.
 CreateEnergyCardListFromDiscardPile_OnlyBasic:
 	ld c, $01
@@ -538,6 +556,7 @@ CreateEnergyCardListFromDiscardPile_AllEnergy:
 ; of energy cards found in Turn Duelist's Discard Pile.
 ; if (c == 0), all energy cards are allowed;
 ; if (c != 0), double colorless energy cards are not included.
+; if (8 <= c <= 13) only energies of that specific type are included
 ; returns carry if no energy cards were found.
 CreateEnergyCardListFromDiscardPile:
 ; get number of cards in Discard Pile
@@ -565,7 +584,14 @@ CreateEnergyCardListFromDiscardPile:
 	ld a, c
 	or a
 	jr z, .copy
+	cp TYPE_ENERGY
 	ld a, [wLoadedCard2Type]
+	jr c, .any_basic
+	cp c
+	jr z, .copy
+	jr .next_card
+
+.any_basic
 	cp TYPE_ENERGY_DOUBLE_COLORLESS
 	jr nc, .next_card
 
@@ -2890,11 +2916,35 @@ ClampEffect:
 	jp SetWasUnsuccessful
 
 
+Blizzard_BenchDamage50PercentEffect:
+	ldtx de, DamageToOppBenchIfHeadsDamageToYoursIfTailsText
+	call TossCoin
+	ldh [hTemp_ffa0], a ; store coin result
+	ret
+
 Blizzard_BenchDamageEffect:
+	ldh a, [hTemp_ffa0]
+	or a
+	jr nz, .opp_bench
+
+; own bench
+	ld a, TRUE
+	ld [wIsDamageToSelf], a
+	ld a, 10
+	jp DealDamageToAllBenchedPokemon
+
+.opp_bench
 	call SwapTurn
 	ld a, 10
 	call DealDamageToAllBenchedPokemon
 	jp SwapTurn
+
+
+; Blizzard_BenchDamageEffect:
+; 	call SwapTurn
+; 	ld a, 10
+; 	call DealDamageToAllBenchedPokemon
+; 	jp SwapTurn
 
 
 ; return carry if can't use Cowardice
@@ -4677,6 +4727,53 @@ Barrier_BarrierEffect:
 	ld a, SUBSTATUS1_BARRIER
 	jp ApplySubstatus1ToDefendingCard
 
+
+Energize_CheckDiscardPile:
+	call CreateEnergyCardListFromDiscardPile_OnlyLightning
+	ldtx hl, ThereAreNoEnergyCardsInDiscardPileText
+	ret
+
+DrawIn_CheckDiscardPile:
+	call CreateEnergyCardListFromDiscardPile_OnlyFire
+	ldtx hl, ThereAreNoEnergyCardsInDiscardPileText
+	ret
+
+
+CollectFire_AttachFromDiscardPileEffect:
+	call CreateEnergyCardListFromDiscardPile_OnlyFire
+	ret c  ; none found
+	ldtx de, IfHeadsAttachEnergyFromDiscardPileText
+	call TossCoin
+	ret nc  ; tails
+	jr AttachFromDiscardPileToArena
+
+Plasma_AttachFromDiscardPileEffect:
+	call CreateEnergyCardListFromDiscardPile_OnlyLightning
+	ret c  ; none found
+	ldtx de, IfHeadsAttachEnergyFromDiscardPileText
+	call TossCoin
+	ret nc  ; tails
+	jr AttachFromDiscardPileToArena
+
+DrawIn_AttachFromDiscardPileEffect:
+	call CreateEnergyCardListFromDiscardPile_OnlyFire
+	ret c  ; none found
+	jr AttachFromDiscardPileToArena
+
+Energize_AttachFromDiscardPileEffect:
+	call CreateEnergyCardListFromDiscardPile_OnlyLightning
+	ret c  ; none found
+	; jr AttachFromDiscardPileToArena
+	; fallthrough
+
+AttachFromDiscardPileToArena:
+	ld a, [wDuelTempList]
+	call MoveDiscardPileCardToHand
+	call GetTurnDuelistVariable
+	ld [hl], CARD_LOCATION_ARENA
+	ret
+
+
 EnergyAbsorption_CheckDiscardPile:
 	call CreateEnergyCardListFromDiscardPile_AllEnergy
 	ldtx hl, ThereAreNoEnergyCardsInDiscardPileText
@@ -5570,58 +5667,158 @@ ThunderboltEffect:
 	jr .loop
 
 
-Thunderstorm_PlayerSelectEffect:
-	ld a, $ff
-	ldh [hTempList + 0], a
-	ldh [hTempList + 1], a
-; choose opponent's Pokémon
-	call Spark_PlayerSelectEffect
-	ldh a, [hTempList + 0]
-	ldh [hTempList + 1], a
-; choose own Pokémon
-	call SwapTurn
-	call Spark_PlayerSelectEffect
-	jp SwapTurn
+; Thunderstorm_PlayerSelectEffect:
+; 	ld a, $ff
+; 	ldh [hTempList + 0], a
+; 	ldh [hTempList + 1], a
+; ; choose opponent's Pokémon
+; 	call Spark_PlayerSelectEffect
+; 	ldh a, [hTempList + 0]
+; 	ldh [hTempList + 1], a
+; ; choose own Pokémon
+; 	call SwapTurn
+; 	call Spark_PlayerSelectEffect
+; 	jp SwapTurn
 
 
-Thunderstorm_AISelectEffect:
-	ld a, $ff
-	ldh [hTempList + 0], a
-	ldh [hTempList + 1], a
-; choose opponent's Pokémon
-	call Spark_AISelectEffect
-	ldh a, [hTempList + 0]
-	ldh [hTempList + 1], a
-; choose own Pokémon
-	ld a, $ff
-	ldh [hTempList + 0], a
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetTurnDuelistVariable
-	cp 2
-	ret c ; has no Bench Pokemon
-; AI always picks Pokemon with highest HP remaining
-	call GetBenchPokemonWithMostHP
-	ldh [hTemp_ffa0], a
-	ret
+; Thunderstorm_AISelectEffect:
+; 	ld a, $ff
+; 	ldh [hTempList + 0], a
+; 	ldh [hTempList + 1], a
+; ; choose opponent's Pokémon
+; 	call Spark_AISelectEffect
+; 	ldh a, [hTempList + 0]
+; 	ldh [hTempList + 1], a
+; ; choose own Pokémon
+; 	ld a, $ff
+; 	ldh [hTempList + 0], a
+; 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+; 	call GetTurnDuelistVariable
+; 	cp 2
+; 	ret c ; has no Bench Pokemon
+; ; AI always picks Pokemon with highest HP remaining
+; 	call GetBenchPokemonWithMostHP
+; 	ldh [hTemp_ffa0], a
+; 	ret
+
+
+; ThunderstormEffect:
+; ; damage the opponent's Pokémon
+; 	ldh a, [hTempList + 1]
+; 	cp $ff
+; 	jr z, .own_pokemon
+; 	ld b, a
+; 	ld de, 20
+; 	call SwapTurn
+; 	call DealDamageToPlayAreaPokemon_RegularAnim
+; 	call SwapTurn
+; .own_pokemon
+; 	ldh a, [hTempList + 0]
+; 	cp $ff
+; 	ret z
+; 	ld b, a
+; 	ld de, 20
+; 	jp DealDamageToPlayAreaPokemon_RegularAnim
 
 
 ThunderstormEffect:
-; damage the opponent's Pokémon
-	ldh a, [hTempList + 1]
-	cp $ff
-	jr z, .own_pokemon
-	ld b, a
-	ld de, 20
+	ld a, 1
+	ldh [hCurSelectionItem], a
+
 	call SwapTurn
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetTurnDuelistVariable
+	ld c, a
+	ld b, 0
+	ld e, b
+	jr .next_pkmn
+
+.check_damage
+	push de
+	push bc
+	call .DisplayText
+	ld de, $0
+	call SwapTurn
+	call TossCoin
+	call SwapTurn
+	push af
+	call GetNextPositionInTempList
+	pop af
+	ld [hl], a ; store result in list
+	pop bc
+	pop de
+	jr c, .next_pkmn
+	inc b ; increase number of tails
+
+.next_pkmn
+	inc e
+	dec c
+	jr nz, .check_damage
+
+; all coins were tossed for each Benched Pokemon
+	call GetNextPositionInTempList
+	ld [hl], $ff
+	ld a, b
+	ldh [hTemp_ffa0], a
+	call ResetAnimationQueue
+	call SwapTurn
+
+; tally recoil damage
+	ldh a, [hTemp_ffa0]
+	or a
+	jr z, .skip_recoil
+	; deal number of tails times 10 to self
+	call ATimes10
+	call DealRecoilDamageToSelf
+.skip_recoil
+
+; deal damage for Bench Pokemon that got heads
+	call SwapTurn
+	ld hl, hTempPlayAreaLocation_ffa1
+	ld b, PLAY_AREA_BENCH_1
+.loop_bench
+	ld a, [hli]
+	cp $ff
+	jr z, .done
+	or a
+	jr z, .skip_damage ; skip if tails
+	ld de, 20
 	call DealDamageToPlayAreaPokemon_RegularAnim
-	call SwapTurn
-.own_pokemon
-	ldh a, [hTempList + 0]
-	cp $ff
-	ret z
-	ld b, a
-	ld de, 20
-	jp DealDamageToPlayAreaPokemon_RegularAnim
+.skip_damage
+	inc b
+	jr .loop_bench
+
+.done
+	jp SwapTurn
+
+; displays text for current Bench Pokemon,
+; printing its Bench number and name.
+.DisplayText:
+	ld b, e
+	ldtx hl, BenchText
+	ld de, wDefaultText
+	call CopyText
+	ld a, '0'
+	add b
+	ld [de], a
+	inc de
+	ld a, ' '
+	ld [de], a
+	inc de
+
+	ld a, DUELVARS_ARENA_CARD
+	add b
+	call GetTurnDuelistVariable
+	call LoadCardDataToBuffer2_FromDeckIndex
+	ld hl, wLoadedCard2Name
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call CopyText
+
+	xor a
+	ld [wDuelDisplayedScreen], a
+	ret
 
 
 PinMissile_AIEffect:

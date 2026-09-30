@@ -393,7 +393,12 @@ CloysterSpikeCannonEffectCommands:
 	dbw EFFECTCMDTYPE_AI, CloysterSpikeCannon_AIEffect
 	db  $00
 
+; BlizzardEffectCommands:
+; 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Blizzard_BenchDamageEffect
+; 	db  $00
+
 BlizzardEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Blizzard_BenchDamage50PercentEffect
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Blizzard_BenchDamageEffect
 	db  $00
 
@@ -647,6 +652,24 @@ MewtwoBarrierEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, Barrier_AISelectEffect
 	db  $00
 
+DrawInEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, DrawIn_CheckDiscardPile
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, DrawIn_AttachFromDiscardPileEffect
+	db  $00
+
+EnergizeEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Energize_CheckDiscardPile
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Energize_AttachFromDiscardPileEffect
+	db  $00
+
+CollectFireEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, CollectFire_AttachFromDiscardPileEffect
+	db  $00
+
+PlasmaEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Plasma_AttachFromDiscardPileEffect
+	db  $00
+
 MewtwoAltLv60EnergyAbsorptionEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, EnergyAbsorption_CheckDiscardPile
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, EnergyAbsorption_AddToHandEffect
@@ -855,9 +878,13 @@ ZapdosThunderboltEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, ThunderboltEffect
 	db  $00
 
+; ZapdosThunderstormEffectCommands:
+; 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Thunderstorm_PlayerSelectEffect
+; 	dbw EFFECTCMDTYPE_AI_SELECTION, Thunderstorm_AISelectEffect
+; 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ThunderstormEffect
+; 	db  $00
+
 ZapdosThunderstormEffectCommands:
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Thunderstorm_PlayerSelectEffect
-	dbw EFFECTCMDTYPE_AI_SELECTION, Thunderstorm_AISelectEffect
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ThunderstormEffect
 	db  $00
 

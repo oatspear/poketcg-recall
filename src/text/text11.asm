@@ -285,9 +285,19 @@ BlizzardName:
 	text "Blizzard"
 	done
 
+; BlizzardDescription:
+; 	text "This attack does 10 damage to each"
+; 	line "of your opponent's Benched Pokémon."
+; 	line "(Don't apply Weakness and Resistance"
+; 	line "for Benched Pokémon.)"
+; 	done
+
 BlizzardDescription:
-	text "This attack does 10 damage to each"
-	line "of your opponent's Benched Pokémon."
+	text "Flip a coin. If heads, this attack"
+	line "does 10 damage to each of your"
+	line "opponent's Benched Pokémon."
+	line "If tails, this attack does 10 damage"
+	line "to each of your own Benched Pokémon."
 	line "(Don't apply Weakness and Resistance"
 	line "for Benched Pokémon.)"
 	done
@@ -725,12 +735,22 @@ ThunderstormName:
 	text "Thunderstorm"
 	done
 
+; ThunderstormDescription:
+; 	text "This attack does 20 damage to 1 of"
+; 	line "your opponent's Benched Pokémon"
+; 	line "and to 1 of your Benched Pokémon."
+; 	line "(Don't apply Weakness and Resistance"
+; 	line "for Benched Pokémon.)"
+; 	done
+
 ThunderstormDescription:
-	text "This attack does 20 damage to 1 of"
-	line "your opponent's Benched Pokémon"
-	line "and to 1 of your Benched Pokémon."
-	line "(Don't apply Weakness and Resistance"
-	line "for Benched Pokémon.)"
+	text "For each of your opponent's Benched"
+	line "Pokémon, flip a coin. If heads,"
+	line "this attack does 20 damage to that"
+	line "Pokémon. (Don't apply Weakness and"
+	line "Resistance for Benched Pokémon.)"
+	line "Then, this Pokémon does 10 damage"
+	line "to itself for each tails."
 	done
 
 ZapdosLv40Description:

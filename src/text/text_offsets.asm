@@ -2820,6 +2820,18 @@ TextOffsets::
 	textpointer StepInDescription
 	textpointer DoubleAttackX40Description
 	textpointer DragoniteDescription
+	textpointer EnergizeName
+	textpointer EnergizeDescription
+	textpointer DrawInName
+	textpointer DrawInDescription
+	textpointer PlasmaName
+	textpointer PlasmaDescription
+	textpointer CollectFireName
+	textpointer CollectFireDescription
+	textpointer IfHeadsAttachEnergyFromDiscardPileText
+
+; TRAINER CARDS ----------------------------------------------------------------
+
 	textpointer ProfessorOakName
 	textpointer ProfessorOakDescription
 	textpointer ImposterProfessorOakName

@@ -683,29 +683,29 @@ GetLoadedCard1RetreatCost::
 	ret
 
 .check_modifiers
-; Ice Float
-; If this Pokémon has any {W} Energy attached, it has no Retreat Cost.
-	ld hl, wLoadedCard1ID
-	cphl ARTICUNO_LV35
-	ld de, WATER_ENERGY
-	jr z, .color_float_power
-; Voltaic Float
-; If this Pokémon has any {L} Energy attached, it has no Retreat Cost.
-	cphl ZAPDOS_LV40
-	ld de, LIGHTNING_ENERGY
-	jr z, .color_float_power
-; Flare Float
-; If this Pokémon has any {R} Energy attached, it has no Retreat Cost.
-	cphl MOLTRES_LV35
-	ld de, FIRE_ENERGY
-	jr nz, .normal_check
-.color_float_power
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	or CARD_LOCATION_PLAY_AREA
-	call LookForCardIDInLocation
-	jr nc, .normal_check
-	xor a
-	ret
+; ; Ice Float
+; ; If this Pokémon has any {W} Energy attached, it has no Retreat Cost.
+; 	ld hl, wLoadedCard1ID
+; 	cphl ARTICUNO_LV35
+; 	ld de, WATER_ENERGY
+; 	jr z, .color_float_power
+; ; Voltaic Float
+; ; If this Pokémon has any {L} Energy attached, it has no Retreat Cost.
+; 	cphl ZAPDOS_LV40
+; 	ld de, LIGHTNING_ENERGY
+; 	jr z, .color_float_power
+; ; Flare Float
+; ; If this Pokémon has any {R} Energy attached, it has no Retreat Cost.
+; 	cphl MOLTRES_LV35
+; 	ld de, FIRE_ENERGY
+; 	jr nz, .normal_check
+; .color_float_power
+; 	ldh a, [hTempPlayAreaLocation_ff9d]
+; 	or CARD_LOCATION_PLAY_AREA
+; 	call LookForCardIDInLocation
+; 	jr nc, .normal_check
+; 	xor a
+; 	ret
 
 ; proceed with normal retreat cost check
 .normal_check
