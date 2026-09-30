@@ -1146,11 +1146,23 @@ WithdrawName:
 	text "Withdraw"
 	done
 
-SquirtlesWithdrawDescription:
+WithdrawDescription:
 	text "Flip a coin. If heads, prevent all"
-	line "damage done to Squirtle during your"
-	line "opponent's next turn. (Any other"
+	line "damage done to this Pokémon during"
+	line "your opponent's next turn. (Other"
 	line "effects of attacks still happen.)"
+	done
+
+RapidSpinName:
+	text "Rapid Spin"
+	done
+
+RapidSpinDescription:
+	text "Switch this Pokémon with 1 of your"
+	line "Benched Pokémon. If you do, your"
+	line "opponent switches their Active"
+	line "Pokémon with 1 of their Benched"
+	line "Pokémon."
 	done
 
 TinyTurtleName:
@@ -1165,13 +1177,6 @@ SquirtleDescription:
 
 WartortleName:
 	text "Wartortle"
-	done
-
-WartortlesWithdrawDescription:
-	text "Flip a coin. If heads, prevent all"
-	line "damage done to Wartortle during your"
-	line "opponent's next turn. (Any other"
-	line "effects of attacks still happen.)"
 	done
 
 TurtleName:

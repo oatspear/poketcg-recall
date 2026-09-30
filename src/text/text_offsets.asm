@@ -2248,11 +2248,12 @@ TextOffsets::
 	textpointer SquirtleName
 	textpointer BubbleName
 	textpointer WithdrawName
-	textpointer SquirtlesWithdrawDescription
+	textpointer WithdrawDescription
+	textpointer RapidSpinName
+	textpointer RapidSpinDescription
 	textpointer TinyTurtleName
 	textpointer SquirtleDescription
 	textpointer WartortleName
-	textpointer WartortlesWithdrawDescription
 	textpointer TurtleName
 	textpointer WartortleDescription
 	textpointer BlastoiseName

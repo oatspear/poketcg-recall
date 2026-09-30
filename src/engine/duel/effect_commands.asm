@@ -255,14 +255,6 @@ OmanyteWaterGunEffectCommands:
 	dbw EFFECTCMDTYPE_AI, OmanyteWaterGunEffect
 	db  $00
 
-WartortleWithdrawEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, WithdrawEffect
-	db  $00
-
-BlastoiseRainDanceEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, RainDanceEffect
-	db  $00
-
 BlastoiseHydroPumpEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HydroPumpEffect
 	dbw EFFECTCMDTYPE_AI, HydroPumpEffect
@@ -339,11 +331,7 @@ StarmieStarFreezeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
-SquirtleBubbleEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
-SquirtleWithdrawEffectCommands:
+WithdrawEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, WithdrawEffect
 	db  $00
 
@@ -1142,6 +1130,12 @@ WhirlwindEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Whirlwind_SwitchEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Whirlwind_SelectEffect
 	dbw EFFECTCMDTYPE_AI_SWITCH_DEFENDING_PKMN, Whirlwind_SelectEffect
+	db  $00
+
+RapidSpinEffectCommands:
+	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, RapidSpin_PlayerSelectEffect
+	dbw EFFECTCMDTYPE_AI_SELECTION, RapidSpin_AISelectEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, RapidSpin_SwitchEffect
 	db  $00
 
 PorygonConversion1EffectCommands:

@@ -1615,6 +1615,7 @@ Sprout_PutInPlayAreaEffect:
 
 ; returns carry if no Pokemon on Bench
 Teleport_CheckBench:
+CheckBenchIsNotEmpty:
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ldtx hl, ThereAreNoPokemonOnBenchText
@@ -1999,6 +2000,103 @@ BeforeDamage_SwitchEffect:
 	inc a
 	ld [wDefendingWasForcedToSwitch], a
 	ret
+
+
+RapidSpin_PlayerSelectEffect:
+	call SwitchUser_PlayerSelectEffect  ; ffa0
+	ldh a, [hTemp_ffa0]
+	ldh [hTempPlayAreaLocation_ffa1], a
+	cp $ff
+	ret z
+	jp Whirlwind_SelectEffect  ; ffa0
+
+RapidSpin_AISelectEffect:
+	call SwitchUser_AISelectEffect  ; ffa0
+	ldh a, [hTemp_ffa0]
+	ldh [hTempPlayAreaLocation_ffa1], a
+	cp $ff
+	ret z
+	jp Whirlwind_SelectEffect  ; ffa0
+
+RapidSpin_SwitchEffect:
+	call Whirlwind_SwitchEffect  ; ffa0
+	ldh a, [hTempPlayAreaLocation_ffa1]
+	ldh [hTemp_ffa0], a
+	jp SwitchUser_SwitchEffect  ; ffa0
+
+
+SwitchUser_PlayerSelectEffect:
+	ld a, $ff
+	ldh [hTemp_ffa0], a
+	call CheckBenchIsNotEmpty
+	jr c, .done
+
+	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText
+	call DrawWideTextBox_WaitForInput
+	call HandlePlayerSelectionPokemonInBench_AllowCancel_AllowExamine
+	ldh [hTemp_ffa0], a
+.done
+	or a
+	ret
+
+SwitchUser_AISelectEffect:
+	ld a, $ff
+	ldh [hTemp_ffa0], a
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetTurnDuelistVariable
+	cp 2
+	ret c
+	dec a
+	call Random
+	inc a
+	ldh [hTemp_ffa0], a
+	ret
+
+
+; z: false
+; nz: true
+IsBenchPokemonSelected:
+	ldh a, [hTemp_ffa0]
+	cp $ff
+	ret z
+	or a
+	ret
+
+SwitchUser_SwitchEffect:
+	call IsBenchPokemonSelected
+	ret z
+.switch
+	ld e, a
+	call SwapArenaWithBenchPokemon
+	xor a
+	ld [wDuelDisplayedScreen], a
+	ret
+
+
+; ------------------------------------------------------------------------------
+; Choose Pokémon In Play Area
+; ------------------------------------------------------------------------------
+
+HandlePlayerSelectionPokemonInPlayArea_AllowCancel:
+	bank1call HasAlivePokemonInPlayArea
+.select
+	bank1call OpenPlayAreaScreenForSelection
+	ld a, $ff
+	ret c
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ret
+
+HandlePlayerSelectionPokemonInBench_AllowCancel:
+	bank1call HasAlivePokemonInBench
+	jr HandlePlayerSelectionPokemonInPlayArea_AllowCancel.select
+
+HandlePlayerSelectionPokemonInBench_AllowCancel_AllowExamine:
+	bank1call HasAlivePokemonInBench
+	ld a, $01
+	ld [wPlayAreaSelectAction], a
+	jr HandlePlayerSelectionPokemonInPlayArea_AllowCancel.select
+
+; ------------------------------------------------------------------------------
 
 
 Poison50Percent_AIEffect:
@@ -2634,10 +2732,6 @@ WithdrawEffect:
 	ld [wLoadedAttackAnimation], a
 	ld a, SUBSTATUS1_NO_DAMAGE_10
 	jp ApplySubstatus1ToDefendingCard
-
-RainDanceEffect:
-	scf
-	ret
 
 HydroPumpEffect:
 	lb bc, 3, 0

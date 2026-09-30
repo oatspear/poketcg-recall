@@ -256,13 +256,17 @@
 - **Wildfire**: increased base damage from zero to 30.
 - **New attack: (C) Collect Fire**: 10 damage. Flip a coin. If heads, attach 1 (R) energy from the discard pile to this Pokémon.
 
-### Pikachu Lv16
-- **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
+### Squirtle
+- Increased HP from 40 to 50.
+- **Withdraw**: reduced cost from (W)(C) to (C).
 
-### Zapdos (Fossil)
-- **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).
-- **Thunderstorm**: reduced base damage from 40 to 30.
-- **New attack: (C) Plasma**: 10 damage. Flip a coin. If heads, attach 1 (L) energy from the discard pile to this Pokémon.
+### Wartortle
+- Increased HP from 70 to 80.
+- **Withdraw**: removed.
+- **New attack: (C)(C) Rapid Spin**: 20 damage. Both players switch their Active Pokémon.
+
+### Blastoise
+- Increased HP from 100 to 110.
 
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
@@ -270,6 +274,14 @@
 - **Freeze Dry**: reduced damage from 30 to 20.
 - **Blizzard**: reduced cost from (W)(W)(W)(W) to (W)(W)(W)(C).
 - **Blizzard**: reduced damage from 50 to 40.
+
+### Pikachu Lv16
+- **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
+
+### Zapdos (Fossil)
+- **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).
+- **Thunderstorm**: reduced base damage from 40 to 30.
+- **New attack: (C) Plasma**: 10 damage. Flip a coin. If heads, attach 1 (L) energy from the discard pile to this Pokémon.
 
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).

@@ -2855,37 +2855,37 @@ SquirtleCard:
 	db CIRCLE ; rarity
 	db EVOLUTION | NONE ; sets
 	dw SQUIRTLE
-	db 40 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
+	energy COLORLESS, 1 ; energies
+	tx WithdrawName ; name
+	tx WithdrawDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db RESIDUAL ; category
+	dw WithdrawEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_NONE ; animation
+
+	; attack 2
 	energy WATER, 1 ; energies
 	tx BubbleName ; name
 	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw SquirtleBubbleEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_BUBBLES ; animation
-
-	; attack 2
-	energy WATER, 1, COLORLESS, 1 ; energies
-	tx WithdrawName ; name
-	tx SquirtlesWithdrawDescription ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw SquirtleWithdrawEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
 	db WR_LIGHTNING ; weakness
@@ -2905,23 +2905,23 @@ WartortleCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | NONE ; sets
 	dw WARTORTLE
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx SquirtleName ; pre-evo name
 
 	; attack 1
-	energy WATER, 1, COLORLESS, 1 ; energies
-	tx WithdrawName ; name
-	tx WartortlesWithdrawDescription ; description
+	energy COLORLESS, 2 ; energies
+	tx RapidSpinName ; name
+	tx RapidSpinDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw WartortleWithdrawEffectCommands ; effect commands
+	db 20 ; damage
+	db DAMAGE_NORMAL ; category
+	dw RapidSpinEffectCommands ; effect commands
 	db NONE ; flags 1
-	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
+	db SWITCH_OPPONENT_POKEMON ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_HIT ; animation
 
 	; attack 2
 	energy WATER, 1, COLORLESS, 2 ; energies
@@ -2955,7 +2955,7 @@ BlastoiseCard:
 	db STAR ; rarity
 	db EVOLUTION | NONE ; sets
 	dw BLASTOISE
-	db 100 ; hp
+	db 110 ; hp
 	db STAGE2 ; stage
 	tx WartortleName ; pre-evo name
 
@@ -2966,7 +2966,7 @@ BlastoiseCard:
 	tx RainDanceDescriptionCont ; description (cont)
 	db 0 ; damage
 	db POKEMON_POWER ; category
-	dw BlastoiseRainDanceEffectCommands ; effect commands
+	dw PassivePowerEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
