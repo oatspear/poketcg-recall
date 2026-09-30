@@ -261,6 +261,7 @@
 
 ### Zapdos (Fossil)
 - **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).
+- **Thunderstorm**: reduced base damage from 40 to 30.
 - **New attack: (C) Plasma**: 10 damage. Flip a coin. If heads, attach 1 (L) energy from the discard pile to this Pokémon.
 
 ### Articuno (Fossil)

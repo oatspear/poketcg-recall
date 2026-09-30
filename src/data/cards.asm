@@ -5428,7 +5428,7 @@ ZapdosLv40Card:
 	tx ThunderstormName ; name
 	tx ThunderstormDescription ; description
 	dw NONE ; description (cont)
-	db 40 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw ZapdosThunderstormEffectCommands ; effect commands
 	db LOW_RECOIL | DAMAGE_TO_OPPONENT_BENCH ; flags 1
