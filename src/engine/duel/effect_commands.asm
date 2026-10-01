@@ -290,11 +290,7 @@ PsyduckFurySwipesEffectCommands:
 	dbw EFFECTCMDTYPE_AI, FurySwipes10_AIEffect
 	db  $00
 
-GolduckPsyshockEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
-GolduckHyperBeamEffectCommands:
+HyperBeamEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HyperBeam_DiscardEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, HyperBeam_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, HyperBeam_AISelectEffect
@@ -524,10 +520,6 @@ MoltresLv37DiveBombEffectCommands:
 	dbw EFFECTCMDTYPE_AI, MoltresLv37DiveBomb_AIEffect
 	db  $00
 
-AbraPsyshockEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
 GengarCurseEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Curse_CheckDamageAndBench
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Curse_TransferDamageEffect
@@ -623,10 +615,6 @@ MewNeutralizingShieldEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, NeutralizingShieldEffect
 	db  $00
 
-MewPsyshockEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
 MewtwoPsychicEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Psychic_DamageBoostEffect
 	dbw EFFECTCMDTYPE_AI, Psychic_AIEffect
@@ -676,10 +664,6 @@ SlowbroStrangeBehaviorEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, StrangeBehavior_CheckDamage
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, StrangeBehavior_SelectAndSwapEffect
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, StrangeBehavior_SwapEffect
-	db  $00
-
-SlowbroPsyshockEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
 SlowpokeSpacingOutEffectCommands:
@@ -1066,12 +1050,6 @@ MeowthPayDayEffectCommands:
 DragonairSlamEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DragonairSlam_MultiplierEffect
 	dbw EFFECTCMDTYPE_AI, DragonairSlam_AIEffect
-	db  $00
-
-DragonairHyperBeamEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HyperBeam_DiscardEffect
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, HyperBeam_PlayerSelectEffect
-	dbw EFFECTCMDTYPE_AI_SELECTION, HyperBeam_AISelectEffect
 	db  $00
 
 ClefableMetronomeEffectCommands:

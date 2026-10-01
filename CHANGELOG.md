@@ -268,6 +268,12 @@
 ### Blastoise
 - Increased HP from 100 to 110.
 
+### Golduck
+- Increased HP from 70 to 80.
+- **Psyshock**: increased cost from (P) to (P)(C).
+- **Psyshock**: increased damage from 10 to 20.
+- **Hyper Beam**: increased damage from 20 to 30.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).

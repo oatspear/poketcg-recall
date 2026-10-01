@@ -3055,18 +3055,18 @@ GolduckCard:
 	db DIAMOND ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw GOLDUCK
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx PsyduckName ; pre-evo name
 
 	; attack 1
-	energy PSYCHIC, 1 ; energies
+	energy PSYCHIC, 1, COLORLESS, 1 ; energies
 	tx PsyshockName ; name
 	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw GolduckPsyshockEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -3078,9 +3078,9 @@ GolduckCard:
 	tx HyperBeamName ; name
 	tx Discard1EnergyFromTargetDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
-	dw GolduckHyperBeamEffectCommands ; effect commands
+	dw HyperBeamEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db SPECIAL_AI_HANDLING ; flags 3
@@ -6716,7 +6716,7 @@ AbraCard:
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw AbraPsyshockEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -6980,7 +6980,7 @@ SlowbroCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw SlowbroPsyshockEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -7630,7 +7630,7 @@ MewLv8Card:
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw MewPsyshockEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -9230,7 +9230,7 @@ DragonairCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw DragonairHyperBeamEffectCommands ; effect commands
+	dw HyperBeamEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db SPECIAL_AI_HANDLING ; flags 3
