@@ -8,14 +8,6 @@ SeadraName:
 	text "Seadra"
 	done
 
-SeadrasWaterGunDescription:
-	text "Does 20 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Seadra but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
-	done
-
 SeadraDescription:
 	text "Capable of swimming backward by"
 	line "rapidly flapping its wing-like"
@@ -150,14 +142,6 @@ LaprasName:
 	text "Lapras"
 	done
 
-LaprasWaterGunDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Lapras but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
-	done
-
 TransportName:
 	text "Transport"
 	done
@@ -192,14 +176,6 @@ VaporeonLv29Description:
 	line "and become invisible in water."
 	done
 
-VaporeonsWaterGunDescription:
-	text "Does 30 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Vaporeon but not used to pay for"
-	line "this attack's Energy cost. You can't"
-	line "add more than 20 damage in this way."
-	done
-
 VaporeonLv42Description:
 	text "Lives close to water. Its long tail"
 	line "is ridged with a fin that is often"
@@ -225,14 +201,6 @@ ClairvoyanceDescription:
 	line "Confused, or Paralyzed."
 	done
 
-OmanytesWaterGunDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Omanyte but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
-	done
-
 SpiralName:
 	text "Spiral"
 	done
@@ -245,14 +213,6 @@ OmanyteDescription:
 
 OmastarName:
 	text "Omastar"
-	done
-
-OmastarsWaterGunDescription:
-	text "Does 20 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Omastar but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
 	done
 
 OmastarDescription:

@@ -3112,7 +3112,7 @@ PoliwagCard:
 	; attack 1
 	energy WATER, 1 ; energies
 	tx WaterGunName ; name
-	tx PoliwagsWaterGunDescription ; description
+	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_PLUS ; category
@@ -3212,7 +3212,7 @@ PoliwrathCard:
 	; attack 1
 	energy WATER, 2, COLORLESS, 1 ; energies
 	tx WaterGunName ; name
-	tx PoliwrathsWaterGunDescription ; description
+	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_PLUS ; category
@@ -3712,7 +3712,7 @@ SeadraCard:
 	; attack 1
 	energy WATER, 1, COLORLESS, 1 ; energies
 	tx WaterGunName ; name
-	tx SeadrasWaterGunDescription ; description
+	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_PLUS ; category
@@ -4062,7 +4062,7 @@ LaprasCard:
 	; attack 1
 	energy WATER, 1 ; energies
 	tx WaterGunName ; name
-	tx LaprasWaterGunDescription ; description
+	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_PLUS ; category
@@ -4176,7 +4176,7 @@ VaporeonLv42Card:
 	; attack 2
 	energy WATER, 2, COLORLESS, 1 ; energies
 	tx WaterGunName ; name
-	tx VaporeonsWaterGunDescription ; description
+	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_PLUS ; category
@@ -4226,7 +4226,7 @@ OmanyteCard:
 	; attack 2
 	energy WATER, 1 ; energies
 	tx WaterGunName ; name
-	tx OmanytesWaterGunDescription ; description
+	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_PLUS ; category
@@ -4262,7 +4262,7 @@ OmastarCard:
 	; attack 1
 	energy WATER, 1, COLORLESS, 1 ; energies
 	tx WaterGunName ; name
-	tx OmastarsWaterGunDescription ; description
+	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_PLUS ; category

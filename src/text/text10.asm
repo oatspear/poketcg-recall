@@ -1217,11 +1217,11 @@ HydroPumpName:
 	done
 
 HydroPumpDescription:
-	text "Does 40 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Blastoise but not used to pay for"
-	line "this attack's Energy cost. You can't"
-	line "add more than 20 damage in this way."
+	text "This attack does 10 more damage for"
+	line "each <WATER> Energy attached to this"
+	line "Pokémon but not used to pay for this"
+	line "attack's Energy cost. You can't add more "
+	line "more than 20 damage in this way."
 	done
 
 ShellfishName:
@@ -1289,12 +1289,12 @@ WaterGunName:
 	text "Water Gun"
 	done
 
-PoliwagsWaterGunDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Poliwag but not used to pay for"
-	line "this attack's Energy cost. You can't"
-	line "add more than 20 damage in this way."
+WaterGunDescription:
+	text "This attack does 10 more damage for"
+	line "each <WATER> Energy attached to this"
+	line "Pokémon but not used to pay for this"
+	line "attack's Energy cost. You can't add"
+	line "more than 20 damage in this way."
 	done
 
 TadpoleName:
@@ -1334,15 +1334,6 @@ PoliwhirlsDescription:
 
 PoliwrathName:
 	text "Poliwrath"
-	done
-
-PoliwrathsWaterGunDescription:
-	text "Does 30 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Poliwrath but not used to pay for"
-	line "this attack's Energy cost. You"
-	line "can't add more than 20 damage in"
-	line "this way."
 	done
 
 WhirlpoolName:

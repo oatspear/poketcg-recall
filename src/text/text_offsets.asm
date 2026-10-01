@@ -2276,7 +2276,7 @@ TextOffsets::
 	textpointer GolduckDescription
 	textpointer PoliwagName
 	textpointer WaterGunName
-	textpointer PoliwagsWaterGunDescription
+	textpointer WaterGunDescription
 	textpointer TadpoleName
 	textpointer PoliwagDescription
 	textpointer PoliwhirlName
@@ -2285,7 +2285,6 @@ TextOffsets::
 	textpointer DoubleslapName
 	textpointer PoliwhirlsDescription
 	textpointer PoliwrathName
-	textpointer PoliwrathsWaterGunDescription
 	textpointer WhirlpoolName
 	textpointer PoliwrathDescription
 	textpointer TentacoolName
@@ -2329,7 +2328,6 @@ TextOffsets::
 	textpointer DragonName
 	textpointer HorseaDescription
 	textpointer SeadraName
-	textpointer SeadrasWaterGunDescription
 	textpointer SeadraDescription
 	textpointer GoldeenName
 	textpointer HornAttackName
@@ -2359,7 +2357,6 @@ TextOffsets::
 	textpointer AtrociousName
 	textpointer GyaradosDescription
 	textpointer LaprasName
-	textpointer LaprasWaterGunDescription
 	textpointer TransportName
 	textpointer LaprasDescription
 	textpointer VaporeonName
@@ -2367,17 +2364,14 @@ TextOffsets::
 	textpointer FocusEnergyDescription
 	textpointer BubbleJetName
 	textpointer VaporeonLv29Description
-	textpointer VaporeonsWaterGunDescription
 	textpointer VaporeonLv42Description
 	textpointer OmanyteName
 	textpointer MysteriousFossilName
 	textpointer ClairvoyanceName
 	textpointer ClairvoyanceDescription
-	textpointer OmanytesWaterGunDescription
 	textpointer SpiralName
 	textpointer OmanyteDescription
 	textpointer OmastarName
-	textpointer OmastarsWaterGunDescription
 	textpointer OmastarDescription
 	textpointer ArticunoName
 	textpointer IceFloatName
