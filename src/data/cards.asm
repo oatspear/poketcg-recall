@@ -3373,7 +3373,7 @@ SeelCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
+	energy COLORLESS, 1 ; energies
 	tx HeadbuttName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -3387,18 +3387,18 @@ SeelCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
+	energy COLORLESS, 2 ; energies
+	tx RestName ; name
+	tx RestDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
+	db RESIDUAL ; category
+	dw RestEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_RECOVER ; animation
 
 	db 1 ; retreat cost
 	db WR_LIGHTNING ; weakness
@@ -3424,6 +3424,20 @@ DewgongCard:
 
 	; attack 1
 	energy WATER, 2, COLORLESS, 1 ; energies
+	tx IceBeamName ; name
+	tx MayInflictParalysisDescription ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_NORMAL ; category
+	dw Paralysis50PercentEffectCommands ; effect commands
+	db INFLICT_PARALYSIS ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_BEAM ; animation
+
+	; attack 2
+	energy WATER, 2, COLORLESS, 2 ; energies
 	tx AuroraBeamName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -3436,21 +3450,7 @@ DewgongCard:
 	db 0
 	db ATK_ANIM_BEAM ; animation
 
-	; attack 2
-	energy WATER, 2, COLORLESS, 2 ; energies
-	tx IceBeamName ; name
-	tx MayInflictParalysisDescription ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw DewgongIceBeamEffectCommands ; effect commands
-	db INFLICT_PARALYSIS ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_BEAM ; animation
-
-	db 3 ; retreat cost
+	db 2 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db NONE ; resistance
 	tx SeaLionName ; category

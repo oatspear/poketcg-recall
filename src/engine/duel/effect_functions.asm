@@ -1451,6 +1451,26 @@ Lure_SwitchDefendingPokemon:
 	ret
 
 
+; heals half of max hp
+Rest_HealEffect:
+	ld e, PLAY_AREA_ARENA
+	call GetCardDamageAndMaxHP
+	srl c
+	ld a, c
+	jr nc, .heal
+; round up
+	add 10
+.heal
+	ld e, a ; damage for recovery
+	ld d, 0
+	jp ApplyAndAnimateHPRecovery
+
+Rest_SleepEffect:
+	call SwapTurn
+	call SleepEffect
+	jp SwapTurn
+
+
 ; Defending Pokemon and user become confused
 FoulOdorEffect:
 	call ConfusionEffect

@@ -74,6 +74,11 @@ StringShotEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
+RestEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Rest_SleepEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Rest_HealEffect
+	db  $00
+
 GloomFoulOdorEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FoulOdorEffect
 	db  $00
@@ -309,10 +314,6 @@ ShellderHideInShellEffectCommands:
 VaporeonWaterGunEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, VaporeonWaterGunEffect
 	dbw EFFECTCMDTYPE_AI, VaporeonWaterGunEffect
-	db  $00
-
-DewgongIceBeamEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
 StarmieRecoverEffectCommands:

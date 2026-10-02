@@ -1396,6 +1396,16 @@ HeadbuttName:
 	text "Headbutt"
 	done
 
+RestName:
+	text "Rest"
+	done
+
+RestDescription:
+	text "Heal damage from this Pokémon equal"
+	line "to half of its maximum HP (rounded"
+	line "up). This Pokémon is now Asleep."
+	done
+
 SeaLionName:
 	text "Sea Lion"
 	done

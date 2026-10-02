@@ -2297,6 +2297,8 @@ TextOffsets::
 	textpointer TentacruelDescription
 	textpointer SeelName
 	textpointer HeadbuttName
+	textpointer RestName
+	textpointer RestDescription
 	textpointer SeaLionName
 	textpointer SeelDescription
 	textpointer DewgongName

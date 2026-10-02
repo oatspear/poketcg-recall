@@ -305,6 +305,15 @@
 - **Jellyfish Sting**: increased damage from 10 to 30.
 - **New attack: (W)(C) Acid Spray**: 20 damage. Flips a coin. If heads, discards 1 energy from the Defending Pokémon.
 
+### Seel
+- **Headbutt**: reduced cost from (W) to (C).
+- **New attack: (C)(C) Rest**: heal damage equal to half the user's max HP. The user becomes Asleep.
+
+### Dewgong
+- Reduced retreat cost from 3 to 2.
+- **Aurora Beam**: increased cost from (W)(W)(C) to (W)(W)(C)(C).
+- **Ice Beam**: reduced cost from (W)(W)(C)(C) to (W)(W)(C).
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).
