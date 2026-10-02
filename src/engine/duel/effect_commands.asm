@@ -340,22 +340,17 @@ TentacruelJellyfishStingEffectCommands:
 	dbw EFFECTCMDTYPE_AI, JellyfishSting_AIEffect
 	db  $00
 
-PoliwhirlAmnesiaEffectCommands:
+AmnesiaEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Amnesia_CheckAttacks
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Amnesia_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Amnesia_DisableEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, Amnesia_AISelectEffect
 	db  $00
 
-PoliwhirlDoubleslapEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoliwhirlDoubleslap_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, PoliwhirlDoubleslap_AIEffect
-	db  $00
-
-PoliwrathWaterGunEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoliwrathWaterGunEffect
-	dbw EFFECTCMDTYPE_AI, PoliwrathWaterGunEffect
-	db  $00
+; PoliwrathWaterGunEffectCommands:
+; 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoliwrathWaterGunEffect
+; 	dbw EFFECTCMDTYPE_AI, PoliwrathWaterGunEffect
+; 	db  $00
 
 PoliwrathWhirlpoolEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HyperBeam_DiscardEffect
@@ -363,9 +358,9 @@ PoliwrathWhirlpoolEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, HyperBeam_AISelectEffect
 	db  $00
 
-PoliwagWaterGunEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoliwagWaterGunEffect
-	dbw EFFECTCMDTYPE_AI, PoliwagWaterGunEffect
+SquirtleWaterGunEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SquirtleWaterGunEffect
+	dbw EFFECTCMDTYPE_AI, SquirtleWaterGunEffect
 	db  $00
 
 CloysterClampEffectCommands:
@@ -681,13 +676,6 @@ SlowpokeScavengeEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, Scavenge_AISelectEffect
 	db  $00
 
-SlowpokeAmnesiaEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Amnesia_CheckAttacks
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Amnesia_PlayerSelectEffect
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Amnesia_DisableEffect
-	dbw EFFECTCMDTYPE_AI_SELECTION, Amnesia_AISelectEffect
-	db  $00
-
 KadabraRecoverEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, KadabraRecover_CheckEnergyHP
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, KadabraRecover_PlayerSelectEffect
@@ -759,8 +747,8 @@ MachokeKarateChopEffectCommands:
 	dbw EFFECTCMDTYPE_AI, KarateChop_AIEffect
 	db  $00
 
-MachokeSubmissionEffectCommands:
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, SubmissionEffect
+Recoil20EffectEffectCommands:
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Recoil20Effect
 	db  $00
 
 GolemSelfdestructEffectCommands:
@@ -995,9 +983,10 @@ DragoniteStepInEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, StepIn_SwitchEffect
 	db  $00
 
+DoubleAttackX40EffectCommands:
 DragoniteLv45SlamEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DragoniteLv45Slam_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, DragoniteLv45Slam_AIEffect
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DoubleAttackX40_MultiplierEffect
+	dbw EFFECTCMDTYPE_AI, DoubleAttackX40_AIEffect
 	db  $00
 
 SnorlaxThickSkinnedEffectCommands:

@@ -18,13 +18,6 @@ SlowpokeName:
 	text "Slowpoke"
 	done
 
-SlowpokesAmnesiaDescription:
-	text "Choose 1 of the Defending Pokémon's"
-	line "attacks. That Pokémon can't use"
-	line "that attack during your opponent's"
-	line "next turn."
-	done
-
 DopeyName:
 	text "Dopey"
 	done

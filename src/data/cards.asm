@@ -2887,6 +2887,19 @@ SquirtleCard:
 	db 0
 	db ATK_ANIM_BUBBLES ; animation
 
+	; energy WATER, 1 ; energies
+	; tx WaterGunName ; name
+	; tx WaterGunDescription ; description
+	; dw NONE ; description (cont)
+	; db 10 ; damage
+	; db DAMAGE_PLUS ; category
+	; dw SquirtleWaterGunEffectCommands ; effect commands
+	; db NONE ; flags 1
+	; db ATTACHED_ENERGY_BOOST ; flags 2
+	; db NONE ; flags 3
+	; db MAX_ENERGY_BOOST_IS_LIMITED
+	; db ATK_ANIM_WATER_GUN ; animation
+
 	db 1 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db NONE ; resistance
@@ -3111,33 +3124,33 @@ PoliwagCard:
 
 	; attack 1
 	energy WATER, 1 ; energies
-	tx WaterGunName ; name
-	tx WaterGunDescription ; description
+	tx BubbleName ; name
+	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
-	db DAMAGE_PLUS ; category
-	dw PoliwagWaterGunEffectCommands ; effect commands
-	db NONE ; flags 1
-	db ATTACHED_ENERGY_BOOST ; flags 2
+	db DAMAGE_NORMAL ; category
+	dw Paralysis50PercentEffectCommands ; effect commands
+	db INFLICT_PARALYSIS ; flags 1
+	db NONE ; flags 2
 	db NONE ; flags 3
-	db MAX_ENERGY_BOOST_IS_LIMITED
-	db ATK_ANIM_WATER_GUN ; animation
+	db 0
+	db ATK_ANIM_BUBBLES ; animation
 
 	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
+	energy COLORLESS, 2 ; energies
+	tx HeadbuttName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_HIT ; animation
 
-	db 1 ; retreat cost
+	db 0 ; retreat cost
 	db WR_GRASS ; weakness
 	db NONE ; resistance
 	tx TadpoleName ; category
@@ -3155,32 +3168,32 @@ PoliwhirlCard:
 	db DIAMOND ; rarity
 	db LABORATORY | NONE ; sets
 	dw POLIWHIRL
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx PoliwagName ; pre-evo name
 
 	; attack 1
-	energy WATER, 2 ; energies
+	energy WATER, 1, COLORLESS, 1 ; energies
 	tx AmnesiaName ; name
-	tx PoliwhirlsAmnesiaDescription ; description
+	tx AmnesiaDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw PoliwhirlAmnesiaEffectCommands ; effect commands
+	dw AmnesiaEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_AMNESIA ; animation
+	db ATK_ANIM_AMNESIA_HIT ; animation
 
 	; attack 2
-	energy WATER, 2, COLORLESS, 1 ; energies
+	energy WATER, 1, COLORLESS, 2 ; energies
 	tx DoubleslapName ; name
-	tx DoubleAttackX30Description ; description
+	tx DoubleAttackX40Description ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 40 ; damage
 	db DAMAGE_X ; category
-	dw PoliwhirlDoubleslapEffectCommands ; effect commands
+	dw DoubleAttackX40EffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -3205,23 +3218,23 @@ PoliwrathCard:
 	db STAR ; rarity
 	db LABORATORY | NONE ; sets
 	dw POLIWRATH
-	db 90 ; hp
+	db 100 ; hp
 	db STAGE2 ; stage
 	tx PoliwhirlName ; pre-evo name
 
 	; attack 1
-	energy WATER, 2, COLORLESS, 1 ; energies
-	tx WaterGunName ; name
-	tx WaterGunDescription ; description
+	energy WATER, 1, COLORLESS, 2 ; energies
+	tx SubmissionName ; name
+	tx Recoil20Description ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_PLUS ; category
-	dw PoliwrathWaterGunEffectCommands ; effect commands
-	db NONE ; flags 1
-	db ATTACHED_ENERGY_BOOST ; flags 2
+	db 60 ; damage
+	db DAMAGE_NORMAL ; category
+	dw Recoil20EffectEffectCommands ; effect commands
+	db LOW_RECOIL ; flags 1
+	db NONE ; flags 2
 	db NONE ; flags 3
-	db MAX_ENERGY_BOOST_IS_LIMITED
-	db ATK_ANIM_WATER_GUN ; animation
+	db 20
+	db ATK_ANIM_HIT_RECOIL ; animation
 
 	; attack 2
 	energy WATER, 2, COLORLESS, 2 ; energies
@@ -3237,7 +3250,7 @@ PoliwrathCard:
 	db 3
 	db ATK_ANIM_WHIRLPOOL ; animation
 
-	db 3 ; retreat cost
+	db 2 ; retreat cost
 	db WR_GRASS ; weakness
 	db NONE ; resistance
 	tx TadpoleName ; category
@@ -5930,7 +5943,7 @@ MachokeCard:
 	dw NONE ; description (cont)
 	db 60 ; damage
 	db DAMAGE_NORMAL ; category
-	dw MachokeSubmissionEffectCommands ; effect commands
+	dw Recoil20EffectEffectCommands ; effect commands
 	db LOW_RECOIL ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -6876,11 +6889,11 @@ SlowpokeLv9Card:
 	; attack 2
 	energy PSYCHIC, 2 ; energies
 	tx AmnesiaName ; name
-	tx SlowpokesAmnesiaDescription ; description
+	tx AmnesiaDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw SlowpokeAmnesiaEffectCommands ; effect commands
+	dw AmnesiaEffectCommands ; effect commands
 	db NONE ; flags 1
 	db FLAG_2_BIT_6 ; flags 2
 	db NONE ; flags 3

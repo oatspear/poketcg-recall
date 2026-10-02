@@ -1892,7 +1892,6 @@ HornHazard_NoDamage50PercentEffect:
 DoubleAttackX30_AIEffect:
 OmastarSpikeCannon_AIEffect:
 CloysterSpikeCannon_AIEffect:
-PoliwhirlDoubleslap_AIEffect:
 FurySwipes20_AIEffect:
 Bonemerang_AIEffect:
 DragonairSlam_AIEffect:
@@ -1905,7 +1904,6 @@ DragoniteLv41Slam_AIEffect:
 DoubleAttackX30_MultiplierEffect:
 OmastarSpikeCannon_MultiplierEffect:
 CloysterSpikeCannon_MultiplierEffect:
-PoliwhirlDoubleslap_MultiplierEffect:
 Bonemerang_MultiplierEffect:
 DragonairSlam_MultiplierEffect:
 DragoniteLv41Slam_MultiplierEffect:
@@ -2720,9 +2718,6 @@ ClairvoyanceEffect:
 	scf
 	ret
 
-OmanyteWaterGunEffect:
-	lb bc, 1, 0
-	jp ApplyExtraWaterEnergyDamageBonus
 
 WithdrawEffect:
 	ldtx de, IfHeadsNoDamageNextTurnText
@@ -2989,11 +2984,13 @@ ApplyAmnesiaToAttack:
 	call DrawWideTextBox_WaitForInput
 	jp SwapTurn
 
-PoliwrathWaterGunEffect:
-	lb bc, 2, 1
-	jp ApplyExtraWaterEnergyDamageBonus
+; PoliwrathWaterGunEffect:
+; 	lb bc, 2, 1
+; 	jp ApplyExtraWaterEnergyDamageBonus
 
-PoliwagWaterGunEffect:
+SquirtleWaterGunEffect:
+LaprasWaterGunEffect:
+OmanyteWaterGunEffect:
 	lb bc, 1, 0
 	jp ApplyExtraWaterEnergyDamageBonus
 
@@ -3118,10 +3115,6 @@ Cowardice_RemoveFromPlayAreaEffect:
 	ld [wDuelDisplayedScreen], a
 	ret
 
-
-LaprasWaterGunEffect:
-	lb bc, 1, 0
-	jp ApplyExtraWaterEnergyDamageBonus
 
 Quickfreeze_InitialEffect:
 	scf
@@ -5448,7 +5441,7 @@ KarateChop_DamageSubtractionEffect:
 	xor a
 	jp SetDefiniteDamage
 
-SubmissionEffect:
+Recoil20Effect:
 	ld a, 20
 	jp DealRecoilDamageToSelf
 
@@ -6933,12 +6926,12 @@ StepIn_SwitchEffect:
 	set USED_PKMN_POWER_THIS_TURN_F, [hl]
 	ret
 
-DragoniteLv45Slam_AIEffect:
+DoubleAttackX40_AIEffect:
 	ld a, (40 * 2) / 2
 	lb de, 0, 80
 	jp SetExpectedAIDamage
 
-DragoniteLv45Slam_MultiplierEffect:
+DoubleAttackX40_MultiplierEffect:
 	ld hl, 40
 	call LoadTxRam3
 	ldtx de, DamageCheckIfHeadsXDamageText

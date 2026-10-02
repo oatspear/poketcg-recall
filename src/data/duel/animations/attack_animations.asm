@@ -99,7 +99,7 @@ PointerTable_AttackAnimation:
 	dw AttackAnimation_Sing                ; ATK_ANIM_SING
 	dw AttackAnimation_Sing                ; ATK_ANIM_LULLABY
 	dw AttackAnimation_Supersonic          ; ATK_ANIM_SUPERSONIC
-	dw AttackAnimation_Supersonic          ; ATK_ANIM_UNUSED_4D
+	dw AttackAnimation_AmnesiaHit          ; ATK_ANIM_AMNESIA_HIT
 	dw AttackAnimation_PetalDance          ; ATK_ANIM_PETAL_DANCE
 	dw AttackAnimation_Protect             ; ATK_ANIM_PROTECT
 	dw AttackAnimation_Barrier             ; ATK_ANIM_BARRIER
@@ -585,6 +585,14 @@ AttackAnimation_Cry:
 AttackAnimation_Amnesia:
 	anim_player         DUEL_ANIM_GLOW
 	anim_normal         DUEL_ANIM_SHAKE1
+	anim_opponent       DUEL_ANIM_QUESTION_MARK
+	anim_end
+
+AttackAnimation_AmnesiaHit:
+	anim_player         DUEL_ANIM_GLOW
+	anim_opponent       DUEL_ANIM_HIT
+	anim_normal         DUEL_ANIM_SHAKE1
+	anim_opponent       DUEL_ANIM_SHOW_DAMAGE
 	anim_opponent       DUEL_ANIM_QUESTION_MARK
 	anim_end
 

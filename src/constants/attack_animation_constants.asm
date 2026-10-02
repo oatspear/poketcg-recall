@@ -79,7 +79,7 @@
 	const ATK_ANIM_SING                   ; $4a
 	const ATK_ANIM_LULLABY                ; $4b
 	const ATK_ANIM_SUPERSONIC             ; $4c
-	const ATK_ANIM_UNUSED_4D              ; $4d
+	const ATK_ANIM_AMNESIA_HIT            ; $4d
 	const ATK_ANIM_PETAL_DANCE            ; $4e
 	const ATK_ANIM_PROTECT                ; $4f
 	const ATK_ANIM_BARRIER                ; $50

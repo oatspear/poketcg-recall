@@ -2281,7 +2281,7 @@ TextOffsets::
 	textpointer PoliwagDescription
 	textpointer PoliwhirlName
 	textpointer AmnesiaName
-	textpointer PoliwhirlsAmnesiaDescription
+	textpointer AmnesiaDescription
 	textpointer DoubleslapName
 	textpointer PoliwhirlsDescription
 	textpointer PoliwrathName
@@ -2594,7 +2594,6 @@ TextOffsets::
 	textpointer DamageSwapDescription
 	textpointer AlakazamDescription
 	textpointer SlowpokeName
-	textpointer SlowpokesAmnesiaDescription
 	textpointer DopeyName
 	textpointer SlowpokeLv9Description
 	textpointer SpacingOutName

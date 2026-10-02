@@ -1315,7 +1315,7 @@ AmnesiaName:
 	text "Amnesia"
 	done
 
-PoliwhirlsAmnesiaDescription:
+AmnesiaDescription:
 	text "Choose 1 of the Defending Pokémon's"
 	line "attacks. That Pokémon can't use that"
 	line "attack during your opponent's next"

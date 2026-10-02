@@ -274,6 +274,25 @@
 - **Psyshock**: increased damage from 10 to 20.
 - **Hyper Beam**: increased damage from 20 to 30.
 
+### Poliwag
+- Reduced retreat cost from 1 to 0.
+- **Water Gun***: removed.
+- **New attack: (W) Bubble**: 10 damage. Flips a coin. If heads, inflicts Paralysis.
+- **New attack: (C)(C) Headbutt**: 20 damage.
+
+### Poliwhirl
+- Increased HP from 60 to 70.
+- **Amnesia**: reduced cost from (W)(W) to (W)(C).
+- **Amnesia**: increased damage from zero to 20.
+- **Doubleslap**: reduced cost from (W)(W)(C) to (W)(C)(C).
+- **Doubleslap**: increased multiplier damage from 30 to 40.
+
+### Poliwrath
+- Increased HP from 90 to 100.
+- Reduced retreat cost from 3 to 2.
+- **Water Gun**: removed.
+- **New attack: (W)(C)(C) Submission**: 60 damage. 20 recoil damage.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).
