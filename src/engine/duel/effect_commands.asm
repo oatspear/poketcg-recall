@@ -335,11 +335,6 @@ HorseaSmokescreenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SmokescreenEffect
 	db  $00
 
-TentacruelJellyfishStingEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
-	dbw EFFECTCMDTYPE_AI, JellyfishSting_AIEffect
-	db  $00
-
 AmnesiaEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Amnesia_CheckAttacks
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Amnesia_PlayerSelectEffect

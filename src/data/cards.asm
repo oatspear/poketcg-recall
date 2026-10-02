@@ -3268,7 +3268,7 @@ TentacoolCard:
 	db CIRCLE ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw TENTACOOL
-	db 30 ; hp
+	db 40 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -3287,18 +3287,18 @@ TentacoolCard:
 	db ATK_ANIM_PKMN_POWER_1 ; animation
 
 	; attack 2
-	energy WATER, 1 ; energies
-	tx AcidName ; name
-	dw NONE ; description
+	energy COLORLESS, 1 ; energies
+	tx SupersonicName ; name
+	tx MayInflictConfusionDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
+	dw SupersonicEffectCommands ; effect commands
+	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_GOO ; animation
+	db ATK_ANIM_SUPERSONIC ; animation
 
 	db 0 ; retreat cost
 	db WR_LIGHTNING ; weakness
@@ -3318,39 +3318,39 @@ TentacruelCard:
 	db DIAMOND ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw TENTACRUEL
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx TentacoolName ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
-	tx SupersonicName ; name
-	tx MayInflictConfusionDescription ; description
+	energy WATER, 1, COLORLESS, 1 ; energies
+	tx AcidSprayName ; name
+	tx AcidSprayDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw SupersonicEffectCommands ; effect commands
-	db INFLICT_CONFUSION ; flags 1
+	dw AcidSprayEffectCommands ; effect commands
+	db NONE ; flags 1
 	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_SUPERSONIC ; animation
+	db SPECIAL_AI_HANDLING ; flags 3
+	db 1
+	db ATK_ANIM_GOO ; animation
 
 	; attack 2
-	energy WATER, 2 ; energies
+	energy WATER, 1, COLORLESS, 2 ; energies
 	tx JellyfishStingName ; name
 	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
-	dw TentacruelJellyfishStingEffectCommands ; effect commands
+	dw InflictPoisonEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_MULTIPLE_SLASH ; animation
 
-	db 0 ; retreat cost
+	db 1 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db NONE ; resistance
 	tx JellyfishName ; category

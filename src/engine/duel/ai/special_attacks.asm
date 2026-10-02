@@ -56,6 +56,8 @@ HandleSpecialAIAttacks:
 	jp z, .HyperBeam
 	cp16 VICTREEBEL
 	jp z, .HyperBeam
+	cp16 TENTACRUEL
+	jp z, .HyperBeam
 
 ; return zero score.
 .zero_score

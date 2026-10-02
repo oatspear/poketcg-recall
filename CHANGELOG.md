@@ -293,6 +293,18 @@
 - **Water Gun**: removed.
 - **New attack: (W)(C)(C) Submission**: 60 damage. 20 recoil damage.
 
+### Tentacool
+- Increased HP from 30 to 40.
+- **Acid**: removed.
+- **New attack: (C) Supersonic**: Flips a coin. If heads, inflicts Confusion.
+
+### Tentacruel
+- Increased HP from 60 to 70.
+- Increased retreat cost from 0 to 1.
+- **Jellyfish Sting**: increased cost from (W)(W) to (W)(C)(C).
+- **Jellyfish Sting**: increased damage from 10 to 30.
+- **New attack: (W)(C) Acid Spray**: 20 damage. Flips a coin. If heads, discards 1 energy from the Defending Pokémon.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).
