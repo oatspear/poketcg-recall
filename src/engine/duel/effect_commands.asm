@@ -306,11 +306,6 @@ SeadraWaterGunEffectCommands:
 	dbw EFFECTCMDTYPE_AI, SeadraWaterGunEffect
 	db  $00
 
-
-ShellderHideInShellEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HideInShellEffect
-	db  $00
-
 VaporeonWaterGunEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, VaporeonWaterGunEffect
 	dbw EFFECTCMDTYPE_AI, VaporeonWaterGunEffect

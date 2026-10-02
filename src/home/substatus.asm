@@ -34,7 +34,7 @@ HandleDoubleDamageSubstatus::
 HandleDamageReduction::
 	ld a, [wNoDamageOrEffect]
 	or a
-	jr nz, NoDamage_DE
+	jp nz, NoDamage_DE
 	call HandleDamageReductionFromSubstatus1
 	call HandleDamageReductionFromPkmnPowers
 ; handle Substatus2 damage reduction for the attacking card
@@ -47,6 +47,38 @@ HandleDamageReduction::
 	; cp SUBSTATUS2_REDUCE_BY_10
 	; jr z, ReduceDamageBy10_DE
 	ret
+
+
+; check if the defending card (turn holder's arena card) has any
+; Pokémon Power that reduces the damage dealt to it.
+; damage is given in de as input and the possibly updated damage is also returned in de.
+HandleDamageReductionFromPkmnPowers::
+	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
+	ret c
+.pkmn_power
+	ld a, [wLoadedAttackCategory]
+	cp POKEMON_POWER
+	ret z
+	ld hl, wTempNonTurnDuelistCardID
+	cphl MR_MIME
+	jp z, PreventMoreThan20Damage_DE
+	cphl SHELLDER
+	jr z, ReduceDamageBy20_DE
+	ld a, [wTempNonTurnDuelistCardStage]
+	cp STAGE1
+	jr nz, .kabuto
+	cphl CLOYSTER
+	jr z, ReduceDamageBy20_DE
+.kabuto
+	cphl KABUTO
+	jr z, HalveDamage_DE
+	ld a, [wTempNonTurnDuelistCardStage]
+	cp STAGE2
+	ret nz
+	cphl KABUTOPS
+	jr z, HalveDamage_DE
+	ret
+
 
 ; check if the attacking card (turn holder's arena card) has any substatus that
 ; reduces the damage dealt this turn (SUBSTATUS2).
@@ -92,36 +124,6 @@ HandleDamageReductionFromSubstatus1::
 	jr z, HalveDamage_DE
 	ret
 
-
-; check if the defending card (turn holder's arena card) has any
-; Pokémon Power that reduces the damage dealt to it.
-; damage is given in de as input and the possibly updated damage is also returned in de.
-HandleDamageReductionFromPkmnPowers::
-	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
-	ret c
-.pkmn_power
-	ld a, [wLoadedAttackCategory]
-	cp POKEMON_POWER
-	ret z
-	ld hl, wTempNonTurnDuelistCardID
-	cphl MR_MIME
-	jr z, PreventMoreThan20Damage_DE
-	cphl SHELLDER
-	jr z, ReduceDamageBy20_DE
-	ld a, [wTempNonTurnDuelistCardStage]
-	cp STAGE1
-	jr nz, .kabuto
-	cphl CLOYSTER
-	jr z, ReduceDamageBy20_DE
-.kabuto
-	cphl KABUTO
-	jr z, HalveDamage_DE
-	ld a, [wTempNonTurnDuelistCardStage]
-	cp STAGE2
-	ret nz
-	cphl KABUTOPS
-	jr z, HalveDamage_DE
-	ret
 
 NoDamage_DE::
 	ld de, 0
