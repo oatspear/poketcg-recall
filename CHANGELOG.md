@@ -314,6 +314,17 @@
 - **Aurora Beam**: increased cost from (W)(W)(C) to (W)(W)(C)(C).
 - **Ice Beam**: reduced cost from (W)(W)(C)(C) to (W)(W)(C).
 
+### Shellder
+- **Supersonic**: reduced cost from (W) to (C).
+- **Hide in Shell**: removed.
+- **New Pokémon Power: Hide in Shell**: this Pokémon takes 20 less damage from attacks. Stops working while Asleep, Confused or Paralyzed.
+
+### Cloyster
+- Increased HP from 50 to 60.
+- Increased retreat cost from 2 to 3.
+- **Clamp**: reduced cost from (W)(W) to (W).
+- **Spike Cannon**: reduced cost from (W)(W) to (W)(C).
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).

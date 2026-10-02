@@ -1443,10 +1443,12 @@ HideInShellName:
 	done
 
 HideInShellDescription:
-	text "Flip a coin. If heads, prevent all"
-	line "damage done to Shellder during your"
-	line "opponent's next turn. (Any other"
-	line "effects of attacks still happen.)"
+	text "This Pokémon takes 20 less damage"
+	line "from attacks (after applying"
+	line "Weakness and Resistance.) This"
+	line "Pokémon Power stops working while"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
 	done
 
 BivalveName:

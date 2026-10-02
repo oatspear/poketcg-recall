@@ -3473,7 +3473,21 @@ ShellderCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
+	energy 0 ; energies
+	tx HideInShellName ; name
+	tx HideInShellDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db POKEMON_POWER ; category
+	dw PassivePowerEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_PKMN_POWER_1 ; animation
+
+	; attack 2
+	energy COLORLESS, 1 ; energies
 	tx SupersonicName ; name
 	tx MayInflictConfusionDescription ; description
 	dw NONE ; description (cont)
@@ -3485,20 +3499,6 @@ ShellderCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_SUPERSONIC ; animation
-
-	; attack 2
-	energy WATER, 1 ; energies
-	tx HideInShellName ; name
-	tx HideInShellDescription ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw ShellderHideInShellEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
 	db WR_LIGHTNING ; weakness
@@ -3518,12 +3518,12 @@ CloysterCard:
 	db DIAMOND ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw CLOYSTER
-	db 50 ; hp
+	db 60 ; hp
 	db STAGE1 ; stage
 	tx ShellderName ; pre-evo name
 
 	; attack 1
-	energy WATER, 2 ; energies
+	energy WATER, 1 ; energies
 	tx ClampName ; name
 	tx ClampDescription ; description
 	dw NONE ; description (cont)
@@ -3537,20 +3537,20 @@ CloysterCard:
 	db ATK_ANIM_NONE ; animation
 
 	; attack 2
-	energy WATER, 2 ; energies
+	energy WATER, 1, COLORLESS, 1 ; energies
 	tx SpikeCannonName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_X ; category
-	dw CloysterSpikeCannonEffectCommands ; effect commands
+	dw DoubleAttackX30EffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_NEEDLES ; animation
 
-	db 2 ; retreat cost
+	db 3 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db NONE ; resistance
 	tx BivalveName ; category

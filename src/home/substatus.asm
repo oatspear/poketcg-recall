@@ -80,8 +80,6 @@ HandleDamageReductionFromSubstatus1::
 	jr z, NoDamage_DE
 	cp SUBSTATUS1_NO_DAMAGE_10
 	jr z, NoDamage_DE
-	cp SUBSTATUS1_NO_DAMAGE_11
-	jr z, NoDamage_DE
 	cp SUBSTATUS1_NO_DAMAGE_17
 	jr z, NoDamage_DE
 	cp SUBSTATUS1_REDUCE_BY_10
@@ -108,6 +106,14 @@ HandleDamageReductionFromPkmnPowers::
 	ld hl, wTempNonTurnDuelistCardID
 	cphl MR_MIME
 	jr z, PreventMoreThan20Damage_DE
+	cphl SHELLDER
+	jr z, ReduceDamageBy20_DE
+	ld a, [wTempNonTurnDuelistCardStage]
+	cp STAGE1
+	jr nz, .kabuto
+	cphl CLOYSTER
+	jr z, ReduceDamageBy20_DE
+.kabuto
 	cphl KABUTO
 	jr z, HalveDamage_DE
 	ld a, [wTempNonTurnDuelistCardStage]

@@ -1911,7 +1911,6 @@ HornHazard_NoDamage50PercentEffect:
 
 DoubleAttackX30_AIEffect:
 OmastarSpikeCannon_AIEffect:
-CloysterSpikeCannon_AIEffect:
 FurySwipes20_AIEffect:
 Bonemerang_AIEffect:
 DragonairSlam_AIEffect:
@@ -1923,7 +1922,6 @@ DragoniteLv41Slam_AIEffect:
 ; Flip 2 coins; deal 30x number of heads
 DoubleAttackX30_MultiplierEffect:
 OmastarSpikeCannon_MultiplierEffect:
-CloysterSpikeCannon_MultiplierEffect:
 Bonemerang_MultiplierEffect:
 DragonairSlam_MultiplierEffect:
 DragoniteLv41Slam_MultiplierEffect:
@@ -2880,14 +2878,6 @@ AgilityEffect:
 	ld a, SUBSTATUS1_AGILITY
 	jp ApplySubstatus1ToDefendingCard
 
-HideInShellEffect:
-	ldtx de, IfHeadsNoDamageNextTurnText
-	call TossCoin
-	jp nc, SetWasUnsuccessful
-	ld a, ATK_ANIM_PROTECT
-	ld [wLoadedAttackAnimation], a
-	ld a, SUBSTATUS1_NO_DAMAGE_11
-	jp ApplySubstatus1ToDefendingCard
 
 QuickAttack_AIEffect:
 	ld a, (10 + 30) / 2

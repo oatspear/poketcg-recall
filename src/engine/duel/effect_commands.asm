@@ -363,11 +363,6 @@ CloysterClampEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, ClampEffect
 	db  $00
 
-CloysterSpikeCannonEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, CloysterSpikeCannon_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, CloysterSpikeCannon_AIEffect
-	db  $00
-
 ; BlizzardEffectCommands:
 ; 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Blizzard_BenchDamageEffect
 ; 	db  $00
