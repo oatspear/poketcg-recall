@@ -2321,7 +2321,7 @@ TextOffsets::
 	textpointer KrabbyDescription
 	textpointer KinglerName
 	textpointer FlailName
-	textpointer KinglersFlailDescription
+	textpointer FlailDescription
 	textpointer CrabhammerName
 	textpointer PincerName
 	textpointer KinglerDescription
@@ -2350,7 +2350,6 @@ TextOffsets::
 	textpointer StarmieDescription
 	textpointer MagikarpName
 	textpointer TackleName
-	textpointer MagikarpsFlailDescription
 	textpointer FishName
 	textpointer MagikarpDescription
 	textpointer GyaradosName

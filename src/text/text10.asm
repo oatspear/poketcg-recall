@@ -1491,11 +1491,9 @@ KrabbyName:
 	done
 
 KrabbysCallForFamilyDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Krabby and put it onto your"
-	line "Bench. Shuffle your deck afterward."
-	line "(You can't use this attack if your"
-	line "Bench is full.)"
+	text "Search your deck for a Krabby"
+	line "and put it onto your Bench."
+	line "Shuffle your deck afterward."
 	done
 
 RiverCrabName:
@@ -1516,9 +1514,9 @@ FlailName:
 	text "Flail"
 	done
 
-KinglersFlailDescription:
-	text "Does 10 damage times the number of"
-	line "damage counters on Kingler."
+FlailDescription:
+	text "This attack does 10 damage for each"
+	line "damage counter on this Pokémon."
 	done
 
 CrabhammerName:

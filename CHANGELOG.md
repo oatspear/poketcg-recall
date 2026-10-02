@@ -325,6 +325,14 @@
 - **Clamp**: reduced cost from (W)(W) to (W).
 - **Spike Cannon**: reduced cost from (W)(W) to (W)(C).
 
+### Krabby
+- Reduced retreat cost from 2 to 1.
+- **Call for Family**: reduced cost from (W) to (C).
+- **Irongrip**: now also flips a coin. On heads, inflicts Paralysis.
+
+### Kingler
+- Increased HP from 60 to 90.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).

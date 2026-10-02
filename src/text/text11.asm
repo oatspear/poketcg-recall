@@ -101,11 +101,6 @@ TackleName:
 	text "Tackle"
 	done
 
-MagikarpsFlailDescription:
-	text "Does 10 damage times the number of"
-	line "damage counters on Magikarp."
-	done
-
 FishName:
 	text "Fish"
 	done

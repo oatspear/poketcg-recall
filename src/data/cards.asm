@@ -1966,7 +1966,7 @@ PinsirCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw PinsirIronGripEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -3573,7 +3573,7 @@ KrabbyCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
+	energy COLORLESS, 1 ; energies
 	tx CallForFamilyName ; name
 	tx KrabbysCallForFamilyDescription ; description
 	dw NONE ; description (cont)
@@ -3589,18 +3589,18 @@ KrabbyCard:
 	; attack 2
 	energy WATER, 1, COLORLESS, 1 ; energies
 	tx IronGripName ; name
-	dw NONE ; description
+	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
+	dw Paralysis50PercentEffectCommands ; effect commands
+	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_HIT ; animation
+	db ATK_ANIM_HIT_EFFECT ; animation
 
-	db 2 ; retreat cost
+	db 1 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db NONE ; resistance
 	tx RiverCrabName ; category
@@ -3618,18 +3618,18 @@ KinglerCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | FOSSIL ; sets
 	dw KINGLER
-	db 60 ; hp
+	db 90 ; hp
 	db STAGE1 ; stage
 	tx KrabbyName ; pre-evo name
 
 	; attack 1
 	energy WATER, 1 ; energies
 	tx FlailName ; name
-	tx KinglersFlailDescription ; description
+	tx FlailDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_X ; category
-	dw KinglerFlailEffectCommands ; effect commands
+	dw FlailEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db BOOST_IF_TAKEN_DAMAGE ; flags 3
@@ -3989,11 +3989,11 @@ MagikarpCard:
 	; attack 2
 	energy WATER, 1 ; energies
 	tx FlailName ; name
-	tx MagikarpsFlailDescription ; description
+	tx FlailDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_X ; category
-	dw MagikarpFlailEffectCommands ; effect commands
+	dw FlailEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db BOOST_IF_TAKEN_DAMAGE ; flags 3
