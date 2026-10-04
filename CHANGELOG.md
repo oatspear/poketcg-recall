@@ -85,6 +85,7 @@
 - Increased HP from 60 to 70.
 - **Double Kick**: reduced cost from (G)(C)(C) to (G)(C).
 - **Horn Drill**: reduced cost from (G)(G)(C)(C) to (G)(C)(C).
+- **Horn Drill**: reduced damage from 50 to 40.
 
 ### Nidoking
 - Increased HP from 90 to 100.
@@ -339,10 +340,11 @@
 
 ### Goldeen
 - **Horn Attack**: reduced cost from (W) to (C).
+- **New attack: (W) Horn Hazard**: 30 damage. Flips a coin. If tails, the attack fails.
 
 ### Seaking
 - **Horn Attack**: removed.
-- **New attack: (W)(C)(C) Horn Drill**: 50 damage.
+- **New attack: (W)(C)(C) Horn Drill**: 40 damage.
 
 ### Starmie
 - Increased HP from 60 to 70.

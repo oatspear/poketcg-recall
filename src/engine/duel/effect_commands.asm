@@ -170,7 +170,7 @@ NidoranFCallForFamilyEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, NidoranFCallForFamily_AISelectEffect
 	db  $00
 
-NidoranMHornHazardEffectCommands:
+HornHazardEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HornHazard_NoDamage50PercentEffect
 	dbw EFFECTCMDTYPE_AI, HornHazard_AIEffect
 	db  $00
