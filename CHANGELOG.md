@@ -348,6 +348,13 @@
 - Increased HP from 60 to 70.
 - **Star Freeze**: increased damage from 20 to 30.
 
+### Vaporeon (GB)
+- Increased HP from 60 to 80.
+
+### Vaporeon (Jungle)
+- **Quick Attack**: removed.
+- **New attack: (W)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).
