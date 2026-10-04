@@ -344,6 +344,10 @@
 - **Horn Attack**: removed.
 - **New attack: (W)(C)(C) Horn Drill**: 50 damage.
 
+### Starmie
+- Increased HP from 60 to 70.
+- **Star Freeze**: increased damage from 20 to 30.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).
