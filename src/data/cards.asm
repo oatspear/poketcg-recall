@@ -3618,7 +3618,7 @@ KinglerCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | FOSSIL ; sets
 	dw KINGLER
-	db 90 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx KrabbyName ; pre-evo name
 
@@ -3637,7 +3637,7 @@ KinglerCard:
 	db ATK_ANIM_BIG_HIT ; animation
 
 	; attack 2
-	energy WATER, 2, COLORLESS, 1 ; energies
+	energy WATER, 1, COLORLESS, 2 ; energies
 	tx CrabhammerName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)

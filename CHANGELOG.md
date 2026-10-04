@@ -331,7 +331,8 @@
 - **Irongrip**: now also flips a coin. On heads, inflicts Paralysis.
 
 ### Kingler
-- Increased HP from 60 to 90.
+- Increased HP from 60 to 80.
+- **Crabhammer**: reduced cost from (W)(W)(C) to (W)(C)(C).
 
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
