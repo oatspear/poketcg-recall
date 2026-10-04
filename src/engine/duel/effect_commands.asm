@@ -240,16 +240,6 @@ MegaDrainEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, MegaDrainEffect
 	db  $00
 
-OmastarWaterGunEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, OmastarWaterGunEffect
-	dbw EFFECTCMDTYPE_AI, OmastarWaterGunEffect
-	db  $00
-
-OmastarSpikeCannonEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, OmastarSpikeCannon_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, OmastarSpikeCannon_AIEffect
-	db  $00
-
 OmanyteClairvoyanceEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ClairvoyanceEffect
 	db  $00
@@ -333,7 +323,7 @@ AmnesiaEffectCommands:
 ; 	dbw EFFECTCMDTYPE_AI, PoliwrathWaterGunEffect
 ; 	db  $00
 
-PoliwrathWhirlpoolEffectCommands:
+WhirlpoolEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HyperBeam_DiscardEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, HyperBeam_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, HyperBeam_AISelectEffect

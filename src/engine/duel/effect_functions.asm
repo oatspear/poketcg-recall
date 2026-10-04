@@ -1910,7 +1910,6 @@ HornHazard_NoDamage50PercentEffect:
 	ret
 
 DoubleAttackX30_AIEffect:
-OmastarSpikeCannon_AIEffect:
 FurySwipes20_AIEffect:
 Bonemerang_AIEffect:
 DragonairSlam_AIEffect:
@@ -1921,7 +1920,6 @@ DragoniteLv41Slam_AIEffect:
 
 ; Flip 2 coins; deal 30x number of heads
 DoubleAttackX30_MultiplierEffect:
-OmastarSpikeCannon_MultiplierEffect:
 Bonemerang_MultiplierEffect:
 DragonairSlam_MultiplierEffect:
 DragoniteLv41Slam_MultiplierEffect:
@@ -2727,10 +2725,6 @@ ApplyExtraWaterEnergyDamageBonus:
 	ld [wAIMinDamage], a
 	ld [wAIMaxDamage], a
 	ret
-
-OmastarWaterGunEffect:
-	lb bc, 1, 1
-	jr ApplyExtraWaterEnergyDamageBonus
 
 ClairvoyanceEffect:
 	scf

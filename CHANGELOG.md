@@ -355,6 +355,15 @@
 - **Quick Attack**: removed.
 - **New attack: (W)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
 
+### Omanyte
+- Increased HP from 40 to 60.
+
+### Omastar
+- Increased HP from 70 to 100.
+- **Water Gun**: removed.
+- **Spike Cannon**: reduced cost from (W)(W) to (C)(C).
+- **New attack: (W)(W)(C) Whirlpool**: 30 damage. Discards 1 Energy from the Defending Pokémon.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).

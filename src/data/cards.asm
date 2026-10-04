@@ -3243,7 +3243,7 @@ PoliwrathCard:
 	dw NONE ; description (cont)
 	db 40 ; damage
 	db DAMAGE_NORMAL ; category
-	dw PoliwrathWhirlpoolEffectCommands ; effect commands
+	dw WhirlpoolEffectCommands ; effect commands
 	db NONE ; flags 1
 	db FLAG_2_BIT_6 ; flags 2
 	db NONE ; flags 3
@@ -4218,7 +4218,7 @@ OmanyteCard:
 	db CIRCLE ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw OMANYTE
-	db 40 ; hp
+	db 60 ; hp
 	db STAGE1 ; stage
 	tx MysteriousFossilName ; pre-evo name
 
@@ -4268,37 +4268,37 @@ OmastarCard:
 	db DIAMOND ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw OMASTAR
-	db 70 ; hp
+	db 100 ; hp
 	db STAGE2 ; stage
 	tx OmanyteName ; pre-evo name
 
 	; attack 1
-	energy WATER, 1, COLORLESS, 1 ; energies
-	tx WaterGunName ; name
-	tx WaterGunDescription ; description
-	dw NONE ; description (cont)
-	db 20 ; damage
-	db DAMAGE_PLUS ; category
-	dw OmastarWaterGunEffectCommands ; effect commands
-	db NONE ; flags 1
-	db ATTACHED_ENERGY_BOOST ; flags 2
-	db NONE ; flags 3
-	db MAX_ENERGY_BOOST_IS_LIMITED
-	db ATK_ANIM_WATER_GUN ; animation
-
-	; attack 2
-	energy WATER, 2 ; energies
+	energy COLORLESS, 2 ; energies
 	tx SpikeCannonName ; name
 	tx DoubleAttackX30Description ; description
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_X ; category
-	dw OmastarSpikeCannonEffectCommands ; effect commands
+	dw DoubleAttackX30EffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_NEEDLES ; animation
+
+	; attack 2
+	energy WATER, 2, COLORLESS, 1 ; energies
+	tx WhirlpoolName ; name
+	tx Discard1EnergyFromTargetDescription ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_NORMAL ; category
+	dw WhirlpoolEffectCommands ; effect commands
+	db NONE ; flags 1
+	db FLAG_2_BIT_6 ; flags 2
+	db NONE ; flags 3
+	db 3
+	db ATK_ANIM_WHIRLPOOL ; animation
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
