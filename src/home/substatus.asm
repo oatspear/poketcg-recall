@@ -555,6 +555,7 @@ CheckIsIncapableOfUsingPkmnPower::
 ; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
 ; input:
 ;   de = Pokemon card ID to search
+; preserves: hl, bc, de
 CountPokemonWithActivePkmnPowerInBothPlayAreas::
 	ld a, $ff
 	ld [wPlayAreaStageToLookup], a
@@ -568,14 +569,15 @@ CountPokemonWithActivePkmnPowerInBothPlayAreas::
 ; input:
 ;   de = Pokemon card ID to search
 ;   wPlayAreaStageToLookup = stage to look for, or $ff to ignore stage
+; preserves: hl, bc, de
 CountPokemonOrPreviousStageWithActivePkmnPowerInBothPlayAreas::
 	push bc
-	push de
-	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
+	; push de
+	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower  ; preserves: hl, bc, de
 	ld c, a
-	pop de
+	; pop de
 	call SwapTurn
-	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
+	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower  ; preserves: hl, bc, de
 	call SwapTurn
 	add c
 	or a
@@ -591,6 +593,7 @@ CountPokemonOrPreviousStageWithActivePkmnPowerInBothPlayAreas::
 ; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
 ; input:
 ;   de = Pokemon card ID to search
+; preserves: hl, bc, de
 CountTurnDuelistPokemonWithActivePkmnPower::
 	ld a, $ff
 	ld [wPlayAreaStageToLookup], a
@@ -604,6 +607,7 @@ CountTurnDuelistPokemonWithActivePkmnPower::
 ; input:
 ;   de = Pokemon card ID to search
 ;   wPlayAreaStageToLookup = stage to look for, or $ff to ignore stage
+; preserves: hl, bc, de
 CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower::
 	push hl
 	push de

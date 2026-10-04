@@ -1363,7 +1363,9 @@ ProcessPlayedPokemonCard::
 	ld [wTempTurnDuelistCardID + 1], a
 	ld a, [wLoadedAttackCategory]
 	cp POKEMON_POWER
-	ret nz
+	jr nz, .check_previous_stages
+
+.has_pokemon_power
 	call DisplayUsePokemonPowerScreen
 	ldh a, [hTempCardIndex_ff98]
 	call LoadCardDataToBuffer1_FromDeckIndex
@@ -1383,6 +1385,22 @@ ProcessPlayedPokemonCard::
 	call DisplayUsePokemonPowerScreen
 	ldtx hl, UnableToUsePkmnPowerDueToToxicGasText
 	jp DrawWideTextBox_WaitForInput
+
+.check_previous_stages
+	cp16 METAPOD
+	jr nz, .kakuna
+	ld de, CATERPIE
+	jr .copy_previous
+.kakuna
+	cp16 KAKUNA
+	ret nz
+	ld de, WEEDLE
+.copy_previous
+	ldh a, [hTempCardIndex_ff98]
+	ld b, a
+	ld c, FIRST_ATTACK_OR_PKMN_POWER
+	call CopyAttackDataAndDamage_FromCardID
+	jr .has_pokemon_power
 
 .use_pokemon_power
 	ld hl, wLoadedAttackEffectCommands
