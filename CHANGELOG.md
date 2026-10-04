@@ -348,7 +348,8 @@
 
 ### Starmie
 - Increased HP from 60 to 70.
-- **Star Freeze**: increased damage from 20 to 30.
+- **Recover**: reduced cost from (W)(W) to (W)(C).
+- **Star Freeze**: reduced cost from (W)(C)(C) to (W)(C).
 
 ### Vaporeon (GB)
 - Increased HP from 60 to 80.
