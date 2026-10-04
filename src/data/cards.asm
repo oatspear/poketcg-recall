@@ -4473,7 +4473,7 @@ PikachuLv14Card:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy LIGHTNING, 2 ; energies
+	energy LIGHTNING, 1, COLORLESS, 1 ; energies
 	tx SparkName ; name
 	tx SparkDescription ; description
 	dw NONE ; description (cont)
@@ -4500,7 +4500,7 @@ PikachuLv14Card:
 	db 0
 	db ATK_ANIM_NONE ; animation
 
-	db 1 ; retreat cost
+	db 0 ; retreat cost
 	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx MouseName ; category

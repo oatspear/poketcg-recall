@@ -371,7 +371,11 @@
 - **Blizzard**: reduced cost from (W)(W)(W)(W) to (W)(W)(W)(C).
 - **Blizzard**: reduced damage from 50 to 40.
 
-### Pikachu Lv16
+### Pikachu (Jungle)
+- Reduced retreat cost from 1 to 0.
+- **Spark**: reduced cost from (L)(L) to (L)(C).
+
+### Pikachu (Promo)
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
 ### Zapdos (Fossil)
