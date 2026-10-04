@@ -3773,7 +3773,7 @@ GoldeenCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
+	energy COLORLESS, 1 ; energies
 	tx HornAttackName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -3823,20 +3823,6 @@ SeakingCard:
 	tx GoldeenName ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
-	tx HornAttackName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 10 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_HIT ; animation
-
-	; attack 2
 	energy WATER, 1, COLORLESS, 1 ; energies
 	tx WaterfallName ; name
 	dw NONE ; description
@@ -3849,6 +3835,20 @@ SeakingCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_WATER_JETS ; animation
+
+	; attack 2
+	energy WATER, 1, COLORLESS, 2 ; energies
+	tx HornDrillName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 50 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_DRILL ; animation
 
 	db 1 ; retreat cost
 	db WR_LIGHTNING ; weakness

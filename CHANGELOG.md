@@ -334,6 +334,13 @@
 - Increased HP from 60 to 80.
 - **Crabhammer**: reduced cost from (W)(W)(C) to (W)(C)(C).
 
+### Goldeen
+- **Horn Attack**: reduced cost from (W) to (C).
+
+### Seaking
+- **Horn Attack**: removed.
+- **New attack: (W)(C)(C) Horn Drill**: 50 damage.
+
 ### Articuno (Fossil)
 - Increased HP from 70 to 80.
 - **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).
