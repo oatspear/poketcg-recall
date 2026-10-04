@@ -337,6 +337,8 @@
 
 ### Seadra
 - Increased HP from 60 to 70.
+- Reduced retreat cost from 1 to 0.
+- **Agility**: increased damage from 20 to 30.
 
 ### Goldeen
 - **Horn Attack**: reduced cost from (W) to (C).

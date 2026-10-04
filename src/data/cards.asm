@@ -3741,7 +3741,7 @@ SeadraCard:
 	tx AgilityName ; name
 	tx AgilityDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw AgilityEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -3750,7 +3750,7 @@ SeadraCard:
 	db 0
 	db ATK_ANIM_QUICK_ATTACK ; animation
 
-	db 1 ; retreat cost
+	db 0 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db NONE ; resistance
 	tx DragonName ; category
