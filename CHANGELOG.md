@@ -334,6 +334,9 @@
 - Increased HP from 60 to 80.
 - **Crabhammer**: reduced cost from (W)(W)(C) to (W)(C)(C).
 
+### Seadra
+- Increased HP from 60 to 70.
+
 ### Goldeen
 - **Horn Attack**: reduced cost from (W) to (C).
 

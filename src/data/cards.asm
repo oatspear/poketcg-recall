@@ -3718,7 +3718,7 @@ SeadraCard:
 	db DIAMOND ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw SEADRA
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx HorseaName ; pre-evo name
 
