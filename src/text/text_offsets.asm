@@ -2409,7 +2409,7 @@ TextOffsets::
 	textpointer SurfingPikachuDescription
 	textpointer RaichuName
 	textpointer ThunderName
-	textpointer RaichusThunderDescription
+	textpointer ThunderDescription
 	textpointer RaichuLv40Description
 	textpointer GigashockName
 	textpointer GigashockDescription
@@ -2462,7 +2462,6 @@ TextOffsets::
 	textpointer ThunderstormName
 	textpointer ThunderstormDescription
 	textpointer ZapdosLv40Description
-	textpointer ZapdosThunderDescription
 	textpointer ThunderboltName
 	textpointer ThunderboltDescription
 	textpointer ZapdosLv64Description

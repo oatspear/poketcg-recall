@@ -4787,9 +4787,9 @@ RaichuLv40Card:
 	db ATK_ANIM_QUICK_ATTACK ; animation
 
 	; attack 2
-	energy LIGHTNING, 3, COLORLESS, 1 ; energies
+	energy LIGHTNING, 2, COLORLESS, 2 ; energies
 	tx ThunderName ; name
-	tx RaichusThunderDescription ; description
+	tx ThunderDescription ; description
 	dw NONE ; description (cont)
 	db 60 ; damage
 	db DAMAGE_NORMAL ; category
@@ -4823,7 +4823,7 @@ RaichuLv45Card:
 	tx PikachuName ; pre-evo name
 
 	; attack 1
-	energy LIGHTNING, 4 ; energies
+	energy LIGHTNING, 2, COLORLESS, 2 ; energies
 	tx GigashockName ; name
 	tx GigashockDescription ; description
 	dw NONE ; description (cont)
@@ -4918,7 +4918,7 @@ MagnemiteLv15Card:
 	db CIRCLE ; rarity
 	db LABORATORY | GB ; sets
 	dw MAGNEMITE_LV15
-	db 40 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -5475,7 +5475,7 @@ ZapdosLv64Card:
 	; attack 1
 	energy LIGHTNING, 3, COLORLESS, 1 ; energies
 	tx ThunderName ; name
-	tx ZapdosThunderDescription ; description
+	tx ThunderDescription ; description
 	dw NONE ; description (cont)
 	db 60 ; damage
 	db DAMAGE_NORMAL ; category

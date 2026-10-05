@@ -384,6 +384,15 @@
 ### Pikachu (Promo)
 - **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
+### Raichu (Base)
+- **Thunder**: reduced cost from (L)(L)(L)(C) to (L)(L)(C)(C).
+
+### Raichu (Fossil)
+- **Gigashock**: reduced cost from (L)(L)(L)(L) to (L)(L)(C)(C).
+
+### Magnemite (GB)
+- Increased HP from 40 to 50.
+
 ### Zapdos (Fossil)
 - **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).
 - **Thunderstorm**: reduced base damage from 40 to 30.

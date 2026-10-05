@@ -410,9 +410,9 @@ ThunderName:
 	text "Thunder"
 	done
 
-RaichusThunderDescription:
-	text "Flip a coin. If tails, Raichu does"
-	line "30 damage to itself."
+ThunderDescription:
+	text "Flip a coin. If tails, this Pokémon"
+	line "does 30 damage to itself."
 	done
 
 RaichuLv40Description:
@@ -426,13 +426,10 @@ GigashockName:
 	done
 
 GigashockDescription:
-	text "Choose 3 of your opponent's Benched"
-	line "Pokémon and this attack does 10"
-	line "damage to each of them. (Don't apply"
-	line "Weakness and Resistance for Benched"
-	line "Pokémon.) If your opponent has fewer"
-	line "than 3 Benched Pokémon, do the"
-	line "damage to each of them."
+	text "This attack does 10 damage to 3 of"
+	line "your opponent's Benched Pokémon."
+	line "(Don't apply Weakness and Resistance"
+	line "for Benched Pokémon.)"
 	done
 
 RaichuLv45Description:
@@ -713,11 +710,6 @@ ZapdosLv40Description:
 	line "whose anger is said to cause storms."
 	line "Some say it has lived above the"
 	line "clouds for thousands of years."
-	done
-
-ZapdosThunderDescription:
-	text "Flip a coin. If tails, Zapdos does"
-	line "30 damage to itself."
 	done
 
 ThunderboltName:
