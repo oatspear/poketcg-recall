@@ -3723,7 +3723,7 @@ SeadraCard:
 	tx HorseaName ; pre-evo name
 
 	; attack 1
-	energy WATER, 1, COLORLESS, 1 ; energies
+	energy WATER, 1 ; energies
 	tx WaterGunName ; name
 	tx WaterGunDescription ; description
 	dw NONE ; description (cont)
@@ -3737,11 +3737,11 @@ SeadraCard:
 	db ATK_ANIM_WATER_GUN ; animation
 
 	; attack 2
-	energy WATER, 1, COLORLESS, 2 ; energies
+	energy WATER, 1, COLORLESS, 1 ; energies
 	tx AgilityName ; name
 	tx AgilityDescription ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
 	dw AgilityEffectCommands ; effect commands
 	db NONE ; flags 1

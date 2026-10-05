@@ -2860,7 +2860,7 @@ HeadacheEffect:
 	ret
 
 SeadraWaterGunEffect:
-	lb bc, 1, 1
+	lb bc, 1, 0
 	jp ApplyExtraWaterEnergyDamageBonus
 
 AgilityEffect:
