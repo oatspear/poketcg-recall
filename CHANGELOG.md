@@ -392,6 +392,24 @@
 
 ### Magnemite (GB)
 - Increased HP from 40 to 50.
+- **Magnetic Storm**: reduced cost from (L)(C) to (L).
+
+### Magneton (Base)
+- Increased HP from 60 to 80.
+
+### Magneton (Fossil)
+- **Sonicboom**: reduced cost from (L)(C) to (C)(C).
+
+### Voltorb
+- Reduced retreat cost from 1 to 0.
+- **New attack: (C)(C) Sonicboom**: 20 damage. Not affected by Weakness or Resistance.
+
+### Electrode (GB)
+- **Energy Spike**: reduced cost from (L)(L)(L) to (C)(C).
+- **Sonicboom**: increased cost from (L)(L) to (C)(C)(C).
+
+### Electrode (Jungle)
+- **Chain Lightning**: increased base damage from 20 to 30.
 
 ### Zapdos (Fossil)
 - **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).

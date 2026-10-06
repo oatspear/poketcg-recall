@@ -4879,7 +4879,7 @@ MagnemiteLv13Card:
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw MagnemiteThunderWaveEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -4937,7 +4937,7 @@ MagnemiteLv15Card:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy LIGHTNING, 1, COLORLESS, 1 ; energies
+	energy LIGHTNING, 1 ; energies
 	tx MagneticStormName ; name
 	tx MagneticStormDescription ; description
 	dw NONE ; description (cont)
@@ -4968,7 +4968,7 @@ MagnetonLv28Card:
 	db STAR ; rarity
 	db COLOSSEUM | NONE ; sets
 	dw MAGNETON_LV28
-	db 60 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx MagnemiteName ; pre-evo name
 
@@ -4979,7 +4979,7 @@ MagnetonLv28Card:
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_NORMAL ; category
-	dw MagnetonThunderWaveEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -5023,13 +5023,13 @@ MagnetonLv35Card:
 	tx MagnemiteName ; pre-evo name
 
 	; attack 1
-	energy LIGHTNING, 1, COLORLESS, 1 ; energies
+	energy COLORLESS, 2 ; energies
 	tx SonicboomName ; name
 	tx SonicboomDescription ; description
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw MagnetonSonicboomEffectCommands ; effect commands
+	dw SonicboomEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -5087,20 +5087,20 @@ VoltorbCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
+	energy COLORLESS, 2 ; energies
+	tx SonicboomName ; name
+	tx SonicboomDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
+	dw SonicboomEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_SONICBOOM ; animation
 
-	db 1 ; retreat cost
+	db 0 ; retreat cost
 	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx BallName ; category
@@ -5123,21 +5123,7 @@ ElectrodeLv35Card:
 	tx VoltorbName ; pre-evo name
 
 	; attack 1
-	energy LIGHTNING, 2 ; energies
-	tx SonicboomName ; name
-	tx SonicboomDescription ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw ElectrodeSonicboomEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_SONICBOOM ; animation
-
-	; attack 2
-	energy LIGHTNING, 3 ; energies
+	energy COLORLESS, 2 ; energies
 	tx EnergySpikeName ; name
 	tx EnergySpikeDescription ; description
 	dw NONE ; description (cont)
@@ -5149,6 +5135,20 @@ ElectrodeLv35Card:
 	db SPECIAL_AI_HANDLING ; flags 3
 	db 0
 	db ATK_ANIM_GLOW_EFFECT ; animation
+
+	; attack 2
+	energy COLORLESS, 3 ; energies
+	tx SonicboomName ; name
+	tx SonicboomDescription ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_NORMAL ; category
+	dw SonicboomEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_SONICBOOM ; animation
 
 	db 1 ; retreat cost
 	db WR_FIGHTING ; weakness
@@ -5191,7 +5191,7 @@ ElectrodeLv42Card:
 	tx ChainLightningName ; name
 	tx ChainLightningDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw ElectrodeChainLightningEffectCommands ; effect commands
 	db NONE ; flags 1

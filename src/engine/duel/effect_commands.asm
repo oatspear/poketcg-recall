@@ -787,10 +787,6 @@ ElectabuzzLightScreenEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, LightScreenEffect
 	db  $00
 
-MagnemiteThunderWaveEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
 MagnemiteSelfdestructEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, MagnemiteSelfdestructEffect
 	db  $00
@@ -871,15 +867,11 @@ RaichuGigashockEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, Gigashock_AISelectEffect
 	db  $00
 
-MagnetonThunderWaveEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
 MagnetonLv28SelfdestructEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, MagnetonLv28SelfdestructEffect
 	db  $00
 
-MagnetonSonicboomEffectCommands:
+SonicboomEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Sonicboom_UnaffectedByColorEffect
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Sonicboom_NullEffect
 	dbw EFFECTCMDTYPE_AI, Sonicboom_UnaffectedByColorEffect
@@ -900,12 +892,6 @@ ZapdosBigThunderEffectCommands:
 
 MagnemiteMagneticStormEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, MagneticStormEffect
-	db  $00
-
-ElectrodeSonicboomEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Sonicboom_UnaffectedByColorEffect
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Sonicboom_NullEffect
-	dbw EFFECTCMDTYPE_AI, Sonicboom_UnaffectedByColorEffect
 	db  $00
 
 ElectrodeEnergySpikeEffectCommands:
