@@ -5568,7 +5568,7 @@ SandshrewCard:
 	db CIRCLE ; rarity
 	db EVOLUTION | NONE ; sets
 	dw SANDSHREW
-	db 40 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -5587,18 +5587,18 @@ SandshrewCard:
 	db ATK_ANIM_DARK_GAS ; animation
 
 	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
+	energy COLORLESS, 2 ; energies
+	tx ScratchName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_SLASH ; animation
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
@@ -5618,16 +5618,30 @@ SandslashCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | FOSSIL ; sets
 	dw SANDSLASH
-	db 70 ; hp
+	db 90 ; hp
 	db STAGE1 ; stage
 	tx SandshrewName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
+	energy FIGHTING, 1, COLORLESS, 1 ; energies
+	tx FurySwipesName ; name
+	tx TripleAttackX20Description ; description
+	dw NONE ; description (cont)
+	db 20 ; damage
+	db DAMAGE_X ; category
+	dw FurySwipes20EffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_MULTIPLE_SLASH ; animation
+
+	; attack 2
+	energy COLORLESS, 3 ; energies
 	tx SlashName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -5635,20 +5649,6 @@ SandslashCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_SLASH ; animation
-
-	; attack 2
-	energy FIGHTING, 2 ; energies
-	tx FurySwipesName ; name
-	tx TripleAttackX20Description ; description
-	dw NONE ; description (cont)
-	db 20 ; damage
-	db DAMAGE_X ; category
-	dw SandslashFurySwipesEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_MULTIPLE_SLASH ; animation
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
@@ -5829,7 +5829,7 @@ PrimeapeCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_X ; category
-	dw PrimeapeFurySwipesEffectCommands ; effect commands
+	dw FurySwipes20EffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3

@@ -432,6 +432,16 @@
 - **Thunderstorm**: reduced base damage from 40 to 30.
 - **New attack: (C) Plasma**: 10 damage. Flip a coin. If heads, attach 1 (L) energy from the discard pile to this Pokémon.
 
+### Sandshrew
+- Increased HP from 40 to 50.
+- **New attack: (C)(C) Scratch**: 20 damage.
+
+### Sandslash
+- Increased HP from 70 to 90.
+- **Slash**: increased cost from (C)(C) to (C)(C)(C).
+- **Slash**: increased damage from 20 to 30.
+- **Fury Swipes**: reduced cost from (F)(F) to (F)(C).
+
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
 

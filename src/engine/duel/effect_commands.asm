@@ -671,11 +671,6 @@ GeodudeStoneBarrageEffectCommands:
 	dbw EFFECTCMDTYPE_AI, StoneBarrage_AIEffect
 	db  $00
 
-PrimeapeFurySwipesEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FurySwipes20_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, FurySwipes20_AIEffect
-	db  $00
-
 PrimeapeTantrumEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, TantrumEffect
 	db  $00
@@ -746,7 +741,7 @@ SandAttackEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SandAttackEffect
 	db  $00
 
-SandslashFurySwipesEffectCommands:
+FurySwipes20EffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, FurySwipes20_MultiplierEffect
 	dbw EFFECTCMDTYPE_AI, FurySwipes20_AIEffect
 	db  $00
