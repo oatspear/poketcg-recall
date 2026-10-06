@@ -956,7 +956,7 @@ FarfetchdLeekSlapEffectCommands:
 	dbw EFFECTCMDTYPE_AI, LeekSlap_AIEffect
 	db  $00
 
-KangaskhanFetchEffectCommands:
+FetchEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, FetchEffect
 	db  $00
 

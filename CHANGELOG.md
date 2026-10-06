@@ -418,6 +418,15 @@
 ### Electabuzz (Base)
 - **Thunderpunch**: increased cost from (L)(C) to (L)(C)(C).
 
+### Jolteon (GB)
+- Increased HP from 60 to 70.
+- **Stun Needle**: reduced cost from (C)(C)(C)(C) to (C)(C)(C).
+
+### Jolteon (Jungle)
+- Increased HP from 70 to 80.
+- **Quick Attack**: removed.
+- **New attack: (L)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
+
 ### Zapdos (Fossil)
 - **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).
 - **Thunderstorm**: reduced base damage from 40 to 30.
