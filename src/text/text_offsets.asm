@@ -2442,7 +2442,6 @@ TextOffsets::
 	textpointer ElectabuzzName
 	textpointer LightScreenName
 	textpointer LightScreenDescription
-	textpointer LightScreenDescriptionCont
 	textpointer ElectricName
 	textpointer ElectabuzzLv20Description
 	textpointer ThunderpunchName

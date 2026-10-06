@@ -584,18 +584,12 @@ LightScreenName:
 	done
 
 LightScreenDescription:
-	text "Whenever an attack does damage to"
-	line "Electabuzz (after applying Weakness"
-	line "and Resistance) during your"
-	line "opponent's next turn, that attack"
-	line "only does half the damage to"
-	line "Electabuzz (rounded down to the"
-	line "nearest 10)."
-	done
-
-LightScreenDescriptionCont:
-	text "(Any other effects of attacks still"
-	line "happen.)"
+	text "During your opponent's next turn,"
+	line "this Pokémon only takes half damage"
+	line "from attacks (rounded down to the"
+	line "nearest 10) (after applying Weakness"
+	line "and Resistance). (Other effects of"
+	line "attacks still happen.)"
 	done
 
 ElectricName:

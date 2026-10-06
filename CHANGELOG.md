@@ -411,6 +411,13 @@
 ### Electrode (Jungle)
 - **Chain Lightning**: increased base damage from 20 to 30.
 
+### Electabuzz (Promo)
+- Increased HP from 60 to 70.
+- Reduced retreat cost from 2 to 1.
+
+### Electabuzz (Base)
+- **Thunderpunch**: increased cost from (L)(C) to (L)(C)(C).
+
 ### Zapdos (Fossil)
 - **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).
 - **Thunderstorm**: reduced base damage from 40 to 30.

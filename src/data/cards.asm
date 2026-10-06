@@ -5218,7 +5218,7 @@ ElectabuzzLv20Card:
 	db PROMOSTAR ; rarity
 	db PROMOTIONAL | PRO ; sets
 	dw ELECTABUZZ_LV20
-	db 60 ; hp
+	db 70 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -5226,7 +5226,7 @@ ElectabuzzLv20Card:
 	energy LIGHTNING, 1 ; energies
 	tx LightScreenName ; name
 	tx LightScreenDescription ; description
-	tx LightScreenDescriptionCont ; description (cont)
+	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
 	dw ElectabuzzLightScreenEffectCommands ; effect commands
@@ -5250,7 +5250,7 @@ ElectabuzzLv20Card:
 	db 0
 	db ATK_ANIM_QUICK_ATTACK ; animation
 
-	db 2 ; retreat cost
+	db 1 ; retreat cost
 	db WR_FIGHTING ; weakness
 	db NONE ; resistance
 	tx ElectricName ; category
@@ -5287,7 +5287,7 @@ ElectabuzzLv35Card:
 	db ATK_ANIM_THUNDERSHOCK ; animation
 
 	; attack 2
-	energy LIGHTNING, 1, COLORLESS, 1 ; energies
+	energy LIGHTNING, 1, COLORLESS, 2 ; energies
 	tx ThunderpunchName ; name
 	tx ThunderpunchDescription ; description
 	dw NONE ; description (cont)
