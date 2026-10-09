@@ -460,6 +460,15 @@
 - Increased HP from 70 to 80.
 - **Fury Swipes**: reduced cost from (F)(F) to (F)(C).
 
+### Machoke
+- Reduced retreat cost from 3 to 2.
+- **Karate Chop**: reduced cost from (F)(F)(C) to (F)(F).
+- **Submission**: reduced cost from (F)(F)(C)(C) to (F)(F)(C).
+- **Submission**: reduced damage from 60 to 50.
+
+### Machamp
+- **Seismic Toss**: reduced cost from (F)(F)(F)(C) to (F)(F)(C)(C).
+
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
 

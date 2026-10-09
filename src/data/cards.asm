@@ -5936,7 +5936,7 @@ MachokeCard:
 	tx MachopName ; pre-evo name
 
 	; attack 1
-	energy FIGHTING, 2, COLORLESS, 1 ; energies
+	energy FIGHTING, 2 ; energies
 	tx KarateChopName ; name
 	tx KarateChopDescription ; description
 	dw NONE ; description (cont)
@@ -5950,11 +5950,11 @@ MachokeCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy FIGHTING, 2, COLORLESS, 2 ; energies
+	energy FIGHTING, 2, COLORLESS, 1 ; energies
 	tx SubmissionName ; name
 	tx Recoil20Description ; description
 	dw NONE ; description (cont)
-	db 60 ; damage
+	db 50 ; damage
 	db DAMAGE_NORMAL ; category
 	dw Recoil20EffectEffectCommands ; effect commands
 	db LOW_RECOIL ; flags 1
@@ -5963,7 +5963,7 @@ MachokeCard:
 	db 20
 	db ATK_ANIM_HIT_RECOIL ; animation
 
-	db 3 ; retreat cost
+	db 2 ; retreat cost
 	db WR_PSYCHIC ; weakness
 	db NONE ; resistance
 	tx SuperpowerName ; category
@@ -6000,7 +6000,7 @@ MachampCard:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	; attack 2
-	energy FIGHTING, 3, COLORLESS, 1 ; energies
+	energy FIGHTING, 2, COLORLESS, 2 ; energies
 	tx SeismicTossName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
