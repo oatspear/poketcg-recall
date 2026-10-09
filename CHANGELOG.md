@@ -469,6 +469,18 @@
 ### Machamp
 - **Seismic Toss**: reduced cost from (F)(F)(F)(C) to (F)(F)(C)(C).
 
+### Geodude
+- **New attack: (C) Tackle**: 10 damage.
+
+### Graveler
+- Increased HP from 60 to 80.
+- **Harden**: reduced cost from (F)(F) to (F).
+
+### Golem
+- Increased HP from 80 to 120.
+- **Selfdestruct**: reduced cost from (F)(F)(F)(F) to (F)(F)(F)(C).
+- **Selfdestruct**: increased recoil from 100 to 120.
+
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
 

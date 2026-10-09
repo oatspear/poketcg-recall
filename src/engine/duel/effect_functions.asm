@@ -5558,7 +5558,7 @@ Recoil20Effect:
 	jp DealRecoilDamageToSelf
 
 GolemSelfdestructEffect:
-	ld a, 100
+	ld a, 120
 	call DealRecoilDamageToSelf
 	ld a, TRUE
 	ld [wIsDamageToSelf], a

@@ -6036,6 +6036,20 @@ GeodudeCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
+	energy COLORLESS, 1 ; energies
+	tx TackleName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 10 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_HIT ; animation
+
+	; attack 2
 	energy FIGHTING, 1, COLORLESS, 1 ; energies
 	tx StoneBarrageName ; name
 	tx StoneBarrageDescription ; description
@@ -6048,20 +6062,6 @@ GeodudeCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_STONE_BARRAGE ; animation
-
-	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
@@ -6081,12 +6081,12 @@ GravelerCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | FOSSIL ; sets
 	dw GRAVELER
-	db 60 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx GeodudeName ; pre-evo name
 
 	; attack 1
-	energy FIGHTING, 2 ; energies
+	energy FIGHTING, 1 ; energies
 	tx HardenName ; name
 	tx HardenDescription ; description
 	dw NONE ; description (cont)
@@ -6131,7 +6131,7 @@ GolemCard:
 	db DIAMOND ; rarity
 	db EVOLUTION | FOSSIL ; sets
 	dw GOLEM
-	db 80 ; hp
+	db 120 ; hp
 	db STAGE2 ; stage
 	tx GravelerName ; pre-evo name
 
@@ -6150,7 +6150,7 @@ GolemCard:
 	db ATK_ANIM_ROCK_THROW ; animation
 
 	; attack 2
-	energy FIGHTING, 4 ; energies
+	energy FIGHTING, 3, COLORLESS, 1 ; energies
 	tx SelfdestructName ; name
 	tx GolemsSelfdestructDescription ; description
 	dw NONE ; description (cont)
@@ -6160,7 +6160,7 @@ GolemCard:
 	db HIGH_RECOIL ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
-	db 100
+	db 120
 	db ATK_ANIM_BIG_SELFDESTRUCTION ; animation
 
 	db 4 ; retreat cost

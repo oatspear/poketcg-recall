@@ -1028,11 +1028,11 @@ AvalancheName:
 	done
 
 GolemsSelfdestructDescription:
-	text "Does 20 damage to each Pokémon on"
-	line "each player's Bench. (Don't apply"
+	text "This attack does 20 damage to all"
+	line "Benched Pokémon. (Don't apply"
 	line "Weakness and Resistance for Benched"
-	line "Pokémon.) Golem does 100 damage to"
-	line "itself."
+	line "Pokémon.) This Pokémon also does"
+	line "120 damage to itself."
 	done
 
 MegatonName:
