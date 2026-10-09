@@ -453,6 +453,13 @@
 - **Slash**: reduced cost from (F)(F)(C) to (F)(C)(C).
 - **Earthquake**: reduced cost from (F)(F)(F)(F) to (F)(F)(C)(C).
 
+### Mankey
+- Increased HP from 30 to 40.
+
+### Primeape
+- Increased HP from 70 to 80.
+- **Fury Swipes**: reduced cost from (F)(F) to (F)(C).
+
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
 

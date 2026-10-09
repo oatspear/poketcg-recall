@@ -5781,7 +5781,7 @@ MankeyCard:
 	db CIRCLE ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw MANKEY
-	db 30 ; hp
+	db 40 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -5831,12 +5831,12 @@ PrimeapeCard:
 	db DIAMOND ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw PRIMEAPE
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx MankeyName ; pre-evo name
 
 	; attack 1
-	energy FIGHTING, 2 ; energies
+	energy FIGHTING, 1, COLORLESS, 1 ; energies
 	tx FurySwipesName ; name
 	tx TripleAttackX20Description ; description
 	dw NONE ; description (cont)
