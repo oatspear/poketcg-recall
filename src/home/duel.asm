@@ -788,6 +788,10 @@ LoadCardDataToBuffer1_FromDeckIndex::
 	call LoadCardDataToBuffer1_FromCardID
 	pop af
 	ld hl, wLoadedCard1
+	push af
+	call ConvertSpecialBuzzapEnergyCard  ; preserves: hl
+	call z, LoadCardDataToBuffer1_FromCardID  ; preserves: hl, bc, de
+	pop af
 	bank1call ConvertSpecialTrainerCardToPokemon
 	ld a, e
 	pop bc
@@ -805,12 +809,50 @@ LoadCardDataToBuffer2_FromDeckIndex::
 	call LoadCardDataToBuffer2_FromCardID
 	pop af
 	ld hl, wLoadedCard2
+	push af
+	call ConvertSpecialBuzzapEnergyCard  ; preserves: hl
+	call z, LoadCardDataToBuffer2_FromCardID  ; preserves: hl, bc, de
+	pop af
 	bank1call ConvertSpecialTrainerCardToPokemon
 	ld a, e
 	pop bc
 	pop de
 	pop hl
 	ret
+
+
+; given the deck index of a turn holder's card,
+; and a pointer to the wLoadedCard* buffer where the card data is loaded,
+; check if the card is Buzzap Special Energy, and, if so, convert it
+; to a Pokémon card in the wLoadedCard* buffer, if it is not in play.
+ConvertSpecialBuzzapEnergyCard:
+	ld c, a
+	ld a, [hl]
+	cp TYPE_ENERGY_ELECTRODE
+	ret nz ; return if the card is not Buzzap Special Energy
+
+	push hl
+	ldh a, [hWhoseTurn]
+	ld h, a
+	ld l, c
+	ld a, [hl]
+	and CARD_LOCATION_PLAY_AREA
+	pop hl
+	ret nz ; return if the card is in the arena or bench
+
+; overwrite card data and ID in the deck list
+	push hl
+	ld a, c
+	call _GetCardIDFromDeckIndex  ; points hl to the deck ID list
+	ld de, ELECTRODE_LV35
+	ld [hl], d
+	dec hl
+	ld [hl], e
+	pop hl
+; signal z flag to reload card data
+	xor a
+	ret
+
 
 ; evolve a turn holder's Pokemon card in the play area slot determined by hTempPlayAreaLocation_ff9d
 ; into another turn holder's Pokemon card identifier by its deck index (0-59) in hTempCardIndex_ff98.
@@ -1259,10 +1301,12 @@ GetPlayAreaCardAttachedEnergies::
 	add hl, de
 	inc [hl] ; increment the number of energy cards of this type
 	cp COLORLESS
-	jr nz, .not_colorless
+	jr z, .colorless
+	cp UNUSED_TYPE
+	jr nz, .not_an_energy_card
+.colorless
 	inc [hl] ; each colorless energy counts as two
 .not_an_energy_card
-.not_colorless
 	pop bc
 	pop de
 	pop hl
@@ -1281,6 +1325,18 @@ GetPlayAreaCardAttachedEnergies::
 	dec c
 	jr nz, .sum_attached_energies_loop
 	ld [hl], a ; save to wTotalAttachedEnergies
+; tally rainbow energies
+	ld a, [wAttachedEnergies + UNUSED_TYPE]
+	ld b, a
+	ld hl, wAttachedEnergies
+	ld c, NUM_TYPES - 1
+.rainbow_loop
+	ld a, b
+	add [hl]
+	ld [hli], a
+	dec c
+	jr nz, .rainbow_loop
+; end
 	pop bc
 	pop de
 	pop hl

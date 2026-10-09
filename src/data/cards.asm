@@ -5116,39 +5116,52 @@ ElectrodeLv35Card:
 	gfx ElectrodeLv35CardGfx ; gfx
 	tx ElectrodeName ; name
 	db STAR ; rarity
-	db LABORATORY | GB ; sets
+	db LABORATORY | NONE ; sets
 	dw ELECTRODE_LV35
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx VoltorbName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
-	tx EnergySpikeName ; name
-	tx EnergySpikeDescription ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw ElectrodeEnergySpikeEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db SPECIAL_AI_HANDLING ; flags 3
-	db 0
-	db ATK_ANIM_GLOW_EFFECT ; animation
+	; energy COLORLESS, 2 ; energies
+	; tx EnergySpikeName ; name
+	; tx EnergySpikeDescription ; description
+	; dw NONE ; description (cont)
+	; db 0 ; damage
+	; db RESIDUAL ; category
+	; dw ElectrodeEnergySpikeEffectCommands ; effect commands
+	; db NONE ; flags 1
+	; db NONE ; flags 2
+	; db SPECIAL_AI_HANDLING ; flags 3
+	; db 0
+	; db ATK_ANIM_GLOW_EFFECT ; animation
 
-	; attack 2
-	energy COLORLESS, 3 ; energies
-	tx SonicboomName ; name
-	tx SonicboomDescription ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw SonicboomEffectCommands ; effect commands
+	energy 0 ; energies
+	tx BuzzapName ; name
+	tx BuzzapDescription ; description
+	tx PokemonPowerDescriptionCont ; description (cont)
+	db 0 ; damage
+	db POKEMON_POWER ; category
+	dw BuzzapEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_SONICBOOM ; animation
+	db ATK_ANIM_PKMN_POWER_1 ; animation
+
+	; attack 2
+	energy LIGHTNING, 3 ; energies
+	tx ThunderJoltName ; name
+	tx ThunderJoltDescription ; description
+	dw NONE ; description (cont)
+	db 50 ; damage
+	db DAMAGE_NORMAL ; category
+	dw PikachuThunderJoltEffectCommands ; effect commands
+	db LOW_RECOIL ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_THUNDERSHOCK ; animation
 
 	db 1 ; retreat cost
 	db WR_FIGHTING ; weakness
@@ -5776,7 +5789,7 @@ MankeyCard:
 	energy 0 ; energies
 	tx PeekName ; name
 	tx PeekDescription ; description
-	tx PeekDescriptionCont ; description (cont)
+	tx PokemonPowerDescriptionCont ; description (cont)
 	db 0 ; damage
 	db POKEMON_POWER ; category
 	dw MankeyPeekEffectCommands ; effect commands
@@ -9436,6 +9449,17 @@ DoubleColorlessEnergyCard:
 	dw DOUBLE_COLORLESS_ENERGY
 	dw DoubleColorlessEnergyEffectCommands ; effect commands
 	tx DoubleColorlessEnergyDescription ; description
+	dw NONE ; description (cont)
+
+ElectrodeEnergyCard:
+	db TYPE_ENERGY_ELECTRODE ; type
+	gfx ElectrodeLv35CardGfx ; gfx
+	tx ElectrodeName ; name
+	db STAR ; rarity
+	db ENERGY | GB ; sets
+	dw ELECTRODE_ENERGY
+	dw ElectrodeEnergyEffectCommands ; effect commands
+	tx ElectrodeEnergyDescription ; description
 	dw NONE ; description (cont)
 
 ProfessorOakCard:

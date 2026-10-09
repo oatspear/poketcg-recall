@@ -311,8 +311,8 @@ ThunderJoltName:
 	done
 
 ThunderJoltDescription:
-	text "Flip a coin. If tails, Pikachu does"
-	line "10 damage to itself."
+	text "Flip a coin. If tails, this Pokémon"
+	line "does 10 damage to itself."
 	done
 
 MouseName:
@@ -537,6 +537,19 @@ VoltorbDescription:
 
 ElectrodeName:
 	text "Electrode"
+	done
+
+BuzzapName:
+	text "Buzzap"
+	done
+
+BuzzapDescription:
+	text "Once during your turn, you may Knock"
+	line "Out this Pokémon and attach it to 1"
+	line "of your other Pokémon as a Special"
+	line "Energy card that provides every type"
+	line "of Energy but only provides 2 Energy"
+	line "at a time."
 	done
 
 EnergySpikeName:
@@ -839,9 +852,10 @@ PeekDescription:
 	line "either player's Prizes."
 	done
 
-PeekDescriptionCont:
-	text "This power can't be used if Mankey"
-	line "is Asleep, Confused, or Paralyzed."
+PokemonPowerDescriptionCont:
+	text "This Power cannot be used if this"
+	line "Pokémon is Asleep, Confused, or"
+	line "Paralyzed."
 	done
 
 PigMonkeyName:

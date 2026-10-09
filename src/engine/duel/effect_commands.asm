@@ -850,6 +850,11 @@ ElectrodeChainLightningEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ChainLightningEffect
 	db  $00
 
+BuzzapEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Buzzap_PreconditionCheck
+	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Buzzap_PlayerSelectEffect
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Buzzap_KnockOutAndAttachEnergyEffect
+	db  $00
 
 RaichuThunderEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Thunder_Recoil50PercentEffect
@@ -1121,24 +1126,13 @@ JigglypuffExpandEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, ExpandEffect
 	db  $00
 
+ElectrodeEnergyEffectCommands:
 DoubleColorlessEnergyEffectCommands:
-	db  $00
-
 PsychicEnergyEffectCommands:
-	db  $00
-
 FightingEnergyEffectCommands:
-	db  $00
-
 LightningEnergyEffectCommands:
-	db  $00
-
 WaterEnergyEffectCommands:
-	db  $00
-
 FireEnergyEffectCommands:
-	db  $00
-
 GrassEnergyEffectCommands:
 	db  $00
 

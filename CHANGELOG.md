@@ -405,8 +405,10 @@
 - **New attack: (C)(C) Sonicboom**: 20 damage. Not affected by Weakness or Resistance.
 
 ### Electrode (GB)
-- **Energy Spike**: reduced cost from (L)(L)(L) to (C)(C).
-- **Sonicboom**: increased cost from (L)(L) to (C)(C)(C).
+- Replaced with Base Set Electrode.
+- Increased HP from 70 to 80.
+- **New Pokémon Power: Buzzap**: Knocks Out the user and attaches itself to another Pokémon as a Special Energy that provides 2 Energy of any type.
+- **New attack: (L)(L)(L) Thunder Jolt**: 50 damage. Flips a coin. On tails, does 10 recoil damage.
 
 ### Electrode (Jungle)
 - **Chain Lightning**: increased base damage from 20 to 30.

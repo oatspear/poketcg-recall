@@ -754,7 +754,7 @@ LookForCardsInDeck:
 	call GetCardIDFromDeckIndex
 	call GetCardType
 	cp TYPE_ENERGY_DOUBLE_COLORLESS
-	jr z, .loop_deck_energy
+	jr nc, .loop_deck_energy
 	and TYPE_ENERGY
 	jr z, .loop_deck_energy
 	or a
@@ -2511,6 +2511,119 @@ VenomPowder_PoisonConfusion50PercentEffect:
 	ret c
 	ld a, CONFUSED | POISONED
 	ld [wNoEffectFromWhichStatus], a
+	ret
+
+
+Buzzap_PreconditionCheck:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ldh [hTemp_ffa0], a
+
+; fail if there is only one Pokémon
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetTurnDuelistVariable
+	ldtx hl, CannotUseSinceTheresOnly1PkmnText
+	cp 2
+	ret c
+
+; fail if the Pokémon is incapable of using Powers
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	jp CheckIsIncapableOfUsingPkmnPower
+
+
+Buzzap_PlayerSelectEffect:
+	ldh a, [hTemp_ffa0]
+; simulate Knock Out early for the selection screen
+	add DUELVARS_ARENA_CARD_HP
+	call GetTurnDuelistVariable
+	push af
+	push hl
+	xor a
+	ld [hl], a
+; select Pokémon to attach energy to
+	ldtx hl, ChoosePokemonToAttachEnergyCardText
+	call DrawWideTextBox_WaitForInput
+	bank1call HasAlivePokemonInBench
+.loop
+	bank1call OpenPlayAreaScreenForSelection
+	ld e, $ff
+	jr c, .restore_variables  ; cancel selection
+; unable to select the Power user
+	ldh a, [hTemp_ffa0]
+	ld e, a
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	cp e
+	jr z, .loop
+; store a valid selection
+	ldh [hAIPkmnPowerEffectParam], a
+.restore_variables
+; restore play area location variable
+	ldh a, [hTemp_ffa0]
+	ldh [hTempPlayAreaLocation_ff9d], a
+; restore HP of the user
+	pop hl
+	pop af
+	ld [hl], a
+; check whether the selection was cancelled or valid
+	inc e
+	ret nz
+; set carry to cancel the Power if e was $ff
+	scf
+	ret
+
+
+Buzzap_KnockOutAndAttachEnergyEffect:
+; Knock Out the Power user and play damage animation (play area)
+	; [wLoadedAttackAnimation]: animation to play
+	ld a, ATK_ANIM_BENCH_HIT
+	ld [wLoadedAttackAnimation], a
+	; c: a wDamageEffectiveness constant (to print WEAK or RESIST if necessary)
+	ld c, $00
+	; b: PLAY_AREA_* location, if applicable
+	ldh a, [hTemp_ffa0]
+	ld b, a
+	; hl: address to subtract HP from
+	add DUELVARS_ARENA_CARD_HP
+	call GetTurnDuelistVariable
+	; de: damage dealt by the attack (to display the animation with the number)
+	ld e, a
+	ld d, 0
+	bank1call PlayAttackAnimation_DealAttackDamageSimple  ; preserves: hl, de
+	xor a
+	ld [hl], a  ; ensure HP is zero (might be redundant)
+	; print that the Pokemon card was knocked out
+	ld a, [wLoadedCard1ID + 0]
+	ld [wTempNonTurnDuelistCardID + 0], a
+	ld a, [wLoadedCard1ID + 1]
+	ld [wTempNonTurnDuelistCardID + 1], a
+	call PrintKnockedOut
+; get the card index of the user
+	ldh a, [hTemp_ffa0]  ; location
+	add DUELVARS_ARENA_CARD
+	ld l, a
+	ld a, [hl]
+	ldh [hTemp_ffa0], a  ; deck index
+; overwrite card ID
+	ldh [hTempCardIndex_ff98], a
+	call _GetCardIDFromDeckIndex  ; points hl to the deck ID list
+	ld de, ELECTRODE_ENERGY
+	ld [hl], d
+	dec hl
+	ld [hl], e
+; move the card to the other play area location
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_CARD_LOCATIONS
+	call GetTurnDuelistVariable
+	ldh a, [hAIPkmnPowerEffectParam]
+	or CARD_LOCATION_PLAY_AREA
+	ld [hl], a
+; show energy attachment screen
+	;  [hTemp_ffa0] = deck index of the Energy card
+	;  [hTempPlayAreaLocation_ffa1] = PLAY_AREA_* of the target Pokémon
+	; call IsPlayerTurn
+	; call nc, DisplayAttachedEnergyToPokemon
+	call DisplayAttachedEnergyToPokemon
+; process Knock Out to clean up play area slot
+	bank1call HandleBetweenTurnKnockOuts
 	ret
 
 
@@ -6644,6 +6757,18 @@ EnergySpike_AttachEnergyEffect:
 
 ; not Player, so show detail screen
 ; and which Pokemon was chosen to attach Energy.
+	call DisplayAttachedEnergyToPokemon
+
+.done
+	jp ShuffleCardsInDeck
+
+
+; input:
+;  [hTemp_ffa0] = deck index of the Energy card
+;  [hTempPlayAreaLocation_ffa1] = PLAY_AREA_* of the target Pokémon
+; output:
+;  [wLoadedCard1] = card data of the Energy card
+DisplayAttachedEnergyToPokemon:
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -6658,9 +6783,8 @@ EnergySpike_AttachEnergyEffect:
 	ldh a, [hTemp_ffa0]
 	ldtx hl, AttachedEnergyToPokemonText
 	bank1call DisplayCardDetailScreen
+	ret
 
-.done
-	jp ShuffleCardsInDeck
 
 JolteonDoubleKick_AIEffect:
 	ld a, 40 / 2

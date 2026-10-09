@@ -844,7 +844,10 @@ DisplayRetreatScreen:
 	ld c, 1
 	ld a, [wLoadedCard2Type]
 	cp TYPE_ENERGY_DOUBLE_COLORLESS
+	jr z, .double
+	cp TYPE_ENERGY_ELECTRODE
 	jr nz, .not_double
+.double
 	inc c
 .not_double
 	ld hl, wNumRetreatEnergiesSelected

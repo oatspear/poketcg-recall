@@ -771,6 +771,7 @@ ConvertColorToEnergyCardID:
 	dw FIGHTING_ENERGY
 	dw PSYCHIC_ENERGY
 	dw DOUBLE_COLORLESS_ENERGY
+	dw ELECTRODE_ENERGY
 
 
 ; return carry depending on card index in a:

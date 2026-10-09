@@ -1239,6 +1239,12 @@ DoubleColorlessEnergyDescription:
 	line "Colorless Energy costs.)"
 	done
 
+ElectrodeEnergyDescription:
+	text "Special Energy card."
+	line "Provides every type of Energy but"
+	line "provides only 2 Energy at a time."
+	done
+
 BulbasaurName:
 	text "Bulbasaur"
 	done

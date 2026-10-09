@@ -1006,7 +1006,7 @@ AITryToRetreat:
 	jr c, .energy_not_same_color
 	ld a, [hli]
 	cp $ff
-	jr z, .energy_not_same_color
+	jr z, .buzzap_energy
 	ld [de], a
 	push de
 	call GetCardIDFromDeckIndex
@@ -1020,6 +1020,32 @@ AITryToRetreat:
 	dec c
 	dec c
 	jr nz, .loop_2
+	jr .end_retreat_list
+
+; look also for and discard Buzzap energy
+; if retreat cost is >= 2
+.buzzap_energy
+	ld hl, wDuelTempList
+.loop_buzzap
+	ld a, c
+	cp 2
+	jr c, .energy_not_same_color
+	ld a, [hli]
+	cp $ff
+	jr z, .energy_not_same_color
+	ld [de], a
+	push de
+	call GetCardIDFromDeckIndex
+	cp16 ELECTRODE_ENERGY
+	pop de
+	jr nz, .loop_buzzap
+	ld a, [de]
+	call RemoveCardFromDuelTempList
+	dec hl
+	inc de
+	dec c
+	dec c
+	jr nz, .loop_buzzap
 	jr .end_retreat_list
 
 ; second, shuffle attached cards and discard energy cards
@@ -1061,10 +1087,17 @@ AITryToRetreat:
 	push de
 	call GetCardIDFromDeckIndex
 	cp16 DOUBLE_COLORLESS_ENERGY
+	jr z, .double_discount
+	cp16 ELECTRODE_ENERGY
+	jr z, .double_discount
 	pop de
-	jr nz, .not_double_colorless
+	jr .not_double_colorless
+
+.double_discount
+	pop de
 	dec c
 	jr z, .end_retreat_list
+
 .not_double_colorless
 	dec c
 	jr nz, .loop_4

@@ -100,9 +100,7 @@ FindBasicEnergyCardsInLocation:
 ; is in the card location we're looking for
 	ld a, e
 	push de
-	push hl
-	call GetCardIDFromDeckIndex
-	pop hl
+	call GetCardIDFromDeckIndex  ; preserves hl
 	cp16 DOUBLE_COLORLESS_ENERGY
 	pop de
 	; only basic energy cards
@@ -236,10 +234,10 @@ PickAttachedEnergyCardToRemove:
 	ld a, [hl]
 	cp $ff
 	jr z, .check_useful
-	push hl
-	call GetCardIDFromDeckIndex
+	call GetCardIDFromDeckIndex  ; preserves hl
 	cp16 DOUBLE_COLORLESS_ENERGY
-	pop hl
+	jr z, .found
+	cp16 ELECTRODE_ENERGY
 	jr z, .found
 	inc hl
 	jr .loop_1
@@ -318,10 +316,10 @@ PickTwoAttachedEnergyCards:
 	ld a, [hl]
 	cp $ff
 	jr z, .check_useful
-	push hl
 	call GetCardIDFromDeckIndex
 	cp16 DOUBLE_COLORLESS_ENERGY
-	pop hl
+	jr z, .found_double_colorless
+	cp16 ELECTRODE_ENERGY
 	jr z, .found_double_colorless
 	inc hl
 	jr .loop_1
@@ -334,7 +332,7 @@ PickTwoAttachedEnergyCards:
 	jr .loop_1
 .already_chosen_1
 	ld a, [hl]
-	ld [wCurCardCanAttack], a
+	ld [wTempAI2], a
 	jr .done
 
 ; then look for any energy cards that are useful
@@ -416,6 +414,8 @@ CheckIfEnergyIsUseful:
 	push de
 	call GetCardIDFromDeckIndex
 	cp16 DOUBLE_COLORLESS_ENERGY
+	jp z, .set_carry
+	cp16 ELECTRODE_ENERGY
 	jp z, .set_carry
 	ld a, [wTempCardType]
 	cp TYPE_ENERGY_DOUBLE_COLORLESS

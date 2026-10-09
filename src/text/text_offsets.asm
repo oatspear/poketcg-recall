@@ -1968,6 +1968,7 @@ TextOffsets::
 	textpointer PsychicEnergyDescription
 	textpointer DoubleColorlessEnergyName
 	textpointer DoubleColorlessEnergyDescription
+	textpointer ElectrodeEnergyDescription
 	textpointer BulbasaurName
 	textpointer LeechSeedName
 	textpointer LeechSeedDescription
@@ -2433,6 +2434,8 @@ TextOffsets::
 	textpointer BallName
 	textpointer VoltorbDescription
 	textpointer ElectrodeName
+	textpointer BuzzapName
+	textpointer BuzzapDescription
 	textpointer EnergySpikeName
 	textpointer EnergySpikeDescription
 	textpointer ElectrodeLv35Description
@@ -2487,7 +2490,7 @@ TextOffsets::
 	textpointer MankeyName
 	textpointer PeekName
 	textpointer PeekDescription
-	textpointer PeekDescriptionCont
+	textpointer PokemonPowerDescriptionCont
 	textpointer PigMonkeyName
 	textpointer MankeyDescription
 	textpointer PrimeapeName

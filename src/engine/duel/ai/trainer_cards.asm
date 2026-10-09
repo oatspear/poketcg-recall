@@ -563,6 +563,8 @@ CheckEnergyNeededForLoadedAttackAfterDiscard:
 	call AIPickEnergyCardToDiscard
 	call LoadCardDataToBuffer1_FromDeckIndex
 	ld hl, wLoadedCard1ID
+	cphl ELECTRODE_ENERGY
+	jr z, .electrode
 	cphl DOUBLE_COLORLESS_ENERGY
 	jr z, .colorless
 
@@ -575,6 +577,21 @@ CheckEnergyNeededForLoadedAttackAfterDiscard:
 	add hl, bc
 	dec [hl]
 	ld hl, wTotalAttachedEnergies
+	dec [hl]
+	jr .got_final_energy_count
+
+; decrease energy of all colors by 2
+.electrode
+	ld c, NUM_TYPES
+	ld hl, wAttachedEnergies
+.loop_electrode
+	dec [hl]
+	dec [hl]
+	inc hl
+	dec c
+	jr nz, .loop_electrode
+	ld hl, wTotalAttachedEnergies
+	dec [hl]
 	dec [hl]
 	jr .got_final_energy_count
 
