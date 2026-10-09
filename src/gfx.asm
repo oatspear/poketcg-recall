@@ -1668,9 +1668,12 @@ VoltorbCardGfx::
 	INCBIN "gfx/cards/voltorb.2bpp"
 
 ElectrodeLv35CardGfx::
-	INCBIN "gfx/cards/electrode_lv35.pal"
-	INCBIN "gfx/cards/electrode_lv35.attrmap"
-	INCBIN "gfx/cards/electrode_lv35.2bpp"
+	; INCBIN "gfx/cards/electrode_lv35.pal"
+	; INCBIN "gfx/cards/electrode_lv35.attrmap"
+	; INCBIN "gfx/cards/electrode_lv35.2bpp"
+	INCBIN "gfx/cards/electrode_base.pal"
+	INCBIN "gfx/cards/electrode_base.attrmap"
+	INCBIN "gfx/cards/electrode_base.2bpp"
 
 ElectrodeLv42CardGfx::
 	INCBIN "gfx/cards/electrode_lv42.pal"

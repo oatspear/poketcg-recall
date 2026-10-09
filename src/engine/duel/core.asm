@@ -1317,6 +1317,7 @@ CheckIfEnoughEnergiesToAttack:
 	push bc
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	call HandleEnergyBurn
 	ldh a, [hCurMenuItem]
 	add a
@@ -4077,18 +4078,19 @@ PrintAttackOrPkmnPowerInformation:
 	pop hl
 	inc hl
 	inc hl
+	; hl = Description
 	ld a, [wCardPageNumber]
 	or a
 	jr nz, .print_damage
 	dec hl
 	ld a, [hli]
 	or [hl]
-	jr z, .print_damage
+	; jr z, .print_damage
 	; if in Attack menu and attack 1 description exists, print at 18,e:
-	ld b, 18
-	ld c, e
-	ld a, SYM_ATK_DESCR
-	call WriteByteToBGMap0
+	; ld b, 18
+	; ld c, e
+	; ld a, SYM_ATK_DESCR
+	; call WriteByteToBGMap0
 .print_damage
 	inc hl
 	inc hl
@@ -5322,6 +5324,9 @@ CheckPrintCnfSlpPrz:
 	;  NO_STATUS, CONFUSED,     ASLEEP,     PARALYZED
 	db SYM_SPACE, SYM_CONFUSED, SYM_ASLEEP, SYM_PARALYZED
 
+
+DEF MAX_PRINTED_ENERGIES EQU NUM_TYPES
+
 ; print the symbols of the attached energies of a turn holder's play area card
 ; input:
 ; - e: PLAY_AREA_*
@@ -5332,7 +5337,7 @@ PrintPlayAreaCardAttachedEnergies:
 	call GetPlayAreaCardAttachedEnergies
 	ld hl, wDefaultText
 	push hl
-	ld c, NUM_TYPES
+	ld c, MAX_PRINTED_ENERGIES
 	xor a
 .empty_loop
 	ld [hli], a
@@ -5355,6 +5360,18 @@ PrintPlayAreaCardAttachedEnergies:
 	inc b
 	dec c
 	jr nz, .next_color
+; check for rainbow energies too
+	ld b, SYM_ELECTRODE
+	ld a, [de] ; energy count
+	inc a
+.loop_rainbow
+	dec a
+	jr z, .no_rainbow
+	ld [hl], b
+	inc hl
+	jr .loop_rainbow
+.no_rainbow
+; check the total number of energies
 	ld a, [wTotalAttachedEnergies]
 	cp 9
 	jr c, .place_tiles

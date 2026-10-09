@@ -1325,6 +1325,19 @@ GetPlayAreaCardAttachedEnergies::
 	dec c
 	jr nz, .sum_attached_energies_loop
 	ld [hl], a ; save to wTotalAttachedEnergies
+; end
+	pop bc
+	pop de
+	pop hl
+	ret
+
+
+; input:
+;  [wAttachedEnergies]: already populated
+; preserves: hl, bc, de
+HandleRainbowEnergies::
+	push hl
+	push bc
 ; tally rainbow energies
 	ld a, [wAttachedEnergies + UNUSED_TYPE]
 	ld b, a
@@ -1338,9 +1351,9 @@ GetPlayAreaCardAttachedEnergies::
 	jr nz, .rainbow_loop
 ; end
 	pop bc
-	pop de
 	pop hl
 	ret
+
 
 ; returns in a how many times card e can be found in location b
 ; de = card id to search

@@ -9456,7 +9456,7 @@ ElectrodeEnergyCard:
 	gfx ElectrodeLv35CardGfx ; gfx
 	tx ElectrodeName ; name
 	db STAR ; rarity
-	db ENERGY | GB ; sets
+	db ENERGY | NONE ; sets
 	dw ELECTRODE_ENERGY
 	dw ElectrodeEnergyEffectCommands ; effect commands
 	tx ElectrodeEnergyDescription ; description

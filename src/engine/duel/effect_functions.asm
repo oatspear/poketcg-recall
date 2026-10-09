@@ -1020,6 +1020,15 @@ AIPickEnergyCardToDiscardFromDefendingPokemon:
 	jr .done
 
 .has_energy
+	; try to pick rainbow energies first
+	ld a, [wAttachedEnergies + UNUSED_TYPE]
+	or a
+	jr z, .no_rainbow_energy
+	ld e, UNUSED_TYPE
+	jr .pick_color
+
+.no_rainbow_energy
+	; proceed with normal logic
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
@@ -1077,6 +1086,7 @@ AIPickAttackForAmnesia:
 	call SwapTurn
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	call HandleEnergyBurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -2542,7 +2552,7 @@ Buzzap_PlayerSelectEffect:
 ; select Pokémon to attach energy to
 	ldtx hl, ChoosePokemonToAttachEnergyCardText
 	call DrawWideTextBox_WaitForInput
-	bank1call HasAlivePokemonInBench
+	bank1call HasAlivePokemonInPlayArea
 .loop
 	bank1call OpenPlayAreaScreenForSelection
 	ld e, $ff
@@ -2554,7 +2564,7 @@ Buzzap_PlayerSelectEffect:
 	cp e
 	jr z, .loop
 ; store a valid selection
-	ldh [hAIPkmnPowerEffectParam], a
+	ldh [hTempPlayAreaLocation_ffa1], a
 .restore_variables
 ; restore play area location variable
 	ldh a, [hTemp_ffa0]
@@ -2579,30 +2589,36 @@ Buzzap_KnockOutAndAttachEnergyEffect:
 	; c: a wDamageEffectiveness constant (to print WEAK or RESIST if necessary)
 	ld c, $00
 	; b: PLAY_AREA_* location, if applicable
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTemp_ffa0]  ; location
 	ld b, a
 	; hl: address to subtract HP from
 	add DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
+
+	push hl
+	ld a, b
+	add DUELVARS_ARENA_CARD
+	ld l, a
+	ld a, [hl]
+	ldh [hTemp_ffa0], a  ; deck index
+	call LoadCardDataToBuffer1_FromDeckIndex
+	; [wTempNonTurnDuelistCardID]: name of the target Pokémon
+	ld a, [wLoadedCard1ID + 0]
+	ld [wTempNonTurnDuelistCardID + 0], a
+	ld a, [wLoadedCard1ID + 1]
+	ld [wTempNonTurnDuelistCardID + 1], a
+	pop hl
+
 	; de: damage dealt by the attack (to display the animation with the number)
+	ld a, [hl]
 	ld e, a
 	ld d, 0
 	bank1call PlayAttackAnimation_DealAttackDamageSimple  ; preserves: hl, de
 	xor a
 	ld [hl], a  ; ensure HP is zero (might be redundant)
-	; print that the Pokemon card was knocked out
-	ld a, [wLoadedCard1ID + 0]
-	ld [wTempNonTurnDuelistCardID + 0], a
-	ld a, [wLoadedCard1ID + 1]
-	ld [wTempNonTurnDuelistCardID + 1], a
 	call PrintKnockedOut
-; get the card index of the user
-	ldh a, [hTemp_ffa0]  ; location
-	add DUELVARS_ARENA_CARD
-	ld l, a
-	ld a, [hl]
-	ldh [hTemp_ffa0], a  ; deck index
 ; overwrite card ID
+	ldh a, [hTemp_ffa0]
 	ldh [hTempCardIndex_ff98], a
 	call _GetCardIDFromDeckIndex  ; points hl to the deck ID list
 	ld de, ELECTRODE_ENERGY
@@ -2613,7 +2629,7 @@ Buzzap_KnockOutAndAttachEnergyEffect:
 	ldh a, [hTemp_ffa0]
 	add DUELVARS_CARD_LOCATIONS
 	call GetTurnDuelistVariable
-	ldh a, [hAIPkmnPowerEffectParam]
+	ldh a, [hTempPlayAreaLocation_ffa1]
 	or CARD_LOCATION_PLAY_AREA
 	ld [hl], a
 ; show energy attachment screen
@@ -2799,6 +2815,7 @@ ApplyExtraWaterEnergyDamageBonus:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld e, a
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	pop bc
 
 	ld hl, wAttachedEnergies + WATER
@@ -3010,6 +3027,7 @@ VaporeonWaterGunEffect:
 StarmieRecover_CheckEnergyHP:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + WATER]
 	ldtx hl, NotEnoughWaterEnergyText
 	cp 1
@@ -3298,14 +3316,6 @@ AIPickFireEnergyCardToDiscard:
 	ldh [hTempList], a ; pick first in list
 	ret
 
-; returns carry if Arena card has no Fire Energy cards
-Flamethrower_CheckEnergy:
-	ld e, PLAY_AREA_ARENA
-	call GetPlayAreaCardAttachedEnergies
-	ld a, [wAttachedEnergies + FIRE]
-	ldtx hl, NotEnoughFireEnergyText
-	cp 1
-	ret
 
 Flamethrower_PlayerSelectEffect:
 	jp PlayerPickFireEnergyCardToDiscard
@@ -3325,6 +3335,8 @@ TakeDownEffect:
 FlamesOfRage_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
+	call HandleEnergyBurn
 	ld a, [wAttachedEnergies + FIRE]
 	ldtx hl, NotEnoughFireEnergyText
 	cp 2
@@ -3376,8 +3388,13 @@ FlamesOfRage_DamageBoostEffect:
 
 ; return carry if no Fire energy cards
 FireBlast_CheckEnergy:
+Ember_CheckEnergy:
+Wildfire_CheckEnergy:
+Flamethrower_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
+	call HandleEnergyBurn
 	ldtx hl, NotEnoughFireEnergyText
 	ld a, [wAttachedEnergies + FIRE]
 	cp 1
@@ -3393,15 +3410,6 @@ FireBlast_DiscardEffect:
 	ldh a, [hTempList]
 	jp PutCardInDiscardPile
 
-; return carry if no Fire energy cards
-Ember_CheckEnergy:
-	ld e, PLAY_AREA_ARENA
-	call GetPlayAreaCardAttachedEnergies
-	ldtx hl, NotEnoughFireEnergyText
-	ld a, [wAttachedEnergies + FIRE]
-	cp 1
-	ret
-
 Ember_PlayerSelectEffect:
 	jp PlayerPickFireEnergyCardToDiscard
 
@@ -3411,15 +3419,6 @@ Ember_AISelectEffect:
 Ember_DiscardEffect:
 	ldh a, [hTempList]
 	jp PutCardInDiscardPile
-
-; return carry if no Fire energy cards
-Wildfire_CheckEnergy:
-	ld e, PLAY_AREA_ARENA
-	call GetPlayAreaCardAttachedEnergies
-	ldtx hl, NotEnoughFireEnergyText
-	ld a, [wAttachedEnergies + FIRE]
-	cp 1
-	ret
 
 Wildfire_PlayerSelectEffect:
 	ldtx hl, DiscardOppDeckAsManyFireEnergyCardsText
@@ -4160,8 +4159,10 @@ SleepingGasEffect:
 	ret
 
 DestinyBond_CheckEnergy:
+Barrier_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -4895,14 +4896,6 @@ Psychic_DamageBoostEffect:
 	ld [hl], a
 	ret
 
-; return carry if no Psychic Energy attached
-Barrier_CheckEnergy:
-	ld e, PLAY_AREA_ARENA
-	call GetPlayAreaCardAttachedEnergies
-	ld a, [wAttachedEnergies + PSYCHIC]
-	ldtx hl, NotEnoughPsychicEnergyText
-	cp 1
-	ret
 
 Barrier_PlayerSelectEffect:
 	ld a, TYPE_ENERGY_PSYCHIC
@@ -5162,6 +5155,7 @@ SpacingOut_HealEffect:
 Scavenge_CheckDiscardPile:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -5244,6 +5238,7 @@ Amnesia_DisableEffect:
 KadabraRecover_CheckEnergyHP:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -7578,6 +7573,7 @@ AISelectConversionColor:
 .loop_atk
 	push de
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	ld a, e
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -7609,6 +7605,7 @@ AISelectConversionColor:
 .loop_energy
 	push de
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	ld a, [wTotalAttachedEnergies]
 	or a
 	jr z, .skip_pkmn_energy

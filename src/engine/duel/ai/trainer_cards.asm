@@ -580,16 +580,11 @@ CheckEnergyNeededForLoadedAttackAfterDiscard:
 	dec [hl]
 	jr .got_final_energy_count
 
-; decrease energy of all colors by 2
+; decrease attached rainbow energies by 2
 .electrode
-	ld c, NUM_TYPES
-	ld hl, wAttachedEnergies
-.loop_electrode
+	ld hl, wAttachedEnergies + UNUSED_TYPE
 	dec [hl]
 	dec [hl]
-	inc hl
-	dec c
-	jr nz, .loop_electrode
 	ld hl, wTotalAttachedEnergies
 	dec [hl]
 	dec [hl]
@@ -605,6 +600,7 @@ CheckEnergyNeededForLoadedAttackAfterDiscard:
 	dec [hl]
 
 .got_final_energy_count
+	call HandleRainbowEnergies
 	call HandleEnergyBurn
 	farcall CheckEnergyNeededForLoadedAttackWithAttachedEnergies
 	ret

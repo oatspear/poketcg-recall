@@ -631,6 +631,7 @@ CheckEnergyNeededForLoadedAttack:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld e, a
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	call HandleEnergyBurn
 	; jr CheckEnergyNeededForLoadedAttackWithAttachedEnergies
 	; fallthrough
@@ -1140,9 +1141,14 @@ CountNumberOfEnergyCardsAttached:
 	dec b
 	jr nz, .loop
 
-	ld b, [hl]
-	srl b
 ; counts colorless and halves it
+	ld b, [hl]  ; DOUBLE_COLORLESS_ENERGY
+	srl b
+	add b
+	; counts buzzap energy and halves it
+	inc hl
+	ld b, [hl]  ; ELECTRODE_ENERGY
+	srl b
 	add b
 	pop bc
 	pop hl
@@ -2145,6 +2151,7 @@ CheckIfNoSurplusEnergyForLoadedAttack:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld e, a
 	call GetPlayAreaCardAttachedEnergies
+	call HandleRainbowEnergies
 	call HandleEnergyBurn
 	xor a
 	ld [wTempLoadedAttackEnergyCost], a
