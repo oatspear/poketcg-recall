@@ -444,6 +444,15 @@
 - **Slash**: increased damage from 20 to 30.
 - **Fury Swipes**: reduced cost from (F)(F) to (F)(C).
 
+### Diglett
+- Increased HP from 30 to 40.
+- **Dig**: reduced cost from (F) to (C).
+
+### Dugtrio
+- Reduced retreat cost from 2 to 1.
+- **Slash**: reduced cost from (F)(F)(C) to (F)(C)(C).
+- **Earthquake**: reduced cost from (F)(F)(F)(F) to (F)(F)(C)(C).
+
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
 
