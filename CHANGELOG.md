@@ -481,8 +481,26 @@
 - **Selfdestruct**: reduced cost from (F)(F)(F)(F) to (F)(F)(F)(C).
 - **Selfdestruct**: increased recoil from 100 to 120.
 
+### Onix
+- Reduced HP from 90 to 70.
+- **Harden**: reduced cost from (F)(F) to (F).
+- **Rock Throw**: increased cost from (F) to (F)(C).
+- **Rock Throw**: increased damage from 10 to 20.
+
 ### Cubone
 - **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
+- **Rage**: reduced cost from (F)(F) to (F)(C).
+
+### Marowak (Jungle)
+- Increased HP from 60 to 80.
+- **Bonemerang**: reduced cost from (F)(F) to (F)(C).
+- **Call for Friend**: reduced cost from (F)(F)(C) to (C).
+
+### Marowak (GB)
+- Increased HP from 70 to 80.
+- **Wail**: reduced cost from (F)(F)(F) to (F).
+- **Bone Attack**: increased cost from (F)(C) to (F)(F)(C).
+- **Bone Attack**: increased damage from 10 to 30.
 
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).

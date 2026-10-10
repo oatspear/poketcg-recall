@@ -6181,26 +6181,12 @@ OnixCard:
 	db CIRCLE ; rarity
 	db LABORATORY | NONE ; sets
 	dw ONIX
-	db 90 ; hp
+	db 70 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
 	energy FIGHTING, 1 ; energies
-	tx RockThrowName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 10 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_ROCK_THROW ; animation
-
-	; attack 2
-	energy FIGHTING, 2 ; energies
 	tx HardenName ; name
 	tx HardenDescription ; description
 	dw NONE ; description (cont)
@@ -6212,6 +6198,20 @@ OnixCard:
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_PROTECT ; animation
+
+	; attack 2
+	energy FIGHTING, 1, COLORLESS, 1 ; energies
+	tx RockThrowName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 20 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_ROCK_THROW ; animation
 
 	db 3 ; retreat cost
 	db WR_GRASS ; weakness
@@ -6250,7 +6250,7 @@ CuboneCard:
 	db ATK_ANIM_CRY ; animation
 
 	; attack 2
-	energy FIGHTING, 2 ; energies
+	energy FIGHTING, 1, COLORLESS, 1 ; energies
 	tx RageName ; name
 	tx RageDescription ; description
 	dw NONE ; description (cont)
@@ -6281,26 +6281,12 @@ MarowakLv26Card:
 	db DIAMOND ; rarity
 	db LABORATORY | JUNGLE ; sets
 	dw MAROWAK_LV26
-	db 60 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx CuboneName ; pre-evo name
 
 	; attack 1
-	energy FIGHTING, 2 ; energies
-	tx BonemerangName ; name
-	tx DoubleAttackX30Description ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_X ; category
-	dw MarowakBonemerangEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_BONEMERANG ; animation
-
-	; attack 2
-	energy FIGHTING, 2, COLORLESS, 1 ; energies
+	energy COLORLESS, 1 ; energies
 	tx CallforFriendName ; name
 	tx CallforFriendDescription ; description
 	dw NONE ; description (cont)
@@ -6312,6 +6298,20 @@ MarowakLv26Card:
 	db SPECIAL_AI_HANDLING ; flags 3
 	db 0
 	db ATK_ANIM_GLOW_EFFECT ; animation
+
+	; attack 2
+	energy FIGHTING, 1, COLORLESS, 1 ; energies
+	tx BonemerangName ; name
+	tx DoubleAttackX30Description ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_X ; category
+	dw DoubleAttackX30EffectCommands ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_BONEMERANG ; animation
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
@@ -6331,26 +6331,12 @@ MarowakLv32Card:
 	db DIAMOND ; rarity
 	db EVOLUTION | GB ; sets
 	dw MAROWAK_LV32
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx CuboneName ; pre-evo name
 
 	; attack 1
-	energy FIGHTING, 1, COLORLESS, 1 ; energies
-	tx BoneAttackName ; name
-	tx BoneAttackDescription ; description
-	dw NONE ; description (cont)
-	db 10 ; damage
-	db DAMAGE_NORMAL ; category
-	dw MarowakBoneAttackEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_BONEMERANG ; animation
-
-	; attack 2
-	energy FIGHTING, 3 ; energies
+	energy FIGHTING, 1 ; energies
 	tx WailName ; name
 	tx WailDescription ; description
 	dw NONE ; description (cont)
@@ -6362,6 +6348,20 @@ MarowakLv32Card:
 	db SPECIAL_AI_HANDLING ; flags 3
 	db 0
 	db ATK_ANIM_CRY ; animation
+
+	; attack 2
+	energy FIGHTING, 2, COLORLESS, 1 ; energies
+	tx BoneAttackName ; name
+	tx BoneAttackDescription ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_NORMAL ; category
+	dw MarowakBoneAttackEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_BONEMERANG ; animation
 
 	db 2 ; retreat cost
 	db WR_GRASS ; weakness

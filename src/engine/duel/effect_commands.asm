@@ -691,11 +691,6 @@ CuboneSnivelEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SnivelEffect
 	db  $00
 
-MarowakBonemerangEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Bonemerang_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, Bonemerang_AIEffect
-	db  $00
-
 MarowakCallforFriendEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, MarowakCallForFamily_CheckDeckAndPlayArea
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, MarowakCallForFamily_PutInPlayAreaEffect

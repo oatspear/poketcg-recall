@@ -1921,7 +1921,6 @@ HornHazard_NoDamage50PercentEffect:
 
 DoubleAttackX30_AIEffect:
 FurySwipes20_AIEffect:
-Bonemerang_AIEffect:
 DragonairSlam_AIEffect:
 DragoniteLv41Slam_AIEffect:
 	ld a, 60 / 2
@@ -1930,7 +1929,6 @@ DragoniteLv41Slam_AIEffect:
 
 ; Flip 2 coins; deal 30x number of heads
 DoubleAttackX30_MultiplierEffect:
-Bonemerang_MultiplierEffect:
 DragonairSlam_MultiplierEffect:
 DragoniteLv41Slam_MultiplierEffect:
 	ld hl, 30
