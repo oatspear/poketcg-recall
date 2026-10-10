@@ -1287,21 +1287,6 @@ AbsorbName:
 	text "Absorb"
 	done
 
-AbsorbDescription:
-	text "Remove a number of damage counters"
-	line "from Kabutops equal to half the"
-	line "damage done to the Defending"
-	line "Pokémon (after applying Weakness"
-	line "and Resistance)"
-	line "(rounded up to the nearest 10)."
-	done
-
-AbsorbDescriptionCont:
-	text "If Kabutops has fewer damage"
-	line "counters than that, remove all of"
-	line "them."
-	done
-
 KabutopsDescription:
 	text "Its sleek shape is perfect for"
 	line "swimming. It slashes prey with its"

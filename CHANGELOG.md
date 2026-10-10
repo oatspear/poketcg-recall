@@ -515,6 +515,16 @@
 - **Ram**: reduced damage from 50 to 30.
 - **New attack: (F)(F)(C)(C) Horn Drill**: 50 damage.
 
+### Kabuto
+- Increased HP from 30 to 40.
+- **Scratch**: increased damage from 10 to 20.
+
+### Kabutops
+- Increased HP from 60 to 80.
+- **Sharp Sickle**: increased cost from (F)(F) to (F)(F)(C)(C).
+- **Sharp Sickle**: increased damage from 30 to 60.
+- **Absorb**: reduced cost from (F)(F)(F)(F) to (F)(F)(C).
+
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 

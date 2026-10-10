@@ -2575,8 +2575,6 @@ TextOffsets::
 	textpointer KabutopsName
 	textpointer SharpSickleName
 	textpointer AbsorbName
-	textpointer AbsorbDescription
-	textpointer AbsorbDescriptionCont
 	textpointer KabutopsDescription
 	textpointer AerodactylName
 	textpointer PrehistoricPowerName
