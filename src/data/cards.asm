@@ -6536,25 +6536,11 @@ RhydonCard:
 	tx RhyhornName ; pre-evo name
 
 	; attack 1
-	energy FIGHTING, 1, COLORLESS, 2 ; energies
-	tx HornAttackName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_HIT ; animation
-
-	; attack 2
-	energy FIGHTING, 4 ; energies
+	energy FIGHTING, 1, COLORLESS, 1 ; energies
 	tx RamName ; name
 	tx RamDescription ; description
-	tx RamDescriptionCont ; description (cont)
-	db 50 ; damage
+	dw NONE ; description (cont)
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw RhydonRamEffectCommands ; effect commands
 	db LOW_RECOIL ; flags 1
@@ -6562,6 +6548,20 @@ RhydonCard:
 	db NONE ; flags 3
 	db 20
 	db ATK_ANIM_HIT_RECOIL ; animation
+
+	; attack 2
+	energy FIGHTING, 2, COLORLESS, 2 ; energies
+	tx HornDrillName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 50 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_HIT ; animation
 
 	db 3 ; retreat cost
 	db WR_GRASS ; weakness

@@ -509,6 +509,12 @@
 ### Hitmonlee
 - Increased HP from 60 to 70.
 
+### Rhydon
+- **Horn Attack**: removed.
+- **Ram**: reduced cost from (F)(F)(F)(F) to (F)(C).
+- **Ram**: reduced damage from 50 to 30.
+- **New attack: (F)(F)(C)(C) Horn Drill**: 50 damage.
+
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 

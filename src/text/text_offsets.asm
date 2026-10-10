@@ -2566,7 +2566,6 @@ TextOffsets::
 	textpointer RhydonName
 	textpointer RamName
 	textpointer RamDescription
-	textpointer RamDescriptionCont
 	textpointer RhydonDescription
 	textpointer KabutoName
 	textpointer KabutoArmorName
