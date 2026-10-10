@@ -470,19 +470,23 @@
 - **Seismic Toss**: reduced cost from (F)(F)(F)(C) to (F)(F)(C)(C).
 
 ### Geodude
+- Added Resistance to Lightning.
 - **New attack: (C) Tackle**: 10 damage.
 
 ### Graveler
 - Increased HP from 60 to 80.
+- Added Resistance to Lightning.
 - **Harden**: reduced cost from (F)(F) to (F).
 
 ### Golem
 - Increased HP from 80 to 120.
+- Added Resistance to Lightning.
 - **Selfdestruct**: reduced cost from (F)(F)(F)(F) to (F)(F)(F)(C).
 - **Selfdestruct**: increased recoil from 100 to 120.
 
 ### Onix
 - Reduced HP from 90 to 70.
+- Added Resistance to Lightning.
 - **Harden**: reduced cost from (F)(F) to (F).
 - **Rock Throw**: increased cost from (F) to (F)(C).
 - **Rock Throw**: increased damage from 10 to 20.

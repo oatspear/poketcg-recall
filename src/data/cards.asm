@@ -6065,7 +6065,7 @@ GeodudeCard:
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
-	db NONE ; resistance
+	db WR_LIGHTNING ; resistance
 	tx RockName ; category
 	db 74 ; Pokedex number
 	db 16 ; level
@@ -6115,7 +6115,7 @@ GravelerCard:
 
 	db 2 ; retreat cost
 	db WR_GRASS ; weakness
-	db NONE ; resistance
+	db WR_LIGHTNING ; resistance
 	tx RockName ; category
 	db 75 ; Pokedex number
 	db 29 ; level
@@ -6165,7 +6165,7 @@ GolemCard:
 
 	db 4 ; retreat cost
 	db WR_GRASS ; weakness
-	db NONE ; resistance
+	db WR_LIGHTNING ; resistance
 	tx MegatonName ; category
 	db 76 ; Pokedex number
 	db 36 ; level
@@ -6215,7 +6215,7 @@ OnixCard:
 
 	db 3 ; retreat cost
 	db WR_GRASS ; weakness
-	db NONE ; resistance
+	db WR_LIGHTNING ; resistance
 	tx RockSnakeName ; category
 	db 95 ; Pokedex number
 	db 12 ; level
