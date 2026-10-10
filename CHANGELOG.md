@@ -525,6 +525,16 @@
 - **Sharp Sickle**: increased damage from 30 to 60.
 - **Absorb**: reduced cost from (F)(F)(F)(F) to (F)(F)(C).
 
+### Abra
+- Increased HP from 30 to 40.
+
+### Kadabra
+- Reduced retreat cost from 3 to 1.
+- **Recover**: reduced cost from (P)(P) to (P)(C).
+
+### Alakazam
+- Increased HP from 80 to 90.
+
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 

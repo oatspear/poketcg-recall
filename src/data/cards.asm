@@ -6731,7 +6731,7 @@ AbraCard:
 	db CIRCLE ; rarity
 	db COLOSSEUM | NONE ; sets
 	dw ABRA
-	db 30 ; hp
+	db 40 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -6786,7 +6786,7 @@ KadabraCard:
 	tx AbraName ; pre-evo name
 
 	; attack 1
-	energy PSYCHIC, 2 ; energies
+	energy PSYCHIC, 1, COLORLESS, 1 ; energies
 	tx RecoverName ; name
 	tx KadabrasRecoverDescription ; description
 	dw NONE ; description (cont)
@@ -6813,7 +6813,7 @@ KadabraCard:
 	db 0
 	db ATK_ANIM_PSYCHIC_HIT ; animation
 
-	db 3 ; retreat cost
+	db 1 ; retreat cost
 	db WR_PSYCHIC ; weakness
 	db NONE ; resistance
 	tx PsiName ; category
@@ -6831,7 +6831,7 @@ AlakazamCard:
 	db STAR ; rarity
 	db MYSTERY | NONE ; sets
 	dw ALAKAZAM
-	db 80 ; hp
+	db 90 ; hp
 	db STAGE2 ; stage
 	tx KadabraName ; pre-evo name
 
