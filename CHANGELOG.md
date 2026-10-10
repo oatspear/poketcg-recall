@@ -506,6 +506,9 @@
 - **Bone Attack**: increased cost from (F)(C) to (F)(F)(C).
 - **Bone Attack**: increased damage from 10 to 30.
 
+### Hitmonlee
+- Increased HP from 60 to 70.
+
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 

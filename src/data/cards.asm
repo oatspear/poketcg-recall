@@ -6381,7 +6381,7 @@ HitmonleeCard:
 	db STAR ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw HITMONLEE
-	db 60 ; hp
+	db 70 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
