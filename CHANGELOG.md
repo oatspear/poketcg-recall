@@ -535,6 +535,18 @@
 ### Alakazam
 - Increased HP from 80 to 90.
 
+### Slowpoke (Promo)
+- Increased HP from 40 to 50.
+
+### Slowpoke (Fossil)
+- Increased HP from 50 to 60.
+
+### Slowbro
+- Increased HP from 60 to 70.
+- Increased retreat cost from 1 to 2.
+- **Psyshock**: increased cost from (P)(P) to (P)(P)(C).
+- **Psyshock**: increased damage from 20 to 30.
+
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
