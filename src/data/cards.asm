@@ -2180,7 +2180,7 @@ VulpixCard:
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw VulpixConfuseRayEffectCommands ; effect commands
+	dw Confusion50PercentEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -4093,7 +4093,7 @@ LaprasCard:
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw LaprasConfuseRayEffectCommands ; effect commands
+	dw Confusion50PercentEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -6856,7 +6856,7 @@ AlakazamCard:
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_NORMAL ; category
-	dw AlakazamConfuseRayEffectCommands ; effect commands
+	dw Confusion50PercentEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -7300,13 +7300,13 @@ DrowzeeCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy PSYCHIC, 2 ; energies
+	energy PSYCHIC, 1, COLORLESS, 1 ; energies
 	tx ConfuseRayName ; name
 	tx MayInflictConfusionDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw DrowzeeConfuseRayEffectCommands ; effect commands
+	dw Confusion50PercentEffectCommands ; effect commands
 	db INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -7350,7 +7350,7 @@ HypnoCard:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	; attack 2
-	energy PSYCHIC, 3 ; energies
+	energy PSYCHIC, 2, COLORLESS, 1 ; energies
 	tx DarkMindName ; name
 	tx DarkMindDescription ; description
 	dw NONE ; description (cont)

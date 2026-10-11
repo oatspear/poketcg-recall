@@ -358,7 +358,7 @@ LaprasWaterGunEffectCommands:
 	dbw EFFECTCMDTYPE_AI, LaprasWaterGunEffect
 	db  $00
 
-LaprasConfuseRayEffectCommands:
+Confusion50PercentEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Confusion50PercentEffect
 	db  $00
 
@@ -453,10 +453,6 @@ CharizardFireSpinEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, FireSpin_AISelectEffect
 	db  $00
 
-VulpixConfuseRayEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Confusion50PercentEffect
-	db  $00
-
 RageEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Rage_DamageBoostEffect
 	dbw EFFECTCMDTYPE_AI, Rage_AIEffect
@@ -537,10 +533,6 @@ HypnoDarkMindEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, DarkMind_AISelectEffect
 	db  $00
 
-DrowzeeConfuseRayEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Confusion50PercentEffect
-	db  $00
-
 MrMimeInvisibleWallEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, InvisibleWallEffect
 	db  $00
@@ -554,10 +546,6 @@ AlakazamDamageSwapEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, DamageSwap_CheckDamage
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DamageSwap_SelectAndSwapEffect
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, DamageSwap_SwapEffect
-	db  $00
-
-AlakazamConfuseRayEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Confusion50PercentEffect
 	db  $00
 
 MewPsywaveEffectCommands:

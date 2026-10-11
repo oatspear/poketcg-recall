@@ -567,6 +567,12 @@
 - **Dark Mind**: reduced cost from (P)(P)(P) to (P)(P)(C).
 - **Dark Mind**: increased base damage from 30 to 40.
 
+### Drowzee
+- **Confuse Ray**: reduced cost from (P)(P) to (P)(C).
+
+### Hypno
+- **Dark Mind**: reduced cost from (P)(P)(P) to (P)(P)(C).
+
 ### Clefairy
 - **Sing**: removed coin flip. Now always inflcits Sleep.
 
