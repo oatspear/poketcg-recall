@@ -1008,10 +1008,6 @@ PidgeottoMirrorMoveEffectCommands:
 	dbw EFFECTCMDTYPE_AI, MirrorMove_AIEffect
 	db  $00
 
-ClefairySingEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SingEffect
-	db  $00
-
 ClefairyMetronomeEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ClefairyMetronome_CheckAttacks
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, ClefairyMetronome_UseAttackEffect

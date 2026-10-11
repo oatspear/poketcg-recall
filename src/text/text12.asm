@@ -82,23 +82,14 @@ GastlyName:
 	text "Gastly"
 	done
 
-SleepingGasName:
-	text "Sleeping Gas"
-	done
-
-MayInflictSleepDescription:
-	text "Flip a coin. If heads, the Defending"
-	line "Pokémon is now Asleep."
-	done
-
 DestinyBondName:
 	text "Destiny Bond"
 	done
 
 DestinyBondDescription:
 	text "Discard 1 <PSYCHIC> Energy card attached to"
-	line "Gastly in order to use this attack."
-	line "If a Pokémon Knocks Out Gastly"
+	line "this Pokémon to use this attack."
+	line "If a Pokémon Knocks Out this Pokémon"
 	line "during your opponent's next turn,"
 	line "Knock Out that Pokémon."
 	done
@@ -123,8 +114,8 @@ EnergyConversionName:
 
 EnergyConversionDescription:
 	text "Put up to 2 Energy cards from your"
-	line "discard pile into your hand. Gastly"
-	line "does 10 damage to itself."
+	line "discard pile into your hand. This"
+	line "Pokémon does 10 damage to itself."
 	done
 
 GastlyLv17Description:
@@ -185,8 +176,6 @@ CurseDescription:
 	line "counter from 1 of your opponent's"
 	line "Pokémon to another (even if it would"
 	line "Knock Out the other Pokémon)."
-	line "This power can't be used if Gengar"
-	line "is Asleep, Confused, or Paralyzed."
 	done
 
 DarkMindName:

@@ -7324,10 +7324,6 @@ HurricaneEffect:
 	ld [wDuelDisplayedScreen], a
 	jp SwapTurn
 
-SingEffect:
-	call Sleep50PercentEffect
-	call nc, SetNoEffectFromStatus
-	ret
 
 ; return carry if Defending Pokemon has no attacks
 ClefairyMetronome_CheckAttacks:

@@ -7031,23 +7031,23 @@ GastlyLv8Card:
 	db CIRCLE ; rarity
 	db EVOLUTION | NONE ; sets
 	dw GASTLY_LV8
-	db 30 ; hp
+	db 40 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy PSYCHIC, 1 ; energies
-	tx SleepingGasName ; name
-	tx MayInflictSleepDescription ; description
+	energy COLORLESS, 1 ; energies
+	tx HypnosisName ; name
+	tx InflictSleepDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw GastlySleepingGasEffectCommands ; effect commands
+	dw InflictSleepEffectCommands ; effect commands
 	db INFLICT_SLEEP ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_SLEEPING_GAS ; animation
+	db ATK_ANIM_HYPNOSIS ; animation
 
 	; attack 2
 	energy PSYCHIC, 1, COLORLESS, 1 ; energies
@@ -7131,7 +7131,7 @@ HaunterLv17Card:
 	db STAR ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw HAUNTER_LV17
-	db 50 ; hp
+	db 60 ; hp
 	db STAGE1 ; stage
 	tx GastlyName ; pre-evo name
 
@@ -7154,7 +7154,7 @@ HaunterLv17Card:
 	tx NightmareName ; name
 	tx InflictSleepDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
 	dw InflictSleepEffectCommands ; effect commands
 	db INFLICT_SLEEP ; flags 1
@@ -7163,7 +7163,7 @@ HaunterLv17Card:
 	db 0
 	db ATK_ANIM_NIGHTMARE ; animation
 
-	db 0 ; retreat cost
+	db 1 ; retreat cost
 	db NONE ; weakness
 	db WR_FIGHTING ; resistance
 	tx GasName ; category
@@ -7181,23 +7181,23 @@ HaunterLv22Card:
 	db DIAMOND ; rarity
 	db EVOLUTION | NONE ; sets
 	dw HAUNTER_LV22
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx GastlyName ; pre-evo name
 
 	; attack 1
 	energy PSYCHIC, 1 ; energies
-	tx HypnosisName ; name
+	tx NightmareName ; name
 	tx InflictSleepDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
+	db 10 ; damage
 	db DAMAGE_NORMAL ; category
 	dw InflictSleepEffectCommands ; effect commands
 	db INFLICT_SLEEP ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_HYPNOSIS ; animation
+	db ATK_ANIM_NIGHTMARE ; animation
 
 	; attack 2
 	energy PSYCHIC, 2 ; energies
@@ -7231,7 +7231,7 @@ GengarCard:
 	db STAR ; rarity
 	db EVOLUTION | FOSSIL ; sets
 	dw GENGAR
-	db 80 ; hp
+	db 90 ; hp
 	db STAGE2 ; stage
 	tx HaunterName ; pre-evo name
 
@@ -7239,7 +7239,7 @@ GengarCard:
 	energy 0 ; energies
 	tx CurseName ; name
 	tx CurseDescription ; description
-	dw NONE ; description (cont)
+	tx PokemonPowerDescriptionCont ; description (cont)
 	db 0 ; damage
 	db POKEMON_POWER ; category
 	dw GengarCurseEffectCommands ; effect commands
@@ -7250,11 +7250,11 @@ GengarCard:
 	db ATK_ANIM_PKMN_POWER_1 ; animation
 
 	; attack 2
-	energy PSYCHIC, 3 ; energies
+	energy PSYCHIC, 2, COLORLESS, 1 ; energies
 	tx DarkMindName ; name
 	tx DarkMindDescription ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
 	dw GengarDarkMindEffectCommands ; effect commands
 	db DAMAGE_TO_OPPONENT_BENCH ; flags 1
@@ -8188,11 +8188,11 @@ ClefairyCard:
 	; attack 1
 	energy COLORLESS, 1 ; energies
 	tx SingName ; name
-	tx MayInflictSleepDescription ; description
+	tx InflictSleepDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw ClefairySingEffectCommands ; effect commands
+	dw InflictSleepEffectCommands ; effect commands
 	db INFLICT_SLEEP ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3

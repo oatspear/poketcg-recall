@@ -547,6 +547,29 @@
 - **Psyshock**: increased cost from (P)(P) to (P)(P)(C).
 - **Psyshock**: increased damage from 20 to 30.
 
+### Gastly (Base)
+- Increased HP from 30 to 40.
+- **Sleeping Gas**: removed.
+- **New attack: (C) Hypnosis**: inflicts Sleep.
+
+### Haunter (Base)
+- Increased HP from 60 to 70.
+- **Hypnosis**: removed.
+- **New attack: (P) Nightmare**: 10 damage. Inflicts Sleep.
+
+### Haunter (Fossil)
+- Increased HP from 50 to 60.
+- Increased retreat cost from 0 to 1.
+- **Nightmare**: increased damage from 10 to 20.
+
+### Gengar
+- Increased HP from 80 to 90.
+- **Dark Mind**: reduced cost from (P)(P)(P) to (P)(P)(C).
+- **Dark Mind**: increased base damage from 30 to 40.
+
+### Clefairy
+- **Sing**: removed coin flip. Now always inflcits Sleep.
+
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 

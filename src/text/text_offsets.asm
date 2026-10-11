@@ -2605,8 +2605,6 @@ TextOffsets::
 	textpointer HermitcrabName
 	textpointer SlowbroDescription
 	textpointer GastlyName
-	textpointer SleepingGasName
-	textpointer MayInflictSleepDescription
 	textpointer DestinyBondName
 	textpointer DestinyBondDescription
 	textpointer GasName
