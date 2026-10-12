@@ -537,11 +537,6 @@ MrMimeInvisibleWallEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, InvisibleWallEffect
 	db  $00
 
-MrMimeMeditateEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Meditate_DamageBoostEffect
-	dbw EFFECTCMDTYPE_AI, Meditate_AIEffect
-	db  $00
-
 AlakazamDamageSwapEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, DamageSwap_CheckDamage
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DamageSwap_SelectAndSwapEffect
@@ -643,7 +638,7 @@ JynxDoubleslapEffectCommands:
 	dbw EFFECTCMDTYPE_AI, JynxDoubleslap_AIEffect
 	db  $00
 
-JynxMeditateEffectCommands:
+MeditateEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Meditate_DamageBoostEffect
 	dbw EFFECTCMDTYPE_AI, Meditate_AIEffect
 	db  $00

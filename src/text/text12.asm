@@ -260,8 +260,8 @@ MeditateName:
 	text "Meditate"
 	done
 
-MrMimesMeditateDescription:
-	text "Does 10 damage plus 10 more damage"
+MeditateDescription:
+	text "This attack does 10 more damage"
 	line "for each damage counter on the"
 	line "Defending Pokémon."
 	done
@@ -283,12 +283,6 @@ JynxName:
 DoubleAttackX10Description:
 	text "Flip 2 coins. This attack does 10"
 	line "damage times the number of heads."
-	done
-
-JynxsMeditateDescription:
-	text "Does 20 damage plus 10 more damage"
-	line "for each damage counter on the"
-	line "Defending Pokémon."
 	done
 
 HumanShapeName:

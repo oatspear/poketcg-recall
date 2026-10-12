@@ -7402,11 +7402,11 @@ MrMimeCard:
 	; attack 2
 	energy PSYCHIC, 1, COLORLESS, 1 ; energies
 	tx MeditateName ; name
-	tx MrMimesMeditateDescription ; description
+	tx MeditateDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_PLUS ; category
-	dw MrMimeMeditateEffectCommands ; effect commands
+	dw MeditateEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -7436,7 +7436,7 @@ JynxCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy PSYCHIC, 1 ; energies
+	energy COLORLESS, 1 ; energies
 	tx DoubleslapName ; name
 	tx DoubleAttackX10Description ; description
 	dw NONE ; description (cont)
@@ -7450,13 +7450,13 @@ JynxCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy PSYCHIC, 2, COLORLESS, 1 ; energies
+	energy PSYCHIC, 1, COLORLESS, 1 ; energies
 	tx MeditateName ; name
-	tx JynxsMeditateDescription ; description
+	tx MeditateDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 10 ; damage
 	db DAMAGE_PLUS ; category
-	dw JynxMeditateEffectCommands ; effect commands
+	dw MeditateEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3

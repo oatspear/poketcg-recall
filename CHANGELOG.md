@@ -573,6 +573,11 @@
 ### Hypno
 - **Dark Mind**: reduced cost from (P)(P)(P) to (P)(P)(C).
 
+### Jynx
+- **Doubleslap**: reduced cost from (P) to (C).
+- **Meditate**: reduced cost from (P)(P)(C) to (P)(C).
+- **Meditate**: reduced base damage from 20 to 10.
+
 ### Clefairy
 - **Sing**: removed coin flip. Now always inflcits Sleep.
 

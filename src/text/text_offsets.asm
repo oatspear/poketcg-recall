@@ -2639,12 +2639,11 @@ TextOffsets::
 	textpointer InvisibleWallDescription
 	textpointer InvisibleWallDescriptionCont
 	textpointer MeditateName
-	textpointer MrMimesMeditateDescription
+	textpointer MeditateDescription
 	textpointer BarrierName
 	textpointer MrMimeDescription
 	textpointer JynxName
 	textpointer DoubleAttackX10Description
-	textpointer JynxsMeditateDescription
 	textpointer HumanShapeName
 	textpointer JynxDescription
 	textpointer MewtwoName
