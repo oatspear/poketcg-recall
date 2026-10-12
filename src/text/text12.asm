@@ -588,13 +588,10 @@ MetronomeName:
 	text "Metronome"
 	done
 
-ClefairysMetronomeDescription:
+MetronomeDescription:
 	text "Choose 1 of the Defending Pokémon's"
 	line "attacks. Metronome copies that"
 	line "attack except for its Energy costs."
-	line "(No matter what type the Defending"
-	line "Pokemon is, Clefairy's type is"
-	line "still Colorless.)"
 	done
 
 FairyName:
@@ -611,13 +608,8 @@ ClefableName:
 	text "Clefable"
 	done
 
-ClefablesMetronomeDescription:
-	text "Choose 1 of the Defending Pokémon's"
-	line "attacks. Metronome copies that"
-	line "attack except for its Energy costs."
-	line "(No matter what type the Defending"
-	line "Pokémon is, Clefable's type is"
-	line "still Colorless.)"
+MoonblastName:
+	text "Moonblast"
 	done
 
 ClefableDescription:

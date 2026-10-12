@@ -622,7 +622,13 @@
 - Increased HP from 70 to 80.
 
 ### Clefairy
+- Increased HP from 40 to 50.
 - **Sing**: removed coin flip. Now always inflcits Sleep.
+- **Metronome**: reduced cost from (C)(C)(C) to (C)(C).
+
+### Clefable
+- Increased HP from 70 to 90.
+- **Minimize**: reduced cost from (C)(C) to (C).
 
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).

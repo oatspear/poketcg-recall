@@ -7266,19 +7266,6 @@ HandleEnergyDiscardEffectSelection:
 	ldh [hTemp_ffa0], a
 	ret
 
-; return carry if Defending Pokemon has no attacks
-ClefableMetronome_CheckAttacks:
-	call CheckIfDefendingPokemonHasAnyAttack
-	ldtx hl, NoAttackMayBeChoosenText
-	ret
-
-ClefableMetronome_AISelectEffect:
-	jp HandleAIMetronomeEffect
-
-ClefableMetronome_UseAttackEffect:
-	ld a, 1 ; energy cost of this attack
-	jp HandlePlayerMetronomeEffect
-
 HurricaneEffect:
 	call HandleNoDamageOrEffect
 	ret c ; is unaffected
@@ -7326,16 +7313,20 @@ HurricaneEffect:
 
 
 ; return carry if Defending Pokemon has no attacks
-ClefairyMetronome_CheckAttacks:
+Metronome_CheckAttacks:
 	call CheckIfDefendingPokemonHasAnyAttack
 	ldtx hl, NoAttackMayBeChoosenText
 	ret
 
-ClefairyMetronome_AISelectEffect:
+Metronome_AISelectEffect:
 	jp HandleAIMetronomeEffect
 
-ClefairyMetronome_UseAttackEffect:
-	ld a, 3 ; energy cost of this attack
+ClefableMetronome_UseAttackEffect:
+	ld a, 1 ; energy cost of this attack
+	jr HandlePlayerMetronomeEffect
+
+Metronome_UseAttackEffect:
+	ld a, 2 ; energy cost of this attack
 ;	fallthrough
 
 ; handles Metronome selection, and validates

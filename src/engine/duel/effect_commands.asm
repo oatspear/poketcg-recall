@@ -960,12 +960,6 @@ DragonairSlamEffectCommands:
 	dbw EFFECTCMDTYPE_AI, DragonairSlam_AIEffect
 	db  $00
 
-ClefableMetronomeEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ClefableMetronome_CheckAttacks
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, ClefableMetronome_UseAttackEffect
-	dbw EFFECTCMDTYPE_AI_SELECTION, ClefableMetronome_AISelectEffect
-	db  $00
-
 PidgeotHurricaneEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HurricaneEffect
 	db  $00
@@ -980,10 +974,14 @@ PidgeottoMirrorMoveEffectCommands:
 	dbw EFFECTCMDTYPE_AI, MirrorMove_AIEffect
 	db  $00
 
-ClefairyMetronomeEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ClefairyMetronome_CheckAttacks
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, ClefairyMetronome_UseAttackEffect
-	dbw EFFECTCMDTYPE_AI_SELECTION, ClefairyMetronome_AISelectEffect
+ClefableMetronomeEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, ClefableMetronome_UseAttackEffect
+	; fallthrough
+
+MetronomeEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Metronome_CheckAttacks
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Metronome_UseAttackEffect
+	dbw EFFECTCMDTYPE_AI_SELECTION, Metronome_AISelectEffect
 	db  $00
 
 WigglytuffDoTheWaveEffectCommands:

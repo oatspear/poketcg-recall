@@ -8181,7 +8181,7 @@ ClefairyCard:
 	db STAR ; rarity
 	db MYSTERY | NONE ; sets
 	dw CLEFAIRY
-	db 40 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -8200,13 +8200,13 @@ ClefairyCard:
 	db ATK_ANIM_SING ; animation
 
 	; attack 2
-	energy COLORLESS, 3 ; energies
+	energy COLORLESS, 2 ; energies
 	tx MetronomeName ; name
-	tx ClefairysMetronomeDescription ; description
+	tx MetronomeDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
-	dw ClefairyMetronomeEffectCommands ; effect commands
+	dw MetronomeEffectCommands ; effect commands
 	db NONE ; flags 1
 	db FLAG_2_BIT_6 ; flags 2
 	db NONE ; flags 3
@@ -8231,14 +8231,14 @@ ClefableCard:
 	db STAR ; rarity
 	db LABORATORY | JUNGLE ; sets
 	dw CLEFABLE
-	db 70 ; hp
+	db 90 ; hp
 	db STAGE1 ; stage
 	tx ClefairyName ; pre-evo name
 
 	; attack 1
 	energy COLORLESS, 1 ; energies
 	tx MetronomeName ; name
-	tx ClefablesMetronomeDescription ; description
+	tx MetronomeDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category
@@ -8250,7 +8250,7 @@ ClefableCard:
 	db ATK_ANIM_NONE ; animation
 
 	; attack 2
-	energy COLORLESS, 2 ; energies
+	energy COLORLESS, 1 ; energies
 	tx MinimizeName ; name
 	tx MinimizeDescription ; description
 	dw NONE ; description (cont)

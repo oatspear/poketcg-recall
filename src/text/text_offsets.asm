@@ -2702,11 +2702,10 @@ TextOffsets::
 	textpointer ClefairyName
 	textpointer SingName
 	textpointer MetronomeName
-	textpointer ClefairysMetronomeDescription
+	textpointer MetronomeDescription
 	textpointer FairyName
 	textpointer ClefairyDescription
 	textpointer ClefableName
-	textpointer ClefablesMetronomeDescription
 	textpointer ClefableDescription
 	textpointer JigglypuffName
 	textpointer FirstAidName
