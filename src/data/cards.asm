@@ -8281,7 +8281,7 @@ JigglypuffLv12Card:
 	db PROMOSTAR ; rarity
 	db PROMOTIONAL | PRO ; sets
 	dw JIGGLYPUFF_LV12
-	db 50 ; hp
+	db 60 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 

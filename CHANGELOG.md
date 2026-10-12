@@ -630,6 +630,9 @@
 - Increased HP from 70 to 90.
 - **Minimize**: reduced cost from (C)(C) to (C).
 
+### Jigglypuff (Promo)
+- Increased HP from 50 to 60.
+
 ### Persian
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
