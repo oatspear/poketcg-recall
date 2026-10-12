@@ -7981,7 +7981,7 @@ RattataCard:
 	db CIRCLE ; rarity
 	db COLOSSEUM | NONE ; sets
 	dw RATTATA
-	db 30 ; hp
+	db 40 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -8031,16 +8031,16 @@ RaticateCard:
 	db DIAMOND ; rarity
 	db COLOSSEUM | NONE ; sets
 	dw RATICATE
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx RattataName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 1 ; energies
+	energy COLORLESS, 2 ; energies
 	tx BiteName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -8100,7 +8100,7 @@ SpearowCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy COLORLESS, 3 ; energies
+	energy COLORLESS, 2 ; energies
 	tx MirrorMoveName ; name
 	tx MirrorMoveDescription ; description
 	dw NONE ; description (cont)
@@ -8131,7 +8131,7 @@ FearowCard:
 	db DIAMOND ; rarity
 	db LABORATORY | JUNGLE ; sets
 	dw FEAROW
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx SpearowName ; pre-evo name
 

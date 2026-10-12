@@ -607,6 +607,17 @@
 - **Wing Attack**: increased damage from 20 to 30.
 - **Hurricane**: increased damage from 30 to 40.
 
+### Rattata
+- Increased HP from 30 to 40.
+
+### Raticate
+- Increased HP from 60 to 70.
+- **Bite**: increased cost from (C) to (C)(C).
+- **Bite**: increased damage from 20 to 30.
+
+### Spearow
+- **Mirror Move**: reduced cost from (C)(C)(C) to (C)(C).
+
 ### Clefairy
 - **Sing**: removed coin flip. Now always inflcits Sleep.
 
