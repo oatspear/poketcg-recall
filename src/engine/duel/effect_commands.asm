@@ -41,7 +41,6 @@ AdaptiveEvolutionEffectCommands:
 	db  $00
 
 Paralysis50PercentEffectCommands:
-EkansWrapEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
@@ -1002,10 +1001,6 @@ PersianPounceEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PounceEffect
 	db  $00
 
-LickitungTongueWrapEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
-	db  $00
-
 WhirlwindEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Whirlwind_SwitchEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, Whirlwind_SelectEffect
@@ -1054,11 +1049,6 @@ TrainerCardAsPokemonEffectCommands:
 DragoniteHealingWindEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, HealingWind_InitialEffect
 	dbw EFFECTCMDTYPE_PKMN_POWER_TRIGGER, HealingWind_PlayAreaHealEffect
-	db  $00
-
-DragoniteLv41SlamEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DragoniteLv41Slam_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, DragoniteLv41Slam_AIEffect
 	db  $00
 
 MeowthCatPunchEffectCommands:

@@ -530,7 +530,7 @@ EkansCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw EkansWrapEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -8806,7 +8806,7 @@ LickitungCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw LickitungTongueWrapEffectCommands ; effect commands
+	dw Paralysis50PercentEffectCommands ; effect commands
 	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -9200,20 +9200,20 @@ DratiniCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
+	energy COLORLESS, 2 ; energies
+	tx WrapName ; name
+	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
+	dw Paralysis50PercentEffectCommands ; effect commands
+	db INFLICT_PARALYSIS ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_HIT ; animation
 
-	db 1 ; retreat cost
+	db 0 ; retreat cost
 	db NONE ; weakness
 	db WR_PSYCHIC ; resistance
 	tx DragonName ; category
@@ -9254,7 +9254,7 @@ DragonairCard:
 	tx HyperBeamName ; name
 	tx Discard1EnergyFromTargetDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw HyperBeamEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -9263,7 +9263,7 @@ DragonairCard:
 	db 0
 	db ATK_ANIM_HYPER_BEAM ; animation
 
-	db 2 ; retreat cost
+	db 1 ; retreat cost
 	db NONE ; weakness
 	db WR_PSYCHIC ; resistance
 	tx DragonName ; category
@@ -9281,7 +9281,7 @@ DragoniteLv41Card:
 	db STAR ; rarity
 	db PROMOTIONAL | GB ; sets
 	dw DRAGONITE_LV41
-	db 100 ; hp
+	db 120 ; hp
 	db STAGE2 ; stage
 	tx DragonairName ; pre-evo name
 
@@ -9300,13 +9300,13 @@ DragoniteLv41Card:
 	db ATK_ANIM_HEALING_WIND ; animation
 
 	; attack 2
-	energy COLORLESS, 3 ; energies
+	energy COLORLESS, 4 ; energies
 	tx SlamName ; name
-	tx DoubleAttackX30Description ; description
+	tx DoubleAttackX40Description ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 40 ; damage
 	db DAMAGE_X ; category
-	dw DragoniteLv41SlamEffectCommands ; effect commands
+	dw DragoniteLv45SlamEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -9331,7 +9331,7 @@ DragoniteLv45Card:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw DRAGONITE_LV45
-	db 100 ; hp
+	db 120 ; hp
 	db STAGE2 ; stage
 	tx DragonairName ; pre-evo name
 

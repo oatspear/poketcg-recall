@@ -671,6 +671,22 @@
 ### Snorlax
 - **Body Slam**: reduced cost from (C)(C)(C)(C) to (C)(C)(C).
 
+### Dratini
+- Reduced retreat cost from 1 to 0.
+- **New attack: (C)(C) Wrap**: 20 damage. Flips a coin. If heads, inflicts Paralysis.
+
+### Dragonair
+- Reduced retreat cost from 2 to 1.
+- **Hyper Beam**: increased damage from 20 to 30.
+
+### Dragonite (Fossil)
+- Increased HP from 100 to 120.
+
+### Dragonite (GB)
+- Increased HP from 100 to 120.
+- **Slam**: increased cost from (C)(C)(C) to (C)(C)(C)(C).
+- **Slam**: increased base damage from 30 to 40.
+
 ## Version 1.0
 
 ### Added
