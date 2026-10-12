@@ -665,6 +665,9 @@
 ### Ditto (GB)
 - **Morph**: reduced cost from (C)(C)(C) to (C)(C).
 
+### Porygon
+- Increased HP from 30 to 50.
+
 ## Version 1.0
 
 ### Added

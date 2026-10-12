@@ -9081,7 +9081,7 @@ PorygonCard:
 	db DIAMOND ; rarity
 	db LABORATORY | NONE ; sets
 	dw PORYGON
-	db 30 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
