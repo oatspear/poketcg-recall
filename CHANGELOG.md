@@ -578,6 +578,13 @@
 - **Meditate**: reduced cost from (P)(P)(C) to (P)(C).
 - **Meditate**: reduced base damage from 20 to 10.
 
+### Mewtwo (Base)
+- Increased HP from 60 to 80.
+- Reduced retreat cost from 3 to 2.
+
+### Mew (Fossil)
+- Increased HP from 50 to 60.
+
 ### Clefairy
 - **Sing**: removed coin flip. Now always inflcits Sleep.
 

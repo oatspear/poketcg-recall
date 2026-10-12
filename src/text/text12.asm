@@ -304,8 +304,8 @@ PsychicName:
 	done
 
 PsychicDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each Energy card attached to the"
+	text "This attack does 10 more damage for"
+	line "each Energy card attached to the"
 	line "Defending Pokémon."
 	done
 
