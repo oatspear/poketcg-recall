@@ -118,6 +118,7 @@ DEF TYPE_ENERGY EQU const_value
 	const TYPE_ENERGY_WATER            ; $0b
 	const TYPE_ENERGY_FIGHTING         ; $0c
 	const TYPE_ENERGY_PSYCHIC          ; $0d
+DEF TYPE_SPECIAL_ENERGY EQU const_value
 	const TYPE_ENERGY_DOUBLE_COLORLESS ; $0e
 	const TYPE_ENERGY_ELECTRODE        ; $0f
 	const TYPE_TRAINER                 ; $10

@@ -48,8 +48,6 @@ HandleSpecialAIAttacks:
 	jp z, .Fetch
 	cp16 DUGTRIO
 	jp z, .Earthquake
-	cp16 ELECTRODE_LV35
-	jp z, .EnergySpike
 	cp16 GOLDUCK
 	jp z, .HyperBeam
 	cp16 DRAGONAIR
@@ -400,12 +398,11 @@ HandleSpecialAIAttacks:
 	ld a, $80
 	ret
 
-; if there's any lightning energy cards in deck,
+; if there's any basic energy cards in deck,
+; and if any Pokémon benefits from it,
 ; return a score of $80 + 3.
 .EnergySpike:
-	ld a, CARD_LOCATION_DECK
-	ld de, LIGHTNING_ENERGY
-	call LookForCardIDInLocation_Bank5
+	call CheckIfAnyBasicEnergyInDeck
 	jp nc, .zero_score
 	call AIProcessButDontPlayEnergy_SkipEvolution
 	jp nc, .zero_score
@@ -451,4 +448,33 @@ CheckIfAnyBasicPokemonInDeck:
 	ret
 .set_carry
 	scf
+	ret
+
+
+; returns carry if there are
+; any basic Energy cards in deck.
+CheckIfAnyBasicEnergyInDeck:
+	ld e, 0
+.loop
+	ld a, DUELVARS_CARD_LOCATIONS
+	add e
+	call GetTurnDuelistVariable
+	cp CARD_LOCATION_DECK
+	jr nz, .next
+; get card type
+	push de
+	ld a, e
+	call GetCardIDFromDeckIndex  ; preserves hl
+	call GetCardType  ; preserves hl
+	pop de
+	cp TYPE_ENERGY
+	jr c, .next
+	cp TYPE_SPECIAL_ENERGY
+	ret c
+.next
+	inc e
+	ld a, DECK_SIZE
+	cp e
+	jr nz, .loop
+	or a
 	ret
