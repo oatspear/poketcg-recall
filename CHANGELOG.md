@@ -668,6 +668,9 @@
 ### Porygon
 - Increased HP from 30 to 50.
 
+### Snorlax
+- **Body Slam**: reduced cost from (C)(C)(C)(C) to (C)(C)(C).
+
 ## Version 1.0
 
 ### Added
