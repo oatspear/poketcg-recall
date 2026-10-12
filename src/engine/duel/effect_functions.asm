@@ -289,9 +289,8 @@ CreateListOfFireEnergyAttachedToArena:
 	ld a, TYPE_ENERGY_FIRE
 	call CreateListOfEnergyAttachedToArena
 	; de is now pointing to the list terminator
-	; ld a, TYPE_ENERGY_ELECTRODE
-	; jr CreateListOfEnergyAttachedToArena.with_list_pointer
-	ret
+	ld a, TYPE_ENERGY_ELECTRODE
+	jr CreateListOfEnergyAttachedToArena.with_list_pointer
 
 
 ; creates in wDuelTempList list of attached Water Energy cards
@@ -300,9 +299,8 @@ CreateListOfWaterEnergyAttachedToArena:
 	ld a, TYPE_ENERGY_WATER
 	call CreateListOfEnergyAttachedToArena
 	; de is now pointing to the list terminator
-	; ld a, TYPE_ENERGY_ELECTRODE
-	; jr CreateListOfEnergyAttachedToArena.with_list_pointer
-	ret
+	ld a, TYPE_ENERGY_ELECTRODE
+	jr CreateListOfEnergyAttachedToArena.with_list_pointer
 
 
 ; creates in wDuelTempList list of attached Psychic Energy cards
@@ -311,9 +309,8 @@ CreateListOfPsychicEnergyAttachedToArena:
 	ld a, TYPE_ENERGY_PSYCHIC
 	call CreateListOfEnergyAttachedToArena
 	; de is now pointing to the list terminator
-	; ld a, TYPE_ENERGY_ELECTRODE
-	; jr CreateListOfEnergyAttachedToArena.with_list_pointer
-	ret
+	ld a, TYPE_ENERGY_ELECTRODE
+	jr CreateListOfEnergyAttachedToArena.with_list_pointer
 
 
 ; creates in wDuelTempList a list of cards that
@@ -2215,6 +2212,7 @@ EnergyTrans_TransferEffect:
 .player
 	xor a
 	ldh [hCurSelectionItem], a
+.reset_screen
 	bank1call SetupPlayAreaScreen
 
 .draw_play_area
@@ -2238,9 +2236,37 @@ EnergyTrans_TransferEffect:
 	ldh [hAIPkmnPowerEffectParam], a
 	ldh [hCurSelectionItem], a
 	call CreateListOfGrassEnergyAttachedToCard
-	jr c, .play_sfx ; no Grass attached
+	jr nc, .has_grass_energy
 
+	call PlaySFX_InvalidChoice
+	jr .loop_input_take
+
+.has_grass_energy
+	call CheckAnySpecialEnergyInCardList
 	ld a, [wDuelTempList]
+	jr nc, .only_basic_energy
+
+	; draw Deck list interface and print text
+	bank1call InitAndDrawCardListScreenLayout_WithSelectCheckMenu
+	ldtx hl, ChooseAnEnergyCardText
+	ldtx de, DuelistPlayAreaText
+	bank1call SetCardListHeaderText
+	bank1call DisplayCardList
+	jr c, .reset_screen
+
+; a Grass energy card was selected
+; reset the play area screen drawing
+	bank1call SetupPlayAreaScreen
+	ldh a, [hAIPkmnPowerEffectParam]
+	ldh [hCurSelectionItem], a
+	ld hl, PlayAreaSelectionMenuParameters
+	call InitializeMenuParameters
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetTurnDuelistVariable
+	ld [wNumMenuItems], a
+
+	ldh a, [hTempCardIndex_ff98]
+.only_basic_energy
 	ldh [hAIEnergyTransEnergyCard], a
 	; temporarily take card away to draw Play Area
 	call AddCardToHand
@@ -2252,8 +2278,14 @@ EnergyTrans_TransferEffect:
 	call PutHandCardInPlayArea
 
 	; draw Grass symbol near cursor
-	ldh a, [hAIPkmnPowerEffectParam]
+	ldh a, [hAIEnergyTransEnergyCard]
+	call GetCardIDFromDeckIndex
+	cp16 ELECTRODE_ENERGY
+	ld b, SYM_ELECTRODE
+	jr z, .draw_symbol
 	ld b, SYM_GRASS
+.draw_symbol
+	ldh a, [hAIPkmnPowerEffectParam]
 	call DrawSymbolOnPlayAreaCursor
 
 ; handle the action of placing a Grass Energy card
@@ -2281,11 +2313,8 @@ EnergyTrans_TransferEffect:
 	ld b, SYM_SPACE
 	call DrawSymbolOnPlayAreaCursor
 	call EraseCursor
-	jr .draw_play_area
+	jp .draw_play_area
 
-.play_sfx
-	call PlaySFX_InvalidChoice
-	jr .loop_input_take
 
 EnergyTrans_AIEffect:
 	ldh a, [hAIEnergyTransPlayAreaLocation]
@@ -2339,6 +2368,22 @@ CreateListOfGrassEnergyAttachedToCard:
 	ld a, c
 	cp 1
 	ret
+
+
+; carry set if a special energy is in wDuelTempList
+CheckAnySpecialEnergyInCardList:
+	ld hl, wDuelTempList
+.loop
+	ld a, [hli]
+	cp $ff
+	ret z  ; end of list
+	call GetCardIDFromDeckIndex
+	call GetCardType
+	cp TYPE_SPECIAL_ENERGY
+	jr c, .loop
+	cp TYPE_TRAINER
+	jr nc, .loop
+	ret  ; carry set
 
 
 MinimizeEffect:
@@ -3065,7 +3110,7 @@ VaporeonWaterGunEffect:
 StarmieRecover_CheckEnergyHP:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	; call HandleRainbowEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + WATER]
 	ldtx hl, NotEnoughWaterEnergyText
 	cp 1
@@ -3346,7 +3391,7 @@ TakeDownEffect:
 FlamesOfRage_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	; call HandleRainbowEnergies
+	call HandleRainbowEnergies
 	call HandleEnergyBurn
 	ld a, [wAttachedEnergies + FIRE]
 	ldtx hl, NotEnoughFireEnergyText
@@ -3404,7 +3449,7 @@ FireBlast_CheckEnergy:
 Wildfire_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	; call HandleRainbowEnergies
+	call HandleRainbowEnergies
 	call HandleEnergyBurn
 	ldtx hl, NotEnoughFireEnergyText
 	ld a, [wAttachedEnergies + FIRE]
@@ -4188,7 +4233,7 @@ DestinyBond_CheckEnergy:
 Barrier_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	; call HandleRainbowEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -5177,7 +5222,7 @@ SpacingOut_HealEffect:
 Scavenge_CheckDiscardPile:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	; call HandleRainbowEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -5258,7 +5303,7 @@ Amnesia_DisableEffect:
 KadabraRecover_CheckEnergyHP:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	; call HandleRainbowEnergies
+	call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
