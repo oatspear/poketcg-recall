@@ -171,7 +171,7 @@ AIProcessEnergyCards:
 	jr .check_defending_can_ko
 
 .add_to_score
-	ld a, 4
+	ld a, 10
 	call AIEncourage
 
 ; lower AI score if poison/double poison
