@@ -2016,8 +2016,8 @@ AISelectSpecialAttackParameters:
 	jr z, .EnergyAbsorption
 	cp16 EXEGGUTOR
 	jr z, .Teleport
-	cp16 ELECTRODE_LV35
-	jr z, .EnergySpike
+	; cp16 ELECTRODE_LV35
+	; jr z, .EnergySpike
 	; fallthrough
 
 .no_carry
