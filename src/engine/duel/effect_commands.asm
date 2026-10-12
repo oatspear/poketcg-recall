@@ -897,17 +897,6 @@ QuickAttackEffectCommands:
 	dbw EFFECTCMDTYPE_AI, QuickAttack_AIEffect
 	db  $00
 
-SpearowMirrorMoveEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, MirrorMove_InitialEffect1
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, MirrorMove_InitialEffect2
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MirrorMove_BeforeDamage
-	dbw EFFECTCMDTYPE_AFTER_DAMAGE, MirrorMove_AfterDamage
-	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, MirrorMove_PlayerSelection
-	dbw EFFECTCMDTYPE_AI_SELECTION, MirrorMove_AISelection
-	dbw EFFECTCMDTYPE_AI, MirrorMove_AIEffect
-	db  $00
-
-
 DragoniteStepInEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, StepIn_BenchCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, StepIn_SwitchEffect

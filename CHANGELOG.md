@@ -585,6 +585,28 @@
 ### Mew (Fossil)
 - Increased HP from 50 to 60.
 
+### Pidgey
+- Reduced retreat cost from 1 to 0.
+- **Whirlwind**: reduced cost from (C)(C) to (C).
+
+### Pidgeotto
+- Increased HP from 60 to 70.
+- Reduced retreat cost from 1 to 0.
+- Reduced rarity from Rare to Uncommon.
+- **Mirror Move**: reduced cost from (C)(C)(C) to (C).
+- **Whirlwind**: increased cost from (C)(C) to (C)(C)(C).
+- **Whirlwind**: increased damage from 20 to 30.
+
+### Pidgeot (GB)
+- Increased HP from 80 to 90.
+- **Slicing Wind**: reduced cost from (C)(C)(C) to (C)(C).
+- **Gale**: increased damage from 20 to 60.
+
+### Pidgeot (Jungle)
+- Increased HP from 80 to 100.
+- **Wing Attack**: increased damage from 20 to 30.
+- **Hurricane**: increased damage from 30 to 40.
+
 ### Clefairy
 - **Sing**: removed coin flip. Now always inflcits Sleep.
 

@@ -2673,7 +2673,7 @@ TextOffsets::
 	textpointer PidgeyDescription
 	textpointer PidgeottoName
 	textpointer MirrorMoveName
-	textpointer PidgeottosMirrorMoveDescription
+	textpointer MirrorMoveDescription
 	textpointer BirdName
 	textpointer PidgeottoDescription
 	textpointer PidgeotName
@@ -2694,7 +2694,6 @@ TextOffsets::
 	textpointer RaticateDescription
 	textpointer SpearowName
 	textpointer PeckName
-	textpointer SpearowsMirrorMoveDescription
 	textpointer SpearowDescription
 	textpointer FearowName
 	textpointer DrillPeckName

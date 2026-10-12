@@ -436,11 +436,11 @@ MirrorMoveName:
 	text "Mirror Move"
 	done
 
-PidgeottosMirrorMoveDescription:
-	text "If Pidgeotto was attacked last turn,"
-	line "do the final result of that attack"
-	line "on Pidgeotto to the Defending"
-	line "Pokémon."
+MirrorMoveDescription:
+	text "If this Pokémon was attacked last"
+	line "turn, do the final result of that"
+	line "attack on this Pokémon to the"
+	line "Defending Pokémon."
 	done
 
 BirdName:
@@ -550,12 +550,6 @@ SpearowName:
 
 PeckName:
 	text "Peck"
-	done
-
-SpearowsMirrorMoveDescription:
-	text "If Spearow was attacked last turn,"
-	line "do the final result of that attack"
-	line "on Spearow to the Defending Pokémon."
 	done
 
 SpearowDescription:

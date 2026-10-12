@@ -7786,7 +7786,7 @@ PidgeyCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
+	energy COLORLESS, 1 ; energies
 	tx WhirlwindName ; name
 	tx WhirlwindDescription ; description
 	dw NONE ; description (cont)
@@ -7813,7 +7813,7 @@ PidgeyCard:
 	db 0
 	db ATK_ANIM_NONE ; animation
 
-	db 1 ; retreat cost
+	db 0 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db WR_FIGHTING ; resistance
 	tx TinyBirdName ; category
@@ -7828,19 +7828,33 @@ PidgeottoCard:
 	db TYPE_PKMN_COLORLESS ; type
 	gfx PidgeottoCardGfx ; gfx
 	tx PidgeottoName ; name
-	db STAR ; rarity
+	db DIAMOND ; rarity
 	db EVOLUTION | NONE ; sets
 	dw PIDGEOTTO
-	db 60 ; hp
+	db 70 ; hp
 	db STAGE1 ; stage
 	tx PidgeyName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
+	energy COLORLESS, 1 ; energies
+	tx MirrorMoveName ; name
+	tx MirrorMoveDescription ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db DAMAGE_NORMAL ; category
+	dw MirrorMoveEffectCommands ; effect commands
+	db NONE ; flags 1
+	db FLAG_2_BIT_6 ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_MIRROR_MOVE ; animation
+
+	; attack 2
+	energy COLORLESS, 3 ; energies
 	tx WhirlwindName ; name
 	tx WhirlwindDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw WhirlwindEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -7849,21 +7863,7 @@ PidgeottoCard:
 	db 0
 	db ATK_ANIM_WHIRLWIND ; animation
 
-	; attack 2
-	energy COLORLESS, 3 ; energies
-	tx MirrorMoveName ; name
-	tx PidgeottosMirrorMoveDescription ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw PidgeottoMirrorMoveEffectCommands ; effect commands
-	db NONE ; flags 1
-	db FLAG_2_BIT_6 ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_MIRROR_MOVE ; animation
-
-	db 1 ; retreat cost
+	db 0 ; retreat cost
 	db WR_LIGHTNING ; weakness
 	db WR_FIGHTING ; resistance
 	tx BirdName ; category
@@ -7881,12 +7881,12 @@ PidgeotLv38Card:
 	db STAR ; rarity
 	db LABORATORY | GB ; sets
 	dw PIDGEOT_LV38
-	db 80 ; hp
+	db 90 ; hp
 	db STAGE2 ; stage
 	tx PidgeottoName ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 3 ; energies
+	energy COLORLESS, 2 ; energies
 	tx SlicingWindName ; name
 	tx SlicingWildDescription ; description
 	dw NONE ; description (cont)
@@ -7904,7 +7904,7 @@ PidgeotLv38Card:
 	tx GaleName ; name
 	tx GaleDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 60 ; damage
 	db DAMAGE_NORMAL ; category
 	dw PidgeotGaleEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -7931,7 +7931,7 @@ PidgeotLv40Card:
 	db STAR ; rarity
 	db EVOLUTION | JUNGLE ; sets
 	dw PIDGEOT_LV40
-	db 80 ; hp
+	db 100 ; hp
 	db STAGE2 ; stage
 	tx PidgeottoName ; pre-evo name
 
@@ -7940,7 +7940,7 @@ PidgeotLv40Card:
 	tx WingAttackName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -7954,7 +7954,7 @@ PidgeotLv40Card:
 	tx HurricaneName ; name
 	tx HurricaneDescription ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
 	dw PidgeotHurricaneEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -8102,11 +8102,11 @@ SpearowCard:
 	; attack 2
 	energy COLORLESS, 3 ; energies
 	tx MirrorMoveName ; name
-	tx SpearowsMirrorMoveDescription ; description
+	tx MirrorMoveDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db DAMAGE_NORMAL ; category
-	dw SpearowMirrorMoveEffectCommands ; effect commands
+	dw MirrorMoveEffectCommands ; effect commands
 	db NONE ; flags 1
 	db FLAG_2_BIT_6 ; flags 2
 	db NONE ; flags 3
