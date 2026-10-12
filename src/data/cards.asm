@@ -5981,7 +5981,7 @@ MachampCard:
 	db STAR ; rarity
 	db EVOLUTION | NONE ; sets
 	dw MACHAMP
-	db 100 ; hp
+	db 110 ; hp
 	db STAGE2 ; stage
 	tx MachokeName ; pre-evo name
 
@@ -6000,7 +6000,7 @@ MachampCard:
 	db ATK_ANIM_GLOW_EFFECT ; animation
 
 	; attack 2
-	energy FIGHTING, 2, COLORLESS, 2 ; energies
+	energy FIGHTING, 3, COLORLESS, 1 ; energies
 	tx SeismicTossName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)

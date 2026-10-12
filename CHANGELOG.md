@@ -467,7 +467,7 @@
 - **Submission**: reduced damage from 60 to 50.
 
 ### Machamp
-- **Seismic Toss**: reduced cost from (F)(F)(F)(C) to (F)(F)(C)(C).
+- Increased HP from 100 to 110.
 
 ### Geodude
 - Added Resistance to Lightning.
