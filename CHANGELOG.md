@@ -633,7 +633,14 @@
 ### Jigglypuff (Promo)
 - Increased HP from 50 to 60.
 
+### Meowth (GB)
+- **Cat Punch**: reduced cost from (C)(C) to (C).
+
+### Meowth (Jungle)
+- **Pay Day**: reduced cost from (C)(C) to (C).
+
 ### Persian
+- Increased HP from 70 to 80.
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
 ### Chansey

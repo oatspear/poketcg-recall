@@ -8486,7 +8486,7 @@ MeowthLv14Card:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
+	energy COLORLESS, 1 ; energies
 	tx CatPunchName ; name
 	tx CatPunchDescription ; description
 	dw NONE ; description (cont)
@@ -8536,7 +8536,7 @@ MeowthLv15Card:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 2 ; energies
+	energy COLORLESS, 1 ; energies
 	tx PayDayName ; name
 	tx PayDayDescription ; description
 	dw NONE ; description (cont)
@@ -8581,7 +8581,7 @@ PersianCard:
 	db DIAMOND ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw PERSIAN
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx MeowthName ; pre-evo name
 
