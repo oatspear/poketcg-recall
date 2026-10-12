@@ -632,9 +632,9 @@ KadabraRecoverEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, KadabraRecover_AISelectEffect
 	db  $00
 
-JynxDoubleslapEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, JynxDoubleslap_MultiplierEffect
-	dbw EFFECTCMDTYPE_AI, JynxDoubleslap_AIEffect
+DoubleAttackX10EffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, DoubleAttackX10_MultiplierEffect
+	dbw EFFECTCMDTYPE_AI, DoubleAttackX10_AIEffect
 	db  $00
 
 MeditateEffectCommands:

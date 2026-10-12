@@ -7442,7 +7442,7 @@ JynxCard:
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_X ; category
-	dw JynxDoubleslapEffectCommands ; effect commands
+	dw DoubleAttackX10EffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -8178,7 +8178,7 @@ ClefairyCard:
 	db TYPE_PKMN_COLORLESS ; type
 	gfx ClefairyCardGfx ; gfx
 	tx ClefairyName ; name
-	db STAR ; rarity
+	db CIRCLE ; rarity
 	db MYSTERY | NONE ; sets
 	dw CLEFAIRY
 	db 50 ; hp
@@ -8200,18 +8200,18 @@ ClefairyCard:
 	db ATK_ANIM_SING ; animation
 
 	; attack 2
-	energy COLORLESS, 2 ; energies
-	tx MetronomeName ; name
-	tx MetronomeDescription ; description
+	energy COLORLESS, 1 ; energies
+	tx DoubleslapName ; name
+	tx DoubleAttackX10Description ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw MetronomeEffectCommands ; effect commands
+	db 10 ; damage
+	db DAMAGE_X ; category
+	dw DoubleAttackX10EffectCommands ; effect commands
 	db NONE ; flags 1
-	db FLAG_2_BIT_6 ; flags 2
+	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_HIT ; animation
 
 	db 1 ; retreat cost
 	db WR_FIGHTING ; weakness

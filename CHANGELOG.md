@@ -623,8 +623,10 @@
 
 ### Clefairy
 - Increased HP from 40 to 50.
+- Reduced rarity from Rare to Common.
 - **Sing**: removed coin flip. Now always inflcits Sleep.
-- **Metronome**: reduced cost from (C)(C)(C) to (C)(C).
+- **Metronome**: removed.
+- **New attack: (C) Doubleslap**: Flips 2 coins; does 10 damage for each heads.
 
 ### Clefable
 - Increased HP from 70 to 90.

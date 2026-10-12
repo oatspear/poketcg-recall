@@ -5340,12 +5340,13 @@ KadabraRecover_HealEffect:
 	ld d, 0
 	jp ApplyAndAnimateHPRecovery
 
-JynxDoubleslap_AIEffect:
+
+DoubleAttackX10_AIEffect:
 	ld a, 20 / 2
 	lb de, 0, 20
 	jp SetExpectedAIDamage
 
-JynxDoubleslap_MultiplierEffect:
+DoubleAttackX10_MultiplierEffect:
 	ld hl, 10
 	call LoadTxRam3
 	ldtx de, DamageCheckIfHeadsXDamageText
@@ -5353,6 +5354,7 @@ JynxDoubleslap_MultiplierEffect:
 	call TossCoinATimes
 	call ATimes10
 	jp SetDefiniteDamage
+
 
 Meditate_AIEffect:
 	call Meditate_DamageBoostEffect
