@@ -618,6 +618,9 @@
 ### Spearow
 - **Mirror Move**: reduced cost from (C)(C)(C) to (C)(C).
 
+### Fearow
+- Increased HP from 70 to 80.
+
 ### Clefairy
 - **Sing**: removed coin flip. Now always inflcits Sleep.
 
