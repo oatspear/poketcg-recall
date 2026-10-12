@@ -647,6 +647,13 @@
 - Increased HP from 70 to 80.
 - **Rage**: increased base damage from 10 to 20.
 
+### Lickitung
+- Reduced HP from 90 to 70.
+- Reduced retreat cost from 3 to 2.
+- **Supersonic**: reduced cost from (C)(C) to (C).
+- **Tongue Wrap**: increased cost from (C) to (C)(C).
+- **Tongue Wrap**: increased damage from 10 to 20.
+
 ### Chansey
 - Reduced HP from 120 to 100.
 - Increased retreat cost from 1 to 2.
