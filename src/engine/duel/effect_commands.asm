@@ -404,7 +404,7 @@ FireBlastEffectCommands:
 	dbw EFFECTCMDTYPE_AI_SELECTION, FireBlast_AISelectEffect
 	db  $00
 
-CharmanderEmberEffectCommands:
+EmberEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Ember_CheckEnergy
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Ember_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_DISCARD_ENERGY, Ember_DiscardEffect

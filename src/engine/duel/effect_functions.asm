@@ -282,11 +282,39 @@ GetNextPositionInTempList:
 	pop de
 	ret
 
+
 ; creates in wDuelTempList list of attached Fire Energy cards
 ; that are attached to the Turn Duelist's Arena card.
 CreateListOfFireEnergyAttachedToArena:
 	ld a, TYPE_ENERGY_FIRE
-	; fallthrough
+	call CreateListOfEnergyAttachedToArena
+	; de is now pointing to the list terminator
+	; ld a, TYPE_ENERGY_ELECTRODE
+	; jr CreateListOfEnergyAttachedToArena.with_list_pointer
+	ret
+
+
+; creates in wDuelTempList list of attached Water Energy cards
+; that are attached to the Turn Duelist's Arena card.
+CreateListOfWaterEnergyAttachedToArena:
+	ld a, TYPE_ENERGY_WATER
+	call CreateListOfEnergyAttachedToArena
+	; de is now pointing to the list terminator
+	; ld a, TYPE_ENERGY_ELECTRODE
+	; jr CreateListOfEnergyAttachedToArena.with_list_pointer
+	ret
+
+
+; creates in wDuelTempList list of attached Psychic Energy cards
+; that are attached to the Turn Duelist's Arena card.
+CreateListOfPsychicEnergyAttachedToArena:
+	ld a, TYPE_ENERGY_PSYCHIC
+	call CreateListOfEnergyAttachedToArena
+	; de is now pointing to the list terminator
+	; ld a, TYPE_ENERGY_ELECTRODE
+	; jr CreateListOfEnergyAttachedToArena.with_list_pointer
+	ret
+
 
 ; creates in wDuelTempList a list of cards that
 ; are in the Arena of the same type as input a.
@@ -298,9 +326,10 @@ CreateListOfFireEnergyAttachedToArena:
 ;	a = number of cards in list;
 ;	wDuelTempList filled with cards, terminated by $ff
 CreateListOfEnergyAttachedToArena:
+	ld de, wDuelTempList
+.with_list_pointer
 	ld b, a
 	ld c, 0
-	ld de, wDuelTempList
 	ld a, DUELVARS_CARD_LOCATIONS
 	call GetTurnDuelistVariable
 .loop
@@ -2154,6 +2183,8 @@ EnergyTrans_CheckPlayArea:
 	pop hl
 	cp TYPE_ENERGY_GRASS
 	ret z
+	; cp TYPE_ENERGY_ELECTRODE
+	; ret z
 .next
 	inc l
 	ld a, l
@@ -2206,9 +2237,10 @@ EnergyTrans_TransferEffect:
 ; a press
 	ldh [hAIPkmnPowerEffectParam], a
 	ldh [hCurSelectionItem], a
-	call CheckIfCardHasGrassEnergyAttached
+	call CreateListOfGrassEnergyAttachedToCard
 	jr c, .play_sfx ; no Grass attached
 
+	ld a, [wDuelTempList]
 	ldh [hAIEnergyTransEnergyCard], a
 	; temporarily take card away to draw Play Area
 	call AddCardToHand
@@ -2268,36 +2300,46 @@ EnergyTrans_AIEffect:
 ; attached to card in Play Area location of a.
 ; input:
 ;	a = PLAY_AREA_* of location to check
-CheckIfCardHasGrassEnergyAttached:
+; output:
+;	a = number of cards in list;
+;	wDuelTempList filled with cards, terminated by $ff
+CreateListOfGrassEnergyAttachedToCard:
 	or CARD_LOCATION_PLAY_AREA
-	ld e, a
-
+	ld b, a
+	ld c, 0
+	ld de, wDuelTempList
 	ld a, DUELVARS_CARD_LOCATIONS
 	call GetTurnDuelistVariable
 .loop
 	ld a, [hl]
-	cp e
+	cp b
 	jr nz, .next
 	push de
-	push hl
 	ld a, l
 	call GetCardIDFromDeckIndex
 	call GetCardType
-	pop hl
 	pop de
 	cp TYPE_ENERGY_GRASS
-	jr z, .no_carry
+	jr z, .match
+	cp TYPE_ENERGY_ELECTRODE
+	jr nz, .next
+.match
+	ld a, l
+	ld [de], a
+	inc de
+	inc c
 .next
 	inc l
 	ld a, l
 	cp DECK_SIZE
 	jr c, .loop
-	scf
+
+	ld a, $ff
+	ld [de], a
+	ld a, c
+	cp 1
 	ret
-.no_carry
-	ld a, l
-	or a
-	ret
+
 
 MinimizeEffect:
 	ld a, SUBSTATUS1_REDUCE_BY_20
@@ -3023,7 +3065,7 @@ VaporeonWaterGunEffect:
 StarmieRecover_CheckEnergyHP:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	call HandleRainbowEnergies
+	; call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + WATER]
 	ldtx hl, NotEnoughWaterEnergyText
 	cp 1
@@ -3034,8 +3076,7 @@ StarmieRecover_CheckEnergyHP:
 	ret ; return carry if no damage
 
 StarmieRecover_PlayerSelectEffect:
-	ld a, TYPE_ENERGY_WATER
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfWaterEnergyAttachedToArena
 	xor a ; PLAY_AREA_ARENA
 	bank1call DisplayEnergyDiscardScreen
 .loop_input
@@ -3046,8 +3087,7 @@ StarmieRecover_PlayerSelectEffect:
 	ret
 
 StarmieRecover_AISelectEffect:
-	ld a, TYPE_ENERGY_WATER
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfWaterEnergyAttachedToArena
 	ld a, [wDuelTempList] ; pick first card
 	ldh [hTemp_ffa0], a
 	ret
@@ -3297,31 +3337,6 @@ FocusEnergyEffect:
 	ld a, SUBSTATUS1_NEXT_TURN_DOUBLE_DAMAGE
 	jp ApplySubstatus1ToDefendingCard
 
-PlayerPickFireEnergyCardToDiscard:
-	call CreateListOfFireEnergyAttachedToArena
-	xor a ; PLAY_AREA_ARENA
-	bank1call DisplayEnergyDiscardScreen
-	bank1call HandleEnergyDiscardMenuInput
-	ldh a, [hTempCardIndex_ff98]
-	ldh [hTempList], a
-	ret
-
-AIPickFireEnergyCardToDiscard:
-	call CreateListOfFireEnergyAttachedToArena
-	ld a, [wDuelTempList]
-	ldh [hTempList], a ; pick first in list
-	ret
-
-
-Flamethrower_PlayerSelectEffect:
-	jp PlayerPickFireEnergyCardToDiscard
-
-Flamethrower_AISelectEffect:
-	jp AIPickFireEnergyCardToDiscard
-
-Flamethrower_DiscardEffect:
-	ldh a, [hTempList]
-	jp PutCardInDiscardPile
 
 TakeDownEffect:
 	ld a, 30
@@ -3331,7 +3346,7 @@ TakeDownEffect:
 FlamesOfRage_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	call HandleRainbowEnergies
+	; call HandleRainbowEnergies
 	call HandleEnergyBurn
 	ld a, [wAttachedEnergies + FIRE]
 	ldtx hl, NotEnoughFireEnergyText
@@ -3383,38 +3398,53 @@ FlamesOfRage_DamageBoostEffect:
 
 
 ; return carry if no Fire energy cards
-FireBlast_CheckEnergy:
 Ember_CheckEnergy:
-Wildfire_CheckEnergy:
 Flamethrower_CheckEnergy:
+FireBlast_CheckEnergy:
+Wildfire_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	call HandleRainbowEnergies
+	; call HandleRainbowEnergies
 	call HandleEnergyBurn
 	ldtx hl, NotEnoughFireEnergyText
 	ld a, [wAttachedEnergies + FIRE]
 	cp 1
 	ret
 
+Ember_PlayerSelectEffect:
+Flamethrower_PlayerSelectEffect:
 FireBlast_PlayerSelectEffect:
-	jp PlayerPickFireEnergyCardToDiscard
+	; jr PlayerPickFireEnergyCardToDiscard
+	; fallthrough
 
+PlayerPickFireEnergyCardToDiscard:
+	call CreateListOfFireEnergyAttachedToArena
+	xor a ; PLAY_AREA_ARENA
+	bank1call DisplayEnergyDiscardScreen
+	bank1call HandleEnergyDiscardMenuInput
+	ldh a, [hTempCardIndex_ff98]
+	ldh [hTempList], a
+	ret
+
+Ember_AISelectEffect:
+Flamethrower_AISelectEffect:
 FireBlast_AISelectEffect:
-	jp AIPickFireEnergyCardToDiscard
+	; jr AIPickFireEnergyCardToDiscard
+	; fallthrough
 
+AIPickFireEnergyCardToDiscard:
+	call CreateListOfFireEnergyAttachedToArena
+	ld a, [wDuelTempList]
+	ldh [hTempList], a ; pick first in list
+	ret
+
+
+Ember_DiscardEffect:
+Flamethrower_DiscardEffect:
 FireBlast_DiscardEffect:
 	ldh a, [hTempList]
 	jp PutCardInDiscardPile
 
-Ember_PlayerSelectEffect:
-	jp PlayerPickFireEnergyCardToDiscard
-
-Ember_AISelectEffect:
-	jp AIPickFireEnergyCardToDiscard
-
-Ember_DiscardEffect:
-	ldh a, [hTempList]
-	jp PutCardInDiscardPile
 
 Wildfire_PlayerSelectEffect:
 	ldtx hl, DiscardOppDeckAsManyFireEnergyCardsText
@@ -4158,7 +4188,7 @@ DestinyBond_CheckEnergy:
 Barrier_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	call HandleRainbowEnergies
+	; call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -4166,8 +4196,7 @@ Barrier_CheckEnergy:
 
 DestinyBond_PlayerSelectEffect:
 ; handle input and display of Energy card list
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	xor a ; PLAY_AREA_ARENA
 	bank1call DisplayEnergyDiscardScreen
 	bank1call HandleEnergyDiscardMenuInput
@@ -4178,8 +4207,7 @@ DestinyBond_PlayerSelectEffect:
 
 DestinyBond_AISelectEffect:
 ; pick first card in list
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	ld a, [wDuelTempList]
 	ldh [hTempList], a
 	ret
@@ -4894,8 +4922,7 @@ Psychic_DamageBoostEffect:
 
 
 Barrier_PlayerSelectEffect:
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	xor a ; PLAY_AREA_ARENA
 	bank1call DisplayEnergyDiscardScreen
 	bank1call HandleEnergyDiscardMenuInput
@@ -4906,8 +4933,7 @@ Barrier_PlayerSelectEffect:
 
 Barrier_AISelectEffect:
 ; AI picks the first energy in list
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	ld a, [wDuelTempList]
 	ldh [hTemp_ffa0], a
 	ret
@@ -5151,7 +5177,7 @@ SpacingOut_HealEffect:
 Scavenge_CheckDiscardPile:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	call HandleRainbowEnergies
+	; call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -5161,8 +5187,7 @@ Scavenge_CheckDiscardPile:
 	ret
 
 Scavenge_PlayerSelectEnergyEffect:
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	xor a ; PLAY_AREA_ARENA
 	bank1call DisplayEnergyDiscardScreen
 	bank1call HandleEnergyDiscardMenuInput
@@ -5174,8 +5199,7 @@ Scavenge_PlayerSelectEnergyEffect:
 
 Scavenge_AISelectEffect:
 ; AI picks first Energy card in list
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	ld a, [wDuelTempList]
 	ldh [hTemp_ffa0], a
 ; AI picks first Trainer card in list
@@ -5234,7 +5258,7 @@ Amnesia_DisableEffect:
 KadabraRecover_CheckEnergyHP:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
-	call HandleRainbowEnergies
+	; call HandleRainbowEnergies
 	ld a, [wAttachedEnergies + PSYCHIC]
 	ldtx hl, NotEnoughPsychicEnergyText
 	cp 1
@@ -5245,8 +5269,7 @@ KadabraRecover_CheckEnergyHP:
 	ret ; return carry if no damage
 
 KadabraRecover_PlayerSelectEffect:
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	xor a ; PLAY_AREA_ARENA
 	bank1call DisplayEnergyDiscardScreen
 	bank1call HandleEnergyDiscardMenuInput
@@ -5256,8 +5279,7 @@ KadabraRecover_PlayerSelectEffect:
 	ret
 
 KadabraRecover_AISelectEffect:
-	ld a, TYPE_ENERGY_PSYCHIC
-	call CreateListOfEnergyAttachedToArena
+	call CreateListOfPsychicEnergyAttachedToArena
 	ld a, [wDuelTempList] ; pick first card
 	ldh [hTemp_ffa0], a
 	ret

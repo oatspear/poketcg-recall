@@ -2030,7 +2030,7 @@ CharmanderCard:
 	dw NONE ; description (cont)
 	db 30 ; damage
 	db DAMAGE_NORMAL ; category
-	dw CharmanderEmberEffectCommands ; effect commands
+	dw EmberEffectCommands ; effect commands
 	db NONE ; flags 1
 	db DISCARD_ENERGY ; flags 2
 	db NONE ; flags 3
