@@ -964,7 +964,7 @@ PidgeotHurricaneEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, HurricaneEffect
 	db  $00
 
-PidgeottoMirrorMoveEffectCommands:
+MirrorMoveEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, MirrorMove_InitialEffect1
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, MirrorMove_InitialEffect2
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MirrorMove_BeforeDamage
