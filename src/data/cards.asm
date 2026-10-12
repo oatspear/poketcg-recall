@@ -8931,7 +8931,7 @@ TaurosCard:
 	db DIAMOND ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw TAUROS
-	db 60 ; hp
+	db 70 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -9000,7 +9000,7 @@ DittoCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy COLORLESS, 3 ; energies
+	energy COLORLESS, 2 ; energies
 	tx MorphName ; name
 	tx MorphDescription ; description
 	tx MorphDescriptionCont ; description (cont)

@@ -659,6 +659,12 @@
 - Increased retreat cost from 1 to 2.
 - **Double-edge**: reduced damage and recoil from 80 to 60.
 
+### Tauros
+- Increased HP from 60 to 70.
+
+### Ditto (GB)
+- **Morph**: reduced cost from (C)(C)(C) to (C)(C).
+
 ## Version 1.0
 
 ### Added
