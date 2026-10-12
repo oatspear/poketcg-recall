@@ -8731,7 +8731,7 @@ DodrioCard:
 	db DIAMOND ; rarity
 	db LABORATORY | JUNGLE ; sets
 	dw DODRIO
-	db 70 ; hp
+	db 80 ; hp
 	db STAGE1 ; stage
 	tx DoduoName ; pre-evo name
 
@@ -8754,7 +8754,7 @@ DodrioCard:
 	tx RageName ; name
 	tx RageDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 20 ; damage
 	db DAMAGE_PLUS ; category
 	dw RageEffectCommands ; effect commands
 	db NONE ; flags 1

@@ -643,6 +643,10 @@
 - Increased HP from 70 to 80.
 - **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
 
+### Dodrio
+- Increased HP from 70 to 80.
+- **Rage**: increased base damage from 10 to 20.
+
 ### Chansey
 - Reduced HP from 120 to 100.
 - Increased retreat cost from 1 to 2.
