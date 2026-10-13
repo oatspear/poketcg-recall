@@ -6,6 +6,10 @@
 - Resistance changed from -30 damage to -20 damage.
 - Effects that reduce the Active Pokémon's attack damage (e.g., *Growl*) now apply **before Weakness and Resistance**. In addition, they apply to all attacks of the affected Pokémon, regardless of the target (Defending Pokémon, Benched Pokémon, self).
 
+### AI Changes
+- Improved Energy attachment logic (from the hand).
+- Improved Energy Retrieval usage.
+
 ### Bulbasaur
 - Increased HP from 40 to 50.
 - **New attack: (C) Growl**: reduces the Defending Pokémon's attack damage by 10.
