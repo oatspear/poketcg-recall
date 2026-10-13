@@ -171,7 +171,7 @@ AIProcessEnergyCards:
 	jr .check_defending_can_ko
 
 .add_to_score
-	ld a, 10
+	ld a, 4
 	call AIEncourage
 
 ; lower AI score if poison/double poison
@@ -372,6 +372,7 @@ AIProcessEnergyCards:
 ; the Play Area loop is over and the score
 ; for each card has been calculated.
 ; now to determine the highest score.
+.find_play_area_card_with_highest_score
 	call FindPlayAreaCardWithHighestAIScore
 	jr nc, .not_found
 
@@ -383,16 +384,25 @@ AIProcessEnergyCards:
 
 .play_card
 	call CreateEnergyCardListFromHand
-	jp AITryToPlayEnergyCard
+	call AITryToPlayEnergyCard
+	ret c  ; energy card was played
+; unable to find a suitable energy card for the selected Pokémon
+; try the next best Pokémon in the Play Area
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ld c, a
+	ld b, $00
+	ld hl, wPlayAreaAIScore
+	add hl, bc
+	xor a
+	ld [hl], a
+	jr .find_play_area_card_with_highest_score
 
-.not_found:
+.not_found
 	ld a, [wAIEnergyAttachLogicFlags]
 	or a
-	jr z, .no_carry
+	ret z
 	jp RetrievePlayAreaAIScoreFromBackup1
-.no_carry
-	or a
-	ret
+
 
 ; checks score related to loaded attack,
 ; in order to determine whether to play energy card.
@@ -528,6 +538,7 @@ DetermineAIScoreOfAttackEnergyRequirement:
 	ld a, b
 	add c
 	dec a
+	; jr nz, .arena_boost
 	ret nz  ; done
 
 .needs_one_energy
@@ -536,11 +547,19 @@ DetermineAIScoreOfAttackEnergyRequirement:
 
 ; if the attack KOs player and this is the active card, add to AI score.
 	call CheckAttackDoesEnoughDamageToKnockOutDefendingCard
-	ret nc  ; done
+	jr c, .can_ko
 
+; add some score if the Arena card can inflict damage
+	ld a, [wDamage]
+	or a
+	ret z  ; done
+	jr .arena_boost
+
+.can_ko
 	ld a, 20
 	call AIEncourage
 ; add 10 more in case it's the Arena card
+.arena_boost
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	or a
 	ret nz  ; done
@@ -598,7 +617,7 @@ FindPlayAreaCardWithHighestAIScore:
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	dec a
-	jr z, .no_carry
+	ret z
 
 	ld b, a
 	ld e, 0
@@ -621,9 +640,6 @@ FindPlayAreaCardWithHighestAIScore:
 	ld a, d
 	ldh [hTempPlayAreaLocation_ff9d], a
 	scf
-	ret
-.no_carry
-	or a
 	ret
 
 
