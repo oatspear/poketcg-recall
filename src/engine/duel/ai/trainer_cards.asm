@@ -2326,33 +2326,13 @@ AIPlay_EnergyRetrieval:
 ; and duplicate cards in hand to discard.
 AIDecide_EnergyRetrieval:
 ; return no carry if no cards in hand
-	farcall CreateEnergyCardListFromHand
-	jp nc, .no_carry
+	; farcall CreateEnergyCardListFromHand
+	; ret nc  ; nothing to do
 
-; handle Go Go Rain Dance deck
-; return no carry if there's no Muk card in play and
-; if there's no Blastoise card in Play Area
-; if there's a Muk in play, continue as normal
-	ld a, [wOpponentDeckID]
-	cp GO_GO_RAIN_DANCE_DECK_ID
-	jr nz, .start
-	ld de, MUK
-	call CountPokemonWithActivePkmnPowerInBothPlayAreas
-	jr c, .start
-	ld de, BLASTOISE
-	call CountTurnDuelistPokemonWithActivePkmnPower
-	jp nc, .no_carry
-
-.start
-; find duplicate cards in hand
-	call CreateHandCardList
-	ld hl, wDuelTempList
-	call FindDuplicateCards
-	jp c, .no_carry
-
-	ld [wce06], a
+; return no carry if there are not enough basic energy cards in the discard pile
 	ld a, CARD_LOCATION_DISCARD_PILE
 	call FindBasicEnergyCardsInLocation
+	cp 2
 	jp c, .no_carry
 
 ; some basic energy cards were found in Discard Pile
@@ -2416,7 +2396,7 @@ AIDecide_EnergyRetrieval:
 .second_energy_1
 	ld a, b
 	ld [wce1b], a
-	jr .set_carry
+	jr .choose_hand_card
 
 .next_play_area
 	inc e
@@ -2443,21 +2423,108 @@ AIDecide_EnergyRetrieval:
 .second_energy_2
 	ld a, b
 	ld [wce1b], a
-	jr .set_carry
+	jr .choose_hand_card
 
 ; will set carry if at least one has been chosen
 .check_chosen
 	ld a, [wce1a]
 	cp $ff
-	jr nz, .set_carry
+	jr nz, .choose_hand_card
 .no_carry
 	or a
 	ret
 
+; now find the best cards in hand to discard
+.choose_hand_card
+	call CreateHandCardList
+	ld hl, wDuelTempList
+
+; search for useless cards
+.loop_hand
+	ld a, [hli]
+	cp $ff
+	jp z, .find_duplicates
+	call GetCardIDFromDeckIndex
+	; ld a, e
+	; ld [wTempCardID + 0], a
+	; ld a, d
+	; ld [wTempCardID + 1], a
+	cp16 PROFESSOR_OAK
+	jp z, .check_useless_card_draw
+	cp16 BILL
+	jp z, .check_useless_card_draw
+	cp16 COMPUTER_SEARCH
+	jp z, .check_useless_card_draw
+	cp16 ENERGY_SEARCH
+	jp z, .check_useless_card_draw
+	cp16 POKE_BALL
+	jp z, .check_useless_card_draw
+	cp16 POKEDEX
+	jp z, .check_useless_card_draw
+	cp16 GAMBLER
+	jp z, .check_useless_card_draw
+; discard cards that were evaluated in previous trainer card phases
+	cp16 POTION
+	jp z, .got_hand_card
+	cp16 FULL_HEAL
+	jr z, .got_hand_card
+	cp16 SUPER_POTION
+	jr z, .got_hand_card
+	cp16 POKEMON_BREEDER
+	jr z, .got_hand_card
+	cp16 POKEMON_CENTER
+	jr z, .got_hand_card
+	cp16 MAINTENANCE
+	jr z, .got_hand_card
+	cp16 REVIVE
+	jr z, .got_hand_card
+	cp16 CLEFAIRY_DOLL
+	jr z, .got_hand_card
+	cp16 SWITCH
+	jr z, .got_hand_card
+	cp16 POKEMON_TRADER
+	jr z, .got_hand_card
+	call LoadCardDataToBuffer1_FromCardID
+	ld a, [wLoadedCard1Type]
+	cp TYPE_ENERGY
+	jp nc, .loop_hand
+; Pokémon card
+	ld a, [wLoadedCard1Stage]
+	or a  ; BASIC
+	jp nz, .loop_hand
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	push hl
+	call GetTurnDuelistVariable
+	pop hl
+	cp 3
+	jp c, .loop_hand
+	jr .got_hand_card
+
+.check_useless_card_draw
+	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+	push hl
+	call GetTurnDuelistVariable
+	pop hl
+	cp DECK_SIZE - 15  ; low on cards
+	jp nc, .loop_hand
+
+.got_hand_card
+	dec hl
+	ld a, [hl]
+	ld [wce06], a
 .set_carry
-	ld a, [wce06]
+	; ld a, [wce06]
 	scf
 	ret
+
+; find duplicate cards in hand
+.find_duplicates
+	call FindDuplicateCards
+	ccf
+	ret nc
+	ld [wce06], a
+	ret  ; carry
+
 
 ; remove an element from the list
 ; and shortens it accordingly
