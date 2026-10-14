@@ -1,6 +1,699 @@
 # Changelog
 
-## Version 0.1
+## Version 2.0
+
+### General Changes
+- Resistance changed from -30 damage to -20 damage.
+- Effects that reduce the Active Pokémon's attack damage (e.g., *Growl*) now apply **before Weakness and Resistance**. In addition, they apply to all attacks of the affected Pokémon, regardless of the target (Defending Pokémon, Benched Pokémon, self).
+
+### AI Changes
+- Improved Energy attachment logic (from the hand).
+- Improved Energy Retrieval usage.
+
+### Bulbasaur
+- Increased HP from 40 to 50.
+- **New attack: (C) Growl**: reduces the Defending Pokémon's attack damage by 10.
+- **Leech Seed**: reduced cost from (G)(G) to (G)(C).
+
+### Ivysaur
+- Increased HP from 60 to 80.
+- **Vine Whip**: increased damage from 30 to 40.
+- **Poison Powder**: reduced cost from (G)(G)(G) to (G)(G).
+
+### Venusaur (Promo)
+- Increased HP from 100 to 110.
+- **Solar Power**: now only affects the player's Active Pokémon.
+- **Mega Drain**: reduced cost from (G)(G)(G)(G) to (G)(G)(G).
+
+### Venusaur (Base Set)
+- Increased HP from 100 to 110.
+- **Solarbeam**: reduced cost from (G)(G)(G)(G) to (G)(G)(G)(C).
+
+### Caterpie
+- **New Pokémon Power: Adaptive Evolution**: can evolve on the first turn.
+
+### Metapod
+- Reduced HP from 70 to 60.
+- **Stiffen**: removed.
+- **Stun Spore**: removed.
+- **New attack: (G) Harden**: prevents damage from attacks if that damage is 30 or less.
+
+### Butterfree
+- Increased HP from 70 to 90.
+- **Mega Drain**: reduced cost from (G)(G)(G)(G) to (G)(G)(C)(C).
+
+### Weedle
+- **New Pokémon Power: Adaptive Evolution**: can evolve on the first turn.
+
+### Kakuna
+- Reduced HP from 80 to 60.
+- **Stiffen**: removed.
+- **Poison Powder**: removed.
+- **New attack: (G) Harden**: prevents damage from attacks if that damage is 30 or less.
+
+### Beedrill
+- Increased HP from 80 to 90.
+- **Twineedle**: reduced cost from (C)(C)(C) to (C)(C).
+- **Poison Sting**: reduced cost from (G)(G)(G) to (G)(G)(C).
+- **Poison Sting**: now always inflicts Poison.
+
+### Ekans
+- **Spit Poison**: now always inflicts Poison.
+
+### Arbok
+- Increased HP from 60 to 80.
+- **Poison Fang**: reduced cost from (G)(G)(C) to (G)(C).
+- **Terror Strike**: increased cost from (G) to (G)(C)(C).
+- **Terror Strike**: now always switches the Defending Pokémon, but the switch happens before damage is dealt.
+- **Terror Strike**: damage increased from 10 to 30.
+
+### Nidoran (F)
+- Reduced HP from 60 to 50.
+- **Call for Family**: reduced cost from (G)(G) to (C).
+
+### Nidorina
+- Increased HP from 70 to 80.
+- **Supersonic**: removed.
+- **Double Kick**: reduced cost from (G)(C)(C) to (G)(C).
+- **New attack: (G)(C)(C) Poison Fang**: 30 damage. Inflicts Poison.
+
+### Nidoqueen
+- Increased HP from 90 to 100.
+- **Boyfriends**: now counts Nidorino, in addition to Nidoking.
+- **Mega Punch**: increased damage from 50 to 60.
+
+### Nidoran (M)
+- **New attack: (C) Call for Family**: searches the deck for a Nidoran F/M and puts it onto the Bench.
+
+### Nidorino
+- Increased HP from 60 to 70.
+- **Double Kick**: reduced cost from (G)(C)(C) to (G)(C).
+- **Horn Drill**: reduced cost from (G)(G)(C)(C) to (G)(C)(C).
+- **Horn Drill**: reduced damage from 50 to 40.
+
+### Nidoking
+- Increased HP from 90 to 100.
+- **Thrash**: increased cost from (G)(C)(C) to (G)(G)(C)(C).
+- **Thrash**: increased base damage from 30 to 60.
+- **Thrash**: increased bonus damage and recoil from 10 to 20.
+- **Toxic**: reduced cost from (G)(G)(G) to (G)(G)(C).
+
+### Zubat
+- **Supersonic**: reduced cost from (C)(C) to (C).
+- **Leech Life**: reduced cost from (G)(C) to (G).
+
+### Golbat
+- Increased HP from 60 to 70.
+- **Wing Attack**: increased damage from 30 to 40.
+- **Leech Life**: reduced cost from (G)(G)(C) to (G)(C).
+
+### Oddish
+- **Sprout**: reduced cost from (G)(G) to (C).
+
+### Gloom
+- Increased HP from 60 to 70.
+- **Foul Odor**: removed.
+- **Poison Powder**: increased cost from (G) to (G)(C).
+- **Poison Powder**: increased base damage from 0 to 20.
+- **New Pokémon Power: Heal**: Once per turn, flips a coin; if heads, heals 10 damage from 1 of the user's Pokémon.
+
+### Vileplume
+- Increased HP from 80 to 100.
+- **Heal**: removed.
+- **Petal Dance**: reduced cost from (G)(G)(G) to (G)(G)(C).
+- **New attack: (G)(G)(G)(C) Mega Drain**: 60 damage. Heals the user for half the damage done.
+
+### Paras
+- **Scratch**: reduced cost from (C)(C) to (C).
+- **Scratch**: reduced damage from 20 to 10.
+- **Spore**: reduced cost from (G)(G) to (G).
+
+### Parasect
+- Increased HP from 60 to 70.
+- **Spore**: removed.
+- **Slash**: increased damage from 30 to 40.
+- **New attack: (G)(C) Leech Life**: 20 damage. Heals the user for the same amount of damage done.
+
+### Venonat
+- Increased HP from 40 to 50.
+- **Leech Life**: reduced cost from (G)(C) to (C)(C).
+
+### Venomoth
+- **Venom Powder**: increased damage from 10 to 20.
+
+### Bellsprout
+- **Call for Family**: reduced cost from (G) to (C).
+- **Vine Whip**: increased damage from 10 to 20.
+
+### Weepinbell
+- **Razor Leaf**: removed.
+- **Poison Powder**: increased cost from (G) to (G)(C).
+- **Poison Powder**: increased damage from 10 to 20.
+- **Poison Powder**: now always inflicts Poison.
+- **New attack: (G) Lure**: Switch 1 of the opponent's Benched Pokémon with their Active Pokémon. The new Active Pokémon is also unable to retreat during the opponent's next turn.
+
+### Victreebel
+- Increased HP from 80 to 100.
+- **Lure**: removed.
+- **Acid**: removed.
+- **New attack: (G)(G) Acid Spray**: 30 damage. Flips a coin. If heads, discards 1 energy from the Defending Pokémon.
+- **New attack: (G)(G)(C) Razor Leaf**: 50 damage.
+
+### Grimer
+- **Nasty Goo**: increased cost from (C) to (G).
+- **Minimize**: increased cost from (G) to (C)(C).
+
+### Muk
+- Increased HP from 70 to 80.
+- **Sludge**: removed.
+- **New attack: (G)(G)(C) Toxic**: 10 damage. Inflicts double Poison.
+
+### Exeggcute
+- **Leech Seed**: reduced cost from (G)(G) to (G)(C).
+
+### Exeggutor
+- Reduced retreat cost from 3 to 2.
+- **Leech Seed**: reduced cost from (G)(G) to (G)(C).
+
+### Koffing
+- **Foul Gas**: reduced cost from (G)(G) to (G).
+- **Foul Gas**: no longer does direct damage.
+
+### Weezing
+- Increased HP from 60 to 80.
+- **Smog**: removed.
+- **Selfdestruct**: increased damage and recoil from 60 to 80.
+- **New attack: (G)(C) Smokescreen**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
+
+### Tangela (Base Set)
+- Increased HP from 50 to 70.
+- Reduced retreat cost from 2 to 1.
+- **Poison Powder**: reduced cost from (G)(G)(G) to (G)(G)(C).
+
+### Tangela (GB)
+- Increased HP from 50 to 60.
+- Reduced retreat cost from 2 to 1.
+- **Poison Whip**: reduced cost from (G)(G)(C) to (G)(C).
+
+### Scyther
+- Reduced HP from 70 to 60.
+
+### Pinsir
+- Increased HP from 60 to 80.
+- **Irongrip**: reduced cost from (G)(G) to (G)(C).
+
+### Charizard
+- Reduced HP from 120 to 100.
+- Reduced retreat cost from 3 to 2.
+
+### Vulpix
+- **Confuse Ray**: reduced cost from (R)(R) to (R)(C).
+- **New attack: (C) Tail Wag**: flips a coin. On heads, prevents the Defending Pokémon from attacking next turn.
+
+### Ninetales (Base Set)
+- **Lure**: After switching, the new Active Pokémon is also unable to retreat during the opponent's next turn.
+- **Fire Blast**: reduced cost from (R)(R)(R)(R) to (R)(R)(R)(C).
+
+### Ninetales (GB)
+- Increased HP from 80 to 90.
+- Reduced rarity from Rare to Uncommon.
+- **Mix Up**: reduced cost from (R)(R) to (C)(C).
+- **Dancing Embers**: reduced cost from (R)(R)(R) to (R)(C)(C).
+
+### Growlithe
+- **New attack: (C) Growl**: reduces the Defending Pokémon's attack damage by 10.
+
+### Arcanine (Promo)
+- Increased HP from 70 to 80.
+- **Flames of Rage**: reduced base damage from 40 to 30.
+
+### Arcanine (Base Set)
+- Reduced retreat cost from 3 to 2.
+
+### Ponyta
+- Increased HP from 40 to 50.
+- Reduced retreat cost from 1 to 0.
+
+### Rapidash
+- Increased HP from 70 to 80.
+- **Stomp**: increased cost from (C)(C) to (C)(C)(C).
+- **Stomp**: increased base damage from 20 to 30.
+- **Stomp**: increased bonus damage from 10 to 20.
+
+### Magmar (Base Set)
+- Increased HP from 50 to 70.
+
+### Flareon (GB)
+- Increased HP from 60 to 80.
+- **Rage**: reduced cost from (C)(C)(C) to (C)(C).
+
+### Flareon (Jungle)
+- Increased HP from 70 to 80.
+- **Quick Attack**: removed.
+- **Flamethrower**: reduced cost from (R)(R)(C)(C) to (R)(R)(C).
+- **Flamethrower**: reduced damage from 60 to 50.
+- **New attack: (R)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
+
+### Moltres (Fossil)
+- Increased HP from 70 to 80.
+- **Dive Bomb**: removed.
+- **Wildfire**: increased cost from (R) to (R)(R)(C).
+- **Wildfire**: increased base damage from zero to 30.
+- **New attack: (C) Collect Fire**: 10 damage. Flip a coin. If heads, attach 1 (R) energy from the discard pile to this Pokémon.
+
+### Squirtle
+- Increased HP from 40 to 50.
+- **Withdraw**: reduced cost from (W)(C) to (C).
+
+### Wartortle
+- Increased HP from 70 to 80.
+- **Withdraw**: removed.
+- **New attack: (C)(C) Rapid Spin**: 20 damage. Both players switch their Active Pokémon.
+
+### Blastoise
+- Increased HP from 100 to 110.
+
+### Golduck
+- Increased HP from 70 to 80.
+- **Psyshock**: increased cost from (P) to (P)(C).
+- **Psyshock**: increased damage from 10 to 20.
+- **Hyper Beam**: increased damage from 20 to 30.
+
+### Poliwag
+- Reduced retreat cost from 1 to 0.
+- **Water Gun***: removed.
+- **New attack: (W) Bubble**: 10 damage. Flips a coin. If heads, inflicts Paralysis.
+- **New attack: (C)(C) Headbutt**: 20 damage.
+
+### Poliwhirl
+- Increased HP from 60 to 70.
+- **Amnesia**: reduced cost from (W)(W) to (W)(C).
+- **Amnesia**: increased damage from zero to 20.
+- **Doubleslap**: reduced cost from (W)(W)(C) to (W)(C)(C).
+- **Doubleslap**: increased multiplier damage from 30 to 40.
+
+### Poliwrath
+- Increased HP from 90 to 100.
+- Reduced retreat cost from 3 to 2.
+- **Water Gun**: removed.
+- **New attack: (W)(C)(C) Submission**: 60 damage. 20 recoil damage.
+
+### Tentacool
+- Increased HP from 30 to 40.
+- **Acid**: removed.
+- **New attack: (C) Supersonic**: Flips a coin. If heads, inflicts Confusion.
+
+### Tentacruel
+- Increased HP from 60 to 70.
+- Increased retreat cost from 0 to 1.
+- **Jellyfish Sting**: increased cost from (W)(W) to (W)(C)(C).
+- **Jellyfish Sting**: increased damage from 10 to 30.
+- **New attack: (W)(C) Acid Spray**: 20 damage. Flips a coin. If heads, discards 1 energy from the Defending Pokémon.
+
+### Seel
+- **Headbutt**: reduced cost from (W) to (C).
+- **New attack: (C)(C) Rest**: heal damage equal to half the user's max HP. The user becomes Asleep.
+
+### Dewgong
+- Reduced retreat cost from 3 to 2.
+- **Aurora Beam**: increased cost from (W)(W)(C) to (W)(W)(C)(C).
+- **Ice Beam**: reduced cost from (W)(W)(C)(C) to (W)(W)(C).
+
+### Shellder
+- **Supersonic**: reduced cost from (W) to (C).
+- **Hide in Shell**: removed.
+- **New Pokémon Power: Hide in Shell**: this Pokémon takes 20 less damage from attacks. Stops working while Asleep, Confused or Paralyzed.
+
+### Cloyster
+- Increased HP from 50 to 60.
+- Increased retreat cost from 2 to 3.
+- **Clamp**: reduced cost from (W)(W) to (W).
+- **Spike Cannon**: reduced cost from (W)(W) to (W)(C).
+
+### Krabby
+- Reduced retreat cost from 2 to 1.
+- **Call for Family**: reduced cost from (W) to (C).
+- **Irongrip**: now also flips a coin. On heads, inflicts Paralysis.
+
+### Kingler
+- Increased HP from 60 to 80.
+- **Crabhammer**: reduced cost from (W)(W)(C) to (W)(C)(C).
+
+### Seadra
+- Increased HP from 60 to 70.
+- Reduced retreat cost from 1 to 0.
+- **Water Gun**: reduced cost from (W)(C) to (W).
+- **Agility**: reduced cost from (W)(C)(C) to (W)(C).
+
+### Goldeen
+- **Horn Attack**: reduced cost from (W) to (C).
+- **New attack: (W) Horn Hazard**: 30 damage. Flips a coin. If tails, the attack fails.
+
+### Seaking
+- **Horn Attack**: removed.
+- **New attack: (W)(C)(C) Horn Drill**: 40 damage.
+
+### Starmie
+- Increased HP from 60 to 70.
+- **Recover**: reduced cost from (W)(W) to (W)(C).
+- **Star Freeze**: reduced cost from (W)(C)(C) to (W)(C).
+
+### Vaporeon (GB)
+- Increased HP from 60 to 80.
+
+### Vaporeon (Jungle)
+- **Quick Attack**: removed.
+- **New attack: (W)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
+
+### Omanyte
+- Increased HP from 40 to 60.
+
+### Omastar
+- Increased HP from 70 to 100.
+- **Water Gun**: removed.
+- **Spike Cannon**: reduced cost from (W)(W) to (C)(C).
+- **New attack: (W)(W)(C) Whirlpool**: 30 damage. Discards 1 Energy from the Defending Pokémon.
+
+### Articuno (Fossil)
+- Increased HP from 70 to 80.
+- **Freeze Dry**: reduced cost from (W)(W)(W) to (W)(C).
+- **Freeze Dry**: reduced damage from 30 to 20.
+- **Blizzard**: reduced cost from (W)(W)(W)(W) to (W)(W)(W)(C).
+- **Blizzard**: reduced damage from 50 to 40.
+
+### Pikachu (Jungle)
+- Reduced retreat cost from 1 to 0.
+- **Spark**: reduced cost from (L)(L) to (L)(C).
+
+### Pikachu (Promo)
+- **Growl**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
+
+### Raichu (Base)
+- **Thunder**: reduced cost from (L)(L)(L)(C) to (L)(L)(C)(C).
+
+### Raichu (Fossil)
+- **Gigashock**: reduced cost from (L)(L)(L)(L) to (L)(L)(C)(C).
+
+### Magnemite (GB)
+- Increased HP from 40 to 50.
+- **Magnetic Storm**: reduced cost from (L)(C) to (L).
+
+### Magneton (Base)
+- Increased HP from 60 to 80.
+
+### Magneton (Fossil)
+- **Sonicboom**: reduced cost from (L)(C) to (C)(C).
+
+### Voltorb
+- Reduced retreat cost from 1 to 0.
+- **New attack: (C)(C) Sonicboom**: 20 damage. Not affected by Weakness or Resistance.
+
+### Electrode (GB)
+- Replaced with Base Set Electrode.
+- Increased HP from 70 to 80.
+- **New Pokémon Power: Buzzap**: Knocks Out the user and attaches itself to another Pokémon as a Special Energy that provides 2 Energy of any type.
+- **New attack: (L)(L)(L) Thunder Jolt**: 50 damage. Flips a coin. On tails, does 10 recoil damage.
+
+### Electrode (Jungle)
+- **Chain Lightning**: increased base damage from 20 to 30.
+
+### Electabuzz (Promo)
+- Increased HP from 60 to 70.
+- Reduced retreat cost from 2 to 1.
+
+### Electabuzz (Base)
+- **Thunderpunch**: increased cost from (L)(C) to (L)(C)(C).
+
+### Jolteon (GB)
+- Increased HP from 60 to 70.
+- **Stun Needle**: reduced cost from (C)(C)(C)(C) to (C)(C)(C).
+
+### Jolteon (Jungle)
+- Increased HP from 70 to 80.
+- **Quick Attack**: removed.
+- **New attack: (L)(C) Sand Attack**: 20 damage. During the opponent's next turn, the Defending Pokémon flips a coin before attacking. If tails, the attack fails.
+
+### Zapdos (Fossil)
+- **Thunderstorm**: reduced cost from (L)(L)(L)(L) to (L)(L)(C).
+- **Thunderstorm**: reduced base damage from 40 to 30.
+- **New attack: (C) Plasma**: 10 damage. Flip a coin. If heads, attach 1 (L) energy from the discard pile to this Pokémon.
+
+### Sandshrew
+- Increased HP from 40 to 50.
+- **New attack: (C)(C) Scratch**: 20 damage.
+
+### Sandslash
+- Increased HP from 70 to 90.
+- **Slash**: increased cost from (C)(C) to (C)(C)(C).
+- **Slash**: increased damage from 20 to 30.
+- **Fury Swipes**: reduced cost from (F)(F) to (F)(C).
+
+### Diglett
+- Increased HP from 30 to 40.
+- **Dig**: reduced cost from (F) to (C).
+
+### Dugtrio
+- Reduced retreat cost from 2 to 1.
+- **Slash**: reduced cost from (F)(F)(C) to (F)(C)(C).
+- **Earthquake**: reduced cost from (F)(F)(F)(F) to (F)(F)(C)(C).
+
+### Mankey
+- Increased HP from 30 to 40.
+
+### Primeape
+- Increased HP from 70 to 80.
+- **Fury Swipes**: reduced cost from (F)(F) to (F)(C).
+
+### Machoke
+- Reduced retreat cost from 3 to 2.
+- **Karate Chop**: reduced cost from (F)(F)(C) to (F)(F).
+- **Submission**: reduced cost from (F)(F)(C)(C) to (F)(F)(C).
+- **Submission**: reduced damage from 60 to 50.
+
+### Machamp
+- Increased HP from 100 to 110.
+
+### Geodude
+- Added Resistance to Lightning.
+- **New attack: (C) Tackle**: 10 damage.
+
+### Graveler
+- Increased HP from 60 to 80.
+- Added Resistance to Lightning.
+- **Harden**: reduced cost from (F)(F) to (F).
+
+### Golem
+- Increased HP from 80 to 120.
+- Added Resistance to Lightning.
+- **Selfdestruct**: reduced cost from (F)(F)(F)(F) to (F)(F)(F)(C).
+- **Selfdestruct**: increased recoil from 100 to 120.
+
+### Onix
+- Reduced HP from 90 to 70.
+- Added Resistance to Lightning.
+- **Harden**: reduced cost from (F)(F) to (F).
+- **Rock Throw**: increased cost from (F) to (F)(C).
+- **Rock Throw**: increased damage from 10 to 20.
+
+### Cubone
+- **Snivel**: now reduces the Defending Pokémon's attack damage by 20 (before Weakness and Resistance).
+- **Rage**: reduced cost from (F)(F) to (F)(C).
+
+### Marowak (Jungle)
+- Increased HP from 60 to 80.
+- **Bonemerang**: reduced cost from (F)(F) to (F)(C).
+- **Call for Friend**: reduced cost from (F)(F)(C) to (C).
+
+### Marowak (GB)
+- Increased HP from 70 to 80.
+- **Wail**: reduced cost from (F)(F)(F) to (F).
+- **Bone Attack**: increased cost from (F)(C) to (F)(F)(C).
+- **Bone Attack**: increased damage from 10 to 30.
+
+### Hitmonlee
+- Increased HP from 60 to 70.
+
+### Rhydon
+- **Horn Attack**: removed.
+- **Ram**: reduced cost from (F)(F)(F)(F) to (F)(C).
+- **Ram**: reduced damage from 50 to 30.
+- **New attack: (F)(F)(C)(C) Horn Drill**: 50 damage.
+
+### Kabuto
+- Increased HP from 30 to 40.
+- **Scratch**: increased damage from 10 to 20.
+
+### Kabutops
+- Increased HP from 60 to 80.
+- **Sharp Sickle**: increased cost from (F)(F) to (F)(F)(C)(C).
+- **Sharp Sickle**: increased damage from 30 to 60.
+- **Absorb**: reduced cost from (F)(F)(F)(F) to (F)(F)(C).
+
+### Abra
+- Increased HP from 30 to 40.
+
+### Kadabra
+- Reduced retreat cost from 3 to 1.
+- **Recover**: reduced cost from (P)(P) to (P)(C).
+
+### Alakazam
+- Increased HP from 80 to 90.
+
+### Slowpoke (Promo)
+- Increased HP from 40 to 50.
+
+### Slowpoke (Fossil)
+- Increased HP from 50 to 60.
+
+### Slowbro
+- Increased HP from 60 to 70.
+- Increased retreat cost from 1 to 2.
+- **Psyshock**: increased cost from (P)(P) to (P)(P)(C).
+- **Psyshock**: increased damage from 20 to 30.
+
+### Gastly (Base)
+- Increased HP from 30 to 40.
+- **Sleeping Gas**: removed.
+- **New attack: (C) Hypnosis**: inflicts Sleep.
+
+### Haunter (Base)
+- Increased HP from 60 to 70.
+- **Hypnosis**: removed.
+- **New attack: (P) Nightmare**: 10 damage. Inflicts Sleep.
+
+### Haunter (Fossil)
+- Increased HP from 50 to 60.
+- Increased retreat cost from 0 to 1.
+- **Nightmare**: increased damage from 10 to 20.
+
+### Gengar
+- Increased HP from 80 to 90.
+- **Dark Mind**: reduced cost from (P)(P)(P) to (P)(P)(C).
+- **Dark Mind**: increased base damage from 30 to 40.
+
+### Drowzee
+- **Confuse Ray**: reduced cost from (P)(P) to (P)(C).
+
+### Hypno
+- **Dark Mind**: reduced cost from (P)(P)(P) to (P)(P)(C).
+
+### Jynx
+- **Doubleslap**: reduced cost from (P) to (C).
+- **Meditate**: reduced cost from (P)(P)(C) to (P)(C).
+- **Meditate**: reduced base damage from 20 to 10.
+
+### Mewtwo (Base)
+- Increased HP from 60 to 80.
+- Reduced retreat cost from 3 to 2.
+
+### Mew (Fossil)
+- Increased HP from 50 to 60.
+
+### Pidgey
+- Reduced retreat cost from 1 to 0.
+- **Whirlwind**: reduced cost from (C)(C) to (C).
+
+### Pidgeotto
+- Increased HP from 60 to 70.
+- Reduced retreat cost from 1 to 0.
+- Reduced rarity from Rare to Uncommon.
+- **Mirror Move**: reduced cost from (C)(C)(C) to (C).
+- **Whirlwind**: increased cost from (C)(C) to (C)(C)(C).
+- **Whirlwind**: increased damage from 20 to 30.
+
+### Pidgeot (GB)
+- Increased HP from 80 to 90.
+- **Slicing Wind**: reduced cost from (C)(C)(C) to (C)(C).
+- **Gale**: increased damage from 20 to 60.
+
+### Pidgeot (Jungle)
+- Increased HP from 80 to 100.
+- **Wing Attack**: increased damage from 20 to 30.
+- **Hurricane**: increased damage from 30 to 40.
+
+### Rattata
+- Increased HP from 30 to 40.
+
+### Raticate
+- Increased HP from 60 to 70.
+- **Bite**: increased cost from (C) to (C)(C).
+- **Bite**: increased damage from 20 to 30.
+
+### Spearow
+- **Mirror Move**: reduced cost from (C)(C)(C) to (C)(C).
+
+### Fearow
+- Increased HP from 70 to 80.
+
+### Clefairy
+- Increased HP from 40 to 50.
+- Reduced rarity from Rare to Common.
+- **Sing**: removed coin flip. Now always inflcits Sleep.
+- **Metronome**: removed.
+- **New attack: (C) Doubleslap**: Flips 2 coins; does 10 damage for each heads.
+
+### Clefable
+- Increased HP from 70 to 90.
+- **Minimize**: reduced cost from (C)(C) to (C).
+
+### Jigglypuff (Promo)
+- Increased HP from 50 to 60.
+
+### Meowth (GB)
+- **Cat Punch**: reduced cost from (C)(C) to (C).
+
+### Meowth (Jungle)
+- **Pay Day**: reduced cost from (C)(C) to (C).
+
+### Persian
+- Increased HP from 70 to 80.
+- **Pounce**: now reduces the Defending Pokémon's attack damage by 10 (before Weakness and Resistance).
+
+### Dodrio
+- Increased HP from 70 to 80.
+- **Rage**: increased base damage from 10 to 20.
+
+### Lickitung
+- Reduced HP from 90 to 70.
+- Reduced retreat cost from 3 to 2.
+- **Supersonic**: reduced cost from (C)(C) to (C).
+- **Tongue Wrap**: increased cost from (C) to (C)(C).
+- **Tongue Wrap**: increased damage from 10 to 20.
+
+### Chansey
+- Reduced HP from 120 to 100.
+- Increased retreat cost from 1 to 2.
+- **Double-edge**: reduced damage and recoil from 80 to 60.
+
+### Tauros
+- Increased HP from 60 to 70.
+
+### Ditto (GB)
+- **Morph**: reduced cost from (C)(C)(C) to (C)(C).
+
+### Porygon
+- Increased HP from 30 to 50.
+
+### Snorlax
+- **Body Slam**: reduced cost from (C)(C)(C)(C) to (C)(C)(C).
+
+### Dratini
+- Reduced retreat cost from 1 to 0.
+- **New attack: (C)(C) Wrap**: 20 damage. Flips a coin. If heads, inflicts Paralysis.
+
+### Dragonair
+- Reduced retreat cost from 2 to 1.
+- **Hyper Beam**: increased damage from 20 to 30.
+
+### Dragonite (Fossil)
+- Increased HP from 100 to 120.
+
+### Dragonite (GB)
+- Increased HP from 100 to 120.
+- **Slam**: increased cost from (C)(C)(C) to (C)(C)(C)(C).
+- **Slam**: increased base damage from 30 to 40.
+
+## Version 1.0
 
 ### Added
 - Extra Energy cards in the Player's starting collection.
@@ -14,6 +707,8 @@
 - Text speed starts in the fastest setting by default.
 - Improved AI when deciding whether to play certain Pokémon, Energy or Trainer cards.
 - Improved AI when deciding whether to retreat.
+- Improved AI deck lists.
+- Improved player starting decks and collection.
 
 ### Fixed
 - Fixed an assortment of known bugs and glitches in the original game.

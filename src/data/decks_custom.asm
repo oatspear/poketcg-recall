@@ -456,8 +456,7 @@ LightningAndFireDeck:  ; LIGHTNING_AND_FIRE_DECK
 	card_item MAGNEMITE_LV13,           2
 	card_item MAGNETON_LV28,            1
 	card_item VOLTORB,                  3
-	card_item ELECTRODE_LV35,           1
-	card_item ELECTRODE_LV42,           1
+	card_item ELECTRODE_LV42,           2
 	card_item RATTATA,                  2
 	card_item RATICATE,                 1
 	card_item PROFESSOR_OAK,            1
@@ -1179,8 +1178,7 @@ PowerGeneratorDeck:
 	card_item MAGNETON_LV28,     1
 	card_item MAGNETON_LV35,     1
 	card_item VOLTORB,           3
-	card_item ELECTRODE_LV35,    1
-	card_item ELECTRODE_LV42,    1
+	card_item ELECTRODE_LV42,    2
 	card_item ELECTABUZZ_LV20,   1
 	card_item ELECTABUZZ_LV35,   1
 	card_item JOLTEON_LV29,      2

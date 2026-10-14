@@ -12,6 +12,8 @@ HandleSpecialAIAttacks:
 
 	cp16 NIDORANF
 	jp z, .NidoranFCallForFamily
+	cp16 NIDORANM
+	jp z, .NidoranFCallForFamily
 	cp16 ODDISH
 	jp z, .CallForFamily
 	cp16 BELLSPROUT
@@ -46,11 +48,13 @@ HandleSpecialAIAttacks:
 	jp z, .Fetch
 	cp16 DUGTRIO
 	jp z, .Earthquake
-	cp16 ELECTRODE_LV35
-	jp z, .EnergySpike
 	cp16 GOLDUCK
 	jp z, .HyperBeam
 	cp16 DRAGONAIR
+	jp z, .HyperBeam
+	cp16 VICTREEBEL
+	jp z, .HyperBeam
+	cp16 TENTACRUEL
 	jp z, .HyperBeam
 
 ; return zero score.
@@ -58,7 +62,7 @@ HandleSpecialAIAttacks:
 	xor a
 	ret
 
-; if any of card ID in a is found in deck,
+; if any of card ID in de is found in deck,
 ; return a score of $80 + slots available in bench.
 .CallForFamily:
 	ld a, CARD_LOCATION_DECK
@@ -394,33 +398,25 @@ HandleSpecialAIAttacks:
 	ld a, $80
 	ret
 
-; if there's any lightning energy cards in deck,
+; if there's any basic energy cards in deck,
+; and if any Pokémon benefits from it,
 ; return a score of $80 + 3.
 .EnergySpike:
-	ld a, CARD_LOCATION_DECK
-	ld de, LIGHTNING_ENERGY
-	call LookForCardIDInLocation_Bank5
+	call CheckIfAnyBasicEnergyInDeck
 	jp nc, .zero_score
 	call AIProcessButDontPlayEnergy_SkipEvolution
 	jp nc, .zero_score
 	ld a, $83
 	ret
 
-; only incentivize attack if player's active card,
-; has any energy cards attached, and if so,
-; return a score of $80 + 3.
+; encourage this attack based on the number
+; of energies attached to the player's active card.
 .HyperBeam:
 	call SwapTurn
 	ld e, PLAY_AREA_ARENA
 	call CountNumberOfEnergyCardsAttached
-	call SwapTurn
-	or a
-	jr z, .hyper_beam_neutral
-	ld a, $83
-	ret
-.hyper_beam_neutral
-	ld a, $80
-	ret
+	add $80
+	jp SwapTurn
 
 
 ; returns carry if there are
@@ -452,4 +448,33 @@ CheckIfAnyBasicPokemonInDeck:
 	ret
 .set_carry
 	scf
+	ret
+
+
+; returns carry if there are
+; any basic Energy cards in deck.
+CheckIfAnyBasicEnergyInDeck:
+	ld e, 0
+.loop
+	ld a, DUELVARS_CARD_LOCATIONS
+	add e
+	call GetTurnDuelistVariable
+	cp CARD_LOCATION_DECK
+	jr nz, .next
+; get card type
+	push de
+	ld a, e
+	call GetCardIDFromDeckIndex  ; preserves hl
+	call GetCardType  ; preserves hl
+	pop de
+	cp TYPE_ENERGY
+	jr c, .next
+	cp TYPE_SPECIAL_ENERGY
+	ret c
+.next
+	inc e
+	ld a, DECK_SIZE
+	cp e
+	jr nz, .loop
+	or a
 	ret

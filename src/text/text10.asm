@@ -58,13 +58,10 @@ TerrorStrikeName:
 	done
 
 TerrorStrikeDescription:
-	text "Flip a coin. If heads and if your"
-	line "opponent has any Benched Pokémon,"
-	line "he or she chooses 1 of them and"
-	line "switches it with the Defending"
-	line "Pokémon."
-	line "(Do the damage before switching"
-	line "the Pokémon.)"
+	text "Before doing damage, your opponent"
+	line "chooses 1 of their Benched Pokémon,"
+	line "if any, and switches it with the"
+	line "Defending Pokémon."
 	done
 
 PoisonFangName:
@@ -99,11 +96,9 @@ CallForFamilyName:
 	done
 
 NidoranFsCallForFamilyDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Nidoran♀ or Nidoran♂ and put"
-	line "it onto your Bench. Shuffle your"
-	line "deck afterward. (You can't use this"
-	line "attack if your Bench is full.)"
+	text "Search your deck for a Nidoran♀"
+	line "or Nidoran♂ and put it onto your"
+	line "Bench. Shuffle your deck afterward."
 	done
 
 PoisonPinName:
@@ -148,8 +143,9 @@ BoyfriendsName:
 	done
 
 BoyfriendsDescription:
-	text "Does 20 damage plus 20 more damage"
-	line "for each Nidoking you have in play."
+	text "This attack does 20 more damage"
+	line "for each Nidorino or Nidoking"
+	line "you have in play."
 	done
 
 MegaPunchName:
@@ -209,10 +205,13 @@ ThrashName:
 
 ThrashDescription:
 	text "Flip a coin. If heads, this attack"
-	line "does 30 damage plus 10 more damage;"
-	line "if tails, this attack does 30 damage"
-	line "and Nidoking does 10 damage to"
-	line "itself."
+	line "does 20 more damage. If tails, this"
+	line "Pokémon does 20 damage to itself."
+	done
+
+IfHeadPlus20IfTails20ToYourselfText:
+	text "If Heads, + 20 damage!"
+	line "If Tails, +20 damage to yourself!"
 	done
 
 ToxicName:
@@ -241,13 +240,10 @@ LeechLifeName:
 	text "Leech Life"
 	done
 
-ZubatsLeechLifeDescription:
-	text "Remove a number of damage counters"
-	line "from Zubat equal to the damage done"
-	line "to the Defending Pokémon (after"
-	line "applying Weakness and Resistance)."
-	line "If Zubat has fewer damage counters"
-	line "than that, remove all of them."
+LeechLifeDescription:
+	text "Heal from this Pokémon the same"
+	line "amount of damage you did to your"
+	line "opponent's Active Pokémon."
 	done
 
 BatName:
@@ -268,15 +264,6 @@ WingAttackName:
 	text "Wing Attack"
 	done
 
-GolbatsLeechLifeDescription:
-	text "Remove a number of damage counters"
-	line "from Golbat equal to the damage done"
-	line "to the Defending Pokémon (after"
-	line "applying Weakness and Resistance)."
-	line "If Golbat has fewer damage counters"
-	line "than that, remove all of them."
-	done
-
 GolbatDescription:
 	text "Once it strikes, it will not stop"
 	line "draining energy from the victim even"
@@ -292,11 +279,9 @@ SproutName:
 	done
 
 SproutDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Oddish and put it onto your"
-	line "Bench. Shuffle your deck afterward."
-	line "(You can't use this attack if your"
-	line "Bench is full.)"
+	text "Search your deck for an Oddish and"
+	line "put it onto your Bench."
+	line "Shuffle your deck afterward."
 	done
 
 WeedName:
@@ -338,12 +323,11 @@ HealName:
 	done
 
 HealDescription:
-	text "Once during your turn (before your"
-	line "attack), you may flip a coin. If"
-	line "heads, remove 1 damage counter from"
-	line "1 of your Pokémon. This power can't"
-	line "be used if Vileplume is Asleep,"
-	line "Confused, or Paralyzed."
+	text "Once during your turn, you may flip"
+	line "a coin. If heads, heal 10 damage"
+	line "from 1 of your Pokémon. This power"
+	line "cannot be used if this Pokémon is"
+	line "Asleep, Confused, or Paralyzed."
 	done
 
 PetalDanceName:
@@ -351,10 +335,9 @@ PetalDanceName:
 	done
 
 PetalDanceDescription:
-	text "Flip 3 coins. This attack does 40"
-	line "damage times the number of heads."
-	line "Vileplume is now Confused (after"
-	line "doing damage)."
+	text "Flip 3 coins. This attack does"
+	line "40 damage for each heads."
+	line "This Pokémon is now Confused."
 	done
 
 FlowerName:
@@ -411,15 +394,6 @@ VenonatName:
 	text "Venonat"
 	done
 
-VenonatLeechLifeDescription:
-	text "Remove a number of damage counters"
-	line "from Venonat equal to the damage"
-	line "done to the Defending Pokémon (after"
-	line "applying Weakness and Resistance)."
-	line "If Venonat has fewer damage counters"
-	line "than that, remove all of them."
-	done
-
 InsectName:
 	text "Insect"
 	done
@@ -439,12 +413,11 @@ ShiftName:
 	done
 
 ShiftDescription:
-	text "Once during your turn (before your"
-	line "attack), you may change the type of"
-	line "Venomoth to the type of any other"
-	line "Pokémon in play other than"
-	line "Colorless."
-	line "This power can't be used if Venomoth"
+	text "Once during your turn, you may"
+	line "change this Pokémon's type to"
+	line "the type of any other Pokémon"
+	line "in play (except Colorless). This"
+	line "power cannot be used if this Pokémon"
 	line "is Asleep, Confused, or Paralyzed."
 	done
 
@@ -473,11 +446,9 @@ BellsproutName:
 	done
 
 BellsproutsCallForFamilyDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Bellsprout and put it onto"
-	line "your Bench. Shuffle your deck"
-	line "afterward. (You can't use this"
-	line "attack if your Bench is full.)"
+	text "Search your deck for a Bellsprout"
+	line "and put it onto your Bench."
+	line "Shuffle your deck afterward."
 	done
 
 BellsproutDescription:
@@ -513,20 +484,25 @@ LureName:
 	text "Lure"
 	done
 
-VictreebelsLureDescription:
-	text "If your opponent has any Benched"
-	line "Pokémon, choose 1 of them and switch"
-	line "it with his or her Active Pokémon."
+LureDescription:
+	text "Switch 1 of your opponent's Benched"
+	line "Pokémon with their Active Pokémon."
+	line "The new Active Pokémon can't retreat"
+	line "during your opponent's next turn."
 	done
 
 AcidName:
 	text "Acid"
 	done
 
-VictreebelsAcidDescription:
-	text "Flip a coin. If heads, the Defending"
-	line "Pokémon can't retreat during your"
-	line "opponent's next turn."
+AcidSprayName:
+	text "Acid Spray"
+	done
+
+AcidSprayDescription:
+	text "Flip a coin. If heads, discard"
+	line "1 Energy card attached to the"
+	line "Defending Pokémon."
 	done
 
 VictreebelDescription:
@@ -547,11 +523,11 @@ MinimizeName:
 	text "Minimize"
 	done
 
-GrimersMinimizeDescription:
-	text "All damage done by attacks to Grimer"
-	line "during your opponent's next turn is"
-	line "reduced by 20 (after applying"
-	line "Weakness and Resistance)."
+MinimizeDescription:
+	text "All damage done by attacks to this"
+	line "Pokémon during your opponent's next"
+	line "turn is reduced by 20 (after"
+	line "applying Weakness and Resistance)."
 	done
 
 SludgeName:
@@ -593,12 +569,6 @@ HypnosisName:
 	text "Hypnosis"
 	done
 
-ExeggcutesLeechSeedDescription:
-	text "Unless all damage from this attack"
-	line "is prevented, you may remove 1"
-	line "damage counter from Exeggcute."
-	done
-
 EggName:
 	text "Egg"
 	done
@@ -618,7 +588,7 @@ TeleportName:
 	done
 
 TeleportDescription:
-	text "Switch Exeggutor with 1 of your"
+	text "Switch this Pokémon with 1 of your"
 	line "Benched Pokémon."
 	done
 
@@ -628,9 +598,9 @@ BigEggsplosionName:
 
 BigEggsplosionDescription:
 	text "Flip a number of coins equal to the"
-	line "number of Energy attached to"
-	line "Exeggutor. This attack does 20"
-	line "damage times the number of heads."
+	line "number of Energies attached to"
+	line "this Pokémon. This attack does 20"
+	line "damage for each heads."
 	done
 
 CoconutName:
@@ -681,11 +651,11 @@ SelfdestructName:
 	done
 
 WeezingsSelfdestructDescription:
-	text "Does 10 damage to each Pokémon on"
-	line "each player's Bench. (Don't apply"
-	line "Weakness and Resistance for Benched"
-	line "Pokémon.) Weezing does 60 damage to"
-	line "itself."
+	text "This attack does 10 damage to each"
+	line "Pokémon on each player's Bench."
+	line "(Don't apply Weakness and Resistance"
+	line "for Benched Pokémon.)  This Pokémon"
+	line "does 80 damage to itself."
 	done
 
 WeezingDescription:
@@ -777,9 +747,8 @@ EmberName:
 	done
 
 EmberDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Charmander in order to use this"
-	line "attack."
+	text "Discard 1 <FIRE> Energy card attached"
+	line "to this Pokémon."
 	done
 
 LizardName:
@@ -801,10 +770,9 @@ FlamethrowerName:
 	text "Flamethrower"
 	done
 
-CharmeleonsFlamethrowerDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Charmeleon in order to use this"
-	line "attack."
+FlamethrowerDescription:
+	text "Discard 1 <FIRE> Energy card attached"
+	line "to this Pokémon."
 	done
 
 FlameName:
@@ -826,12 +794,10 @@ EnergyBurnName:
 	done
 
 EnergyBurnDescription:
-	text "As often as you like during your"
-	line "turn (before your attack), you may"
-	line "turn all Energy attached to"
-	line "Charizard into <FIRE> Energy for the"
-	line "rest of the turn. This power can't"
-	line "be used if Charizard is Asleep,"
+	text "All Energy attached to this Pokémon"
+	line "are <FIRE> Energy instead of their usual"
+	line "type. This Pokémon Power stops"
+	line "working if this Pokémon is Asleep,"
 	line "Confused, or Paralyzed."
 	done
 
@@ -873,20 +839,13 @@ NinetalesName:
 	text "Ninetales"
 	done
 
-NinetalesLureDescription:
-	text "If your opponent has any Benched"
-	line "Pokémon, choose 1 of them and switch"
-	line "it with the Defending Pokémon."
-	done
-
 FireBlastName:
 	text "Fire Blast"
 	done
 
 FireBlastDescription:
 	text "Discard 1 <FIRE> Energy card attached"
-	line "to Ninetales in order to use this"
-	line "attack."
+	line "to this Pokémon."
 	done
 
 NinetalesLv32Description:
@@ -956,11 +915,9 @@ QuickAttackName:
 	text "Quick Attack"
 	done
 
-QuickAttackDescription:
+CoinFlip20MoreDamageDescription:
 	text "Flip a coin. If heads, this attack"
-	line "does 10 damage plus 20 more damage;"
-	line "if tails, this attack does 10"
-	line "damage."
+	line "does 20 more damage."
 	done
 
 FlamesOfRageName:
@@ -969,10 +926,9 @@ FlamesOfRageName:
 
 FlamesOfRageDescription:
 	text "Discard 2 <FIRE> Energy cards attached"
-	line "to Arcanine in order to use this"
-	line "attack. This attack does 40 damage"
-	line "plus 10 more damage for each damage"
-	line "counter on Arcanine."
+	line "to this Pokémon. This attack does"
+	line "10 more damage for each damage"
+	line "counter on this Pokémon."
 	done
 
 LegendaryName:
@@ -985,18 +941,13 @@ ArcanineLv34Description:
 	line "flies when it runs."
 	done
 
-ArcaninesFlamethrowerDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Arcanine in order to use this"
-	line "attack."
-	done
-
 TakeDownName:
 	text "Take Down"
 	done
 
 TakeDownDescription:
-	text "Arcanine does 30 damage to itself."
+	text "This Pokémon does 30 damage to"
+	line "itself."
 	done
 
 ArcanineLv45Description:
@@ -1037,20 +988,18 @@ StompName:
 
 StompDescription:
 	text "Flip a coin. If heads, this attack"
-	line "does 20 damage plus 10 more damage;"
-	line "if tails, this attack does 20"
-	line "damage."
+	line "does 10 more damage."
 	done
 
 AgilityName:
 	text "Agility"
 	done
 
-RapidashsAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all"
+AgilityDescription:
+	text "Flip a coin. If heads, prevent all"
 	line "effects of attacks, including"
-	line "damage, done to Rapidash."
+	line "damage, done to this Pokémon during"
+	line "your opponent's next turn."
 	done
 
 RapidashDescription:
@@ -1067,11 +1016,6 @@ FirePunchName:
 	text "Fire Punch"
 	done
 
-FirePunchDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Magmar in order to use this attack."
-	done
-
 SpitfireName:
 	text "Spitfire"
 	done
@@ -1086,7 +1030,7 @@ SmokescreenName:
 	text "Smokescreen"
 	done
 
-MagmarsSmokescreenDescription:
+SmokescreenDescription:
 	text "If the Defending Pokémon tries to"
 	line "attack during your opponent's next"
 	line "turn, your opponent flips a coin. If"
@@ -1116,20 +1060,15 @@ RageName:
 	text "Rage"
 	done
 
-FlareonsRageDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each damage counter on Flareon."
+RageDescription:
+	text "This attack does 10 more damage for"
+	line "each damage counter on this Pokémon."
 	done
 
 FlareonLv22Description:
 	text "It has a flame chamber inside its"
 	line "body. It inhales, then blows out"
 	line "fire that is over 3,000 degrees."
-	done
-
-FlareonsFlamethrowerDescription:
-	text "Discard 1 <FIRE> Energy card attached to"
-	line "Flareon in order to use this attack."
 	done
 
 FlareonLv28Description:
@@ -1142,16 +1081,28 @@ MoltresName:
 	text "Moltres"
 	done
 
+FlareFloatName:
+	text "Flare Float"
+	done
+
+FlareFloatDescription:
+	text "If this Pokémon has any <FIRE> Energy"
+	line "attached, it has no Retreat Cost."
+	line "This Pokémon Power stops working if"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
+	done
+
 WildfireName:
 	text "Wildfire"
 	done
 
 WildfireDescription:
 	text "You may discard any number of <FIRE>"
-	line "Energy cards attached to Moltres"
-	line "when you use this attack. If you do,"
-	line "discard that many cards from the top"
-	line "of your opponent's deck."
+	line "Energy cards attached to this"
+	line "Pokémon. If you do, discard that"
+	line "many cards from the top of your"
+	line "opponent's deck."
 	done
 
 DiveBombName:
@@ -1195,11 +1146,23 @@ WithdrawName:
 	text "Withdraw"
 	done
 
-SquirtlesWithdrawDescription:
+WithdrawDescription:
 	text "Flip a coin. If heads, prevent all"
-	line "damage done to Squirtle during your"
-	line "opponent's next turn. (Any other"
+	line "damage done to this Pokémon during"
+	line "your opponent's next turn. (Other"
 	line "effects of attacks still happen.)"
+	done
+
+RapidSpinName:
+	text "Rapid Spin"
+	done
+
+RapidSpinDescription:
+	text "Switch this Pokémon with 1 of your"
+	line "Benched Pokémon. If you do, your"
+	line "opponent switches their Active"
+	line "Pokémon with 1 of their Benched"
+	line "Pokémon."
 	done
 
 TinyTurtleName:
@@ -1214,13 +1177,6 @@ SquirtleDescription:
 
 WartortleName:
 	text "Wartortle"
-	done
-
-WartortlesWithdrawDescription:
-	text "Flip a coin. If heads, prevent all"
-	line "damage done to Wartortle during your"
-	line "opponent's next turn. (Any other"
-	line "effects of attacks still happen.)"
 	done
 
 TurtleName:
@@ -1261,11 +1217,11 @@ HydroPumpName:
 	done
 
 HydroPumpDescription:
-	text "Does 40 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Blastoise but not used to pay for"
-	line "this attack's Energy cost. You can't"
-	line "add more than 20 damage in this way."
+	text "This attack does 10 more damage for"
+	line "each <WATER> Energy attached to this"
+	line "Pokémon but not used to pay for this"
+	line "attack's Energy cost. You can't add more "
+	line "more than 20 damage in this way."
 	done
 
 ShellfishName:
@@ -1333,12 +1289,12 @@ WaterGunName:
 	text "Water Gun"
 	done
 
-PoliwagsWaterGunDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Poliwag but not used to pay for"
-	line "this attack's Energy cost. You can't"
-	line "add more than 20 damage in this way."
+WaterGunDescription:
+	text "This attack does 10 more damage for"
+	line "each <WATER> Energy attached to this"
+	line "Pokémon but not used to pay for this"
+	line "attack's Energy cost. You can't add"
+	line "more than 20 damage in this way."
 	done
 
 TadpoleName:
@@ -1359,7 +1315,7 @@ AmnesiaName:
 	text "Amnesia"
 	done
 
-PoliwhirlsAmnesiaDescription:
+AmnesiaDescription:
 	text "Choose 1 of the Defending Pokémon's"
 	line "attacks. That Pokémon can't use that"
 	line "attack during your opponent's next"
@@ -1378,15 +1334,6 @@ PoliwhirlsDescription:
 
 PoliwrathName:
 	text "Poliwrath"
-	done
-
-PoliwrathsWaterGunDescription:
-	text "Does 30 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Poliwrath but not used to pay for"
-	line "this attack's Energy cost. You"
-	line "can't add more than 20 damage in"
-	line "this way."
 	done
 
 WhirlpoolName:
@@ -1410,11 +1357,11 @@ CowardiceName:
 CowardiceDescription:
 	text "At any time during your turn"
 	line "(before your attack), you may return"
-	line "Tentacool to your hand. (Discard all"
-	line "cards attached to Tentacool.) This"
+	line "this Pokémon to your hand. (Discard"
+	line "all cards attached to it.) This"
 	line "power can't be used the turn you put"
-	line "Tentacool into play or if Tentacool"
-	line "is Asleep, Confused, or Paralyzed."
+	line "this Pokémon into play or if it is"
+	line "Asleep, Confused, or Paralyzed."
 	done
 
 JellyfishName:
@@ -1447,6 +1394,16 @@ SeelName:
 
 HeadbuttName:
 	text "Headbutt"
+	done
+
+RestName:
+	text "Rest"
+	done
+
+RestDescription:
+	text "Heal damage from this Pokémon equal"
+	line "to half of its maximum HP (rounded"
+	line "up). This Pokémon is now Asleep."
 	done
 
 SeaLionName:
@@ -1486,10 +1443,12 @@ HideInShellName:
 	done
 
 HideInShellDescription:
-	text "Flip a coin. If heads, prevent all"
-	line "damage done to Shellder during your"
-	line "opponent's next turn. (Any other"
-	line "effects of attacks still happen.)"
+	text "This Pokémon takes 20 less damage"
+	line "from attacks (after applying"
+	line "Weakness and Resistance.) This"
+	line "Pokémon Power stops working while"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
 	done
 
 BivalveName:
@@ -1532,11 +1491,9 @@ KrabbyName:
 	done
 
 KrabbysCallForFamilyDescription:
-	text "Search your deck for a Basic Pokémon"
-	line "named Krabby and put it onto your"
-	line "Bench. Shuffle your deck afterward."
-	line "(You can't use this attack if your"
-	line "Bench is full.)"
+	text "Search your deck for a Krabby"
+	line "and put it onto your Bench."
+	line "Shuffle your deck afterward."
 	done
 
 RiverCrabName:
@@ -1557,9 +1514,9 @@ FlailName:
 	text "Flail"
 	done
 
-KinglersFlailDescription:
-	text "Does 10 damage times the number of"
-	line "damage counters on Kingler."
+FlailDescription:
+	text "This attack does 10 damage for each"
+	line "damage counter on this Pokémon."
 	done
 
 CrabhammerName:

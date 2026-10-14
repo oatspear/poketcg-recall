@@ -34,19 +34,67 @@ HandleDoubleDamageSubstatus::
 HandleDamageReduction::
 	ld a, [wNoDamageOrEffect]
 	or a
-	jr nz, NoDamage_DE
+	jp nz, NoDamage_DE
 	call HandleDamageReductionFromSubstatus1
 	call HandleDamageReductionFromPkmnPowers
 ; handle Substatus2 damage reduction for the attacking card
+	; ld a, DUELVARS_ARENA_CARD_SUBSTATUS2
+	; call GetNonTurnDuelistVariable
+	; or a
+	; ret z
+	; cp SUBSTATUS2_REDUCE_BY_20
+	; jr z, ReduceDamageBy20_DE
+	; cp SUBSTATUS2_REDUCE_BY_10
+	; jr z, ReduceDamageBy10_DE
+	ret
+
+
+; check if the defending card (turn holder's arena card) has any
+; Pokémon Power that reduces the damage dealt to it.
+; damage is given in de as input and the possibly updated damage is also returned in de.
+HandleDamageReductionFromPkmnPowers::
+	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
+	ret c
+.pkmn_power
+	ld a, [wLoadedAttackCategory]
+	cp POKEMON_POWER
+	ret z
+	ld hl, wTempNonTurnDuelistCardID
+	cphl MR_MIME
+	jp z, PreventMoreThan20Damage_DE
+	cphl SHELLDER
+	jr z, ReduceDamageBy20_DE
+	ld a, [wTempNonTurnDuelistCardStage]
+	cp STAGE1
+	jr nz, .kabuto
+	cphl CLOYSTER
+	jr z, ReduceDamageBy20_DE
+.kabuto
+	cphl KABUTO
+	jr z, HalveDamage_DE
+	ld a, [wTempNonTurnDuelistCardStage]
+	cp STAGE2
+	ret nz
+	cphl KABUTOPS
+	jr z, HalveDamage_DE
+	ret
+
+
+; check if the attacking card (turn holder's arena card) has any substatus that
+; reduces the damage dealt this turn (SUBSTATUS2).
+; damage is given in de as input and the possibly updated damage is also returned in de.
+HandleDamageReductionBeforeWeaknessResistance::
+	; ld a, [wNoDamageOrEffect]
+	; or a
+	; jr nz, NoDamage_DE
+; handle Substatus2 damage reduction for the attacking card
 	ld a, DUELVARS_ARENA_CARD_SUBSTATUS2
-	call GetNonTurnDuelistVariable
+	call GetTurnDuelistVariable
 	or a
 	ret z
 	cp SUBSTATUS2_REDUCE_BY_20
 	jr z, ReduceDamageBy20_DE
-	cp SUBSTATUS2_POUNCE
-	jr z, ReduceDamageBy10_DE
-	cp SUBSTATUS2_GROWL
+	cp SUBSTATUS2_REDUCE_BY_10
 	jr z, ReduceDamageBy10_DE
 	ret
 
@@ -64,8 +112,6 @@ HandleDamageReductionFromSubstatus1::
 	jr z, NoDamage_DE
 	cp SUBSTATUS1_NO_DAMAGE_10
 	jr z, NoDamage_DE
-	cp SUBSTATUS1_NO_DAMAGE_11
-	jr z, NoDamage_DE
 	cp SUBSTATUS1_NO_DAMAGE_17
 	jr z, NoDamage_DE
 	cp SUBSTATUS1_REDUCE_BY_10
@@ -78,28 +124,6 @@ HandleDamageReductionFromSubstatus1::
 	jr z, HalveDamage_DE
 	ret
 
-
-; check if the defending card (turn holder's arena card) has any
-; Pokémon Power that reduces the damage dealt to it.
-; damage is given in de as input and the possibly updated damage is also returned in de.
-HandleDamageReductionFromPkmnPowers::
-	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
-	ret c
-.pkmn_power
-	ld a, [wLoadedAttackCategory]
-	cp POKEMON_POWER
-	ret z
-	ld hl, wTempNonTurnDuelistCardID
-	cphl MR_MIME
-	jr z, PreventMoreThan20Damage_DE
-	cphl KABUTO
-	jr z, HalveDamage_DE
-	ld a, [wTempNonTurnDuelistCardStage]
-	cp STAGE2
-	ret nz
-	cphl KABUTOPS
-	jr z, HalveDamage_DE
-	ret
 
 NoDamage_DE::
 	ld de, 0
@@ -531,6 +555,7 @@ CheckIsIncapableOfUsingPkmnPower::
 ; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
 ; input:
 ;   de = Pokemon card ID to search
+; preserves: hl, bc, de
 CountPokemonWithActivePkmnPowerInBothPlayAreas::
 	ld a, $ff
 	ld [wPlayAreaStageToLookup], a
@@ -544,14 +569,15 @@ CountPokemonWithActivePkmnPowerInBothPlayAreas::
 ; input:
 ;   de = Pokemon card ID to search
 ;   wPlayAreaStageToLookup = stage to look for, or $ff to ignore stage
+; preserves: hl, bc, de
 CountPokemonOrPreviousStageWithActivePkmnPowerInBothPlayAreas::
 	push bc
-	push de
-	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
+	; push de
+	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower  ; preserves: hl, bc, de
 	ld c, a
-	pop de
+	; pop de
 	call SwapTurn
-	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
+	call CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower  ; preserves: hl, bc, de
 	call SwapTurn
 	add c
 	or a
@@ -567,6 +593,7 @@ CountPokemonOrPreviousStageWithActivePkmnPowerInBothPlayAreas::
 ; if the arena Pokemon is asleep, confused, or paralyzed (Pkmn Power-incapable), it doesn't count.
 ; input:
 ;   de = Pokemon card ID to search
+; preserves: hl, bc, de
 CountTurnDuelistPokemonWithActivePkmnPower::
 	ld a, $ff
 	ld [wPlayAreaStageToLookup], a
@@ -580,6 +607,7 @@ CountTurnDuelistPokemonWithActivePkmnPower::
 ; input:
 ;   de = Pokemon card ID to search
 ;   wPlayAreaStageToLookup = stage to look for, or $ff to ignore stage
+; preserves: hl, bc, de
 CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower::
 	push hl
 	push de
@@ -659,6 +687,40 @@ CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower::
 ; return, in a, the retreat cost of the card in wLoadedCard1,
 ; adjusting for any Dodrio's Retreat Aid Pkmn Power that is active.
 GetLoadedCard1RetreatCost::
+	ld de, MUK
+	call CountPokemonWithActivePkmnPowerInBothPlayAreas
+	jr nc, .check_modifiers
+; Muk found, return regular retreat cost
+	ld a, [wLoadedCard1RetreatCost]
+	ret
+
+.check_modifiers
+; ; Ice Float
+; ; If this Pokémon has any {W} Energy attached, it has no Retreat Cost.
+; 	ld hl, wLoadedCard1ID
+; 	cphl ARTICUNO_LV35
+; 	ld de, WATER_ENERGY
+; 	jr z, .color_float_power
+; ; Voltaic Float
+; ; If this Pokémon has any {L} Energy attached, it has no Retreat Cost.
+; 	cphl ZAPDOS_LV40
+; 	ld de, LIGHTNING_ENERGY
+; 	jr z, .color_float_power
+; ; Flare Float
+; ; If this Pokémon has any {R} Energy attached, it has no Retreat Cost.
+; 	cphl MOLTRES_LV35
+; 	ld de, FIRE_ENERGY
+; 	jr nz, .normal_check
+; .color_float_power
+; 	ldh a, [hTempPlayAreaLocation_ff9d]
+; 	or CARD_LOCATION_PLAY_AREA
+; 	call LookForCardIDInLocation
+; 	jr nc, .normal_check
+; 	xor a
+; 	ret
+
+; proceed with normal retreat cost check
+.normal_check
 	ld c, 0
 	ld a, DUELVARS_BENCH
 	call GetTurnDuelistVariable
@@ -676,13 +738,10 @@ GetLoadedCard1RetreatCost::
 	ld a, c
 	or a
 	jr nz, .dodrio_found
-.muk_found
+; not found
 	ld a, [wLoadedCard1RetreatCost] ; return regular retreat cost
 	ret
 .dodrio_found
-	ld de, MUK
-	call CountPokemonWithActivePkmnPowerInBothPlayAreas
-	jr c, .muk_found
 	ld a, [wLoadedCard1RetreatCost]
 	sub c ; apply Retreat Aid for each Pkmn Power-capable Dodrio
 	ret nc
@@ -726,20 +785,15 @@ IsPrehistoricPowerActive::
 	ccf
 	ret
 
+
 ; clears some SUBSTATUS2 conditions from the turn holder's active Pokemon.
-; more specifically, those conditions that reduce the damage from an attack
-; or prevent the opposing Pokemon from attacking the substatus condition inducer.
-ClearDamageReductionSubstatus2::
+; more specifically, those conditions that
+; prevent the opposing Pokemon from attacking the substatus condition inducer.
+ClearDamagePreventionSubstatus2::
 	ld a, DUELVARS_ARENA_CARD_SUBSTATUS2
 	call GetTurnDuelistVariable
 	or a
 	ret z
-	cp SUBSTATUS2_REDUCE_BY_20
-	jr z, .zero
-	cp SUBSTATUS2_POUNCE
-	jr z, .zero
-	cp SUBSTATUS2_GROWL
-	jr z, .zero
 	cp SUBSTATUS2_TAIL_WAG
 	jr z, .zero
 	cp SUBSTATUS2_LEER

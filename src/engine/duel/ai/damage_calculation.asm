@@ -160,7 +160,10 @@ CalculateDamage_VersusDefendingPokemon:
 .vulnerable
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	or a
-	call z, HandleDoubleDamageSubstatus
+	jr nz, .skip_attacker_substatus
+	call HandleDamageReductionBeforeWeaknessResistance
+	call HandleDoubleDamageSubstatus
+.skip_attacker_substatus
 	; skips the weak/res checks if unaffected.
 	bit UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
 	res UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
@@ -187,7 +190,7 @@ CalculateDamage_VersusDefendingPokemon:
 	call SwapTurn
 	and b
 	jr z, .not_resistant
-	ld hl, -30
+	ld hl, RESISTANCE_AMOUNT
 	add hl, de
 	ld e, l
 	ld d, h
@@ -414,6 +417,7 @@ CalculateDamage_FromDefendingPokemon:
 	ld [wTempNonTurnDuelistCardStage], a
 
 	call SwapTurn
+	call HandleDamageReductionBeforeWeaknessResistance
 	call HandleDoubleDamageSubstatus
 	bit UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
 	res UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
@@ -464,7 +468,7 @@ CalculateDamage_FromDefendingPokemon:
 .unchanged_res
 	and b
 	jr z, .not_resistant
-	ld hl, -30
+	ld hl, RESISTANCE_AMOUNT
 	add hl, de
 	ld e, l
 	ld d, h

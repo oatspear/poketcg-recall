@@ -788,6 +788,10 @@ LoadCardDataToBuffer1_FromDeckIndex::
 	call LoadCardDataToBuffer1_FromCardID
 	pop af
 	ld hl, wLoadedCard1
+	push af
+	call ConvertSpecialBuzzapEnergyCard  ; preserves: hl
+	call z, LoadCardDataToBuffer1_FromCardID  ; preserves: hl, bc, de
+	pop af
 	bank1call ConvertSpecialTrainerCardToPokemon
 	ld a, e
 	pop bc
@@ -805,12 +809,50 @@ LoadCardDataToBuffer2_FromDeckIndex::
 	call LoadCardDataToBuffer2_FromCardID
 	pop af
 	ld hl, wLoadedCard2
+	push af
+	call ConvertSpecialBuzzapEnergyCard  ; preserves: hl
+	call z, LoadCardDataToBuffer2_FromCardID  ; preserves: hl, bc, de
+	pop af
 	bank1call ConvertSpecialTrainerCardToPokemon
 	ld a, e
 	pop bc
 	pop de
 	pop hl
 	ret
+
+
+; given the deck index of a turn holder's card,
+; and a pointer to the wLoadedCard* buffer where the card data is loaded,
+; check if the card is Buzzap Special Energy, and, if so, convert it
+; to a Pokémon card in the wLoadedCard* buffer, if it is not in play.
+ConvertSpecialBuzzapEnergyCard:
+	ld c, a
+	ld a, [hl]
+	cp TYPE_ENERGY_ELECTRODE
+	ret nz ; return if the card is not Buzzap Special Energy
+
+	push hl
+	ldh a, [hWhoseTurn]
+	ld h, a
+	ld l, c
+	ld a, [hl]
+	and CARD_LOCATION_PLAY_AREA
+	pop hl
+	ret nz ; return if the card is in the arena or bench
+
+; overwrite card data and ID in the deck list
+	push hl
+	ld a, c
+	call _GetCardIDFromDeckIndex  ; points hl to the deck ID list
+	ld de, ELECTRODE_LV35
+	ld [hl], d
+	dec hl
+	ld [hl], e
+	pop hl
+; signal z flag to reload card data
+	xor a
+	ret
+
 
 ; evolve a turn holder's Pokemon card in the play area slot determined by hTempPlayAreaLocation_ff9d
 ; into another turn holder's Pokemon card identifier by its deck index (0-59) in hTempCardIndex_ff98.
@@ -1259,10 +1301,12 @@ GetPlayAreaCardAttachedEnergies::
 	add hl, de
 	inc [hl] ; increment the number of energy cards of this type
 	cp COLORLESS
-	jr nz, .not_colorless
+	jr z, .colorless
+	cp UNUSED_TYPE
+	jr nz, .not_an_energy_card
+.colorless
 	inc [hl] ; each colorless energy counts as two
 .not_an_energy_card
-.not_colorless
 	pop bc
 	pop de
 	pop hl
@@ -1281,10 +1325,35 @@ GetPlayAreaCardAttachedEnergies::
 	dec c
 	jr nz, .sum_attached_energies_loop
 	ld [hl], a ; save to wTotalAttachedEnergies
+; end
 	pop bc
 	pop de
 	pop hl
 	ret
+
+
+; input:
+;  [wAttachedEnergies]: already populated
+; preserves: hl, bc, de
+HandleRainbowEnergies::
+	push hl
+	push bc
+; tally rainbow energies
+	ld a, [wAttachedEnergies + UNUSED_TYPE]
+	ld b, a
+	ld hl, wAttachedEnergies
+	ld c, NUM_TYPES - 1
+.rainbow_loop
+	ld a, b
+	add [hl]
+	ld [hli], a
+	dec c
+	jr nz, .rainbow_loop
+; end
+	pop bc
+	pop hl
+	ret
+
 
 ; returns in a how many times card e can be found in location b
 ; de = card id to search
@@ -1363,7 +1432,9 @@ ProcessPlayedPokemonCard::
 	ld [wTempTurnDuelistCardID + 1], a
 	ld a, [wLoadedAttackCategory]
 	cp POKEMON_POWER
-	ret nz
+	jr nz, .check_previous_stages
+
+.has_pokemon_power
 	call DisplayUsePokemonPowerScreen
 	ldh a, [hTempCardIndex_ff98]
 	call LoadCardDataToBuffer1_FromDeckIndex
@@ -1383,6 +1454,22 @@ ProcessPlayedPokemonCard::
 	call DisplayUsePokemonPowerScreen
 	ldtx hl, UnableToUsePkmnPowerDueToToxicGasText
 	jp DrawWideTextBox_WaitForInput
+
+.check_previous_stages
+	cp16 METAPOD
+	jr nz, .kakuna
+	ld de, CATERPIE
+	jr .copy_previous
+.kakuna
+	cp16 KAKUNA
+	ret nz
+	ld de, WEEDLE
+.copy_previous
+	ldh a, [hTempCardIndex_ff98]
+	ld b, a
+	ld c, FIRST_ATTACK_OR_PKMN_POWER
+	call CopyAttackDataAndDamage_FromCardID
+	jr .has_pokemon_power
 
 .use_pokemon_power
 	ld hl, wLoadedAttackEffectCommands
@@ -1925,9 +2012,11 @@ ApplyDamageModifiers_DamageToTarget::
 	res UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
 	xor a
 	ld [wDamageEffectiveness], a
+	call HandleDamageReductionBeforeWeaknessResistance
 	call HandleDoubleDamageSubstatus
 	jr .check_pluspower_and_defender
 .affected_by_wr
+	call HandleDamageReductionBeforeWeaknessResistance
 	call HandleDoubleDamageSubstatus
 	ld a, e
 	or d
@@ -1951,7 +2040,7 @@ ApplyDamageModifiers_DamageToTarget::
 	call SwapTurn
 	and b
 	jr z, .check_pluspower_and_defender ; jump if not resistant
-	ld hl, -30
+	ld hl, RESISTANCE_AMOUNT
 	add hl, de
 	ld e, l
 	ld d, h
@@ -2014,7 +2103,7 @@ ApplyDamageModifiers_DamageToSelf::
 	call GetArenaCardResistance
 	and b
 	jr z, .not_resistant
-	ld hl, -30
+	ld hl, RESISTANCE_AMOUNT
 	add hl, de
 	ld e, l
 	ld d, h
@@ -2189,6 +2278,18 @@ DealDamageToPlayAreaPokemon::
 	call GetTurnDuelistVariable
 	ld [wTempNonTurnDuelistCardStage], a
 	pop de
+; attack power reduction substatus
+	ld a, [wLoadedAttackCategory]
+	cp POKEMON_POWER
+	jr z, .skip_attacker_substatus
+	ld a, [wIsDamageToSelf]
+	or a
+	push af
+	call z, SwapTurn
+	call HandleDamageReductionBeforeWeaknessResistance
+	pop af
+	call z, SwapTurn
+.skip_attacker_substatus
 	ld a, [wTempPlayAreaLocation_cceb]
 	or a ; cp PLAY_AREA_ARENA
 	jr nz, .next
@@ -2473,3 +2574,45 @@ CopyOpponentName::
 .print_player2
 	ldtx hl, Player2Text
 	jp CopyText
+
+
+; Returns in a the deck index of the first instance
+; of card with ID equal to the ID in de in card location a.
+; Sets carry if found.
+; input:
+;   a = CARD_LOCATION_*
+;   de = card ID to look for
+; output:
+;   a = deck index (if found)
+;   e = deck index (if found)
+;   carry = set if found
+LookForCardIDInLocation:
+	ld b, d
+	ld c, e
+	ld d, a
+	ld e, 0
+.loop
+	ld a, DUELVARS_CARD_LOCATIONS
+	add e
+	call GetTurnDuelistVariable
+	cp d
+	jr nz, .next
+	ld a, e
+	push de
+	call GetCardIDFromDeckIndex
+	call CompareDEtoBC
+	pop de
+	jr z, .found
+.next
+	inc e
+	ld a, DECK_SIZE
+	cp e
+	jr nz, .loop
+
+; not found
+	or a
+	ret
+.found
+	ld a, e
+	scf
+	ret

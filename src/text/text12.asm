@@ -18,13 +18,6 @@ SlowpokeName:
 	text "Slowpoke"
 	done
 
-SlowpokesAmnesiaDescription:
-	text "Choose 1 of the Defending Pokémon's"
-	line "attacks. That Pokémon can't use"
-	line "that attack during your opponent's"
-	line "next turn."
-	done
-
 DopeyName:
 	text "Dopey"
 	done
@@ -89,23 +82,14 @@ GastlyName:
 	text "Gastly"
 	done
 
-SleepingGasName:
-	text "Sleeping Gas"
-	done
-
-MayInflictSleepDescription:
-	text "Flip a coin. If heads, the Defending"
-	line "Pokémon is now Asleep."
-	done
-
 DestinyBondName:
 	text "Destiny Bond"
 	done
 
 DestinyBondDescription:
 	text "Discard 1 <PSYCHIC> Energy card attached to"
-	line "Gastly in order to use this attack."
-	line "If a Pokémon Knocks Out Gastly"
+	line "this Pokémon to use this attack."
+	line "If a Pokémon Knocks Out this Pokémon"
 	line "during your opponent's next turn,"
 	line "Knock Out that Pokémon."
 	done
@@ -130,8 +114,8 @@ EnergyConversionName:
 
 EnergyConversionDescription:
 	text "Put up to 2 Energy cards from your"
-	line "discard pile into your hand. Gastly"
-	line "does 10 damage to itself."
+	line "discard pile into your hand. This"
+	line "Pokémon does 10 damage to itself."
 	done
 
 GastlyLv17Description:
@@ -192,8 +176,6 @@ CurseDescription:
 	line "counter from 1 of your opponent's"
 	line "Pokémon to another (even if it would"
 	line "Knock Out the other Pokémon)."
-	line "This power can't be used if Gengar"
-	line "is Asleep, Confused, or Paralyzed."
 	done
 
 DarkMindName:
@@ -278,8 +260,8 @@ MeditateName:
 	text "Meditate"
 	done
 
-MrMimesMeditateDescription:
-	text "Does 10 damage plus 10 more damage"
+MeditateDescription:
+	text "This attack does 10 more damage"
 	line "for each damage counter on the"
 	line "Defending Pokémon."
 	done
@@ -303,12 +285,6 @@ DoubleAttackX10Description:
 	line "damage times the number of heads."
 	done
 
-JynxsMeditateDescription:
-	text "Does 20 damage plus 10 more damage"
-	line "for each damage counter on the"
-	line "Defending Pokémon."
-	done
-
 HumanShapeName:
 	text "Human Shape"
 	done
@@ -328,8 +304,8 @@ PsychicName:
 	done
 
 PsychicDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each Energy card attached to the"
+	text "This attack does 10 more damage for"
+	line "each Energy card attached to the"
 	line "Defending Pokémon."
 	done
 
@@ -460,11 +436,11 @@ MirrorMoveName:
 	text "Mirror Move"
 	done
 
-PidgeottosMirrorMoveDescription:
-	text "If Pidgeotto was attacked last turn,"
-	line "do the final result of that attack"
-	line "on Pidgeotto to the Defending"
-	line "Pokémon."
+MirrorMoveDescription:
+	text "If this Pokémon was attacked last"
+	line "turn, do the final result of that"
+	line "attack on this Pokémon to the"
+	line "Defending Pokémon."
 	done
 
 BirdName:
@@ -576,12 +552,6 @@ PeckName:
 	text "Peck"
 	done
 
-SpearowsMirrorMoveDescription:
-	text "If Spearow was attacked last turn,"
-	line "do the final result of that attack"
-	line "on Spearow to the Defending Pokémon."
-	done
-
 SpearowDescription:
 	text "Eats bugs in grassy areas. It has to"
 	line "flap its short wings at high speed"
@@ -590,13 +560,6 @@ SpearowDescription:
 
 FearowName:
 	text "Fearow"
-	done
-
-FearowsAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all"
-	line "effects of attacks, including"
-	line "damage, done to Fearow."
 	done
 
 DrillPeckName:
@@ -625,13 +588,10 @@ MetronomeName:
 	text "Metronome"
 	done
 
-ClefairysMetronomeDescription:
+MetronomeDescription:
 	text "Choose 1 of the Defending Pokémon's"
 	line "attacks. Metronome copies that"
 	line "attack except for its Energy costs."
-	line "(No matter what type the Defending"
-	line "Pokemon is, Clefairy's type is"
-	line "still Colorless.)"
 	done
 
 FairyName:
@@ -648,20 +608,8 @@ ClefableName:
 	text "Clefable"
 	done
 
-ClefablesMetronomeDescription:
-	text "Choose 1 of the Defending Pokémon's"
-	line "attacks. Metronome copies that"
-	line "attack except for its Energy costs."
-	line "(No matter what type the Defending"
-	line "Pokémon is, Clefable's type is"
-	line "still Colorless.)"
-	done
-
-ClefablesMinimizeDescription:
-	text "All damage done by attacks to"
-	line "Clefable during your opponent's next"
-	line "turn is reduced by 20 (after"
-	line "applying Weakness and Resistance)."
+MoonblastName:
+	text "Moonblast"
 	done
 
 ClefableDescription:
@@ -810,16 +758,6 @@ PounceName:
 	text "Pounce"
 	done
 
-PounceDescription:
-	text "If the Defending Pokémon attacks"
-	line "Persian during your opponent's next"
-	line "turn, any damage done by the attack"
-	line "is reduced by 10 (after applying"
-	line "Weakness and Resistance). (Benching"
-	line "or evolving either Pokémon ends this"
-	line "effect.)"
-	done
-
 ClassyCatName:
 	text "Classy Cat"
 	done
@@ -891,11 +829,6 @@ RetreatAidDescription:
 	text "As long as Dodrio is Benched, pay"
 	line "<COLORLESS> less to retreat your Active"
 	line "Pokémon."
-	done
-
-DodriosRageDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each damage counter on Dodrio."
 	done
 
 TriplebirdName:
@@ -1042,10 +975,10 @@ TailWagName:
 
 TailWagDescription:
 	text "Flip a coin. If heads, the Defending"
-	line "Pokémon can't attack Eevee during"
-	line "your opponent's next turn. (Benching"
-	line "or evolving either Pokémon ends this"
-	line "effect.)"
+	line "Pokémon cannot attack this Pokémon"
+	line "during your opponent's next turn."
+	line "(Benching or evolving either Pokémon"
+	line "ends this effect.)"
 	done
 
 EvolutionName:
@@ -1191,6 +1124,56 @@ DragoniteDescription:
 	line "Pokémon. Its intelligence is said"
 	line "to match that of humans."
 	done
+
+
+EnergizeName:
+	text "Energize"
+	done
+
+EnergizeDescription:
+	text "Attach a Basic <LIGHTNING> Energy card from"
+	line "your discard pile to this Pokémon."
+	done
+
+DrawInName:
+	text "Draw In"
+	done
+
+DrawInDescription:
+	text "Attach a Basic <FIRE> Energy card from"
+	line "your discard pile to this Pokémon."
+	done
+
+PlasmaName:
+	text "Plasma"
+	done
+
+PlasmaDescription:
+	text "If there are any Basic <LIGHTNING> Energy"
+	line "cards in your discard pile, flip a"
+	line "coin. If heads, attach 1 of them to"
+	line "this Pokémon."
+	done
+
+CollectFireName:
+	text "Collect Fire"
+	done
+
+CollectFireDescription:
+	text "If there are any Basic <FIRE> Energy"
+	line "cards in your discard pile, flip a"
+	line "coin. If heads, attach 1 of them to"
+	line "this Pokémon."
+	done
+
+IfHeadsAttachEnergyFromDiscardPileText:
+	text "If Heads, attach an Energy card"
+	line "from your discard pile!"
+	done
+
+; ------------------------------------------------------------------------------
+; TRAINER CARDS
+; ------------------------------------------------------------------------------
 
 ProfessorOakName:
 	text "Professor Oak"

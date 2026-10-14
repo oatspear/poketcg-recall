@@ -8,21 +8,6 @@ SeadraName:
 	text "Seadra"
 	done
 
-SeadrasWaterGunDescription:
-	text "Does 20 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Seadra but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
-	done
-
-SeadrasAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all "
-	line "effects of attacks, including"
-	line "damage, done to Seadra."
-	done
-
 SeadraDescription:
 	text "Capable of swimming backward by"
 	line "rapidly flapping its wing-like"
@@ -116,11 +101,6 @@ TackleName:
 	text "Tackle"
 	done
 
-MagikarpsFlailDescription:
-	text "Does 10 damage times the number of"
-	line "damage counters on Magikarp."
-	done
-
 FishName:
 	text "Fish"
 	done
@@ -157,14 +137,6 @@ LaprasName:
 	text "Lapras"
 	done
 
-LaprasWaterGunDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Lapras but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
-	done
-
 TransportName:
 	text "Transport"
 	done
@@ -199,14 +171,6 @@ VaporeonLv29Description:
 	line "and become invisible in water."
 	done
 
-VaporeonsWaterGunDescription:
-	text "Does 30 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Vaporeon but not used to pay for"
-	line "this attack's Energy cost. You can't"
-	line "add more than 20 damage in this way."
-	done
-
 VaporeonLv42Description:
 	text "Lives close to water. Its long tail"
 	line "is ridged with a fin that is often"
@@ -232,14 +196,6 @@ ClairvoyanceDescription:
 	line "Confused, or Paralyzed."
 	done
 
-OmanytesWaterGunDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Omanyte but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
-	done
-
 SpiralName:
 	text "Spiral"
 	done
@@ -254,14 +210,6 @@ OmastarName:
 	text "Omastar"
 	done
 
-OmastarsWaterGunDescription:
-	text "Does 20 damage plus 10 more damage"
-	line "for each <WATER> Energy attached to"
-	line "Omastar but not used to pay for this"
-	line "attack's Energy cost. You can't add"
-	line "more than 20 damage in this way."
-	done
-
 OmastarDescription:
 	text "A prehistoric Pokémon that died out"
 	line "when its heavy shell made it"
@@ -272,6 +220,18 @@ ArticunoName:
 	text "Articuno"
 	done
 
+IceFloatName:
+	text "Ice Float"
+	done
+
+IceFloatDescription:
+	text "If this Pokémon has any <WATER> Energy"
+	line "attached, it has no Retreat Cost."
+	line "This Pokémon Power stops working if"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
+	done
+
 FreezeDryName:
 	text "Freeze Dry"
 	done
@@ -279,6 +239,13 @@ FreezeDryName:
 BlizzardName:
 	text "Blizzard"
 	done
+
+; BlizzardDescription:
+; 	text "This attack does 10 damage to each"
+; 	line "of your opponent's Benched Pokémon."
+; 	line "(Don't apply Weakness and Resistance"
+; 	line "for Benched Pokémon.)"
+; 	done
 
 BlizzardDescription:
 	text "Flip a coin. If heads, this attack"
@@ -344,8 +311,8 @@ ThunderJoltName:
 	done
 
 ThunderJoltDescription:
-	text "Flip a coin. If tails, Pikachu does"
-	line "10 damage to itself."
+	text "Flip a coin. If tails, this Pokémon"
+	line "does 10 damage to itself."
 	done
 
 MouseName:
@@ -380,14 +347,12 @@ GrowlName:
 	text "Growl"
 	done
 
-GrowlDescription:
-	text "If the Defending Pokémon attacks"
-	line "Pikachu during your opponent's next"
-	line "turn, any damage done by the attack"
-	line "is reduced by 10 (after applying"
-	line "Weakness and Resistance). "
-	line "(Benching or evolving either Pokémon"
-	line "ends this effect.)"
+ReduceAttackBy10Description:
+	text "During your opponent's next turn,"
+	line "any damage from attacks done by the"
+	line "Defending Pokémon is reduced by 10"
+	line "(before applying Weakness and"
+	line "Resistance)."
 	done
 
 ThundershockName:
@@ -441,20 +406,13 @@ RaichuName:
 	text "Raichu"
 	done
 
-RaichusAgilityDescription:
-	text "Flip a coin. If heads, during your"
-	line "opponent's next turn, prevent all"
-	line "effects of attacks, including"
-	line "damage, done to Raichu."
-	done
-
 ThunderName:
 	text "Thunder"
 	done
 
-RaichusThunderDescription:
-	text "Flip a coin. If tails, Raichu does"
-	line "30 damage to itself."
+ThunderDescription:
+	text "Flip a coin. If tails, this Pokémon"
+	line "does 30 damage to itself."
 	done
 
 RaichuLv40Description:
@@ -468,13 +426,10 @@ GigashockName:
 	done
 
 GigashockDescription:
-	text "Choose 3 of your opponent's Benched"
-	line "Pokémon and this attack does 10"
-	line "damage to each of them. (Don't apply"
-	line "Weakness and Resistance for Benched"
-	line "Pokémon.) If your opponent has fewer"
-	line "than 3 Benched Pokémon, do the"
-	line "damage to each of them."
+	text "This attack does 10 damage to 3 of"
+	line "your opponent's Benched Pokémon."
+	line "(Don't apply Weakness and Resistance"
+	line "for Benched Pokémon.)"
 	done
 
 RaichuLv45Description:
@@ -492,11 +447,11 @@ ThunderWaveName:
 	done
 
 MagnemitesSelfdestructDescription:
-	text "Does 10 damage to each Pokémon on"
-	line "each player's Bench. (Don't apply"
+	text "This attack does 10 damage to all"
+	line "Benched Pokémon. (Don't apply"
 	line "Weakness and Resistance for Benched"
-	line "Pokémon.) Magnemite does 40 damage"
-	line "to itself."
+	line "Pokémon.) This Pokémon also does"
+	line "40 damage to itself."
 	done
 
 MagnetName:
@@ -530,11 +485,11 @@ MagnetonName:
 	done
 
 MagnetonLv28sSelfdestructDescription:
-	text "Does 20 damage to each Pokémon on"
-	line "each player's Bench. (Don't apply"
+	text "This attack does 20 damage to all"
+	line "Benched Pokémon. (Don't apply"
 	line "Weakness and Resistance for Benched"
-	line "Pokémon.)"
-	line "Magneton does 80 damage to itself."
+	line "Pokémon.) This Pokémon also does"
+	line "80 damage to itself."
 	done
 
 MagnetonLv28Description:
@@ -548,11 +503,8 @@ SonicboomName:
 	done
 
 SonicboomDescription:
-	text "Don't apply Weakness and Resistance"
-	line "for this attack. (Any other effects"
-	line "that would happen after applying"
-	line "Weakness and Resistance still"
-	line "happen.)"
+	text "This attack is not affected by"
+	line "Weakness or Resistance."
 	done
 
 MagnetonLv35sSelfdestructDescription:
@@ -585,6 +537,19 @@ VoltorbDescription:
 
 ElectrodeName:
 	text "Electrode"
+	done
+
+BuzzapName:
+	text "Buzzap"
+	done
+
+BuzzapDescription:
+	text "Once during your turn, you may Knock"
+	line "Out this Pokémon and attach it to 1"
+	line "of your other Pokémon as a Special"
+	line "Energy card that provides every type"
+	line "of Energy but only provides 2 Energy"
+	line "at a time."
 	done
 
 EnergySpikeName:
@@ -632,25 +597,12 @@ LightScreenName:
 	done
 
 LightScreenDescription:
-	text "Whenever an attack does damage to"
-	line "Electabuzz (after applying Weakness"
-	line "and Resistance) during your"
-	line "opponent's next turn, that attack"
-	line "only does half the damage to"
-	line "Electabuzz (rounded down to the"
-	line "nearest 10)."
-	done
-
-LightScreenDescriptionCont:
-	text "(Any other effects of attacks still"
-	line "happen.)"
-	done
-
-ElectabuzzsQuickAttackDescription:
-	text "Flip a coin. If heads, this attack"
-	line "does 10 damage plus 20 more damage; "
-	line "if tails, this attack does"
-	line "10 damage."
+	text "During your opponent's next turn,"
+	line "this Pokémon only takes half damage"
+	line "from attacks (rounded down to the"
+	line "nearest 10) (after applying Weakness"
+	line "and Resistance). (Other effects of"
+	line "attacks still happen.)"
 	done
 
 ElectricName:
@@ -723,9 +675,29 @@ ZapdosName:
 	text "Zapdos"
 	done
 
+VoltaicFloatName:
+	text "Voltaic Float"
+	done
+
+VoltaicFloatDescription:
+	text "If this Pokémon has any <LIGHTNING> Energy"
+	line "attached, it has no Retreat Cost."
+	line "This Pokémon Power stops working if"
+	line "this Pokémon is Asleep, Confused,"
+	line "or Paralyzed."
+	done
+
 ThunderstormName:
 	text "Thunderstorm"
 	done
+
+; ThunderstormDescription:
+; 	text "This attack does 20 damage to 1 of"
+; 	line "your opponent's Benched Pokémon"
+; 	line "and to 1 of your Benched Pokémon."
+; 	line "(Don't apply Weakness and Resistance"
+; 	line "for Benched Pokémon.)"
+; 	done
 
 ThunderstormDescription:
 	text "For each of your opponent's Benched"
@@ -733,8 +705,8 @@ ThunderstormDescription:
 	line "this attack does 20 damage to that"
 	line "Pokémon. (Don't apply Weakness and"
 	line "Resistance for Benched Pokémon.)"
-	line "Then, Zapdos does 10 damage times"
-	line "the number of tails to itself."
+	line "Then, this Pokémon does 10 damage"
+	line "to itself for each tails."
 	done
 
 ZapdosLv40Description:
@@ -742,11 +714,6 @@ ZapdosLv40Description:
 	line "whose anger is said to cause storms."
 	line "Some say it has lived above the"
 	line "clouds for thousands of years."
-	done
-
-ZapdosThunderDescription:
-	text "Flip a coin. If tails, Zapdos does"
-	line "30 damage to itself."
 	done
 
 ThunderboltName:
@@ -885,9 +852,10 @@ PeekDescription:
 	line "either player's Prizes."
 	done
 
-PeekDescriptionCont:
-	text "This power can't be used if Mankey"
-	line "is Asleep, Confused, or Paralyzed."
+PokemonPowerDescriptionCont:
+	text "This Power cannot be used if this"
+	line "Pokémon is Asleep, Confused, or"
+	line "Paralyzed."
 	done
 
 PigMonkeyName:
@@ -955,8 +923,9 @@ SubmissionName:
 	text "Submission"
 	done
 
-SubmissionDescription:
-	text "Machoke does 20 damage to itself."
+Recoil20Description:
+	text "This Pokémon does 20 damage to"
+	line "itself."
 	done
 
 MachokeDescription:
@@ -1031,13 +1000,13 @@ HardenName:
 	text "Harden"
 	done
 
-GravelersHardenDescription:
+HardenDescription:
 	text "During your opponent's next turn,"
 	line "whenever 30 or less damage is done"
-	line "to Graveler (after applying"
+	line "to this Pokémon (after applying"
 	line "Weakness and Resistance), prevent"
-	line "that damage. (Any other effects of"
-	line "attacks still happen.)"
+	line "that damage. (Any other effects"
+	line "of attacks still happen.)"
 	done
 
 RockThrowName:
@@ -1059,11 +1028,11 @@ AvalancheName:
 	done
 
 GolemsSelfdestructDescription:
-	text "Does 20 damage to each Pokémon on"
-	line "each player's Bench. (Don't apply"
+	text "This attack does 20 damage to all"
+	line "Benched Pokémon. (Don't apply"
 	line "Weakness and Resistance for Benched"
-	line "Pokémon.) Golem does 100 damage to"
-	line "itself."
+	line "Pokémon.) This Pokémon also does"
+	line "120 damage to itself."
 	done
 
 MegatonName:
@@ -1078,15 +1047,6 @@ GolemDescription:
 
 OnixName:
 	text "Onix"
-	done
-
-OnixsHardenDescription:
-	text "During your opponent's next turn,"
-	line "whenever 30 or less damage is done"
-	line "to Onix (after applying Weakness and"
-	line "Resistance), prevent that damage."
-	line "(Any other effects of attacks still"
-	line "happen.)"
 	done
 
 RockSnakeName:
@@ -1107,19 +1067,12 @@ SnivelName:
 	text "Snivel"
 	done
 
-SnivelDescription:
-	text "If the Defending Pokémon attacks"
-	line "Cubone during your opponent's next"
-	line "turn, any damage done by the attack"
-	line "is reduced by 20 (after applying"
-	line "Weakness and Resistance). (Benching"
-	line "or evolving either Pokémon ends this"
-	line "effect.)"
-	done
-
-CubonesRageDescription:
-	text "Does 10 damage plus 10 more damage"
-	line "for each damage counter on Cubone."
+ReduceAttackBy20Description:
+	text "During your opponent's next turn,"
+	line "any damage from attacks done by the"
+	line "Defending Pokémon is reduced by 20"
+	line "(before applying Weakness and"
+	line "Resistance)."
 	done
 
 LonelyName:
@@ -1279,17 +1232,11 @@ RamName:
 	done
 
 RamDescription:
-	text "Rhydon does 20 damage to itself."
-	line "If your opponent has any Benched"
-	line "Pokémon, he or she chooses 1 of them"
-	line "and switches it with the Defending"
-	line "Pokémon.(Do the damage before"
-	line "switching the Pokémon."
-	done
-
-RamDescriptionCont:
-	text "Switch the Pokémon even if Rhydon"
-	line "is Knocked Out.)"
+	text "Your opponent switches the Defending"
+	line "Pokémon with 1 of their Benched"
+	line "Pokémon (if there are any)."
+	line "Then, this Pokémon also does 20"
+	line "damage to itself."
 	done
 
 RhydonDescription:
@@ -1338,21 +1285,6 @@ SharpSickleName:
 
 AbsorbName:
 	text "Absorb"
-	done
-
-AbsorbDescription:
-	text "Remove a number of damage counters"
-	line "from Kabutops equal to half the"
-	line "damage done to the Defending"
-	line "Pokémon (after applying Weakness"
-	line "and Resistance)"
-	line "(rounded up to the nearest 10)."
-	done
-
-AbsorbDescriptionCont:
-	text "If Kabutops has fewer damage"
-	line "counters than that, remove all of"
-	line "them."
 	done
 
 KabutopsDescription:

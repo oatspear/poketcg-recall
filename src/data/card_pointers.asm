@@ -229,5 +229,6 @@ CardPointers::
 	dab PokemonFluteCard
 	dab GamblerCard
 	dab RecycleCard
+	dab ElectrodeEnergyCard
 	dwb NULL, $0
 	assert_table_length NUM_CARDS + 2
