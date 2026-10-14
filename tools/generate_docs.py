@@ -136,7 +136,7 @@ def format_energy(value: str):
         for _ in range(amount):
             icons.append(
                 f'<img class="tcg-energy-icon" '
-                f'src="assets/{energy_type}.png" alt="{html.escape(name)} energy">'
+                f'src="gfx/{energy_type}.png" alt="{html.escape(name)} energy">'
             )
     return " ".join(icons)
 
@@ -153,7 +153,7 @@ def format_weakness_or_resistance(value: str):
         energy_type = weakness_type.removeprefix("WR_")
         icons.append(
             f'<img class="tcg-energy-icon" '
-            f'src="assets/{energy_type}.png" alt="{html.escape(name)}">'
+            f'src="gfx/{energy_type}.png" alt="{html.escape(name)}">'
         )
     return " ".join(icons)
 
@@ -173,7 +173,7 @@ def format_retreat_cost(value: str):
     if amount <= 0:
         return "—"
     return " ".join(
-        '<img class="tcg-energy-icon" src="assets/COLORLESS.png" alt="Colorless energy">'
+        '<img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy">'
         for _ in range(amount)
     )
 
@@ -274,7 +274,7 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
     artwork_file = ROOT / "src" / artwork_path
     if not artwork_file.is_file():
         raise FileNotFoundError(f"Artwork file for {label} does not exist: {artwork_file}")
-    artwork_src = f"https://github.com/oatspear/poketcg-recall/src/{artwork_path}".replace("\\", "/")
+    artwork_src = artwork_path.as_posix()
     stage = STAGE_NAMES.get(fields["stage"], fields["stage"])
     stage_label = f"{stage} Pokémon" if stage else "Pokémon"
     pre_evolution = resolve_text(fields["pre-evo name"], text_by_label)
@@ -297,7 +297,7 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
         '        <div class="tcg-card__vitals">\n'
         f'          <span class="tcg-card__hp">{html_value(fields["hp"])} HP</span>\n'
         f'          <img class="tcg-card__type tcg-energy-icon" '
-        f'src="assets/{html.escape(type_icon)}.png" alt="{html_value(pokemon_type)} type">\n'
+        f'src="gfx/{html.escape(type_icon)}.png" alt="{html_value(pokemon_type)} type">\n'
         "        </div>\n"
         "      </div>\n"
         f'      <p class="tcg-card__stage">{html_value(stage_label)}</p>\n'
