@@ -274,7 +274,7 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
     artwork_file = ROOT / "src" / artwork_path
     if not artwork_file.is_file():
         raise FileNotFoundError(f"Artwork file for {label} does not exist: {artwork_file}")
-    artwork_src = (Path("..") / "src" / artwork_path).as_posix()
+    artwork_src = f"https://github.com/oatspear/poketcg-recall/src/{artwork_path}".replace("\\", "/")
     stage = STAGE_NAMES.get(fields["stage"], fields["stage"])
     stage_label = f"{stage} Pokémon" if stage else "Pokémon"
     pre_evolution = resolve_text(fields["pre-evo name"], text_by_label)
