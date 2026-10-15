@@ -28,11 +28,6 @@ CreateCardSetList:
 	jr nz, .loop_all_cards
 
 ; it's same set as input
-	cp16 VENUSAUR_LV64
-	jp z, .SetVenusaurLv64OwnedFlag
-	cp16 MEW_LV15
-	jp z, .SetMewLv15OwnedFlag
-
 	push bc
 	push hl
 	ld bc, wFilteredCardList
@@ -125,16 +120,6 @@ CreateCardSetList:
 	jr .loop_find_double_colorless
 
 .skip_energy_cards
-	ld a, [wOwnedPhantomCardFlags]
-	bit VENUSAUR_OWNED_PHANTOM_F, a
-	jr z, .check_mew
-	call .PlaceVenusaurLv64InList
-.check_mew
-	bit MEW_OWNED_PHANTOM_F, a
-	jr z, .find_first_owned
-	call .PlaceMewLv15InList
-
-.find_first_owned
 	dec l
 	ld c, l
 	ld b, h
@@ -163,60 +148,6 @@ CreateCardSetList:
 	ld [hl], a
 	ret
 
-.SetMewLv15OwnedFlag
-	ld a, (1 << MEW_OWNED_PHANTOM_F)
-;	fallthrough
-
-.SetPhantomOwnedFlag
-	push hl
-	push bc
-	ld b, a
-	ld hl, wTempCardCollection
-	add hl, de
-	ld a, [hl]
-	cp CARD_NOT_OWNED
-	jr z, .skip_set_flag
-	ld a, [wOwnedPhantomCardFlags]
-	or b
-	ld [wOwnedPhantomCardFlags], a
-.skip_set_flag
-	pop bc
-	pop hl
-	jp .loop_all_cards
-
-.SetVenusaurLv64OwnedFlag
-	ld a, (1 << VENUSAUR_OWNED_PHANTOM_F)
-	jr .SetPhantomOwnedFlag
-
-.PlaceVenusaurLv64InList
-	push af
-	push hl
-	ld de, VENUSAUR_LV64
-;	fallthrough
-
-; places card in register de directly in the list
-.PlaceCardInList
-	ld bc, wFilteredCardList
-	add hl, hl
-	add hl, bc
-	ld [hl], e
-	inc hl
-	ld [hl], d
-	pop hl
-	push hl
-	ld bc, wOwnedCardsCountList
-	add hl, bc
-	ld [hl], $01
-	pop hl
-	inc l
-	pop af
-	ret
-
-.PlaceMewLv15InList
-	push af
-	push hl
-	ld de, MEW_LV15
-	jr .PlaceCardInList
 
 ; a = CARD_SET_* constant
 CreateCardSetListAndInitListCoords:
@@ -406,10 +337,6 @@ PrintCardSetListEntries:
 	ld d, [hl]
 	cp16 DOUBLE_COLORLESS_ENERGY + 1
 	jr c, .energy_card
-	cp16 VENUSAUR_LV64
-	jr z, .phantom_card
-	cp16 MEW_LV15
-	jr z, .phantom_card
 
 	ld a, [wNumVisibleCardListEntries]
 	sub b
@@ -474,22 +401,6 @@ PrintCardSetListEntries:
 	pop bc
 	ret
 
-.phantom_card
-; phantom cards get only "××" in their index number
-	ld hl, wCurDeckName + 2
-	ld [hl], "FW0_×"
-	inc hl
-	ld [hl], "FW0_×"
-	inc hl
-	ld [hl], TX_SYMBOL
-	inc hl
-	xor a ; SYM_SPACE
-	ld [hli], a
-	ld [hl], a
-	ld hl, wCurDeckName
-	pop de
-	pop bc
-	ret
 
 ; handles opening card page, and inputs when inside Card Album
 HandleCardAlbumCardPage:

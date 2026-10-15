@@ -103,7 +103,7 @@ VenusaurLv64Card:
 	gfx VenusaurLv64CardGfx ; gfx
 	tx VenusaurName ; name
 	db STAR ; rarity
-	db PROMOTIONAL | GB ; sets
+	db EVOLUTION | GB ; sets
 	dw VENUSAUR_LV64
 	db 110 ; hp
 	db STAGE2 ; stage
@@ -7666,7 +7666,7 @@ MewLv15Card:
 	gfx MewLv15CardGfx ; gfx
 	tx MewName ; name
 	db STAR ; rarity
-	db PROMOTIONAL | GB ; sets
+	db LABORATORY | GB ; sets
 	dw MEW_LV15
 	db 50 ; hp
 	db BASIC ; stage

@@ -2,6 +2,9 @@
 
 ## Version 2.1
 
+### Venusaur (GB)
+- No longer a phantom card. Obtainable in Evolution packs.
+
 ### Beedrill
 - **Poison Sting**: removed.
 - **New attack: (G)(G)(C)(C) Toxic**: 20 damage. Inflicts double Poison.
@@ -53,6 +56,9 @@
 
 ### Gastly (Base)
 - **Hypnosis**: increased cost from (C) to (P).
+
+### Mew (GB)
+- No longer a phantom card. Obtainable in Laboratory packs.
 
 ### Jigglypuff (GB)
 - **Friendship Song**: no coin flip; always picks a Pokémon to put onto the Bench.
