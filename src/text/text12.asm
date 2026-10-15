@@ -33,10 +33,7 @@ SpacingOutName:
 	done
 
 SpacingOutDescription:
-	text "Flip a coin. If heads, remove a"
-	line "damage counter from Slowpoke. This"
-	line "attack can't be used if Slowpoke"
-	line "has no damage counters on it."
+	text "Heal 10 damage from this Pokémon."
 	done
 
 ScavengeName:

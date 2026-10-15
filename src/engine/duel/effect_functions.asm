@@ -5195,28 +5195,9 @@ SpacingOut_CheckDamage:
 	cp 10
 	ret
 
-SpacingOut_Success50PercentEffect:
-	ldtx de, SuccessCheckIfHeadsAttackIsSuccessfulText
-	call TossCoin
-	ldh [hTemp_ffa0], a
-	jp nc, SetWasUnsuccessful
-	ld a, ATK_ANIM_RECOVER
-	ld [wLoadedAttackAnimation], a
-	ret
-
 SpacingOut_HealEffect:
-	ldh a, [hTemp_ffa0]
-	or a
-	ret z ; coin toss was tails
-	ld e, PLAY_AREA_ARENA
-	call GetCardDamageAndMaxHP
-	or a
-	ret z ; no damage counters
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetTurnDuelistVariable
-	add 10
-	ld [hl], a
-	ret
+	lb de, 0, 10
+	jp ApplyAndAnimateHPRecovery
 
 ; sets carry if no Trainer cards in the Discard Pile.
 Scavenge_CheckDiscardPile:

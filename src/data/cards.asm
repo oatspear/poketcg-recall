@@ -6918,7 +6918,7 @@ SlowpokeLv18Card:
 	db CIRCLE ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw SLOWPOKE_LV18
-	db 60 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -6934,7 +6934,7 @@ SlowpokeLv18Card:
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
 	db 1
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_RECOVER ; animation
 
 	; attack 2
 	energy PSYCHIC, 2 ; energies

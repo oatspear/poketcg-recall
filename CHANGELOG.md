@@ -47,6 +47,10 @@
 - **Sharp Sickle**: reduced cost from (F)(F)(C)(C) to (F)(C)(C).
 - **Sharp Sickle**: reduced damage from 60 to 50.
 
+### Slowpoke (Fossil)
+- Reduced HP from 60 to 50.
+- **Spacing Out**: no longer flips a coin; always heals 10 damage.
+
 ### Jigglypuff (GB)
 - **Friendship Song**: no coin flip; always picks a Pokémon to put onto the Bench.
 

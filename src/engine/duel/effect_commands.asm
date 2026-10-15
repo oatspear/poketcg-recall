@@ -611,7 +611,6 @@ SlowbroStrangeBehaviorEffectCommands:
 
 SlowpokeSpacingOutEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, SpacingOut_CheckDamage
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SpacingOut_Success50PercentEffect
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, SpacingOut_HealEffect
 	db  $00
 
