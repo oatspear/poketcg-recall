@@ -1,5 +1,51 @@
 # Changelog
 
+## Version 2.1
+
+### Squirtle
+- Changed Weakness from Lightning to Grass.
+
+### Wartortle
+- Changed Weakness from Lightning to Grass.
+
+### Blastoise
+- Changed Weakness from Lightning to Grass.
+
+### Gyarados
+- Changed Weakness from Grass to Lightning.
+- **Dragon Rage**: reduced cost from (W)(W)(W) to (W)(W)(C).
+- **Dragon Rage**: reduced damage from 50 to 40.
+- **Bubblebeam**: reduced cost from (W)(W)(W)(W) to (W)(W)(W)(C).
+
+### Geodude
+- Removed resistance to Lightning.
+
+### Graveler
+- Removed resistance to Lightning.
+
+### Golem
+- Removed resistance to Lightning.
+
+### Onix
+- Increased HP from 70 to 80.
+- Removed resistance to Lightning.
+- Increased rarity from Common to Uncommon.
+- **Rock Throw**: increased cost from (F)(C) to (F)(F).
+- **Rock Throw**: increased damage from 20 to 30.
+
+### Kabutops
+- Reduced HP from 80 to 70.
+- **Absorb**: increased cost from (F)(F)(C) to (F)(F)(C)(C).
+- **Sharp Sickle**: reduced cost from (F)(F)(C)(C) to (F)(C)(C).
+- **Sharp Sickle**: reduced damage from 60 to 50.
+
+### Dratini
+- Removed resistance to Psychic.
+
+### Dragonair
+- Removed resistance to Psychic.
+
+
 ## Version 2.0
 
 ### General Changes

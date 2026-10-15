@@ -2901,7 +2901,7 @@ SquirtleCard:
 	; db ATK_ANIM_WATER_GUN ; animation
 
 	db 1 ; retreat cost
-	db WR_LIGHTNING ; weakness
+	db WR_GRASS ; weakness
 	db NONE ; resistance
 	tx TinyTurtleName ; category
 	db 7 ; Pokedex number
@@ -2951,7 +2951,7 @@ WartortleCard:
 	db ATK_ANIM_HIT ; animation
 
 	db 1 ; retreat cost
-	db WR_LIGHTNING ; weakness
+	db WR_GRASS ; weakness
 	db NONE ; resistance
 	tx TurtleName ; category
 	db 8 ; Pokedex number
@@ -3001,7 +3001,7 @@ BlastoiseCard:
 	db ATK_ANIM_HYDRO_PUMP ; animation
 
 	db 3 ; retreat cost
-	db WR_LIGHTNING ; weakness
+	db WR_GRASS ; weakness
 	db NONE ; resistance
 	tx ShellfishName ; category
 	db 9 ; Pokedex number
@@ -4023,11 +4023,11 @@ GyaradosCard:
 	tx MagikarpName ; pre-evo name
 
 	; attack 1
-	energy WATER, 3 ; energies
+	energy WATER, 2, COLORLESS, 1 ; energies
 	tx DragonRageName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 50 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -4037,7 +4037,7 @@ GyaradosCard:
 	db ATK_ANIM_DRAGON_RAGE ; animation
 
 	; attack 2
-	energy WATER, 4 ; energies
+	energy WATER, 3, COLORLESS, 1 ; energies
 	tx BubblebeamName ; name
 	tx MayInflictParalysisDescription ; description
 	dw NONE ; description (cont)
@@ -4051,7 +4051,7 @@ GyaradosCard:
 	db ATK_ANIM_BUBBLES ; animation
 
 	db 3 ; retreat cost
-	db WR_GRASS ; weakness
+	db WR_LIGHTNING ; weakness
 	db WR_FIGHTING ; resistance
 	tx AtrociousName ; category
 	db 130 ; Pokedex number
@@ -6052,7 +6052,7 @@ GeodudeCard:
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
-	db WR_LIGHTNING ; resistance
+	db NONE ; resistance
 	tx RockName ; category
 	db 74 ; Pokedex number
 	db 16 ; level
@@ -6102,7 +6102,7 @@ GravelerCard:
 
 	db 2 ; retreat cost
 	db WR_GRASS ; weakness
-	db WR_LIGHTNING ; resistance
+	db NONE ; resistance
 	tx RockName ; category
 	db 75 ; Pokedex number
 	db 29 ; level
@@ -6152,7 +6152,7 @@ GolemCard:
 
 	db 4 ; retreat cost
 	db WR_GRASS ; weakness
-	db WR_LIGHTNING ; resistance
+	db NONE ; resistance
 	tx MegatonName ; category
 	db 76 ; Pokedex number
 	db 36 ; level
@@ -6165,10 +6165,10 @@ OnixCard:
 	db TYPE_PKMN_FIGHTING ; type
 	gfx OnixCardGfx ; gfx
 	tx OnixName ; name
-	db CIRCLE ; rarity
+	db DIAMOND ; rarity
 	db LABORATORY | NONE ; sets
 	dw ONIX
-	db 70 ; hp
+	db 80 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -6187,11 +6187,11 @@ OnixCard:
 	db ATK_ANIM_PROTECT ; animation
 
 	; attack 2
-	energy FIGHTING, 1, COLORLESS, 1 ; energies
+	energy FIGHTING, 2 ; energies
 	tx RockThrowName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 30 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -6202,7 +6202,7 @@ OnixCard:
 
 	db 3 ; retreat cost
 	db WR_GRASS ; weakness
-	db WR_LIGHTNING ; resistance
+	db NONE ; resistance
 	tx RockSnakeName ; category
 	db 95 ; Pokedex number
 	db 12 ; level
@@ -6618,12 +6618,26 @@ KabutopsCard:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw KABUTOPS
-	db 80 ; hp
+	db 70 ; hp
 	db STAGE2 ; stage
 	tx KabutoName ; pre-evo name
 
 	; attack 1
-	energy FIGHTING, 2, COLORLESS, 1 ; energies
+	energy FIGHTING, 1, COLORLESS, 2 ; energies
+	tx SharpSickleName ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 50 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_SONICBOOM ; animation
+
+	; attack 2
+	energy FIGHTING, 2, COLORLESS, 2 ; energies
 	tx AbsorbName ; name
 	tx MegaDrainDescription ; description
 	dw NONE ; description (cont)
@@ -6635,20 +6649,6 @@ KabutopsCard:
 	db NONE ; flags 3
 	db 2
 	db ATK_ANIM_DRAIN ; animation
-
-	; attack 2
-	energy FIGHTING, 2, COLORLESS, 2 ; energies
-	tx SharpSickleName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 60 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_SONICBOOM ; animation
 
 	db 1 ; retreat cost
 	db WR_GRASS ; weakness
@@ -9202,7 +9202,7 @@ DratiniCard:
 
 	db 0 ; retreat cost
 	db NONE ; weakness
-	db WR_PSYCHIC ; resistance
+	db NONE ; resistance
 	tx DragonName ; category
 	db 147 ; Pokedex number
 	db 10 ; level
@@ -9252,7 +9252,7 @@ DragonairCard:
 
 	db 1 ; retreat cost
 	db NONE ; weakness
-	db WR_PSYCHIC ; resistance
+	db NONE ; resistance
 	tx DragonName ; category
 	db 148 ; Pokedex number
 	db 33 ; level

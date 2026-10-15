@@ -1255,18 +1255,18 @@ KabutoArmorName:
 
 KabutoArmorDescription:
 	text "Whenever an attack (even your own)"
-	line "does damage to Kabuto (after"
+	line "does damage to this Pokémon (after"
 	line "applying Weakness and Resistance),"
 	line "that attack only does half the"
-	line "damage to Kabuto (rounded down to"
-	line "the nearest 10)."
+	line "damage to this Pokémon (rounded down"
+	line "to the nearest 10)."
 	done
 
 KabutoArmorDescriptionCont:
 	text "(Any other effects of attacks still"
 	line "happen.) This power stops working"
-	line "while Kabuto is Asleep, Confused,"
-	line "or Paralyzed."
+	line "while this Pokémon is Asleep,"
+	line "Confused, or Paralyzed."
 	done
 
 KabutoDescription:
