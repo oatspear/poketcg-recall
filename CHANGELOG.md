@@ -51,6 +51,9 @@
 - Reduced HP from 60 to 50.
 - **Spacing Out**: no longer flips a coin; always heals 10 damage.
 
+### Gastly (Base)
+- **Hypnosis**: increased cost from (C) to (P).
+
 ### Jigglypuff (GB)
 - **Friendship Song**: no coin flip; always picks a Pokémon to put onto the Bench.
 

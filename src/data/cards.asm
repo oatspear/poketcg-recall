@@ -7023,7 +7023,7 @@ GastlyLv8Card:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 1 ; energies
+	energy PSYCHIC, 1 ; energies
 	tx HypnosisName ; name
 	tx InflictSleepDescription ; description
 	dw NONE ; description (cont)
