@@ -2,6 +2,10 @@
 
 ## Version 2.1
 
+### Beedrill
+- **Poison Sting**: removed.
+- **New attack: (G)(G)(C)(C) Toxic**: 20 damage. Inflicts double Poison.
+
 ### Squirtle
 - Changed Weakness from Lightning to Grass.
 
