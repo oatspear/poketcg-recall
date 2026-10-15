@@ -8334,7 +8334,7 @@ JigglypuffLv13Card:
 	db NONE ; flags 2
 	db SPECIAL_AI_HANDLING ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_FRIENDSHIP_SONG ; animation
 
 	; attack 2
 	energy COLORLESS, 2 ; energies

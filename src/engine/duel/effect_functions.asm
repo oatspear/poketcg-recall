@@ -8023,36 +8023,27 @@ FriendshipSong_BenchCheck:
 	ret
 
 FriendshipSong_AddToBench50PercentEffect:
-	ldtx de, SuccessCheckIfHeadsAttackIsSuccessfulText
-	call TossCoin
-	jr c, .successful
-
-.none_came_text
-	ldtx hl, NoneCameText
-	jp DrawWideTextBox_WaitForInput
-
-.successful
 	call PickRandomBasicCardFromDeck
 	jr nc, .put_in_bench
-	ld a, ATK_ANIM_FRIENDSHIP_SONG
-	call PlayAttackAnimationOverAttackingPokemon
-	call .none_came_text
+; no Basic Pokémon in the deck
+	ldtx hl, NoneCameText
+	call DrawWideTextBox_WaitForInput
 	jp ShuffleCardsInDeck
 
 .put_in_bench
 	call SearchCardInDeckAndAddToHand
 	call AddCardToHand
 	call PutHandPokemonCardInPlayArea
-	ld a, ATK_ANIM_FRIENDSHIP_SONG
-	call PlayAttackAnimationOverAttackingPokemon
 	ldh a, [hTempCardIndex_ff98]
 	ldtx hl, CameToTheBenchText
 	bank1call DisplayCardDetailScreen
 	jp ShuffleCardsInDeck
 
+
 ExpandEffect:
 	ld a, SUBSTATUS1_REDUCE_BY_10
 	jp ApplySubstatus1ToDefendingCard
+
 
 ; returns carry if either there are no damage counters
 ; or no Energy cards attached in the Play Area.

@@ -43,6 +43,9 @@
 - **Sharp Sickle**: reduced cost from (F)(F)(C)(C) to (F)(C)(C).
 - **Sharp Sickle**: reduced damage from 60 to 50.
 
+### Jigglypuff (GB)
+- **Friendship Song**: no coin flip; always picks a Pokémon to put onto the Bench.
+
 ### Dratini
 - Removed resistance to Psychic.
 
