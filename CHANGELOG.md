@@ -21,6 +21,10 @@
 - **Dragon Rage**: reduced damage from 50 to 40.
 - **Bubblebeam**: reduced cost from (W)(W)(W)(W) to (W)(W)(W)(C).
 
+### Diglett
+- **Mud Slap**: reduced cost from (F)(F) to (F)(C).
+- **Mud Slap**: reduced damage from 30 to 20.
+
 ### Geodude
 - Removed resistance to Lightning.
 
