@@ -5195,28 +5195,9 @@ SpacingOut_CheckDamage:
 	cp 10
 	ret
 
-SpacingOut_Success50PercentEffect:
-	ldtx de, SuccessCheckIfHeadsAttackIsSuccessfulText
-	call TossCoin
-	ldh [hTemp_ffa0], a
-	jp nc, SetWasUnsuccessful
-	ld a, ATK_ANIM_RECOVER
-	ld [wLoadedAttackAnimation], a
-	ret
-
 SpacingOut_HealEffect:
-	ldh a, [hTemp_ffa0]
-	or a
-	ret z ; coin toss was tails
-	ld e, PLAY_AREA_ARENA
-	call GetCardDamageAndMaxHP
-	or a
-	ret z ; no damage counters
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetTurnDuelistVariable
-	add 10
-	ld [hl], a
-	ret
+	lb de, 0, 10
+	jp ApplyAndAnimateHPRecovery
 
 ; sets carry if no Trainer cards in the Discard Pile.
 Scavenge_CheckDiscardPile:
@@ -8023,36 +8004,27 @@ FriendshipSong_BenchCheck:
 	ret
 
 FriendshipSong_AddToBench50PercentEffect:
-	ldtx de, SuccessCheckIfHeadsAttackIsSuccessfulText
-	call TossCoin
-	jr c, .successful
-
-.none_came_text
-	ldtx hl, NoneCameText
-	jp DrawWideTextBox_WaitForInput
-
-.successful
 	call PickRandomBasicCardFromDeck
 	jr nc, .put_in_bench
-	ld a, ATK_ANIM_FRIENDSHIP_SONG
-	call PlayAttackAnimationOverAttackingPokemon
-	call .none_came_text
+; no Basic Pokémon in the deck
+	ldtx hl, NoneCameText
+	call DrawWideTextBox_WaitForInput
 	jp ShuffleCardsInDeck
 
 .put_in_bench
 	call SearchCardInDeckAndAddToHand
 	call AddCardToHand
 	call PutHandPokemonCardInPlayArea
-	ld a, ATK_ANIM_FRIENDSHIP_SONG
-	call PlayAttackAnimationOverAttackingPokemon
 	ldh a, [hTempCardIndex_ff98]
 	ldtx hl, CameToTheBenchText
 	bank1call DisplayCardDetailScreen
 	jp ShuffleCardsInDeck
 
+
 ExpandEffect:
 	ld a, SUBSTATUS1_REDUCE_BY_10
 	jp ApplySubstatus1ToDefendingCard
+
 
 ; returns carry if either there are no damage counters
 ; or no Energy cards attached in the Play Area.

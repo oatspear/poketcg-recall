@@ -103,7 +103,7 @@ VenusaurLv64Card:
 	gfx VenusaurLv64CardGfx ; gfx
 	tx VenusaurName ; name
 	db STAR ; rarity
-	db PROMOTIONAL | GB ; sets
+	db EVOLUTION | GB ; sets
 	dw VENUSAUR_LV64
 	db 110 ; hp
 	db STAGE2 ; stage
@@ -474,18 +474,18 @@ BeedrillCard:
 	db ATK_ANIM_NEEDLES ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 1 ; energies
-	tx PoisonStingName ; name
-	tx InflictPoisonDescription ; description
+	energy GRASS, 2, COLORLESS, 2 ; energies
+	tx ToxicName ; name
+	tx ToxicDescription ; description
 	dw NONE ; description (cont)
-	db 40 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw InflictPoisonEffectCommands ; effect commands
+	dw ToxicEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1
-	db NONE ; flags 2
+	db FLAG_2_BIT_6 ; flags 2
 	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NEEDLES ; animation
+	db 2
+	db ATK_ANIM_TOXIC ; animation
 
 	db 0 ; retreat cost
 	db WR_FIRE ; weakness
@@ -5687,11 +5687,11 @@ DiglettCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy FIGHTING, 2 ; energies
+	energy FIGHTING, 1, COLORLESS, 1 ; energies
 	tx MudSlapName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -6918,7 +6918,7 @@ SlowpokeLv18Card:
 	db CIRCLE ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw SLOWPOKE_LV18
-	db 60 ; hp
+	db 50 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -6934,7 +6934,7 @@ SlowpokeLv18Card:
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
 	db 1
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_RECOVER ; animation
 
 	; attack 2
 	energy PSYCHIC, 2 ; energies
@@ -7023,7 +7023,7 @@ GastlyLv8Card:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 1 ; energies
+	energy PSYCHIC, 1 ; energies
 	tx HypnosisName ; name
 	tx InflictSleepDescription ; description
 	dw NONE ; description (cont)
@@ -7666,7 +7666,7 @@ MewLv15Card:
 	gfx MewLv15CardGfx ; gfx
 	tx MewName ; name
 	db STAR ; rarity
-	db PROMOTIONAL | GB ; sets
+	db LABORATORY | GB ; sets
 	dw MEW_LV15
 	db 50 ; hp
 	db BASIC ; stage
@@ -8334,7 +8334,7 @@ JigglypuffLv13Card:
 	db NONE ; flags 2
 	db SPECIAL_AI_HANDLING ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_FRIENDSHIP_SONG ; animation
 
 	; attack 2
 	energy COLORLESS, 2 ; energies

@@ -2,6 +2,13 @@
 
 ## Version 2.1
 
+### Venusaur (GB)
+- No longer a phantom card. Obtainable in Evolution packs.
+
+### Beedrill
+- **Poison Sting**: removed.
+- **New attack: (G)(G)(C)(C) Toxic**: 20 damage. Inflicts double Poison.
+
 ### Squirtle
 - Changed Weakness from Lightning to Grass.
 
@@ -16,6 +23,10 @@
 - **Dragon Rage**: reduced cost from (W)(W)(W) to (W)(W)(C).
 - **Dragon Rage**: reduced damage from 50 to 40.
 - **Bubblebeam**: reduced cost from (W)(W)(W)(W) to (W)(W)(W)(C).
+
+### Diglett
+- **Mud Slap**: reduced cost from (F)(F) to (F)(C).
+- **Mud Slap**: reduced damage from 30 to 20.
 
 ### Geodude
 - Removed resistance to Lightning.
@@ -38,6 +49,19 @@
 - **Absorb**: increased cost from (F)(F)(C) to (F)(F)(C)(C).
 - **Sharp Sickle**: reduced cost from (F)(F)(C)(C) to (F)(C)(C).
 - **Sharp Sickle**: reduced damage from 60 to 50.
+
+### Slowpoke (Fossil)
+- Reduced HP from 60 to 50.
+- **Spacing Out**: no longer flips a coin; always heals 10 damage.
+
+### Gastly (Base)
+- **Hypnosis**: increased cost from (C) to (P).
+
+### Mew (GB)
+- No longer a phantom card. Obtainable in Laboratory packs.
+
+### Jigglypuff (GB)
+- **Friendship Song**: no coin flip; always picks a Pokémon to put onto the Bench.
 
 ### Dratini
 - Removed resistance to Psychic.

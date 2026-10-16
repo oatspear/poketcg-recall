@@ -33,10 +33,7 @@ SpacingOutName:
 	done
 
 SpacingOutDescription:
-	text "Flip a coin. If heads, remove a"
-	line "damage counter from Slowpoke. This"
-	line "attack can't be used if Slowpoke"
-	line "has no damage counters on it."
+	text "Heal 10 damage from this Pokémon."
 	done
 
 ScavengeName:
@@ -655,11 +652,10 @@ FriendshipSongName:
 	done
 
 FriendshipSongDescription:
-	text "Flip a coin. If heads, put a Basic"
-	line "Pokémon card chosen at random from"
-	line "your deck onto your Bench. (You"
-	line "can't use this attack if your Bench"
-	line "is full.)"
+	text "Put a Basic Pokémon card chosen at"
+	line "random from your deck onto your"
+	line "Bench. (You can't use this attack"
+	line "if your Bench is full.)"
 	done
 
 ExpandName:
