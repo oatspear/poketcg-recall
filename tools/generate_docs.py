@@ -42,7 +42,7 @@ WEAKNESS_NAMES = {
 }
 
 
-def split_records(lines):
+def split_records(lines: list[str]):
     records = []
     label = None
     record_lines = []
@@ -141,7 +141,7 @@ def format_energy(value: str):
     return " ".join(icons)
 
 
-def format_weakness_or_resistance(value: str):
+def format_weakness_or_resistance(value: str, suffix=""):
     if value.strip().upper() == "NONE":
         return "—"
     icons = []
@@ -155,6 +155,8 @@ def format_weakness_or_resistance(value: str):
             f'<img class="tcg-energy-icon" '
             f'src="gfx/{energy_type}.png" alt="{html.escape(name)}">'
         )
+    if suffix:
+        icons.append(html.escape(suffix))
     return " ".join(icons)
 
 
@@ -201,7 +203,13 @@ def render_attack(lines, text_by_label):
             damage_value += "-"
         elif category == "DAMAGE_X":
             damage_value += "×"
-    attack_category = category if category and category.upper() != "NONE" else ""
+    # Replace tags in description with actual icons
+    description = html.escape(description)
+    description = re.sub(
+        r"\&lt;([A-Za-z0-9_]+)\&gt;",
+        lambda m: f'<img class="tcg-energy-icon" src="gfx/{m.group(1).upper()}.png" alt="{html.escape(TYPE_NAMES.get(m.group(1).upper(), m.group(1)))} energy">',
+        description,
+    )
     return (
         '<article class="tcg-attack">\n'
         '  <div class="tcg-attack__cost" aria-label="Energy cost">\n'
@@ -212,13 +220,13 @@ def render_attack(lines, text_by_label):
         f"      <h3>{html_value(name)}</h3>\n"
         f"      <span class=\"tcg-attack__damage\">{html_value(damage_value)}</span>\n"
         "    </div>\n"
-        f'    <p class="tcg-attack__description">{html_value(description)}</p>\n'
+        f'    <p class="tcg-attack__description">{description}</p>\n'
         "  </div>\n"
         "</article>"
     )
 
 
-def parse_pokemon_cards(card_lines):
+def parse_pokemon_cards(card_lines: list[str]):
     cards = []
     for label, lines in split_records(card_lines):
         first_data_line = next(
@@ -283,8 +291,8 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
         render_attack(attack_lines, text_by_label)
         for _, attack_lines in attack_blocks
     )
-    weakness = format_weakness_or_resistance(fields["weakness"])
-    resistance = format_weakness_or_resistance(fields["resistance"])
+    weakness = format_weakness_or_resistance(fields["weakness"], suffix="×2")
+    resistance = format_weakness_or_resistance(fields["resistance"], suffix="−20")
     retreat_cost = format_retreat_cost(fields["retreat cost"])
     card_class = f"tcg-card tcg-card--{pokemon_type.lower()}" if pokemon_type else "tcg-card"
     hidden = "" if card_type == active_type else " hidden"
@@ -326,14 +334,19 @@ def render_type_tabs(cards, active_type):
     buttons = []
     for card_type in card_types:
         type_name = friendly_type(card_type)
-        type_id = card_type.removeprefix("TYPE_PKMN_").lower()
+        type_id = card_type.removeprefix("TYPE_PKMN_")
+        icon = (
+            f'<img class="tcg-energy-icon" '
+            f'src="gfx/{type_id}.png" alt="{html.escape(type_name)} Pokémon">'
+        )
+        type_id = type_id.lower()
         selected = card_type == active_type
         buttons.append(
             f'<button class="type-tab" id="type-tab-{html.escape(type_id)}" '
             f'type="button" role="tab" aria-controls="card-panel" '
             f'aria-selected="{str(selected).lower()}" '
             f'tabindex="{0 if selected else -1}" data-type="{html.escape(type_id)}">'
-            f'{html_value(type_name)}</button>'
+            f'{icon} {html_value(type_name)}</button>'
         )
     return "\n".join(buttons)
 
@@ -361,11 +374,11 @@ def main():
         '  <meta charset="utf-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1">\n'
         '  <link rel="stylesheet" href="cards.css">\n'
-        "  <title>Pokémon Card Documentation</title>\n"
+        "  <title>Card Gallery</title>\n"
         "</head>\n"
         "<body>\n"
         '  <main class="page">\n'
-        "    <h1>Pokémon Card Documentation</h1>\n"
+        "    <h1>Card Gallery</h1>\n"
         f'    <nav class="type-tabs" role="tablist" aria-label="Filter cards by type">\n{tabs}\n    </nav>\n'
         f'    <div class="card-grid" id="card-panel" role="tabpanel" '
         f'aria-labelledby="type-tab-{html.escape(active_type_id)}" tabindex="0">\n{sections}\n    </div>\n'
