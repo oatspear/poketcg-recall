@@ -4,19 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="cards.css">
-  <title>Pokémon Card Documentation</title>
+  <title>Card Gallery</title>
 </head>
 <body>
   <main class="page">
-    <h1>Pokémon Card Documentation</h1>
+    <h1>Card Gallery</h1>
     <nav class="type-tabs" role="tablist" aria-label="Filter cards by type">
-<button class="type-tab" id="type-tab-grass" type="button" role="tab" aria-controls="card-panel" aria-selected="true" tabindex="0" data-type="grass">Grass</button>
-<button class="type-tab" id="type-tab-fire" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="fire">Fire</button>
-<button class="type-tab" id="type-tab-water" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="water">Water</button>
-<button class="type-tab" id="type-tab-lightning" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="lightning">Lightning</button>
-<button class="type-tab" id="type-tab-fighting" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="fighting">Fighting</button>
-<button class="type-tab" id="type-tab-psychic" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="psychic">Psychic</button>
-<button class="type-tab" id="type-tab-colorless" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="colorless">Colorless</button>
+<button class="type-tab" id="type-tab-grass" type="button" role="tab" aria-controls="card-panel" aria-selected="true" tabindex="0" data-type="grass"><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass Pokémon"> Grass</button>
+<button class="type-tab" id="type-tab-fire" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="fire"><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire Pokémon"> Fire</button>
+<button class="type-tab" id="type-tab-water" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="water"><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water Pokémon"> Water</button>
+<button class="type-tab" id="type-tab-lightning" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="lightning"><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning Pokémon"> Lightning</button>
+<button class="type-tab" id="type-tab-fighting" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="fighting"><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting Pokémon"> Fighting</button>
+<button class="type-tab" id="type-tab-psychic" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="psychic"><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic Pokémon"> Psychic</button>
+<button class="type-tab" id="type-tab-colorless" type="button" role="tab" aria-controls="card-panel" aria-selected="false" tabindex="-1" data-type="colorless"><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless Pokémon"> Colorless</button>
     </nav>
     <div class="card-grid" id="card-panel" role="tabpanel" aria-labelledby="type-tab-grass" tabindex="0">
 <article class="tcg-card tcg-card--grass" data-type="grass">
@@ -63,7 +63,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -114,7 +114,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -165,7 +165,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -198,7 +198,7 @@
       <h3>Energy Trans</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">As often as you like during your turn (before your attack), you may take 1 &lt;GRASS&gt; Energy card attached to 1 of your Pokémon and attach it to a different one. This power can&#x27;t be used if Venusaur is Asleep, Confused, or Paralyzed.</p>
+    <p class="tcg-attack__description">As often as you like during your turn (before your attack), you may take 1 <img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass energy"> Energy card attached to 1 of your Pokémon and attach it to a different one. This power can&#x27;t be used if Venusaur is Asleep, Confused, or Paralyzed.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -216,7 +216,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -267,7 +267,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -307,7 +307,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -358,8 +358,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -409,7 +409,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -449,7 +449,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -500,8 +500,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -551,7 +551,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -602,7 +602,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -653,7 +653,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -704,7 +704,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -755,7 +755,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -806,7 +806,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -857,7 +857,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -908,7 +908,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -959,8 +959,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -1010,8 +1010,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -1061,7 +1061,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1112,7 +1112,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1163,7 +1163,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1214,7 +1214,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1265,7 +1265,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1316,7 +1316,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1367,8 +1367,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -1418,7 +1418,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1469,7 +1469,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1520,7 +1520,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1571,7 +1571,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1622,7 +1622,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1673,7 +1673,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1724,7 +1724,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1764,7 +1764,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1815,7 +1815,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1866,7 +1866,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1917,7 +1917,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -1968,8 +1968,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -2019,7 +2019,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2064,13 +2064,13 @@
       <h3>Ember</h3>
       <span class="tcg-attack__damage">30</span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;FIRE&gt; Energy card attached to this Pokémon.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy card attached to this Pokémon.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2115,13 +2115,13 @@
       <h3>Flamethrower</h3>
       <span class="tcg-attack__damage">50</span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;FIRE&gt; Energy card attached to this Pokémon.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy card attached to this Pokémon.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2154,7 +2154,7 @@
       <h3>Energy Burn</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">All Energy attached to this Pokémon are &lt;FIRE&gt; Energy instead of their usual type. This Pokémon Power stops working if this Pokémon is Asleep, Confused, or Paralyzed.</p>
+    <p class="tcg-attack__description">All Energy attached to this Pokémon are <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy instead of their usual type. This Pokémon Power stops working if this Pokémon is Asleep, Confused, or Paralyzed.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -2172,8 +2172,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -2223,7 +2223,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2268,13 +2268,13 @@
       <h3>Fire Blast</h3>
       <span class="tcg-attack__damage">80</span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;FIRE&gt; Energy card attached to this Pokémon.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy card attached to this Pokémon.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2325,7 +2325,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2376,7 +2376,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2421,13 +2421,13 @@
       <h3>Flames of Rage</h3>
       <span class="tcg-attack__damage">30+</span>
     </div>
-    <p class="tcg-attack__description">Discard 2 &lt;FIRE&gt; Energy cards attached to this Pokémon. This attack does 10 more damage for each damage counter on this Pokémon.</p>
+    <p class="tcg-attack__description">Discard 2 <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy cards attached to this Pokémon. This attack does 10 more damage for each damage counter on this Pokémon.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2460,7 +2460,7 @@
       <h3>Flamethrower</h3>
       <span class="tcg-attack__damage">50</span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;FIRE&gt; Energy card attached to this Pokémon.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy card attached to this Pokémon.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -2478,7 +2478,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2529,7 +2529,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -2580,7 +2580,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -2625,13 +2625,13 @@
       <h3>Flamethrower</h3>
       <span class="tcg-attack__damage">50</span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;FIRE&gt; Energy card attached to this Pokémon.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy card attached to this Pokémon.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2682,7 +2682,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2733,7 +2733,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2778,13 +2778,13 @@
       <h3>Flamethrower</h3>
       <span class="tcg-attack__damage">50</span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;FIRE&gt; Energy card attached to this Pokémon.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy card attached to this Pokémon.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2817,7 +2817,7 @@
       <h3>Collect Fire</h3>
       <span class="tcg-attack__damage">10</span>
     </div>
-    <p class="tcg-attack__description">If there are any Basic &lt;FIRE&gt; Energy cards in your discard pile, flip a coin. If heads, attach 1 of them to this Pokémon.</p>
+    <p class="tcg-attack__description">If there are any Basic <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy cards in your discard pile, flip a coin. If heads, attach 1 of them to this Pokémon.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -2829,14 +2829,14 @@
       <h3>Wildfire</h3>
       <span class="tcg-attack__damage">30</span>
     </div>
-    <p class="tcg-attack__description">You may discard any number of &lt;FIRE&gt; Energy cards attached to this Pokémon. If you do, discard that many cards from the top of your opponent&#x27;s deck.</p>
+    <p class="tcg-attack__description">You may discard any number of <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy cards attached to this Pokémon. If you do, discard that many cards from the top of your opponent&#x27;s deck.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -2868,7 +2868,7 @@
       <h3>Firegiver</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">When you put Moltres into play during your turn (not during set-up), put from 1 to 4 (chosen at random) &lt;FIRE&gt; Energy cards from your deck into your hand. Shuffle your deck afterward.</p>
+    <p class="tcg-attack__description">When you put Moltres into play during your turn (not during set-up), put from 1 to 4 (chosen at random) <img class="tcg-energy-icon" src="gfx/FIRE.png" alt="Fire energy"> Energy cards from your deck into your hand. Shuffle your deck afterward.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -2887,7 +2887,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -2937,7 +2937,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -2988,7 +2988,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3021,7 +3021,7 @@
       <h3>Rain Dance</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">As often as you like during your turn (before your attack), you may attach 1 &lt;WATER&gt; Energy card to 1 of your &lt;WATER&gt; Pokémon. (This doesn&#x27;t use up your 1 Energy card attachment for the turn.)</p>
+    <p class="tcg-attack__description">As often as you like during your turn (before your attack), you may attach 1 <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Energy card to 1 of your <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Pokémon. (This doesn&#x27;t use up your 1 Energy card attachment for the turn.)</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -3033,13 +3033,13 @@
       <h3>Hydro Pump</h3>
       <span class="tcg-attack__damage">40+</span>
     </div>
-    <p class="tcg-attack__description">This attack does 10 more damage for each &lt;WATER&gt; Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more  more than 20 damage in this way.</p>
+    <p class="tcg-attack__description">This attack does 10 more damage for each <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more  more than 20 damage in this way.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3090,7 +3090,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3141,7 +3141,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3192,7 +3192,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -3243,7 +3243,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3294,7 +3294,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3345,7 +3345,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -3396,7 +3396,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3447,7 +3447,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3498,7 +3498,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3549,7 +3549,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3600,7 +3600,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3651,7 +3651,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3702,7 +3702,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3742,7 +3742,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -3775,7 +3775,7 @@
       <h3>Water Gun</h3>
       <span class="tcg-attack__damage">20+</span>
     </div>
-    <p class="tcg-attack__description">This attack does 10 more damage for each &lt;WATER&gt; Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
+    <p class="tcg-attack__description">This attack does 10 more damage for each <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -3793,7 +3793,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -3844,7 +3844,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -3895,7 +3895,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3935,7 +3935,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -3968,7 +3968,7 @@
       <h3>Recover</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;WATER&gt; Energy card attached to Starmie in order to use this attack. Remove all damage counters from Starmie.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Energy card attached to Starmie in order to use this attack. Remove all damage counters from Starmie.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -3986,7 +3986,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4037,7 +4037,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4088,8 +4088,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -4121,7 +4121,7 @@
       <h3>Water Gun</h3>
       <span class="tcg-attack__damage">10+</span>
     </div>
-    <p class="tcg-attack__description">This attack does 10 more damage for each &lt;WATER&gt; Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
+    <p class="tcg-attack__description">This attack does 10 more damage for each <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -4139,7 +4139,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4190,7 +4190,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4235,13 +4235,13 @@
       <h3>Water Gun</h3>
       <span class="tcg-attack__damage">30+</span>
     </div>
-    <p class="tcg-attack__description">This attack does 10 more damage for each &lt;WATER&gt; Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
+    <p class="tcg-attack__description">This attack does 10 more damage for each <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4286,13 +4286,13 @@
       <h3>Water Gun</h3>
       <span class="tcg-attack__damage">10+</span>
     </div>
-    <p class="tcg-attack__description">This attack does 10 more damage for each &lt;WATER&gt; Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
+    <p class="tcg-attack__description">This attack does 10 more damage for each <img class="tcg-energy-icon" src="gfx/WATER.png" alt="Water energy"> Energy attached to this Pokémon but not used to pay for this attack&#x27;s Energy cost. You can&#x27;t add more than 20 damage in this way.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4343,7 +4343,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4395,7 +4395,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -4446,7 +4446,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -4496,7 +4496,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4536,7 +4536,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -4587,7 +4587,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4638,7 +4638,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4690,7 +4690,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -4729,7 +4729,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4769,7 +4769,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4820,7 +4820,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4860,7 +4860,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4911,7 +4911,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -4962,7 +4962,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5013,7 +5013,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5064,7 +5064,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5115,7 +5115,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -5166,7 +5166,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5217,7 +5217,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5268,7 +5268,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5319,7 +5319,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5370,7 +5370,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5421,7 +5421,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5454,7 +5454,7 @@
       <h3>Plasma</h3>
       <span class="tcg-attack__damage">10</span>
     </div>
-    <p class="tcg-attack__description">If there are any Basic &lt;LIGHTNING&gt; Energy cards in your discard pile, flip a coin. If heads, attach 1 of them to this Pokémon.</p>
+    <p class="tcg-attack__description">If there are any Basic <img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning energy"> Energy cards in your discard pile, flip a coin. If heads, attach 1 of them to this Pokémon.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -5473,7 +5473,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -5524,7 +5524,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -5575,7 +5575,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -5625,8 +5625,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -5676,8 +5676,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -5727,8 +5727,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -5778,8 +5778,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -5829,7 +5829,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -5880,7 +5880,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5920,7 +5920,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -5971,7 +5971,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6022,7 +6022,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6073,7 +6073,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6124,7 +6124,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6175,7 +6175,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6226,7 +6226,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6277,8 +6277,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -6310,7 +6310,7 @@
       <h3>Call for Friend</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">Search your deck for a &lt;FIGHTING&gt; Basic Pokémon card and put it onto your Bench. Shuffle your deck afterward. (You can&#x27;t use this attack if your Bench is full.)</p>
+    <p class="tcg-attack__description">Search your deck for a <img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting energy"> Basic Pokémon card and put it onto your Bench. Shuffle your deck afterward. (You can&#x27;t use this attack if your Bench is full.)</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -6328,8 +6328,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -6379,8 +6379,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -6430,7 +6430,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6481,7 +6481,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6532,8 +6532,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -6583,8 +6583,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -6634,7 +6634,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6685,7 +6685,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6736,8 +6736,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/GRASS.png" alt="Grass"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -6776,7 +6776,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -6809,7 +6809,7 @@
       <h3>Recover</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;PSYCHIC&gt; Energy card attached to Kadabra in order to use this attack. Remove all damage counters from Kadabra.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic energy"> Energy card attached to Kadabra in order to use this attack. Remove all damage counters from Kadabra.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -6827,7 +6827,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6878,7 +6878,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6929,7 +6929,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -6974,13 +6974,13 @@
       <h3>Scavenge</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;PSYCHIC&gt; Energy card attached to Slowpoke in order to use this attack. Put a Trainer card from your discard pile into your hand.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic energy"> Energy card attached to Slowpoke in order to use this attack. Put a Trainer card from your discard pile into your hand.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7031,7 +7031,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7076,14 +7076,14 @@
       <h3>Destiny Bond</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;PSYCHIC&gt; Energy card attached to this Pokémon to use this attack. If a Pokémon Knocks Out this Pokémon during your opponent&#x27;s next turn, Knock Out that Pokémon.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic energy"> Energy card attached to this Pokémon to use this attack. If a Pokémon Knocks Out this Pokémon during your opponent&#x27;s next turn, Knock Out that Pokémon.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -7134,7 +7134,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -7185,7 +7185,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -7236,7 +7236,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -7287,7 +7287,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -7337,7 +7337,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7388,7 +7388,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7439,7 +7439,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7490,7 +7490,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7535,13 +7535,13 @@
       <h3>Barrier</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">Discard 1 &lt;PSYCHIC&gt; Energy card attached to Mewtwo in order to use this attack. During your opponent&#x27;s next turn, prevent all effects of attacks, including damage, done to Mewtwo.</p>
+    <p class="tcg-attack__description">Discard 1 <img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic energy"> Energy card attached to Mewtwo in order to use this attack. During your opponent&#x27;s next turn, prevent all effects of attacks, including damage, done to Mewtwo.</p>
   </div>
 </article>
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7592,7 +7592,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7643,7 +7643,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7694,7 +7694,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7734,7 +7734,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
@@ -7785,7 +7785,7 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> ×2</dd></div>
         <div><dt>Resistance</dt><dd>—</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
@@ -7825,8 +7825,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -7876,8 +7876,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -7927,8 +7927,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -7978,8 +7978,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -8018,8 +8018,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -8069,8 +8069,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8120,8 +8120,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -8171,8 +8171,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -8222,8 +8222,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8273,8 +8273,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8324,8 +8324,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8375,8 +8375,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8426,8 +8426,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8477,8 +8477,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8517,8 +8517,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8557,8 +8557,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8608,8 +8608,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -8659,8 +8659,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8699,8 +8699,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -8732,7 +8732,7 @@
       <h3>Retreat Aid</h3>
       <span class="tcg-attack__damage"></span>
     </div>
-    <p class="tcg-attack__description">As long as Dodrio is Benched, pay &lt;COLORLESS&gt; less to retreat your Active Pokémon.</p>
+    <p class="tcg-attack__description">As long as Dodrio is Benched, pay <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> less to retreat your Active Pokémon.</p>
   </div>
 </article>
 <article class="tcg-attack">
@@ -8750,8 +8750,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/LIGHTNING.png" alt="Lightning"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd>—</dd></div>
       </dl>
     </footer>
@@ -8801,8 +8801,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8852,8 +8852,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8903,8 +8903,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -8954,8 +8954,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -9005,8 +9005,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -9056,8 +9056,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -9107,8 +9107,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -9158,8 +9158,8 @@
     </section>
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
-        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"></dd></div>
+        <div><dt>Weakness</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> ×2</dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/PSYCHIC.png" alt="Psychic"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -9312,7 +9312,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"> <img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
@@ -9363,7 +9363,7 @@
     <footer class="tcg-card__footer">
       <dl class="tcg-card__attributes">
         <div><dt>Weakness</dt><dd>—</dd></div>
-        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"></dd></div>
+        <div><dt>Resistance</dt><dd><img class="tcg-energy-icon" src="gfx/FIGHTING.png" alt="Fighting"> −20</dd></div>
         <div><dt>Retreat Cost</dt><dd><img class="tcg-energy-icon" src="gfx/COLORLESS.png" alt="Colorless energy"></dd></div>
       </dl>
     </footer>
