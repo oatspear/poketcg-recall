@@ -7579,6 +7579,7 @@ CatPunchEffect:
 	call DealDamageToPlayAreaPokemon
 	jp SwapTurn
 
+
 MorphEffect:
 	call .PickRandomBasicPokemonFromDeck
 	jr nc, .successful
@@ -7661,7 +7662,7 @@ MorphEffect:
 ; picks a random Pokemon in the Deck to morph.
 ; needs to be a Basic Pokemon that isn't Ditto
 ; returns carry if no Pokemon were found.
-.PickRandomBasicPokemonFromDeck
+.PickRandomBasicPokemonFromDeck:
 	call CreateDeckCardList
 	ret c ; empty deck
 	ld hl, wDuelTempList
@@ -7678,8 +7679,10 @@ MorphEffect:
 	ld a, [wLoadedCard2Stage]
 	or a
 	jr nz, .loop_deck ; skip non-Basic cards
+	push hl
 	ld hl, wLoadedCard2ID
 	cphl DITTO
+	pop hl
 	jr z, .loop_deck ; skip other Ditto cards
 	ldh a, [hTempCardIndex_ff98]
 	or a
@@ -7714,6 +7717,7 @@ PickRandomBasicCardFromDeck:
 .set_carry
 	scf
 	ret
+
 
 SlicingWindEffect:
 	call SwapTurn

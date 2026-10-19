@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.0.1
+
+### Fixed
+- Crash that happened sometimes when the AI used **Ditto's Morph*** (by @ElectroDeoxys).
+
 ## Version 1.0
 
 ### Added
