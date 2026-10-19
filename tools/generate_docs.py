@@ -27,7 +27,7 @@ TYPE_NAMES = {
     "UNUSED": "Unused",
 }
 STAGE_NAMES = {
-    "BASIC": "Basic",
+    "BASIC": "Basic Pokémon",
     "STAGE1": "Stage 1",
     "STAGE2": "Stage 2",
     "STAGE2_WITHOUT_STAGE1": "Stage 2",
@@ -39,6 +39,12 @@ WEAKNESS_NAMES = {
     "WR_WATER": "Water",
     "WR_FIGHTING": "Fighting",
     "WR_PSYCHIC": "Psychic",
+}
+RARITIES = {
+    "CIRCLE": "⬤",
+    "DIAMOND": "◆",
+    "STAR": "★",
+    "PROMOSTAR": "☆",
 }
 
 
@@ -180,6 +186,13 @@ def format_retreat_cost(value: str):
     )
 
 
+def format_card_set(value: str):
+    value = value.strip()
+    if not value or value.upper() == "NONE":
+        return ""
+    return value.split("|")[0].upper()
+
+
 def render_attack(lines, text_by_label):
     fields = {
         name: field_value(lines, name)
@@ -194,7 +207,7 @@ def render_attack(lines, text_by_label):
     # CATEGORY_NAMES:
     #   DAMAGE_NORMAL, DAMAGE_PLUS, DAMAGE_MINUS, DAMAGE_X, POKEMON_POWER
     energies = fields["energies"].strip()
-    energy_cost = "Pokémon Power" if category == "POKEMON_POWER" else format_energy(energies)
+    energy_cost = "Poké-Power" if category == "POKEMON_POWER" else format_energy(energies)
     damage_value = damage if damage and damage.upper() != "NONE" and damage != "0" else ""
     if damage_value:
         if category == "DAMAGE_PLUS":
@@ -212,16 +225,14 @@ def render_attack(lines, text_by_label):
     )
     return (
         '<article class="tcg-attack">\n'
-        '  <div class="tcg-attack__cost" aria-label="Energy cost">\n'
-        f"    {energy_cost}\n"
-        "  </div>\n"
-        '  <div class="tcg-attack__body">\n'
-        '    <div class="tcg-attack__heading">\n'
-        f"      <h3>{html_value(name)}</h3>\n"
-        f"      <span class=\"tcg-attack__damage\">{html_value(damage_value)}</span>\n"
+        '  <div class="tcg-attack__heading">\n'
+        '    <div class="tcg-attack__cost" aria-label="Energy cost">\n'
+        f"      {energy_cost}\n"
         "    </div>\n"
-        f'    <p class="tcg-attack__description">{description}</p>\n'
+        f"    <h3>{html_value(name)}</h3>\n"
+        f"    <span class=\"tcg-attack__damage\">{html_value(damage_value)}</span>\n"
         "  </div>\n"
+        f'    <p class="tcg-attack__description">{description}</p>\n'
         "</article>"
     )
 
@@ -261,6 +272,8 @@ def parse_pokemon_cards(card_lines: list[str]):
                 "hp",
                 "stage",
                 "pre-evo name",
+                "rarity",
+                "sets",
                 "retreat cost",
                 "weakness",
                 "resistance",
@@ -284,9 +297,11 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
         raise FileNotFoundError(f"Artwork file for {label} does not exist: {artwork_file}")
     artwork_src = artwork_path.as_posix()
     stage = STAGE_NAMES.get(fields["stage"], fields["stage"])
-    stage_label = f"{stage} Pokémon" if stage else "Pokémon"
+    stage_label = stage if stage else "Pokémon"
     pre_evolution = resolve_text(fields["pre-evo name"], text_by_label)
     evolution_line = f"Evolves from {pre_evolution}" if pre_evolution else ""
+    rarity = RARITIES.get(fields["rarity"], fields["rarity"]) or ""
+    pack = format_card_set(fields["sets"])
     attacks = "\n".join(
         render_attack(attack_lines, text_by_label)
         for _, attack_lines in attack_blocks
@@ -308,12 +323,15 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
         f'src="gfx/{html.escape(type_icon)}.png" alt="{html_value(pokemon_type)} type">\n'
         "        </div>\n"
         "      </div>\n"
-        f'      <p class="tcg-card__stage">{html_value(stage_label)}</p>\n'
-        f'      <p class="tcg-card__evolution">{html_value(evolution_line)}</p>\n'
         "    </header>\n"
         '    <figure class="tcg-card__artwork" aria-label="Artwork">\n'
         f'      <img class="tcg-card__artwork-image" src="{html.escape(artwork_src)}" alt="{html_value(name)} artwork">\n'
         "    </figure>\n"
+        '      <p class="tcg-card__infoplate">\n'
+        f'        <span class="tcg-card__stage">{html_value(stage_label)}</span>\n'
+        f'        <span class="tcg-card__evolution">{html_value(evolution_line)}</span>\n'
+        f'        <span class="tcg-card__set">{html_value(pack)}</span>\n'
+        "      </p>\n"
         '    <section class="tcg-card__attacks" aria-label="Attacks">\n'
         f"{attacks}\n"
         "    </section>\n"
@@ -323,6 +341,7 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
         f'        <div><dt>Resistance</dt><dd>{resistance}</dd></div>\n'
         f'        <div><dt>Retreat Cost</dt><dd>{retreat_cost}</dd></div>\n'
         "      </dl>\n"
+        f'      <span class="tcg-card__rarity">{html.escape(rarity)}</span>\n'
         "    </footer>\n"
         "  </div>\n"
         "</article>"
@@ -374,11 +393,11 @@ def main():
         '  <meta charset="utf-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1">\n'
         '  <link rel="stylesheet" href="cards.css">\n'
-        "  <title>Card Gallery</title>\n"
+        "  <title>[PTCG Recall] Gallery</title>\n"
         "</head>\n"
         "<body>\n"
         '  <main class="page">\n'
-        "    <h1>Card Gallery</h1>\n"
+        "    <h1>Pokémon TCG Recall: Card Gallery</h1>\n"
         f'    <nav class="type-tabs" role="tablist" aria-label="Filter cards by type">\n{tabs}\n    </nav>\n'
         f'    <div class="card-grid" id="card-panel" role="tabpanel" '
         f'aria-labelledby="type-tab-{html.escape(active_type_id)}" tabindex="0">\n{sections}\n    </div>\n'
