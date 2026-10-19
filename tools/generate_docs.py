@@ -186,6 +186,13 @@ def format_retreat_cost(value: str):
     )
 
 
+def format_card_set(value: str):
+    value = value.strip()
+    if not value or value.upper() == "NONE":
+        return ""
+    return value.split("|")[0].upper()
+
+
 def render_attack(lines, text_by_label):
     fields = {
         name: field_value(lines, name)
@@ -294,6 +301,7 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
     pre_evolution = resolve_text(fields["pre-evo name"], text_by_label)
     evolution_line = f"Evolves from {pre_evolution}" if pre_evolution else ""
     rarity = RARITIES.get(fields["rarity"], fields["rarity"]) or ""
+    pack = format_card_set(fields["sets"])
     attacks = "\n".join(
         render_attack(attack_lines, text_by_label)
         for _, attack_lines in attack_blocks
@@ -317,12 +325,12 @@ def render_card(label, card_type, fields, attack_blocks, text_by_label, card_art
         "      </div>\n"
         "    </header>\n"
         '    <figure class="tcg-card__artwork" aria-label="Artwork">\n'
-        '      <div></div>\n'
         f'      <img class="tcg-card__artwork-image" src="{html.escape(artwork_src)}" alt="{html_value(name)} artwork">\n'
         "    </figure>\n"
-        '      <p class="tcg-card__stage">\n'
-        f'        <span class="label">{html_value(stage_label)}</span>\n'
-        f'        {html_value(evolution_line)}\n'
+        '      <p class="tcg-card__infoplate">\n'
+        f'        <span class="tcg-card__stage">{html_value(stage_label)}</span>\n'
+        f'        <span class="tcg-card__evolution">{html_value(evolution_line)}</span>\n'
+        f'        <span class="tcg-card__set">{html_value(pack)}</span>\n'
         "      </p>\n"
         '    <section class="tcg-card__attacks" aria-label="Attacks">\n'
         f"{attacks}\n"
@@ -385,11 +393,11 @@ def main():
         '  <meta charset="utf-8">\n'
         '  <meta name="viewport" content="width=device-width, initial-scale=1">\n'
         '  <link rel="stylesheet" href="cards.css">\n'
-        "  <title>Card Gallery</title>\n"
+        "  <title>[PTCG Recall] Gallery</title>\n"
         "</head>\n"
         "<body>\n"
         '  <main class="page">\n'
-        "    <h1>Card Gallery</h1>\n"
+        "    <h1>Pokémon TCG Recall: Card Gallery</h1>\n"
         f'    <nav class="type-tabs" role="tablist" aria-label="Filter cards by type">\n{tabs}\n    </nav>\n'
         f'    <div class="card-grid" id="card-panel" role="tabpanel" '
         f'aria-labelledby="type-tab-{html.escape(active_type_id)}" tabindex="0">\n{sections}\n    </div>\n'

@@ -1,6 +1,6 @@
 :root {
   color-scheme: light;
-  font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+  font-family: "Consolas", monospace; /* "Trebuchet MS", "Segoe UI", sans-serif */
   color: #27251f;
   background: #e9e6de;
 
@@ -40,6 +40,7 @@ body {
   align-items: start;
   justify-items: center;
   gap: var(--page-gap);
+  overflow: visible;
 }
 
 .type-tabs {
@@ -64,10 +65,50 @@ body {
   font-weight: 700;
   cursor: pointer;
 }
-
-.type-tab[aria-selected="true"] {
-  border-color: #554414;
-  background: #554414;
+.type-tab:hover {
+  text-decoration: none;
+  background-color: highten(#eee,3%)
+}
+#type-tab-grass:hover,
+#type-tab-grass[aria-selected="true"] {
+  border-color: #074829;
+  background: #02874d;
+  color: #fff9e9;
+}
+#type-tab-fire:hover,
+#type-tab-fire[aria-selected="true"] {
+  border-color: #c82c35;
+  background: #df5348;
+  color: #fff9e9;
+}
+#type-tab-water:hover,
+#type-tab-water[aria-selected="true"] {
+  border-color: #01628a;
+  background: #0fb5eb;
+  color: #fff9e9;
+}
+#type-tab-lightning:hover,
+#type-tab-lightning[aria-selected="true"] {
+  border-color: #b7940f;
+  background: #fad333;
+  color: #fff9e9;
+}
+#type-tab-fighting:hover,
+#type-tab-fighting[aria-selected="true"] {
+  border-color: #855024;
+  background: #d4842d;
+  color: #fff9e9;
+}
+#type-tab-psychic:hover,
+#type-tab-psychic[aria-selected="true"] {
+  border-color: #463051;
+  background: #9d5b9e;
+  color: #fff9e9;
+}
+#type-tab-colorless:hover,
+#type-tab-colorless[aria-selected="true"] {
+  border-color: #787858;
+  background: #a8a888;
   color: #fff9e9;
 }
 
@@ -84,6 +125,8 @@ body {
 
 .tcg-card {
   container-type: inline-size;
+  position: relative;
+  z-index: 0;
   width: 100%;
   max-width: var(--card-width);
   aspect-ratio: 5 / 7;
@@ -93,6 +136,21 @@ body {
   border-radius: var(--card-radius);
   background: var(--type-ink);
   box-shadow: 0 2px 4px rgb(25 22 15 / 12%), 0 10px 24px rgb(25 22 15 / 13%);
+  transform: scale(1);
+  transition: transform 200ms ease, box-shadow 200ms ease, background-color 200ms ease;
+}
+
+.tcg-card:hover {
+  z-index: 10;
+  transform: translateY(-6px) scale(1.2);
+  box-shadow: 0 24px 40px rgb(0 0 0 / 30%);
+  background: var(--card-paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tcg-card {
+    transition: none;
+  }
 }
 
 .tcg-card[hidden] {
@@ -107,7 +165,7 @@ body {
   overflow: hidden;
   border: 1px solid rgb(67 51 27 / 35%);
   border-radius: 7px;
-  /* background: linear-gradient(135deg, #fffdf4, var(--type-color)); */
+  background: linear-gradient(135deg, #fffdf4, var(--type-color));
 }
 
 .tcg-card--grass {
@@ -207,7 +265,6 @@ body {
   margin: 0;
   font-size: clamp(0.8rem, 2vw, 1.25rem);
   line-height: 1.1;
-  letter-spacing: -0.035em;
   overflow-wrap: anywhere;
 }
 
@@ -222,9 +279,10 @@ body {
 
 .tcg-card__hp {
   padding: 0 0.5rem;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 800;
   white-space: nowrap;
+  color: #7d2f22;
 }
 
 .tcg-energy-icon {
@@ -243,32 +301,39 @@ body {
   border: 2px solid black;
 }
 
-.tcg-card__hp {
-  color: #7d2f22;
+.tcg-card__infoplate {
+  flex: 0 0 auto;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  text-transform: uppercase;
+  font-size: 0.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--type-ink);
+  border-bottom: 1px solid var(--card-line);
+  padding: 0.2rem 0.2rem 0 0.2rem;
+  text-align: left;
+  align-items: flex-end;
 }
 
 .tcg-card__stage {
   flex: 0 0 auto;
-  margin: 0;
-  text-transform: uppercase;
-  font-size: 0.5rem;
-  letter-spacing: 0.04em;
-  color: var(--type-ink);
-  border-bottom: 1px solid var(--card-line);
-  padding-top: 0.2rem;
-  text-align: center;
+  font-size: 0.65rem;
 }
 
-.tcg-card__stage .label {
-  margin: 0;
-  color: black;
-  font-size: 0.65rem;
-  font-weight: bolder;
-  letter-spacing: 0.08em;
-  padding: 0 1em;
+.tcg-card__evolution {
+  flex: 1;
+}
+
+.tcg-card__set {
+  flex: 0 0 auto;
+  text-shadow: 1px 1px var(--type-paper);
 }
 
 .tcg-card__artwork {
+  position: relative;
   display: flex;
   flex: 0 0 auto;
   align-items: center;
@@ -317,6 +382,12 @@ body {
   justify-content: space-evenly;
   color: black;
   background-color: rgba(255, 255, 255, 0.2);
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: auto; 
 }
 
 .tcg-attack {
@@ -334,9 +405,10 @@ body {
   text-align: center;
   font-size: 0.65rem;
   font-weight: 800;
-  color: var(--type-ink);
+  color: #df070c;
   line-height: 1.2;
   min-height: 1.2rem;
+  text-transform: uppercase;
 }
 
 .tcg-attack__cost .tcg-energy-icon {
