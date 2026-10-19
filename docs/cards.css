@@ -107,7 +107,7 @@ body {
   overflow: hidden;
   border: 1px solid rgb(67 51 27 / 35%);
   border-radius: 7px;
-  background: linear-gradient(135deg, #fffdf4, var(--type-color));
+  /* background: linear-gradient(135deg, #fffdf4, var(--type-color)); */
 }
 
 .tcg-card--grass {
@@ -150,6 +150,41 @@ body {
   --type-color: #aaa9a0;
   --type-paper: #e9e7df;
   --type-ink: #4d4c45;
+}
+
+.tcg-card--grass .tcg-card__surface {
+  background-image: url("./gfx/bg-GRASS.png");
+  background-size: cover;
+}
+
+.tcg-card--fire .tcg-card__surface {
+  background-image: url("./gfx/bg-FIRE.png");
+  background-size: cover;
+}
+
+.tcg-card--water .tcg-card__surface {
+  background-image: url("./gfx/bg-WATER.png");
+  background-size: cover;
+}
+
+.tcg-card--lightning .tcg-card__surface {
+  background-image: url("./gfx/bg-LIGHTNING.png");
+  background-size: cover;
+}
+
+.tcg-card--psychic .tcg-card__surface {
+  background-image: url("./gfx/bg-PSYCHIC.png");
+  background-size: cover;
+}
+
+.tcg-card--fighting .tcg-card__surface {
+  background-image: url("./gfx/bg-FIGHTING.png");
+  background-size: cover;
+}
+
+.tcg-card--colorless .tcg-card__surface {
+  background-image: url("./gfx/bg-COLORLESS.png");
+  background-size: cover;
 }
 
 .tcg-card__header {
@@ -281,6 +316,7 @@ body {
   padding: 0 0.25rem;
   justify-content: space-evenly;
   color: black;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .tcg-attack {
