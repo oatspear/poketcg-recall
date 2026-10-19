@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 0.1
+## Version 1.0
 
 ### Added
 - Extra Energy cards in the Player's starting collection.
@@ -14,6 +14,8 @@
 - Text speed starts in the fastest setting by default.
 - Improved AI when deciding whether to play certain Pokémon, Energy or Trainer cards.
 - Improved AI when deciding whether to retreat.
+- Improved AI deck lists.
+- Improved player starting decks and collection.
 
 ### Fixed
 - Fixed an assortment of known bugs and glitches in the original game.
