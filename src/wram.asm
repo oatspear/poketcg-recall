@@ -1569,6 +1569,7 @@ wced6:: ; ced6
 
 ; maybe unused, is written to but never read
 wced7:: ; ced7
+wNumCopiesUsedInDecks::
 	ds $1
 
 wCardListVisibleOffsetBackup:: ; ced8
