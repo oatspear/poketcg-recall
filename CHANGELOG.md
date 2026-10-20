@@ -2,6 +2,9 @@
 
 ## Version 1.0.1
 
+### Changed
+- The NPC in the Fire Club that asks for energies in exchange for the Promotional Slowpoke card will now accept energy cards regardless of how many medals the player has acquired.
+
 ### Fixed
 - Crash that happened sometimes when the AI used **Ditto's Morph*** (by @ElectroDeoxys).
 - Scripting bug that would allow NPCs to take away cards that were being used in decks.
