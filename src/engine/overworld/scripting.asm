@@ -149,45 +149,46 @@ ImakuniPossibleRooms:
 	db LIGHTNING_CLUB_LOBBY
 	db WATER_CLUB_LOBBY
 
+
 DetermineChallengeHallEvent:
 	ld a, [wOverworldMapSelection]
 	cp OWMAP_CHALLENGE_HALL
-	jr z, .done
-	get_event_value EVENT_RECEIVED_LEGENDARY_CARDS
-	or a
-	jr nz, .challenge_cup_three
-; challenge cup two
-	get_event_value EVENT_CHALLENGE_CUP_2_STATE
-	cp CHALLENGE_CUP_OVER
-	jr z, .done
-	or a ; cp CHALLENGE_CUP_NOT_STARTED
-	jr z, .challenge_cup_one
-	cp CHALLENGE_CUP_WON
-	jr z, .close_challenge_cup_one
-	ld c, CHALLENGE_CUP_READY_TO_START
-	set_event_value EVENT_CHALLENGE_CUP_2_STATE
-	jr .close_challenge_cup_one
-.challenge_cup_one
-	get_event_value EVENT_CHALLENGE_CUP_1_STATE
-	cp CHALLENGE_CUP_OVER
-	jr z, .done
-	or a ; cp CHALLENGE_CUP_NOT_STARTED
-	jr z, .done
-	cp CHALLENGE_CUP_WON
-	jr z, .done
-	ld c, CHALLENGE_CUP_READY_TO_START
-	set_event_value EVENT_CHALLENGE_CUP_1_STATE
-	jr .done
+	ret z
+
+;	get_event_value EVENT_RECEIVED_LEGENDARY_CARDS
+;	or a
+;	jr nz, .challenge_cup_three
+;; challenge cup two
+;	get_event_value EVENT_CHALLENGE_CUP_2_STATE
+;	cp CHALLENGE_CUP_OVER
+;	jr z, .done
+;	or a ; cp CHALLENGE_CUP_NOT_STARTED
+;	jr z, .challenge_cup_one
+;	cp CHALLENGE_CUP_WON
+;	jr z, .close_challenge_cup_one
+;	ld c, CHALLENGE_CUP_READY_TO_START
+;	set_event_value EVENT_CHALLENGE_CUP_2_STATE
+;	jr .close_challenge_cup_one
+;.challenge_cup_one
+;	get_event_value EVENT_CHALLENGE_CUP_1_STATE
+;	cp CHALLENGE_CUP_OVER
+;	jr z, .done
+;	or a ; cp CHALLENGE_CUP_NOT_STARTED
+;	jr z, .done
+;	cp CHALLENGE_CUP_WON
+;	jr z, .done
+;	ld c, CHALLENGE_CUP_READY_TO_START
+;	set_event_value EVENT_CHALLENGE_CUP_1_STATE
+;	jr .done
 .challenge_cup_three
-	call UpdateRNGSources
+	; call UpdateRNGSources
 	ld c, CHALLENGE_CUP_READY_TO_START
-	and %11
-	or a
-	jr z, .start_challenge_cup_three
-	ld c, CHALLENGE_CUP_NOT_STARTED
+	; and %11
+	; or a
+	; jr z, .start_challenge_cup_three
+	; ld c, CHALLENGE_CUP_NOT_STARTED
 .start_challenge_cup_three
 	set_event_value EVENT_CHALLENGE_CUP_3_STATE
-	jr .close_challenge_cup_two
 .close_challenge_cup_two
 	ld c, CHALLENGE_CUP_OVER
 	set_event_value EVENT_CHALLENGE_CUP_2_STATE
