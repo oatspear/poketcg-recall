@@ -384,6 +384,7 @@ Script_f4db:
 	print_npc_text Clerk12ChallengeCupRound3PlayerWon2Text
 	close_text_box
 	jump_if_event_equal EVENT_CHALLENGE_CUP_NUMBER, 3, .ows_f513
+; this part below should never happen with Max Challenge Hall
 	set_dialog_npc NPC_RONALD1
 	test_if_event_equal EVENT_CHALLENGE_CUP_NUMBER, 1
 	print_variable_npc_text RonaldChallengeCup1PlayerWon1Text, RonaldChallengeCup2Or3PlayerWon1Text
@@ -411,8 +412,9 @@ Script_f4db:
 	show_card_received_screen VARIABLE_CARD
 	print_npc_text Clerk12ChallengeCupRound3PlayerWon5Text
 	close_text_box
-	jump_if_event_equal EVENT_CHALLENGE_CUP_NUMBER, 2, .ows_f540
+	jump_if_event_equal EVENT_CHALLENGE_CUP_NUMBER, 2, .ows_f540  ; should not happen
 	jump_if_event_equal EVENT_CHALLENGE_CUP_NUMBER, 3, .ows_f549
+; should not happen with Max Challenge Hall
 	set_event EVENT_CHALLENGE_CUP_1_STATE, CHALLENGE_CUP_WON
 	set_event EVENT_CHALLENGE_CUP_1_RESULT, CHALLENGE_CUP_WON
 	script_jump .ows_f552
