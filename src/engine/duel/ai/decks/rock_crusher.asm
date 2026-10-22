@@ -28,35 +28,33 @@ AIActionTable_RockCrusher:
 
 .list_arena
 	dw RHYHORN
-	dw ONIX
-	dw GEODUDE
-	dw DIGLETT
+	dw CUBONE
+	dw VOLTORB
 	dw NULL
 
 .list_bench
-	dw DIGLETT
-	dw GEODUDE
+	dw VOLTORB
+	dw CUBONE
 	dw RHYHORN
-	dw ONIX
 	dw NULL
 
 .list_retreat
-	ai_retreat DIGLETT, -1
+	ai_retreat CUBONE,  -1
+	ai_retreat VOLTORB, -1
 	dw NULL
 
 .list_energy
-	ai_energy DIGLETT,  3, +1
-	ai_energy DUGTRIO,  4, +0
-	ai_energy GEODUDE,  2, +1
-	ai_energy GRAVELER, 3, +0
-	ai_energy GOLEM,    4, +0
-	ai_energy ONIX,     2, -1
-	ai_energy RHYHORN,  3, +0
+	ai_energy CUBONE,         2, +0
+	ai_energy MAROWAK_LV26,   2, +1
+	ai_energy RHYHORN,        3, +0
+	ai_energy RHYDON,         3, +1
+	ai_energy VOLTORB,        1, +0
+	ai_energy ELECTRODE_LV42, 2, -1
 	dw NULL
 
 .list_prize
-	dw ENERGY_REMOVAL
-	dw RHYHORN
+	dw VOLTORB
+	dw PLUSPOWER
 	dw NULL
 
 .store_list_pointers

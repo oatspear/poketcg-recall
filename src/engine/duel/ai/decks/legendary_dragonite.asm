@@ -27,19 +27,15 @@ AIActionTable_LegendaryDragonite:
 	jp AIPickPrizeCards
 
 .list_arena
-	dw KANGASKHAN
-	dw LAPRAS
 	dw CHARMANDER
 	dw DRATINI
 	dw MAGIKARP
 	dw NULL
 
 .list_bench
-	dw CHARMANDER
-	dw MAGIKARP
 	dw DRATINI
-	dw LAPRAS
-	dw KANGASKHAN
+	dw MAGIKARP
+	dw CHARMANDER
 	dw NULL
 
 .list_retreat
@@ -48,22 +44,19 @@ AIActionTable_LegendaryDragonite:
 	dw NULL
 
 .list_energy
-	ai_energy CHARMANDER,     3, +1
-	ai_energy CHARMELEON,     4, +1
+	ai_energy CHARMANDER,     2, +1
+	ai_energy CHARMELEON,     3, +1
 	ai_energy CHARIZARD,      5, +0
 	ai_energy MAGIKARP,       3, +1
 	ai_energy GYARADOS,       4, -1
 	ai_energy DRATINI,        2, +0
-	ai_energy DRAGONAIR,      4, +0
+	ai_energy DRAGONAIR,      3, +0
 	ai_energy DRAGONITE_LV41, 3, -1
-	ai_energy KANGASKHAN,     2, -2
-	ai_energy LAPRAS,         3, +0
 	dw NULL
 
 .list_prize
 	dw GAMBLER
 	dw DRAGONITE_LV41
-	dw KANGASKHAN
 	dw NULL
 
 .store_list_pointers

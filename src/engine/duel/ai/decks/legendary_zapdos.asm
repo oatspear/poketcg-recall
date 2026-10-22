@@ -27,37 +27,23 @@ AIActionTable_LegendaryZapdos:
 	jp AIPickPrizeCards
 
 .list_arena
+	dw CHANSEY
 	dw ELECTABUZZ_LV35
-	dw VOLTORB
-	dw EEVEE
-	dw ZAPDOS_LV40
-	dw ZAPDOS_LV64
 	dw ZAPDOS_LV68
 	dw NULL
 
 .list_bench
-	dw ZAPDOS_LV64
-	dw ZAPDOS_LV40
-	dw EEVEE
-	dw VOLTORB
-	dw ELECTABUZZ_LV35
 	dw NULL
 
 .list_retreat
-	ai_retreat EEVEE,           -5
-	ai_retreat VOLTORB,         -5
+	ai_retreat CHANSEY,         -5
 	ai_retreat ELECTABUZZ_LV35, -5
 	dw NULL
 
 .list_energy
-	ai_energy VOLTORB,         1, -1
-	ai_energy ELECTRODE_LV35,  3, +0
-	ai_energy ELECTABUZZ_LV35, 2, -1
-	ai_energy JOLTEON_LV29,    3, +1
-	ai_energy ZAPDOS_LV40,     4, +2
-	ai_energy ZAPDOS_LV64,     4, +2
-	ai_energy ZAPDOS_LV68,     3, +1
-	ai_energy EEVEE,           3, +0
+	ai_energy ELECTABUZZ_LV35, 2, +1
+	ai_energy ZAPDOS_LV68,     3, -1
+	ai_energy CHANSEY,         0, -8
 	dw NULL
 
 .list_prize
@@ -109,24 +95,26 @@ AIDoTurn_LegendaryZapdos:
 	ret
 
 
-; if Arena card is Voltorb and there's Electrode Lv35 in hand,
-; or if it's Electabuzz, raise score if it doesn't have any energy attached.
+; if Arena card is Zapdos Lv68 and there's no Scoop Up in hand,
+; or the Bench is empty, raise score if it doesn't have any energy attached.
 ScoreLegendaryZapdosCardsForEnergyAttachment:
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
-	cp16 VOLTORB
-	jr nz, .check_electabuzz
-	ld de, ELECTRODE_LV35
-	call LookForCardIDInHandList_Bank5
-	jr c, .voltorb_or_electabuzz
-	ret
-
-.check_electabuzz
-	cp16 ELECTABUZZ_LV35
+	cp16 ZAPDOS_LV68
 	ret nz
 
-.voltorb_or_electabuzz
+	ld l, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	ld a, [hl]
+	dec a
+	jr z, .check_energies
+
+; bench is not empty
+	ld de, SCOOP_UP
+	call LookForCardIDInHandList_Bank5
+	ret c ; found Scoop Up, no score change
+
+.check_energies
 	ld e, PLAY_AREA_ARENA
 	call CountNumberOfEnergyCardsAttached
 	or a

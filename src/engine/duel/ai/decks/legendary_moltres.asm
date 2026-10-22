@@ -30,26 +30,19 @@ AIActionTable_LegendaryMoltres:
 	dw MAGMAR_LV31
 	dw GROWLITHE
 	dw VULPIX
-	dw MAGMAR_LV24
 	dw MOLTRES_LV35
 	dw MOLTRES_LV37
 	dw NULL
+
+.list_play_hand
+	dw MOLTRES_LV37
+	; fallthrough
 
 .list_bench
 	dw MOLTRES_LV35
 	dw VULPIX
 	dw GROWLITHE
 	dw MAGMAR_LV31
-	dw MAGMAR_LV24
-	dw NULL
-
-.list_play_hand
-	dw MOLTRES_LV37
-	dw MOLTRES_LV35
-	dw VULPIX
-	dw GROWLITHE
-	dw MAGMAR_LV31
-	dw MAGMAR_LV24
 	dw NULL
 
 .list_retreat
@@ -62,8 +55,7 @@ AIActionTable_LegendaryMoltres:
 	ai_energy NINETALES_LV35, 3, +1
 	ai_energy GROWLITHE,      3, +1
 	ai_energy ARCANINE_LV45,  4, +1
-	ai_energy MAGMAR_LV24,    4, -1
-	ai_energy MAGMAR_LV31,    1, -1
+	ai_energy MAGMAR_LV31,    2, +0
 	ai_energy MOLTRES_LV37,   3, +2
 	ai_energy MOLTRES_LV35,   4, +2
 	dw NULL

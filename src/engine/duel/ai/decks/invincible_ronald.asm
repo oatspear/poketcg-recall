@@ -27,10 +27,8 @@ AIActionTable_InvincibleRonald:
 	jp AIPickPrizeCards
 
 .list_arena
-	dw KANGASKHAN
+	dw LICKITUNG
 	dw MAGMAR_LV31
-	dw CHANSEY
-	dw GEODUDE
 	dw SCYTHER
 	dw GRIMER
 	dw NULL
@@ -38,10 +36,8 @@ AIActionTable_InvincibleRonald:
 .list_bench
 	dw GRIMER
 	dw SCYTHER
-	dw GEODUDE
-	dw CHANSEY
 	dw MAGMAR_LV31
-	dw KANGASKHAN
+	dw LICKITUNG
 	dw NULL
 
 .list_retreat
@@ -49,14 +45,11 @@ AIActionTable_InvincibleRonald:
 	dw NULL
 
 .list_energy
-	ai_energy GRIMER,         1, -1
+	ai_energy GRIMER,         1, +0
 	ai_energy MUK,            3, -1
-	ai_energy SCYTHER,        4, +1
+	ai_energy SCYTHER,        3, +1
 	ai_energy MAGMAR_LV31,    2, +0
-	ai_energy GEODUDE,        2, +0
-	ai_energy GRAVELER,       3, +0
-	ai_energy CHANSEY,        4, +0
-	ai_energy KANGASKHAN,     4, -1
+	ai_energy LICKITUNG,      1, +0
 	dw NULL
 
 .list_prize

@@ -27,20 +27,20 @@ AIActionTable_WondersOfScience:
 	jp AIPickPrizeCards
 
 .list_arena
-	dw MEWTWO_LV53
+	dw GRIMER
 	dw MEWTWO_ALT_LV60
 	dw MEWTWO_LV60
-	dw GRIMER
-	dw KOFFING
+	dw MEW_LV8
+	dw EXEGGCUTE
 	dw PORYGON
 	dw NULL
 
 .list_bench
 	dw GRIMER
-	dw KOFFING
+	dw EXEGGCUTE
 	dw MEWTWO_ALT_LV60
 	dw MEWTWO_LV60
-	dw MEWTWO_LV53
+	dw MEW_LV8
 	dw PORYGON
 	dw NULL
 
@@ -48,18 +48,20 @@ AIActionTable_WondersOfScience:
 	dw NULL
 
 .list_energy
-	ai_energy GRIMER,          3, +0
-	ai_energy MUK,             4, +0
-	ai_energy KOFFING,         2, +0
-	ai_energy WEEZING,         3, +0
-	ai_energy MEWTWO_LV53,     2, -1
-	ai_energy MEWTWO_ALT_LV60, 2, -1
-	ai_energy MEWTWO_LV60,     2, -1
+	ai_energy GRIMER,          2, +0
+	ai_energy MUK,             3, -1
+	ai_energy EXEGGCUTE,       2, +0
+	ai_energy EXEGGUTOR,      22, +0
+	ai_energy MEW_LV8,         1, +0
+	ai_energy MEWTWO_ALT_LV60, 3, +0
+	ai_energy MEWTWO_LV60,     3, +0
 	ai_energy PORYGON,         2, -1
 	dw NULL
 
 .list_prize
 	dw MUK
+	dw MEWTWO_LV60
+	dw MEWTWO_ALT_LV60
 	dw NULL
 
 .store_list_pointers
