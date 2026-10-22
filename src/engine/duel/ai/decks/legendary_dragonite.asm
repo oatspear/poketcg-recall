@@ -80,7 +80,7 @@ AIDoTurn_LegendaryDragonite:
 	call AIProcessHandTrainerCards
 ; play Pokemon from hand
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_07
 	call AIProcessHandTrainerCards
 	call AIProcessRetreat
@@ -104,7 +104,7 @@ AIDoTurn_LegendaryDragonite:
 	ld a, AI_TRAINER_CARD_PHASE_02
 	call AIProcessHandTrainerCards
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_07
 	call AIProcessHandTrainerCards
 	call AIProcessRetreat

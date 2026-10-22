@@ -72,7 +72,7 @@ AIDoTurn_LegendaryZapdos:
 	call AIProcessHandTrainerCards
 ; play Pokemon from hand
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_07
 	call AIProcessHandTrainerCards
 	call AIProcessRetreat
@@ -82,7 +82,7 @@ AIDoTurn_LegendaryZapdos:
 	call AIProcessAndTryToPlayEnergy
 ; play Pokemon from hand again
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_13
 	call AIProcessHandTrainerCards
 .try_attack

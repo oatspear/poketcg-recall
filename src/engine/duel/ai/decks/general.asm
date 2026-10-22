@@ -111,7 +111,7 @@ IF AI_DEBUG_PRINTS
 ENDC
 
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 
 ; process Trainer cards phase 5 through 12
 
@@ -301,7 +301,7 @@ IF AI_DEBUG_PRINTS
 ENDC
 
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, NidoranMName
