@@ -212,6 +212,7 @@ Script_ee76:
 	set_event EVENT_LAD2_STATE, LAD2_SLOWPOKE_GONE
 	print_text FoundLv9SlowpokeText
 	give_card SLOWPOKE_LV9
+	give_card SLOWPOKE_LV9
 	show_card_received_screen SLOWPOKE_LV9
 	quit_script_fully
 
