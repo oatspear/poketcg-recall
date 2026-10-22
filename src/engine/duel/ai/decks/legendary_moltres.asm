@@ -117,7 +117,7 @@ AIDoTurn_LegendaryMoltres:
 .skip_moltres
 ; play Pokemon from hand
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 ; process Trainer cards
 	ld a, AI_TRAINER_CARD_PHASE_05
 	call AIProcessHandTrainerCards

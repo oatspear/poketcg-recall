@@ -106,9 +106,13 @@ AIDecidePlayPokemonCard:
 	pop hl
 	ret
 
-; determine whether AI evolves
-; Pokémon in the Play Area
+
+; determine whether AI evolves Pokémon in the Play Area
 AIDecideEvolution:
+	call IsPrehistoricPowerActive
+	ccf
+	ret nc  ; unable to play evolutions
+
 	call CreateHandCardList
 	ld hl, wDuelTempList
 	ld de, wHandTempList
@@ -118,33 +122,26 @@ AIDecideEvolution:
 .next_hand_card
 	ld a, [hli]
 	cp $ff
-	jp z, .done
+	ret z  ; done
+
 	ld [wTempAIPokemonCard], a
-
-; check if Prehistoric Power is active
-; and if so, skip to next card in hand
-	push hl
-	call IsPrehistoricPowerActive
-	jp c, .done_hand_card
-
-; load evolution data to buffer1
-; skip if it's not a Pokémon card
-; and if it's a basic stage card
-	ld a, [wTempAIPokemonCard]
+; load card data to buffer1
+; skip if it's not an Evolution Pokémon card
+	; ld a, [wTempAIPokemonCard]
 	call LoadCardDataToBuffer1_FromDeckIndex
 	ld a, [wLoadedCard1Type]
 	cp TYPE_ENERGY
-	jp nc, .done_hand_card
+	jr nc, .next_hand_card
 	ld a, [wLoadedCard1Stage]
-	or a
-	jp z, .done_hand_card
+	or a  ; BASIC
+	jr z, .next_hand_card
 
-; start looping Pokémon in Play Area
-; to find a card to evolve
+	push hl
+; loop Pokémon in Play Area to find a card to evolve
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ld c, a
-	ld b, 0
+	ld b, PLAY_AREA_ARENA
 .next_bench_pokemon
 	push bc
 	ld e, b
@@ -177,7 +174,7 @@ AIDecideEvolution:
 	call CheckIfAnyAttackCouldKnockOutDefendingCard
 	jr nc, .check_defending_can_ko_evolution
 ; can KO on the active spot, raise score
-	ld a, 5
+	ld a, 20
 	call AIEncourage
 	call AIRestorePlayAreaPokemon_WRAMPlayArea_CardLocationHand
 	call AIRestorePlayAreaPokemonHP
@@ -191,7 +188,7 @@ AIDecideEvolution:
 	call AIRestorePlayAreaPokemonHP
 	pop af
 	jr nc, .check_defending_can_ko_current_card
-	ld a, 5
+	ld a, 10
 	call AIDiscourage
 	jr .check_status
 
@@ -207,10 +204,10 @@ AIDecideEvolution:
 	ld a, DUELVARS_ARENA_CARD_STATUS
 	call GetTurnDuelistVariable
 	or a
-	jr z, .check_2nd_stage_hand
-	ld a, 4
+	jr z, .check_damage
+	ld a, 5
 	call AIEncourage
-	jr .check_2nd_stage_hand
+	jr .check_damage
 
 ; check if the evolution can KO defending Pokémon
 ; for the bench, do not consider energy attachment
@@ -223,28 +220,12 @@ AIDecideEvolution:
 	call AIRestorePlayAreaPokemon_WRAMPlayArea_CardLocationHand
 	call AIRestorePlayAreaPokemonHP
 	pop af
-	jr nc, .check_2nd_stage_hand
+	jr nc, .check_damage
 ; can KO right now, raise score
-	ld a, 5
+	ld a, 10
 	call AIEncourage
 
 ; common checks for both active spot and benched evolutions
-; if hand has 2nd stage card to evolve evolution card, raise AI score
-.check_2nd_stage_hand
-	ld a, [wTempAIPokemonCard]
-	call CheckForEvolutionInList
-	jr nc, .check_2nd_stage_deck
-	ld a, 2
-	call AIEncourage
-	jr .check_damage
-
-; if deck has 2nd stage card to evolve evolution card, raise AI score
-.check_2nd_stage_deck
-	ld a, [wTempAIPokemonCard]
-	call CheckForEvolutionInDeck
-	jr nc, .check_damage
-	ld a, 1
-	call AIEncourage
 
 ; decrease AI score proportional to damage
 ; AI score -= floor(Damage / 40)
@@ -273,18 +254,18 @@ AIDecideEvolution:
 	ld a, [wLoadedCard1AIInfo]
 	and AI_INFO_ENCOURAGE_EVO
 	jr z, .check_score
-	ld a, 2
+	ld a, 5
 	call AIEncourage
 	jr .check_score
 
 .mysterious_fossil
-	ld a, 5
+	ld a, 20
 	call AIEncourage
 
-; if AI score >= $85, go through with the evolution
+; if AI score >= $80, go through with the evolution
 .check_score
 	ld a, [wAIScore]
-	cp $85
+	cp $80
 	jr c, .done_bench_pokemon
 	ld a, [wTempAI]
 	ldh [hTempPlayAreaLocation_ffa1], a
@@ -298,7 +279,7 @@ AIDecideEvolution:
 	or a
 	jr nz, .skip_reset_pluspower_atk
 	ld hl, wPreviousAIFlags
-	res 0, [hl] ; AI_FLAG_USED_PLUSPOWER
+	res AI_FLAG_USED_PLUSPOWER, [hl]
 .skip_reset_pluspower_atk
 	pop bc
 	jr .done_hand_card

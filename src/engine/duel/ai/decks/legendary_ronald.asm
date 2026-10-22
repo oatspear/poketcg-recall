@@ -119,7 +119,7 @@ AIDoTurn_LegendaryRonald:
 .skip_moltres_1
 ; play Pokemon from hand
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 ; process Trainer cards
 	ld a, AI_TRAINER_CARD_PHASE_05
 	call AIProcessHandTrainerCards
@@ -133,7 +133,7 @@ AIDoTurn_LegendaryRonald:
 .skip_attach_energy_1
 ; try playing Pokemon cards from hand again
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_15
 ; if used Professor Oak, process new hand
 ; if not, then proceed to attack.
@@ -170,7 +170,7 @@ AIDoTurn_LegendaryRonald:
 
 .skip_moltres_2
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_05
 	call AIProcessHandTrainerCards
 	ld a, AI_TRAINER_CARD_PHASE_07
@@ -181,7 +181,7 @@ AIDoTurn_LegendaryRonald:
 	call AIProcessAndTryToPlayEnergy
 .skip_attach_energy_2
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 .try_attack
 ; attack if possible, if not,
 ; finish turn without attacking.

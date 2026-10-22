@@ -154,7 +154,7 @@ AIDoTurn_LegendaryArticuno:
 	call AIProcessHandTrainerCards
 ; play Pokemon from hand
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	call AIProcessRetreat
 	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
@@ -176,7 +176,7 @@ AIDoTurn_LegendaryArticuno:
 	ld a, AI_TRAINER_CARD_PHASE_02
 	call AIProcessHandTrainerCards
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	call AIProcessRetreat
 	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
