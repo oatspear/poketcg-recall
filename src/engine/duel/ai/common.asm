@@ -422,6 +422,34 @@ CheckIfEnergyIsUseful:
 	jp z, .set_carry
 	ld hl, wTempCardID
 
+; handle Pokémon that require energies *not* of their type
+	ld bc, WATER_ENERGY
+	cphl SURFING_PIKACHU_LV13
+	jr z, .check_energy
+	cphl SURFING_PIKACHU_ALT_LV13
+	jr nz, .check_type
+	
+.check_energy
+	call CompareDEtoBC
+	jr nz, .no_carry
+.set_carry
+	pop de
+	pop bc
+	pop hl
+	scf
+	ret
+
+; check energies matching the exact type of the Pokémon
+.check_type
+	call GetCardType  ; preserves hl
+	push de
+	ld d, a
+	ld a, [wTempCardType]
+	cp d
+	pop de
+	jr z, .set_carry
+
+; handle Pokémon that require *some* energies of a different type
 	ld bc, PSYCHIC_ENERGY
 	cphl EXEGGCUTE
 	jr z, .check_energy
@@ -432,44 +460,11 @@ CheckIfEnergyIsUseful:
 	cphl GOLDUCK
 	jr z, .check_energy
 
-	ld bc, WATER_ENERGY
-	cphl SURFING_PIKACHU_LV13
-	jr z, .check_energy
-	cphl SURFING_PIKACHU_ALT_LV13
-	jr z, .check_energy
-
-	cphl EEVEE
-	jr nz, .check_type
-	ld bc, WATER_ENERGY
-	call CompareDEtoBC
-	jr z, .set_carry
-	ld bc, FIRE_ENERGY
-	call CompareDEtoBC
-	jr z, .set_carry
-	ld bc, LIGHTNING_ENERGY
-	call CompareDEtoBC
-	jr z, .set_carry
-
-.check_type
-	call GetCardType
-	ld d, a
-	ld a, [wTempCardType]
-	cp d
-	jr z, .set_carry
+.no_carry
 	pop de
 	pop bc
 	pop hl
 	or a
-	ret
-
-.check_energy
-	call CompareDEtoBC
-	jr nz, .check_type
-.set_carry
-	pop de
-	pop bc
-	pop hl
-	scf
 	ret
 
 
