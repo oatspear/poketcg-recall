@@ -1,9 +1,12 @@
 # Changelog
 
-## Version 2.1.1
+## Version 2.2
+
+### Changed
 
 ### Fixed
 - Crash that happened sometimes when the AI used **Ditto's Morph*** (by @ElectroDeoxys).
+- Scripting bug that would allow NPCs to take away cards that were being used in decks.
 
 ## Version 2.1
 

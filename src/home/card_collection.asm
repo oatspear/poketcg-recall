@@ -58,16 +58,28 @@ GetAmountOfCardsOwned::
 ; also return the count (amount owned outside of decks) in a.
 GetCardCountInCollection::
 	push hl
+	push de
+	push bc
 	call EnableSRAM
+	call GetCardCountInDecks  ; preserves de
 	ld hl, sCardCollection
 	add hl, de
 	ld a, [hl]
 	call DisableSRAM
+	pop bc
+	pop de
 	pop hl
 	and CARD_COUNT_MASK
+	cp 1
+	ret c  ; none
+	push hl
+	ld hl, wNumCopiesUsedInDecks
+	sub [hl]
+	pop hl
 	ret nz
 	scf
 	ret
+
 
 ; creates a list at wTempCardCollection of every card the player owns and how many
 CreateTempCardCollection::
@@ -110,18 +122,92 @@ AddCardToCollection::
 ; remove a card with id given in de from sCardCollection (decrement its count if non-0)
 RemoveCardFromCollection::
 	push hl
+	push de
+	push bc
 	call EnableSRAM
+	call GetCardCountInDecks  ; preserves de
+	ld c, a
 	ld hl, sCardCollection
 	add hl, de
 	ld a, [hl]
 	and CARD_COUNT_MASK
 	jr z, .zero
+	inc c
+	cp c  ; a <= c ?
+	jr c, .zero
+; remove only excess cards (not in use in any deck)
 	dec a
 	ld [hl], a
 .zero
 	call DisableSRAM
+	pop bc
+	pop de
 	pop hl
 	ret
+
+
+; input:
+;   de: ID of the card to count
+GetCardCountInDecks:
+	push de
+	ld b, d
+	ld c, e
+	xor a
+	ld [wNumCopiesUsedInDecks], a
+	; call EnableSRAM
+	ld de, sDeck1Name
+	call .GetCardCountInDeck
+	ld de, sDeck2Name
+	call .GetCardCountInDeck
+	ld de, sDeck3Name
+	call .GetCardCountInDeck
+	ld de, sDeck4Name
+	call .GetCardCountInDeck
+	ld a, [wNumCopiesUsedInDecks]
+	pop de
+	; jp DisableSRAM
+	ret
+
+.GetCardCountInDeck:
+	ld a, [de]
+	or a
+	ret z ; return if empty name (empty deck)
+
+	ld hl, sDeck1Cards - sDeck1Name
+	add hl, de
+	ld e, l
+	ld d, h
+	ld hl, wCurDeckCards
+	call DecompressSRAMDeck
+
+	push bc
+	ld d, b
+	ld e, c
+	ld hl, wCurDeckCards
+	ld b, 0
+	ld c, DECK_SIZE
+.next_card_loop
+	push bc
+	ld a, [hli]
+	ld c, a
+	ld a, [hli]
+	ld b, a
+	call CompareDEtoBC
+	pop bc
+	jr nz, .different_card
+	inc b  ; found one
+.different_card
+	dec c
+	jr nz, .next_card_loop
+
+	ld a, b
+	pop bc
+	ld hl, wNumCopiesUsedInDecks
+	cp [hl]
+	ret c
+	ld [hl], a
+	ret
+
 
 ; return the amount of different cards that the player has collected in de
 ; return NUM_CARDS in bc
