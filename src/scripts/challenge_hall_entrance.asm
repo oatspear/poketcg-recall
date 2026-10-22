@@ -35,6 +35,8 @@ Preload_Clerk9:
 ;	jr .four_medals
 
 ; NEW: always available
+	set_event_false EVENT_CHALLENGE_CUP_OPPONENT_NUMBER
+	set_event_false EVENT_CHALLENGE_CUP_OPPONENT_CHOSEN
 	ld c, CHALLENGE_CUP_READY_TO_START
 	set_event_value EVENT_CHALLENGE_CUP_3_STATE
 	ld c, 3
