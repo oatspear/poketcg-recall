@@ -2,8 +2,8 @@ BoosterSetRarityAmountsTable:
 ;	db energies, commons, uncommons, rares
 ; commons + uncommons + rares needs to be equal to 10 minus the number of energy cards
 ; defined in the pack's data below; otherwise, the number of cards in the pack won't be 10.
-	db 1, 5, 3, 1 ; COLOSSEUM
-	db 1, 5, 3, 1 ; EVOLUTION
+	db 0, 6, 3, 1 ; COLOSSEUM
+	db 0, 6, 3, 1 ; EVOLUTION
 	db 0, 6, 3, 1 ; MYSTERY
 	db 0, 6, 3, 1 ; LABORATORY
 
@@ -22,7 +22,7 @@ ENDM
 
 BoosterPack_ColosseumNeutral::
 	booster_set COLOSSEUM ; booster pack set
-	dw GenerateRandomEnergy ; energy generation function
+	dw NULL ; GenerateRandomEnergy ; energy generation function
 
 ; Card Type Chances
 	db 20 ; Grass Type Chance
@@ -37,7 +37,7 @@ BoosterPack_ColosseumNeutral::
 
 BoosterPack_ColosseumGrass::
 	booster_set COLOSSEUM ; booster pack set
-	dw GenerateGrassEnergy ; energy generation function
+	dw NULL ; GenerateGrassEnergy ; energy generation function
 
 ; Card Type Chances
 	db 48 ; Grass Type Chance
@@ -52,7 +52,7 @@ BoosterPack_ColosseumGrass::
 
 BoosterPack_ColosseumFire::
 	booster_set COLOSSEUM ; booster pack set
-	dw GenerateFireEnergy
+	dw NULL ; GenerateFireEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -67,7 +67,7 @@ BoosterPack_ColosseumFire::
 
 BoosterPack_ColosseumWater::
 	booster_set COLOSSEUM ; booster pack set
-	dw GenerateWaterEnergy ; energy generation function
+	dw NULL ; GenerateWaterEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -82,7 +82,7 @@ BoosterPack_ColosseumWater::
 
 BoosterPack_ColosseumLightning::
 	booster_set COLOSSEUM ; booster pack set
-	dw GenerateLightningEnergy ; energy generation function
+	dw NULL ; GenerateLightningEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -97,7 +97,7 @@ BoosterPack_ColosseumLightning::
 
 BoosterPack_ColosseumFighting::
 	booster_set COLOSSEUM ; booster pack set
-	dw GenerateFightingEnergy ; energy generation function
+	dw NULL ; GenerateFightingEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -112,7 +112,7 @@ BoosterPack_ColosseumFighting::
 
 BoosterPack_ColosseumTrainer::
 	booster_set COLOSSEUM ; booster pack set
-	dw GenerateRandomEnergy ; energy generation function
+	dw NULL ; GenerateRandomEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -127,7 +127,7 @@ BoosterPack_ColosseumTrainer::
 
 BoosterPack_EvolutionNeutral::
 	booster_set EVOLUTION ; booster pack set
-	dw GenerateRandomEnergy ; energy generation function
+	dw NULL ; GenerateRandomEnergy ; energy generation function
 
 ; Card Type Chances
 	db 20 ; Grass Type Chance
@@ -142,7 +142,7 @@ BoosterPack_EvolutionNeutral::
 
 BoosterPack_EvolutionGrass::
 	booster_set EVOLUTION ; booster pack set
-	dw GenerateGrassEnergy ; energy generation function
+	dw NULL ; GenerateGrassEnergy ; energy generation function
 
 ; Card Type Chances
 	db 48 ; Grass Type Chance
@@ -157,7 +157,7 @@ BoosterPack_EvolutionGrass::
 
 BoosterPack_EvolutionFire::
 	booster_set EVOLUTION ; booster pack set
-	dw GenerateFireEnergy ; energy generation function
+	dw NULL ; GenerateFireEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -172,7 +172,7 @@ BoosterPack_EvolutionFire::
 
 BoosterPack_EvolutionWater::
 	booster_set EVOLUTION ; booster pack set
-	dw GenerateWaterEnergy ; energy generation function
+	dw NULL ; GenerateWaterEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -187,7 +187,7 @@ BoosterPack_EvolutionWater::
 
 BoosterPack_EvolutionFighting::
 	booster_set EVOLUTION ; booster pack set
-	dw GenerateFightingEnergy ; energy generation function
+	dw NULL ; GenerateFightingEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -202,7 +202,7 @@ BoosterPack_EvolutionFighting::
 
 BoosterPack_EvolutionPsychic::
 	booster_set EVOLUTION ; booster pack set
-	dw GeneratePsychicEnergy ; energy generation function
+	dw NULL ; GeneratePsychicEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -217,7 +217,7 @@ BoosterPack_EvolutionPsychic::
 
 BoosterPack_EvolutionTrainer::
 	booster_set EVOLUTION ; booster pack set
-	dw GenerateRandomEnergy ; energy generation function
+	dw NULL ; GenerateRandomEnergy ; energy generation function
 
 ; Card Type Chances
 	db 16 ; Grass Type Chance
@@ -235,15 +235,15 @@ BoosterPack_MysteryNeutral::
 	dw NULL ; energy generation function
 
 ; Card Type Chances
-	db 17 ; Grass Type Chance
-	db 17 ; Fire Type Chance
-	db 17 ; Water Type Chance
-	db 17 ; Lightning Type Chance
-	db 17 ; Fighting Type Chance
-	db 17 ; Psychic Type Chance
-	db 17 ; Colorless Type Chance
-	db 17 ; Trainer Card Chance
-	db 17 ; Energy Card Chance
+	db 20 ; Grass Type Chance
+	db 20 ; Fire Type Chance
+	db 20 ; Water Type Chance
+	db 20 ; Lightning Type Chance
+	db 20 ; Fighting Type Chance
+	db 20 ; Psychic Type Chance
+	db 20 ; Colorless Type Chance
+	db 20 ; Trainer Card Chance
+	db  0 ; Energy Card Chance
 
 BoosterPack_MysteryGrassColorless::
 	booster_set MYSTERY ; booster pack set
@@ -257,8 +257,8 @@ BoosterPack_MysteryGrassColorless::
 	db 12 ; Fighting Type Chance
 	db 12 ; Psychic Type Chance
 	db 22 ; Colorless Type Chance
-	db 12 ; Trainer Card Chance
-	db 12 ; Energy Card Chance
+	db 24 ; Trainer Card Chance
+	db  0 ; Energy Card Chance
 
 BoosterPack_MysteryWaterColorless::
 	booster_set MYSTERY ; booster pack set
@@ -272,8 +272,8 @@ BoosterPack_MysteryWaterColorless::
 	db 12 ; Fighting Type Chance
 	db 12 ; Psychic Type Chance
 	db 22 ; Colorless Type Chance
-	db 12 ; Trainer Card Chance
-	db 12 ; Energy Card Chance
+	db 24 ; Trainer Card Chance
+	db  0 ; Energy Card Chance
 
 BoosterPack_MysteryLightningColorless::
 	booster_set MYSTERY ; booster pack set
@@ -287,8 +287,8 @@ BoosterPack_MysteryLightningColorless::
 	db 12 ; Fighting Type Chance
 	db 12 ; Psychic Type Chance
 	db 22 ; Colorless Type Chance
-	db 12 ; Trainer Card Chance
-	db 12 ; Energy Card Chance
+	db 24 ; Trainer Card Chance
+	db  0 ; Energy Card Chance
 
 BoosterPack_MysteryFightingColorless::
 	booster_set MYSTERY ; booster pack set
@@ -302,8 +302,8 @@ BoosterPack_MysteryFightingColorless::
 	db 48 ; Fighting Type Chance
 	db 12 ; Psychic Type Chance
 	db 22 ; Colorless Type Chance
-	db 12 ; Trainer Card Chance
-	db 12 ; Energy Card Chance
+	db 24 ; Trainer Card Chance
+	db  0 ; Energy Card Chance
 
 BoosterPack_MysteryTrainerColorless::
 	booster_set MYSTERY ; booster pack set
@@ -316,9 +316,9 @@ BoosterPack_MysteryTrainerColorless::
 	db 12 ; Lightning Type Chance
 	db 12 ; Fighting Type Chance
 	db 12 ; Psychic Type Chance
-	db 22 ; Colorless Type Chance
-	db 48 ; Trainer Card Chance
-	db 12 ; Energy Card Chance
+	db 28 ; Colorless Type Chance
+	db 54 ; Trainer Card Chance
+	db  0 ; Energy Card Chance
 
 BoosterPack_LaboratoryMostlyNeutral::
 	booster_set LABORATORY ; booster pack set
