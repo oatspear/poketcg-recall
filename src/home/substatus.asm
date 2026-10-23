@@ -63,12 +63,12 @@ HandleDamageReductionFromPkmnPowers::
 	cphl MR_MIME
 	jp z, PreventMoreThan20Damage_DE
 	cphl SHELLDER
-	jr z, ReduceDamageBy20_DE
+	jr z, ReduceDamageBy10_DE
 	ld a, [wTempNonTurnDuelistCardStage]
 	cp STAGE1
 	jr nz, .kabuto
 	cphl CLOYSTER
-	jr z, ReduceDamageBy20_DE
+	jr z, ReduceDamageBy10_DE
 .kabuto
 	cphl KABUTO
 	jr z, HalveDamage_DE
