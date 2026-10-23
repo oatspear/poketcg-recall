@@ -155,19 +155,19 @@ BoosterPack_EvolutionGrass::
 	db 16 ; Trainer Card Chance
 	db  0 ; Energy Card Chance
 
-BoosterPack_EvolutionNeutralFireEnergy::
+BoosterPack_EvolutionFire::
 	booster_set EVOLUTION ; booster pack set
-	dw GenerateFireEnergy
+	dw GenerateFireEnergy ; energy generation function
 
 ; Card Type Chances
-	db 20 ; Grass Type Chance
-	db 20 ; Fire Type Chance
-	db 20 ; Water Type Chance
-	db 20 ; Lightning Type Chance
-	db 20 ; Fighting Type Chance
-	db 20 ; Psychic Type Chance
-	db 20 ; Colorless Type Chance
-	db 20 ; Trainer Card Chance
+	db 16 ; Grass Type Chance
+	db 48 ; Fire Type Chance
+	db 16 ; Water Type Chance
+	db 16 ; Lightning Type Chance
+	db 16 ; Fighting Type Chance
+	db 16 ; Psychic Type Chance
+	db 16 ; Colorless Type Chance
+	db 16 ; Trainer Card Chance
 	db  0 ; Energy Card Chance
 
 BoosterPack_EvolutionWater::
