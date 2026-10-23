@@ -1078,7 +1078,7 @@ GloomCard:
 	tx PoisonPowderName ; name
 	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 10 ; damage
 	db DAMAGE_NORMAL ; category
 	dw InflictPoisonEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1

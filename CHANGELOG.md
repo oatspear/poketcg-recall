@@ -8,6 +8,9 @@
 - The Challenge Cup in the Challenge Hall is now always available to play.
 - Small improvements to AI when deciding how to play Evolution cards.
 
+#### Gloom
+- **Poison Powder**: reduced damage from 20 to 10.
+
 #### Kabutops
 - Reduced HP from 70 to 60.
 - Increased retreat cost from 1 to 2.
