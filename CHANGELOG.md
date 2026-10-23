@@ -2,10 +2,6 @@
 
 ## Version 2.2
 
-### Fixed
-- Crash that happened sometimes when the AI used **Ditto's Morph*** (by @ElectroDeoxys).
-- Scripting bug that would allow NPCs to take away cards that were being used in decks.
-
 ### Changed
 - The NPC in the Fire Club that asks for energies in exchange for the Promotional Slowpoke card will now accept energy cards regardless of how many medals the player has acquired.
 - The event at the Fire Club that awards a Promotional Slowpoke will now award 2 copies of the card.
@@ -15,6 +11,12 @@
 #### Kabutops
 - Reduced HP from 70 to 60.
 - Increased retreat cost from 1 to 2.
+
+### Fixed
+- Crash that happened sometimes when the AI used **Ditto's Morph*** (by @ElectroDeoxys).
+- Scripting bug that would allow NPCs to take away cards that were being used in decks.
+
+---
 
 ## Version 2.1
 
@@ -85,6 +87,7 @@
 ### Dragonair
 - Removed resistance to Psychic.
 
+---
 
 ## Version 2.0
 
@@ -778,6 +781,8 @@
 - Increased HP from 100 to 120.
 - **Slam**: increased cost from (C)(C)(C) to (C)(C)(C)(C).
 - **Slam**: increased base damage from 30 to 40.
+
+---
 
 ## Version 1.0
 
