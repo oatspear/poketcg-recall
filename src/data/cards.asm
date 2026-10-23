@@ -6618,7 +6618,7 @@ KabutopsCard:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw KABUTOPS
-	db 70 ; hp
+	db 60 ; hp
 	db STAGE2 ; stage
 	tx KabutoName ; pre-evo name
 
@@ -6650,7 +6650,7 @@ KabutopsCard:
 	db 2
 	db ATK_ANIM_DRAIN ; animation
 
-	db 1 ; retreat cost
+	db 2 ; retreat cost
 	db WR_GRASS ; weakness
 	db NONE ; resistance
 	tx ShellfishName ; category
