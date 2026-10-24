@@ -1078,7 +1078,7 @@ GloomCard:
 	tx PoisonPowderName ; name
 	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
+	db 10 ; damage
 	db DAMAGE_NORMAL ; category
 	dw InflictPoisonEffectCommands ; effect commands
 	db INFLICT_POISON ; flags 1
@@ -6618,7 +6618,7 @@ KabutopsCard:
 	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw KABUTOPS
-	db 70 ; hp
+	db 60 ; hp
 	db STAGE2 ; stage
 	tx KabutoName ; pre-evo name
 
@@ -6650,7 +6650,7 @@ KabutopsCard:
 	db 2
 	db ATK_ANIM_DRAIN ; animation
 
-	db 1 ; retreat cost
+	db 2 ; retreat cost
 	db WR_GRASS ; weakness
 	db NONE ; resistance
 	tx ShellfishName ; category

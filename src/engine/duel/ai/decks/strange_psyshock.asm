@@ -27,7 +27,6 @@ AIActionTable_StrangePsyshock:
 	jp AIPickPrizeCards
 
 .list_arena
-	dw KANGASKHAN
 	dw CHANSEY
 	dw SNORLAX
 	dw MR_MIME
@@ -37,7 +36,6 @@ AIActionTable_StrangePsyshock:
 .list_bench
 	dw ABRA
 	dw MR_MIME
-	dw KANGASKHAN
 	dw SNORLAX
 	dw CHANSEY
 	dw NULL
@@ -45,18 +43,16 @@ AIActionTable_StrangePsyshock:
 .list_retreat
 	ai_retreat ABRA,       -3
 	ai_retreat SNORLAX,    -3
-	ai_retreat KANGASKHAN, -1
 	ai_retreat CHANSEY,    -1
 	dw NULL
 
 .list_energy
-	ai_energy ABRA,       3, +1
+	ai_energy ABRA,       2, +1
 	ai_energy KADABRA,    3, +0
 	ai_energy ALAKAZAM,   3, +0
 	ai_energy MR_MIME,    2, +0
 	ai_energy CHANSEY,    2, -2
-	ai_energy KANGASKHAN, 4, -2
-	ai_energy SNORLAX,    0, -8
+	ai_energy SNORLAX,    4, -2
 	dw NULL
 
 .list_prize

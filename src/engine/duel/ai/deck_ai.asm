@@ -61,8 +61,6 @@ ENDM
 ; wAICardListRetreatBonus  : scores given to certain cards for retreat;
 ; wAICardListEnergyBonus   : max number of energy cards and card scores.
 
-IF PURIST_PATCH
-
 INCLUDE "engine/duel/ai/decks/general.asm"
 INCLUDE "engine/duel/ai/decks/sams_practice.asm"
 INCLUDE "engine/duel/ai/decks/legendary_moltres.asm"
@@ -81,26 +79,3 @@ INCLUDE "engine/duel/ai/decks/im_ronald.asm"
 INCLUDE "engine/duel/ai/decks/powerful_ronald.asm"
 INCLUDE "engine/duel/ai/decks/invincible_ronald.asm"
 INCLUDE "engine/duel/ai/decks/legendary_ronald.asm"
-
-ELSE
-
-INCLUDE "engine/duel/ai/decks_custom/general.asm"
-INCLUDE "engine/duel/ai/decks_custom/sams_practice.asm"
-INCLUDE "engine/duel/ai/decks_custom/legendary_moltres.asm"
-INCLUDE "engine/duel/ai/decks_custom/legendary_zapdos.asm"
-INCLUDE "engine/duel/ai/decks_custom/legendary_articuno.asm"
-INCLUDE "engine/duel/ai/decks_custom/legendary_dragonite.asm"
-INCLUDE "engine/duel/ai/decks_custom/first_strike.asm"
-INCLUDE "engine/duel/ai/decks_custom/rock_crusher.asm"
-INCLUDE "engine/duel/ai/decks_custom/go_go_rain_dance.asm"
-INCLUDE "engine/duel/ai/decks_custom/zapping_selfdestruct.asm"
-INCLUDE "engine/duel/ai/decks_custom/flower_power.asm"
-INCLUDE "engine/duel/ai/decks_custom/strange_psyshock.asm"
-INCLUDE "engine/duel/ai/decks_custom/wonders_of_science.asm"
-INCLUDE "engine/duel/ai/decks_custom/fire_charge.asm"
-INCLUDE "engine/duel/ai/decks_custom/im_ronald.asm"
-INCLUDE "engine/duel/ai/decks_custom/powerful_ronald.asm"
-INCLUDE "engine/duel/ai/decks_custom/invincible_ronald.asm"
-INCLUDE "engine/duel/ai/decks_custom/legendary_ronald.asm"
-
-ENDC

@@ -27,52 +27,34 @@ AIActionTable_LegendaryRonald:
 	jp AIPickPrizeCards
 
 .list_arena
-	dw KANGASKHAN
-	dw DRATINI
-	dw EEVEE
-	dw ZAPDOS_LV68
-	dw ARTICUNO_LV37
-	dw MOLTRES_LV37
+	dw LICKITUNG
+	dw SCYTHER
+	dw MEWTWO_LV60
+	dw GRIMER
 	dw NULL
 
 .list_bench
-	dw KANGASKHAN
-	dw DRATINI
-	dw EEVEE
-	dw NULL
-
-.list_play_hand
-	dw MOLTRES_LV37
-	dw ZAPDOS_LV68
-	dw KANGASKHAN
-	dw DRATINI
-	dw EEVEE
-	dw ARTICUNO_LV37
+	dw MEWTWO_LV60
+	dw SCYTHER
+	dw LICKITUNG
+	dw GRIMER
 	dw NULL
 
 .list_retreat
-	ai_retreat EEVEE, -2
+	ai_retreat GRIMER, -2
 	dw NULL
 
 .list_energy
-	ai_energy FLAREON_LV22,   3, +0
-	ai_energy MOLTRES_LV37,   3, +0
-	ai_energy VAPOREON_LV29,  3, +0
-	ai_energy ARTICUNO_LV37,  0, -8
-	ai_energy JOLTEON_LV24,   4, +0
-	ai_energy ZAPDOS_LV68,    0, -8
-	ai_energy KANGASKHAN,     4, -1
-	ai_energy EEVEE,          3, +0
-	ai_energy DRATINI,        3, +0
-	ai_energy DRAGONAIR,      4, +0
-	ai_energy DRAGONITE_LV41, 3, +0
+	ai_energy GRIMER,      1, +0
+	ai_energy MUK,         3, -2
+	ai_energy SCYTHER,     3, +0
+	ai_energy MEWTWO_LV60, 3, +2
+	ai_energy LICKITUNG,   1, +0
 	dw NULL
 
 .list_prize
-	dw MOLTRES_LV37
-	dw ARTICUNO_LV37
-	dw ZAPDOS_LV68
-	dw DRAGONITE_LV41
+	dw MUK
+	dw MEWTWO_LV60
 	dw GAMBLER
 	dw NULL
 
@@ -80,7 +62,7 @@ AIActionTable_LegendaryRonald:
 	store_list_pointer wAICardListAvoidPrize, .list_prize
 	store_list_pointer wAICardListArenaPriority, .list_arena
 	store_list_pointer wAICardListBenchPriority, .list_bench
-	store_list_pointer wAICardListPlayFromHandPriority, .list_play_hand
+	store_list_pointer wAICardListPlayFromHandPriority, .list_bench
 	store_list_pointer wAICardListRetreatBonus, .list_retreat
 	store_list_pointer wAICardListEnergyBonus, .list_energy
 	ret
@@ -119,7 +101,7 @@ AIDoTurn_LegendaryRonald:
 .skip_moltres_1
 ; play Pokemon from hand
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 ; process Trainer cards
 	ld a, AI_TRAINER_CARD_PHASE_05
 	call AIProcessHandTrainerCards
@@ -133,7 +115,7 @@ AIDoTurn_LegendaryRonald:
 .skip_attach_energy_1
 ; try playing Pokemon cards from hand again
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_15
 ; if used Professor Oak, process new hand
 ; if not, then proceed to attack.
@@ -170,7 +152,7 @@ AIDoTurn_LegendaryRonald:
 
 .skip_moltres_2
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	ld a, AI_TRAINER_CARD_PHASE_05
 	call AIProcessHandTrainerCards
 	ld a, AI_TRAINER_CARD_PHASE_07
@@ -181,7 +163,7 @@ AIDoTurn_LegendaryRonald:
 	call AIProcessAndTryToPlayEnergy
 .skip_attach_energy_2
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 .try_attack
 ; attack if possible, if not,
 ; finish turn without attacking.

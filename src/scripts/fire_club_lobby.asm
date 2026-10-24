@@ -153,8 +153,8 @@ Preload_Lad2:
 Script_Lad2:
 	start_script
 	try_give_medal_pc_packs
-	jump_if_event_greater_or_equal EVENT_MEDAL_COUNT, 3, .ows_ee36
-	print_text_quit_fully Text069b
+	; jump_if_event_greater_or_equal EVENT_MEDAL_COUNT, 3, .ows_ee36
+	; print_text_quit_fully Text069b
 
 .ows_ee36
 	print_npc_text Text069c
@@ -211,6 +211,7 @@ Script_ee76:
 .ows_ee7d
 	set_event EVENT_LAD2_STATE, LAD2_SLOWPOKE_GONE
 	print_text FoundLv9SlowpokeText
+	give_card SLOWPOKE_LV9
 	give_card SLOWPOKE_LV9
 	show_card_received_screen SLOWPOKE_LV9
 	quit_script_fully

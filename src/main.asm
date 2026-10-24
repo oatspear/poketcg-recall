@@ -141,11 +141,7 @@ SECTION "Effect Functions", ROMX
 INCLUDE "engine/duel/effect_functions.asm"
 
 SECTION "Decks", ROMX
-IF PURIST_PATCH
 INCLUDE "data/decks.asm"
-ELSE
-INCLUDE "data/decks_custom.asm"
-ENDC
 
 SECTION "Card Pointers", ROMX
 INCLUDE "data/card_pointers.asm"

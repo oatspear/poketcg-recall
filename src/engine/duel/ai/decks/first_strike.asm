@@ -29,36 +29,31 @@ AIActionTable_FirstStrike:
 .list_arena
 	dw HITMONCHAN
 	dw MACHOP
-	dw HITMONLEE
-	dw MANKEY
+	dw JIGGLYPUFF_LV14
 	dw NULL
 
 .list_bench
-	dw MACHOP
-	dw HITMONLEE
+	dw JIGGLYPUFF_LV14
 	dw HITMONCHAN
-	dw MANKEY
+	dw MACHOP
 	dw NULL
 
 .list_retreat
 	ai_retreat MACHOP,  -1
-	ai_retreat MACHOKE, -1
-	ai_retreat MANKEY,  -2
 	dw NULL
 
 .list_energy
-	ai_energy MACHOP,     3, +0
-	ai_energy MACHOKE,    4, +0
-	ai_energy MACHAMP,    4, -1
-	ai_energy HITMONCHAN, 3, +0
-	ai_energy HITMONLEE,  3, +0
-	ai_energy MANKEY,     2, -1
-	ai_energy PRIMEAPE,   3, -1
+	ai_energy MACHOP,          1, +0
+	ai_energy MACHOKE,         3, -1
+	ai_energy MACHAMP,         4, -1
+	ai_energy HITMONCHAN,      3, +0
+	ai_energy JIGGLYPUFF_LV14, 2, -1
+	ai_energy WIGGLYTUFF,      3, +0
 	dw NULL
 
 .list_prize
-	dw HITMONLEE
 	dw HITMONCHAN
+	dw JIGGLYPUFF_LV14
 	dw NULL
 
 .store_list_pointers

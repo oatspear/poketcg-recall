@@ -620,7 +620,7 @@ BoosterDataJumptable:
 	dw BoosterPack_ColosseumTrainer
 	dw BoosterPack_EvolutionNeutral
 	dw BoosterPack_EvolutionGrass
-	dw BoosterPack_EvolutionNeutralFireEnergy
+	dw BoosterPack_EvolutionFire
 	dw BoosterPack_EvolutionWater
 	dw BoosterPack_EvolutionFighting
 	dw BoosterPack_EvolutionPsychic

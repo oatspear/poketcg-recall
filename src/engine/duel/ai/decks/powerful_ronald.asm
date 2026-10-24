@@ -27,33 +27,22 @@ AIActionTable_PowerfulRonald:
 	jp AIPickPrizeCards
 
 .list_arena
-	dw KANGASKHAN
 	dw ELECTABUZZ_LV35
 	dw HITMONCHAN
-	dw MR_MIME
 	dw LICKITUNG
 	dw HITMONLEE
-	dw TAUROS
-	dw JYNX
-	dw MEWTWO_LV53
 	dw DODUO
 	dw NULL
 
 .list_bench
-	dw KANGASKHAN
 	dw HITMONLEE
 	dw HITMONCHAN
-	dw TAUROS
 	dw DODUO
-	dw JYNX
-	dw MEWTWO_LV53
 	dw ELECTABUZZ_LV35
-	dw MR_MIME
 	dw LICKITUNG
 	dw NULL
 
 .list_retreat
-	ai_retreat KANGASKHAN, -1
 	ai_retreat DODUO,      -1
 	ai_retreat DODRIO,     -1
 	dw NULL
@@ -61,15 +50,10 @@ AIActionTable_PowerfulRonald:
 .list_energy
 	ai_energy ELECTABUZZ_LV35, 2, +1
 	ai_energy HITMONLEE,       3, +1
-	ai_energy HITMONCHAN,      3, +1
-	ai_energy MR_MIME,         2, +0
-	ai_energy JYNX,            3, +0
-	ai_energy MEWTWO_LV53,     2, +0
+	ai_energy HITMONCHAN,      3, +0
 	ai_energy DODUO,           3, -1
 	ai_energy DODRIO,          3, -1
-	ai_energy LICKITUNG,       2, +0
-	ai_energy KANGASKHAN,      4, -1
-	ai_energy TAUROS,          3, +0
+	ai_energy LICKITUNG,       1, +0
 	dw NULL
 
 .list_prize

@@ -29,33 +29,30 @@ AIActionTable_LegendaryArticuno:
 .list_arena
 	dw CHANSEY
 	dw LAPRAS
-	dw DITTO
 	dw SEEL
-	dw ARTICUNO_LV35
 	dw ARTICUNO_LV37
 	dw NULL
 
+.list_play_hand
+	dw ARTICUNO_LV37
+	; fallthrough
+
 .list_bench
-	dw ARTICUNO_LV35
-	dw SEEL
 	dw LAPRAS
+	dw SEEL
 	dw CHANSEY
-	dw DITTO
 	dw NULL
 
 .list_retreat
 	ai_retreat SEEL,  -3
-	ai_retreat DITTO, -3
 	dw NULL
 
 .list_energy
 	ai_energy SEEL,          3, +1
 	ai_energy DEWGONG,       4, +0
-	ai_energy LAPRAS,        3, +0
-	ai_energy ARTICUNO_LV35, 4, +1
+	ai_energy LAPRAS,        3, +1
 	ai_energy ARTICUNO_LV37, 3, +0
 	ai_energy CHANSEY,       0, -8
-	ai_energy DITTO,         3, +0
 	dw NULL
 
 .list_prize
@@ -67,7 +64,7 @@ AIActionTable_LegendaryArticuno:
 	store_list_pointer wAICardListAvoidPrize, .list_prize
 	store_list_pointer wAICardListArenaPriority, .list_arena
 	store_list_pointer wAICardListBenchPriority, .list_bench
-	store_list_pointer wAICardListPlayFromHandPriority, .list_bench
+	store_list_pointer wAICardListPlayFromHandPriority, .list_play_hand
 	store_list_pointer wAICardListRetreatBonus, .list_retreat
 	store_list_pointer wAICardListEnergyBonus, .list_energy
 	ret
@@ -154,7 +151,7 @@ AIDoTurn_LegendaryArticuno:
 	call AIProcessHandTrainerCards
 ; play Pokemon from hand
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	call AIProcessRetreat
 	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
@@ -176,7 +173,7 @@ AIDoTurn_LegendaryArticuno:
 	ld a, AI_TRAINER_CARD_PHASE_02
 	call AIProcessHandTrainerCards
 	call AIDecidePlayPokemonCard
-	ret c ; return if turn ended
+	; ret c ; return if turn ended
 	call AIProcessRetreat
 	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
