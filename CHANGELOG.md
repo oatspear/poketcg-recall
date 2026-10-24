@@ -7,7 +7,7 @@
 - The event at the Fire Club that awards a Promotional Slowpoke will now award 2 copies of the card.
 - The Challenge Cup in the Challenge Hall is now always available to play.
 - Small improvements to AI when deciding how to play Evolution cards.
-- Regular booster packs no longer ontain Basic Energy cards.
+- Regular booster packs no longer contain Basic Energy cards.
 
 #### Gloom
 - **Poison Powder**: reduced damage from 20 to 10.
