@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.3
+
+### Changed
+- Made several improvements to the AI's main turn logic.
+
+
 ## Version 2.2
 
 ### Changed
