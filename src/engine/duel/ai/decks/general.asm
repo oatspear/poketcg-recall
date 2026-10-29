@@ -309,6 +309,12 @@ ENDC
 
 	ld a, [wPreviousAIFlags]
 	and AI_FLAG_USED_PROFESSOR_OAK
+; make sure that flags are reset to avoid infinite loops
+	push af
+	ld a, [wPreviousAIFlags]
+	and AI_FLAG_USED_GUST_OF_WIND  ; flags to keep
+	ld [wPreviousAIFlags], a
+	pop af
 	jp nz, .phase_1
 
 .try_attack
