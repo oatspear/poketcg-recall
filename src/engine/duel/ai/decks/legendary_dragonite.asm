@@ -69,60 +69,7 @@ AIActionTable_LegendaryDragonite:
 	ret
 
 AIDoTurn_LegendaryDragonite:
-; initialize variables
-	call InitAITurnVars
-	ld a, AI_TRAINER_CARD_PHASE_01
-	call AIProcessHandTrainerCards
-	farcall HandleAIAntiMewtwoDeckStrategy
-	jp nc, .try_attack
-; process Trainer cards
-	ld a, AI_TRAINER_CARD_PHASE_02
-	call AIProcessHandTrainerCards
-; play Pokemon from hand
-	call AIDecidePlayPokemonCard
-	; ret c ; return if turn ended
-	ld a, AI_TRAINER_CARD_PHASE_07
-	call AIProcessHandTrainerCards
-	call AIProcessRetreat
-	ld a, AI_TRAINER_CARD_PHASE_10
-	call AIProcessHandTrainerCards
-	ld a, AI_TRAINER_CARD_PHASE_11
-	call AIProcessHandTrainerCards
-; play Energy card if possible
-	call AIProcessAndTryToPlayEnergy
-; play Pokemon from hand again
-	call AIDecidePlayPokemonCard
-	ld a, AI_TRAINER_CARD_PHASE_15
-	call AIProcessHandTrainerCards
-; if used Professor Oak, process new hand
-; if not, then proceed to attack.
-	ld a, [wPreviousAIFlags]
-	and AI_FLAG_USED_PROFESSOR_OAK
-	jr z, .try_attack
-	ld a, AI_TRAINER_CARD_PHASE_01
-	call AIProcessHandTrainerCards
-	ld a, AI_TRAINER_CARD_PHASE_02
-	call AIProcessHandTrainerCards
-	call AIDecidePlayPokemonCard
-	; ret c ; return if turn ended
-	ld a, AI_TRAINER_CARD_PHASE_07
-	call AIProcessHandTrainerCards
-	call AIProcessRetreat
-	ld a, AI_TRAINER_CARD_PHASE_10
-	call AIProcessHandTrainerCards
-	ld a, AI_TRAINER_CARD_PHASE_11
-	call AIProcessHandTrainerCards
-	call AIProcessAndTryToPlayEnergy
-.skip_energy_attach_2
-	call AIDecidePlayPokemonCard
-.try_attack
-; attack if possible, if not,
-; finish turn without attacking.
-	call AIProcessAndTryToUseAttack
-	ret c ; return if turn ended
-	ld a, OPPACTION_FINISH_NO_ATTACK
-	bank1call AIMakeDecision
-	ret
+	jp AIMainTurnLogic
 
 
 ; if Arena card is Kangaskhan and doesn't

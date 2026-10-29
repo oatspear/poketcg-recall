@@ -25,11 +25,15 @@ AIActionTable_GeneralDecks:
 .take_prize:
 	jp AIPickPrizeCards
 
+
 ; handle AI routines for a whole turn
 AIMainTurnLogic:
 ; initialize variables
 	call InitAITurnVars
 
+; Phase 1: Anti-mill
+; Handle the special anti-mill strategy.
+.phase_1
 IF AI_DEBUG_PRINTS
 	ldtx hl, BulbasaurName
 	call DrawWideTextBox_WaitForInput
@@ -46,14 +50,108 @@ ENDC
 	farcall HandleAIAntiMewtwoDeckStrategy
 	jp nc, .try_attack
 
-; handle Pkmn Powers
+; Phase 2: Deck Search
+; Handle cards that search the deck without any cost.
+.phase_2
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, VenusaurName
+	ldtx hl, SquirtleName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	farcall HandleAIGoGoRainDanceEnergy
+	ld a, AI_TRAINER_CARD_PHASE_02
+	call AIProcessHandTrainerCards
+	jr c, .phase_2
+
+; Phase 3: Deck Sorting
+; Handle cards that sort or change the top of the deck.
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, WartortleName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_03
+	call AIProcessHandTrainerCards
+
+; Phase 4: Unconditional Card Draw
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, BlastoiseName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_04
+	call AIProcessHandTrainerCards
+	jr c, .phase_1
+
+; Phase 5: Bench Filling Trainers
+; Handle cards that have priority over Pokémon.
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, MetapodName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_05
+	call AIProcessHandTrainerCards
+
+; Phase 6: Scoop Up
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, CharizardName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	farcall HandleAICowardice
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, ButterfreeName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_06
+	call AIProcessHandTrainerCards
+
+; Breakpoint: Play Pokémon Cards
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, CaterpieName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	call AIDecidePlayPokemonCard
+
+; Phase 7: Pokémon Breeder
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, WeedleName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_07
+	call AIProcessHandTrainerCards
+
+; Breakpoint: evaluate retreat
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, BeedrillName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	call AIProcessRetreat
+
+; Phase 8: Mr. Fuji
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, KakunaName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_08
+	call AIProcessHandTrainerCards
+
+; Phase 9: Healing
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, CharmanderName
@@ -71,81 +169,30 @@ ENDC
 	ret c ; return if turn ended
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, CharizardName
+	ldtx hl, PidgeyName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	farcall HandleAICowardice
-
-; process Trainer cards phase 2 through 4
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, SquirtleName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_02
+	ld a, AI_TRAINER_CARD_PHASE_09
 	call AIProcessHandTrainerCards
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, WartortleName
+	ldtx hl, NidokingName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_03
+	ld a, AI_TRAINER_CARD_PHASE_10
 	call AIProcessHandTrainerCards
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, BlastoiseName
+	ldtx hl, NidoranFName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_04
+	ld a, AI_TRAINER_CARD_PHASE_11
 	call AIProcessHandTrainerCards
 
-; play Pokemon from hand
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, CaterpieName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	call AIDecidePlayPokemonCard
-	; ret c ; return if turn ended
-
-; process Trainer cards phase 5 through 12
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, MetapodName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_05
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, ButterfreeName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_06
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, WeedleName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_07
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, KakunaName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_08
-	call AIProcessHandTrainerCards
+; Breakpoint: evaluate retreat
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, BeedrillName
@@ -154,31 +201,24 @@ ENDC
 
 	call AIProcessRetreat
 
-IF AI_DEBUG_PRINTS
-	ldtx hl, PidgeyName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_10
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, PidgeottoName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_11
-	call AIProcessHandTrainerCards
+; Phase 13: Energy Retrieval
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, PidgeotName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_12
+	ld a, AI_TRAINER_CARD_PHASE_13
 	call AIProcessHandTrainerCards
 
-; play Energy card if possible
+; Breakpoint: Energy attachment
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, VenusaurName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	farcall HandleAIGoGoRainDanceEnergy
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, RattataName
@@ -187,38 +227,38 @@ ENDC
 
 	call AIProcessAndTryToPlayEnergy
 
-; play Pokemon from hand again
+; Phase 14: Disruption
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, RaticateName
+	ldtx hl, PikachuName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	call AIDecidePlayPokemonCard
+	ld a, AI_TRAINER_CARD_PHASE_14
+	call AIProcessHandTrainerCards
 
-; handle Pkmn Powers again
+; Phase 15: Item Finder
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, SpearowName
+	ldtx hl, RaichuName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	farcall HandleAIDamageSwap
+	ld a, AI_TRAINER_CARD_PHASE_15
+	call AIProcessHandTrainerCards
+	jr c, .phase_2
+
+; Phase 16: Gusting
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, FearowName
+	ldtx hl, ClefableName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	farcall HandleAIPkmnPowers
-	ret c ; return if turn ended
+	ld a, AI_TRAINER_CARD_PHASE_16
+	call AIProcessHandTrainerCards
 
-IF AI_DEBUG_PRINTS
-	ldtx hl, SandshrewName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	farcall HandleAIGoGoRainDanceEnergy
+; Breakpoint: Energy Trans
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, SandslashName
@@ -228,22 +268,35 @@ ENDC
 	ld a, AI_ENERGY_TRANS_ATTACK
 	farcall HandleAIEnergyTrans
 
-; process Trainer cards phases 13 and 15
+; Phase 17: Tools
+; Handle Pluspower and Defender
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, PikachuName
+	ldtx hl, VulpixName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_13
+	ld a, AI_TRAINER_CARD_PHASE_17
 	call AIProcessHandTrainerCards
 
+; Phase 18: Lass
+
 IF AI_DEBUG_PRINTS
-	ldtx hl, RaichuName
+	ldtx hl, NinetalesName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_15
+	ld a, AI_TRAINER_CARD_PHASE_18
+	call AIProcessHandTrainerCards
+
+; Phase 19: Professor Oak
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, EkansName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_19
 	call AIProcessHandTrainerCards
 
 ; if used Professor Oak, process new hand
@@ -256,168 +309,7 @@ ENDC
 
 	ld a, [wPreviousAIFlags]
 	and AI_FLAG_USED_PROFESSOR_OAK
-
-IF AI_DEBUG_PRINTS
-	jp z, .try_attack
-ELSE
-	jr z, .try_attack
-ENDC
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, ClefableName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_01
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, VulpixName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_02
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NinetalesName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_03
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, EkansName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_04
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, ArbokName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	call AIDecidePlayPokemonCard
-	; ret c ; return if turn ended
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NidoranMName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_05
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NidorinoName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_06
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NidokingName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_07
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NidoranFName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_08
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NidorinaName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	call AIProcessRetreat
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NidoqueenName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_10
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, GrowlitheName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_11
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, ArcanineName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_12
-	call AIProcessHandTrainerCards
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, OddishName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	call AIProcessAndTryToPlayEnergy
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, GloomName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	call AIDecidePlayPokemonCard
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, VileplumeName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	farcall HandleAIDamageSwap
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, BellsproutName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	farcall HandleAIPkmnPowers
-	ret c ; return if turn ended
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, WeepinbellName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	farcall HandleAIGoGoRainDanceEnergy
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, VictreebelName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_ENERGY_TRANS_ATTACK
-	farcall HandleAIEnergyTrans
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, VenonatName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_13
-	call AIProcessHandTrainerCards
-	; skip AI_TRAINER_CARD_PHASE_15
+	jp nz, .phase_1
 
 .try_attack
 
@@ -497,7 +389,7 @@ ENDC
 	jr z, .retreat_free ; free retreat
 
 ; if AI can use Switch from hand, use it instead...
-	ld a, AI_TRAINER_CARD_PHASE_09
+	ld a, AI_TRAINER_CARD_PHASE_12
 	call AIProcessHandTrainerCards
 
 IF AI_DEBUG_PRINTS

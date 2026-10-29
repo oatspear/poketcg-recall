@@ -75,64 +75,7 @@ AIActionTable_LegendaryMoltres:
 	ret
 
 AIDoTurn_LegendaryMoltres:
-; initialize variables
-	call InitAITurnVars
-	farcall HandleAIAntiMewtwoDeckStrategy
-	jp nc, .try_attack
-; process Trainer cards
-; phase 2 through 4.
-	ld a, AI_TRAINER_CARD_PHASE_02
-	call AIProcessHandTrainerCards
-	ld a, AI_TRAINER_CARD_PHASE_04
-	call AIProcessHandTrainerCards
-
-; check if AI can play MoltresLv37
-; from hand and if so, play it.
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetTurnDuelistVariable
-	cp MAX_PLAY_AREA_POKEMON
-	jr nc, .skip_moltres ; skip if bench is full
-	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
-	call GetTurnDuelistVariable
-	cp DECK_SIZE - 9
-	jr nc, .skip_moltres ; skip if cards in deck <= 9
-	ld de, MUK
-	call CountPokemonWithActivePkmnPowerInBothPlayAreas
-	jr c, .skip_moltres ; skip if Muk in play
-	ld de, MOLTRES_LV37
-	call LookForCardIDInHandList_Bank5
-	jr nc, .skip_moltres ; skip if no MoltresLv37 in hand
-	ldh [hTemp_ffa0], a
-	ld a, OPPACTION_PLAY_BASIC_PKMN
-	bank1call AIMakeDecision
-
-.skip_moltres
-; play Pokemon from hand
-	call AIDecidePlayPokemonCard
-	; ret c ; return if turn ended
-; process Trainer cards
-	ld a, AI_TRAINER_CARD_PHASE_05
-	call AIProcessHandTrainerCards
-	call AIProcessRetreat
-	ld a, AI_TRAINER_CARD_PHASE_10
-	call AIProcessHandTrainerCards
-	ld a, AI_TRAINER_CARD_PHASE_11
-	call AIProcessHandTrainerCards
-; play Energy card if possible
-	call AIProcessAndTryToPlayEnergy
-; try playing Pokemon cards from hand again
-	call AIDecidePlayPokemonCard
-	ld a, AI_TRAINER_CARD_PHASE_13
-	call AIProcessHandTrainerCards
-
-.try_attack
-; attack if possible, if not,
-; finish turn without attacking.
-	call AIProcessAndTryToUseAttack
-	ret c
-	ld a, OPPACTION_FINISH_NO_ATTACK
-	bank1call AIMakeDecision
-	ret
+	jp AIMainTurnLogic
 
 
 ; if Magmar Lv31 is the Arena card and has no energy attached, raise score.

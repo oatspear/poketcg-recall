@@ -409,9 +409,9 @@ HandleAIPkmnPowers:
 	ccf
 	ret nc ; return no carry if Muk is in play
 
-	farcall AIChooseRandomlyNotToDoAction
-	ccf
-	ret nc ; return no carry if AI randomly decides to
+	; farcall AIChooseRandomlyNotToDoAction
+	; ccf
+	; ret nc ; return no carry if AI randomly decides to
 
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable

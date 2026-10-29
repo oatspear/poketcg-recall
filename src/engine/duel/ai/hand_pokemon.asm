@@ -420,17 +420,23 @@ AIDecidePlayLegendaryBirds:
 	ld a, 100
 	jp AIDiscourage
 
-.moltres
-; check if there are enough cards in deck
-	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
-	call GetTurnDuelistVariable
-	cp 56 ; max number of cards not in deck to activate
-	jr nc, .subtract
-	ret
-
 .zapdos
 ; check for Muk in both Play Areas
 	ld de, MUK
 	call CountPokemonWithActivePkmnPowerInBothPlayAreas
 	jr c, .subtract
 	ret
+
+.moltres
+; check for Muk in both Play Areas
+	ld de, MUK
+	call CountPokemonWithActivePkmnPowerInBothPlayAreas
+	jr c, .subtract
+; check if there are enough cards in deck
+	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+	call GetTurnDuelistVariable
+	cp DECK_SIZE - 6 ; max number of cards not in deck to activate
+	jr nc, .subtract
+; encourage
+	ld a, 70
+	jp AIEncourage

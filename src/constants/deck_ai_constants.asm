@@ -15,13 +15,8 @@ DEF AI_ENERGY_FLAG_DONT_PLAY       EQU 1 << 0 ; whether to play energy card (?)
 DEF AI_ENERGY_FLAG_SKIP_EVOLUTION  EQU 1 << 1 ; whether to check if card has evolutions
 DEF AI_ENERGY_FLAG_SKIP_ARENA_CARD EQU 1 << 7 ; whether to include Arena card in determining which card to attach energy
 
-; used to determine which Trainer cards for AI
-; to process in AIProcessHandTrainerCards.
-; these go in chronological order, except for
-; AI_TRAINER_CARD_PHASE_14 which happens just before AI attacks.
-; AI_TRAINER_CARD_PHASE_15 is reserved for Professor Oak card.
-; if Professor Oak is played, all other Trainer card phases
-; are processed again except AI_TRAINER_CARD_PHASE_15.
+; Used to determine which Trainer cards for AI to process in AIProcessHandTrainerCards.
+; These go in chronological order.
 	const_def 1
 
 	const AI_TRAINER_CARD_PHASE_01 ; $1
@@ -33,6 +28,7 @@ DEF AI_ENERGY_FLAG_SKIP_ARENA_CARD EQU 1 << 7 ; whether to include Arena card in
 	; Poké Ball
 	; Computer Search
 	; Pokémon Trader
+	; Energy Search
 
 	const AI_TRAINER_CARD_PHASE_03 ; $3
 	; Pokédex
@@ -40,55 +36,56 @@ DEF AI_ENERGY_FLAG_SKIP_ARENA_CARD EQU 1 << 7 ; whether to include Arena card in
 
 	const AI_TRAINER_CARD_PHASE_04 ; $4
 	; Bill
-	; Item Finder
 
 	const AI_TRAINER_CARD_PHASE_05 ; $5
-	; (Super) Energy Removal
 	; Revive
 	; Clefairy Doll
 	; Mysterious Fossil
 
 	const AI_TRAINER_CARD_PHASE_06 ; $6
-	; Pokémon Center
-
-	const AI_TRAINER_CARD_PHASE_07 ; $7
-	; Potion
-	; Gust of Wind
-	; Pokémon Breeder
-	; Imposter Professor Oak
-	; Full Heal
-
-	const AI_TRAINER_CARD_PHASE_08 ; $8
-	; Super Potion
-
-	const AI_TRAINER_CARD_PHASE_09 ; $9
-	; Switch
-
-	const AI_TRAINER_CARD_PHASE_10 ; $a
-	; Potion
-	; Gust of Wind
-	; Energy Retrieval
-	; Mr Fuji
 	; Scoop Up
 
+	const AI_TRAINER_CARD_PHASE_07 ; $7
+	; Pokémon Breeder
+
+	const AI_TRAINER_CARD_PHASE_08 ; $8
+	; Mr. Fuji
+
+	const AI_TRAINER_CARD_PHASE_09 ; $9
+	; (Super) Potion
+	; Full Heal
+
+	const AI_TRAINER_CARD_PHASE_10 ; $a
+	; Pokémon Center
+
 	const AI_TRAINER_CARD_PHASE_11 ; $b
-	; Super Potion
-	; Super Energy Retrieval
+	; (Super) Potion
 
 	const AI_TRAINER_CARD_PHASE_12 ; $c
-	; Energy Search
+	; Switch
 
 	const AI_TRAINER_CARD_PHASE_13 ; $d
-	; Defender
-	; Pluspower
-	; Lass
-	; Pokémon Flute
+	; (Super) Energy Retrieval
 
 	const AI_TRAINER_CARD_PHASE_14 ; $e
+	; (Super) Energy Removal
+	; Imposter Professor Oak
+	; Pokémon Flute
+
+	const AI_TRAINER_CARD_PHASE_15 ; $f
+	; Item Finder
+
+	const AI_TRAINER_CARD_PHASE_16 ; $f
+	; Gust of Wind
+
+	const AI_TRAINER_CARD_PHASE_17 ; $f
 	; Defender
 	; Pluspower
 
-	const AI_TRAINER_CARD_PHASE_15 ; $f
+	const AI_TRAINER_CARD_PHASE_18 ; $f
+	; Lass
+
+	const AI_TRAINER_CARD_PHASE_19 ; $f
 	; Professor Oak
 
 ; used by wAIBarrierFlagCounter to determine

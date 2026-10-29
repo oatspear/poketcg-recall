@@ -839,7 +839,7 @@ CheckIfLoadedCardCanBePlayed:
 	ret
 
 .trainer_card
-	bank1call CheckCantUseTrainerDueToEffect
+	call CheckCantUseTrainerDueToEffect
 	ret c
 	call LoadNonPokemonCardEffectCommands
 	ld a, EFFECTCMDTYPE_INITIAL_EFFECT_1
@@ -938,9 +938,25 @@ LookForCardIDInHand:
 
 INCLUDE "engine/duel/ai/damage_calculation.asm"
 
+
+; Processes hand Trainer cards for a given AI phase.
+; Sets carry and [wPreviousAIFlags] if the hand is modified in the process.
+; Processing is interrupted mid-phase if a card modifies the hand.
 AIProcessHandTrainerCards:
+	ld [wAITrainerCardPhase], a
+; clear hand modification flag
+	ld a, [wPreviousAIFlags]
+	and ~AI_FLAG_MODIFIED_HAND
+	ld [wPreviousAIFlags], a
+; process Trainer cards for this phase
 	farcall _AIProcessHandTrainerCards
+; check whether the hand was modified
+	ld a, [wPreviousAIFlags]
+	and AI_FLAG_MODIFIED_HAND
+	ret z  ; not modifed, done for this phase
+	scf
 	ret
+
 
 INCLUDE "engine/duel/ai/deck_ai.asm"
 

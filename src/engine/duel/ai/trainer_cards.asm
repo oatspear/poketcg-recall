@@ -1,7 +1,8 @@
 INCLUDE "data/duel/ai_trainer_card_logic.asm"
 
+; input:
+;   [wAITrainerCardPhase]: which trainer card phase to process
 _AIProcessHandTrainerCards:
-	ld [wAITrainerCardPhase], a
 ; create hand list in wDuelTempList and wTempHandCardList.
 	call CreateHandCardList
 	ld hl, wDuelTempList
@@ -24,9 +25,12 @@ _AIProcessHandTrainerCards:
 	ld [wCurrentAIFlags], a
 	ld a, [hli]
 	cp $ff
-	jp z, .pop_hl
+	jr nz, .process_row
+	pop hl
+	jr .loop_hand
 
 ; compare input to first byte in data and continue if equal.
+.process_row
 	cp d
 	jp nz, .inc_hl_by_6
 
@@ -64,7 +68,7 @@ _AIProcessHandTrainerCards:
 
 ; if Headache effects prevent playing card
 ; move on to the next item in list.
-	bank1call CheckCantUseTrainerDueToEffect
+	call CheckCantUseTrainerDueToEffect
 	jp c, .next_in_data
 
 	call LoadNonPokemonCardEffectCommands
@@ -120,16 +124,17 @@ _AIProcessHandTrainerCards:
 ; the hand was modified during the Trainer effect
 ; so it needs to be re-listed again and
 ; looped from the top.
-	call CreateHandCardList
-	ld hl, wDuelTempList
-	ld de, wTempHandCardList
-	call CopyListWithFFTerminatorFromHLToDE_Bank8
-	ld hl, wTempHandCardList
+	; call CreateHandCardList
+	; ld hl, wDuelTempList
+	; ld de, wTempHandCardList
+	; call CopyListWithFFTerminatorFromHLToDE_Bank8
+	; ld hl, wTempHandCardList
 ; clear the AI_FLAG_MODIFIED_HAND flag
-	ld a, [wPreviousAIFlags]
-	and ~AI_FLAG_MODIFIED_HAND
-	ld [wPreviousAIFlags], a
-	jp .loop_hand
+	; ld a, [wPreviousAIFlags]
+	; and ~AI_FLAG_MODIFIED_HAND
+	; ld [wPreviousAIFlags], a
+	; jp .loop_hand
+	ret
 
 .inc_hl_by_6
 	inc hl
@@ -151,9 +156,6 @@ _AIProcessHandTrainerCards:
 	inc hl
 	jp .loop_data
 
-.pop_hl
-	pop hl
-	jp .loop_hand
 
 ; makes AI use Potion card.
 AIPlay_Potion:
@@ -177,7 +179,7 @@ AIPlay_Potion:
 ; next turn after using Potion.
 ; if it cannot, return carry.
 ; also take into account whether attack is high recoil.
-AIDecide_Potion_Phase07:
+AIDecide_Potion1:
 	farcall AIDecideWhetherToRetreat
 	jr c, .no_carry
 	call AICheckIfAttackIsHighRecoil
@@ -219,7 +221,7 @@ AIDecide_Potion_Phase07:
 ; output:
 ;	a = card to use Potion on;
 ;	carry set if Potion should be used.
-AIDecide_Potion_Phase10:
+AIDecide_Potion2:
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfDefendingPokemonCanKnockOut
@@ -616,6 +618,11 @@ AIPlay_Defender:
 	bank1call AIMakeDecision
 	ret
 
+AIDecide_Defender:
+	call AIDecide_Defender1
+	ret c
+	jr AIDecide_Defender2
+
 ; returns carry if using Defender can prevent a KO
 ; by the defending Pokémon.
 ; this takes into account all attacks and whether they're useable.
@@ -843,8 +850,8 @@ AIDecide_Pluspower2:
 
 	ld a, 10
 	call Random
-	cp 3
-	ret nc  ; 3/10 chance of carry
+	cp 7
+	ret nc  ; 7/10 chance of carry
 
 ; returns carry if Pluspower boost does
 ; not exceed 30 damage when facing Mr. Mime
@@ -1213,17 +1220,20 @@ AILogic2_RestorePlayerArenaCardAndBenchCard:
 
 
 AIPlay_Bill:
+	ld a, [wCurrentAIFlags]
+	or AI_FLAG_MODIFIED_HAND
+	ld [wCurrentAIFlags], a
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
 
-; return carry if cards in deck > 9
+; return carry if cards in deck > 6
 AIDecide_Bill:
 	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
 	call GetTurnDuelistVariable
-	cp DECK_SIZE - 9
+	cp DECK_SIZE - 6
 	ret
 
 AIPlay_EnergyRemoval:
@@ -2976,11 +2986,11 @@ AIDecide_ImposterProfessorOak:
 	ret
 
 ; if player has more than 14 cards in deck, only
-; set carry if number of cards in their hands >= 9
+; set carry if number of cards in their hands >= 8
 .more_than_14_cards
 	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
 	call GetNonTurnDuelistVariable
-	cp 9
+	cp 8
 	jr c, .no_carry
 .set_carry
 	scf
@@ -4495,11 +4505,15 @@ AIDecide_Revive:
 	ld d, a
 	cp16 HITMONCHAN
 	jr z, .set_carry
-	cp16 HITMONLEE
+	cp16 DODUO
+	jr z, .set_carry
+	cp16 EEVEE
 	jr z, .set_carry
 	cp16 TAUROS
 	jr z, .set_carry
 	cp16 KANGASKHAN
+	jr z, .set_carry
+	cp16 CHANSEY
 	jr nz, .loop_discard_pile
 
 .set_carry
@@ -4571,9 +4585,9 @@ AIDecide_PokemonFlute:
 	jr .loop_1
 
 .done
-; if lowest HP found >= 50, return no carry
+; if lowest HP found >= 60, return no carry
 	ld a, [wce06]
-	cp 50
+	cp 60
 	ret nc
 ; otherwise output its deck index in a and set carry.
 	ld a, [wce08]

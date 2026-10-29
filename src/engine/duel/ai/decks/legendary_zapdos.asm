@@ -61,38 +61,7 @@ AIActionTable_LegendaryZapdos:
 	ret
 
 AIDoTurn_LegendaryZapdos:
-; initialize variables
-	call InitAITurnVars
-	farcall HandleAIAntiMewtwoDeckStrategy
-	jp nc, .try_attack
-; process Trainer cards
-	ld a, AI_TRAINER_CARD_PHASE_01
-	call AIProcessHandTrainerCards
-	ld a, AI_TRAINER_CARD_PHASE_04
-	call AIProcessHandTrainerCards
-; play Pokemon from hand
-	call AIDecidePlayPokemonCard
-	; ret c ; return if turn ended
-	ld a, AI_TRAINER_CARD_PHASE_07
-	call AIProcessHandTrainerCards
-	call AIProcessRetreat
-	ld a, AI_TRAINER_CARD_PHASE_10
-	call AIProcessHandTrainerCards
-; play Energy card if possible.
-	call AIProcessAndTryToPlayEnergy
-; play Pokemon from hand again
-	call AIDecidePlayPokemonCard
-	; ret c ; return if turn ended
-	ld a, AI_TRAINER_CARD_PHASE_13
-	call AIProcessHandTrainerCards
-.try_attack
-; attack if possible, if not,
-; finish turn without attacking.
-	call AIProcessAndTryToUseAttack
-	ret c ; return if turn ended
-	ld a, OPPACTION_FINISH_NO_ATTACK
-	bank1call AIMakeDecision
-	ret
+	jp AIMainTurnLogic
 
 
 ; if Arena card is Zapdos Lv68 and there's no Scoop Up in hand,
