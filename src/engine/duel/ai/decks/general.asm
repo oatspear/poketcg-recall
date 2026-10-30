@@ -211,14 +211,17 @@ ENDC
 	ld a, AI_TRAINER_CARD_PHASE_13
 	call AIProcessHandTrainerCards
 
-; Breakpoint: Energy attachment
+; Phase 14: Gusting
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, VenusaurName
+	ldtx hl, ClefableName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	farcall HandleAIGoGoRainDanceEnergy
+	ld a, AI_TRAINER_CARD_PHASE_14
+	call AIProcessHandTrainerCards
+
+; Breakpoint: Energy attachment
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, RattataName
@@ -227,36 +230,33 @@ ENDC
 
 	call AIProcessAndTryToPlayEnergy
 
-; Phase 14: Disruption
+IF AI_DEBUG_PRINTS
+	ldtx hl, VenusaurName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	farcall HandleAIGoGoRainDanceEnergy
+
+; Phase 15: Disruption
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, PikachuName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_14
+	ld a, AI_TRAINER_CARD_PHASE_15
 	call AIProcessHandTrainerCards
 
-; Phase 15: Item Finder
+; Phase 16: Item Finder
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, RaichuName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_15
-	call AIProcessHandTrainerCards
-	jr c, .phase_1
-
-; Phase 16: Gusting
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, ClefableName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
 	ld a, AI_TRAINER_CARD_PHASE_16
 	call AIProcessHandTrainerCards
+	jr c, .phase_1
 
 ; Breakpoint: Energy Trans
 

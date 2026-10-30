@@ -54,16 +54,16 @@ AITrainerCardLogic:
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_13, ENERGY_RETRIEVAL,       AIDecide_EnergyRetrieval,                AIPlay_EnergyRetrieval
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_13, SUPER_ENERGY_RETRIEVAL, AIDecide_SuperEnergyRetrieval,           AIPlay_SuperEnergyRetrieval
 
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_14, GUST_OF_WIND,           AIDecide_GustOfWind,                     AIPlay_GustOfWind
+
 ; energy attachment here
 
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_14, ENERGY_REMOVAL,         AIDecide_EnergyRemoval,                  AIPlay_EnergyRemoval
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_14, SUPER_ENERGY_REMOVAL,   AIDecide_SuperEnergyRemoval,             AIPlay_SuperEnergyRemoval
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_14, IMPOSTER_PROFESSOR_OAK, AIDecide_ImposterProfessorOak,           AIPlay_ImposterProfessorOak
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_14, POKEMON_FLUTE,          AIDecide_PokemonFlute,                   AIPlay_PokemonFlute
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_15, ENERGY_REMOVAL,         AIDecide_EnergyRemoval,                  AIPlay_EnergyRemoval
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_15, SUPER_ENERGY_REMOVAL,   AIDecide_SuperEnergyRemoval,             AIPlay_SuperEnergyRemoval
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_15, IMPOSTER_PROFESSOR_OAK, AIDecide_ImposterProfessorOak,           AIPlay_ImposterProfessorOak
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_15, POKEMON_FLUTE,          AIDecide_PokemonFlute,                   AIPlay_PokemonFlute
 
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_15, ITEM_FINDER,            AIDecide_ItemFinder,                     AIPlay_ItemFinder
-
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_16, GUST_OF_WIND,           AIDecide_GustOfWind,                     AIPlay_GustOfWind
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_16, ITEM_FINDER,            AIDecide_ItemFinder,                     AIPlay_ItemFinder
 
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_17, DEFENDER,               AIDecide_Defender1,                      AIPlay_Defender
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_17, PLUSPOWER,              AIDecide_Pluspower1,                     AIPlay_Pluspower
