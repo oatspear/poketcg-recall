@@ -10,8 +10,8 @@ HandleAIEnergyTrans:
 	ld [wce06], a
 
 ; choose to randomly return
-	farcall AIChooseRandomlyNotToDoAction
-	ret c
+	; farcall AIChooseRandomlyNotToDoAction
+	; ret c
 
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
@@ -853,8 +853,8 @@ HandleAICowardice:
 	call CountPokemonWithActivePkmnPowerInBothPlayAreas
 	ret c ; return if there's Muk in play
 
-	farcall AIChooseRandomlyNotToDoAction
-	ret c ; randomly return
+	; farcall AIChooseRandomlyNotToDoAction
+	; ret c ; randomly return
 
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
@@ -955,8 +955,8 @@ HandleAIDamageSwap:
 	dec a
 	ret z ; return if no Bench Pokemon
 
-	farcall AIChooseRandomlyNotToDoAction
-	ret c
+	; farcall AIChooseRandomlyNotToDoAction
+	; ret c
 
 	ld de, ALAKAZAM
 	call CountTurnDuelistPokemonWithActivePkmnPower

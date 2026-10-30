@@ -20,13 +20,13 @@ AITrainerCardLogic:
 
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_04, BILL,                   AIDecide_Bill,                           AIPlay_Bill
 
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_05, CLEFAIRY_DOLL,          AIDecide_ClefairyDollOrMysteriousFossil, AIPlay_ClefairyDollOrMysteriousFossil
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_05, MYSTERIOUS_FOSSIL,      AIDecide_ClefairyDollOrMysteriousFossil, AIPlay_ClefairyDollOrMysteriousFossil
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_05, REVIVE,                 AIDecide_Revive,                         AIPlay_Revive
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_05, SCOOP_UP,               AIDecide_ScoopUp,                        AIPlay_ScoopUp
+
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_06, CLEFAIRY_DOLL,          AIDecide_ClefairyDollOrMysteriousFossil, AIPlay_ClefairyDollOrMysteriousFossil
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_06, MYSTERIOUS_FOSSIL,      AIDecide_ClefairyDollOrMysteriousFossil, AIPlay_ClefairyDollOrMysteriousFossil
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_06, REVIVE,                 AIDecide_Revive,                         AIPlay_Revive
 
 ; play Pokémon cards here
-
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_06, SCOOP_UP,               AIDecide_ScoopUp,                        AIPlay_ScoopUp
 
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_07, POKEMON_BREEDER,        AIDecide_PokemonBreeder,                 AIPlay_PokemonBreeder
 
@@ -68,7 +68,7 @@ AITrainerCardLogic:
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_17, DEFENDER,               AIDecide_Defender1,                      AIPlay_Defender
 	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_17, PLUSPOWER,              AIDecide_Pluspower1,                     AIPlay_Pluspower
 
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_18, LASS,                   AIDecide_Lass,                           AIPlay_Lass
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_18, PROFESSOR_OAK,          AIDecide_ProfessorOak,                   AIPlay_ProfessorOak
 
-	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_19, PROFESSOR_OAK,          AIDecide_ProfessorOak,                   AIPlay_ProfessorOak
+	ai_trainer_card_logic AI_TRAINER_CARD_PHASE_19, LASS,                   AIDecide_Lass,                           AIPlay_Lass
 	db $ff

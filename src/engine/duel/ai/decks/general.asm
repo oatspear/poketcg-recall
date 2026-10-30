@@ -85,18 +85,7 @@ ENDC
 	call AIProcessHandTrainerCards
 	jr c, .phase_1
 
-; Phase 5: Bench Filling Trainers
-; Handle cards that have priority over Pokémon.
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, MetapodName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_05
-	call AIProcessHandTrainerCards
-
-; Phase 6: Scoop Up
+; Phase 5: Scoop Up
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, CharizardName
@@ -107,6 +96,17 @@ ENDC
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, ButterfreeName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_05
+	call AIProcessHandTrainerCards
+
+; Phase 6: Bench Filling Trainers
+; Handle cards that have priority over Pokémon.
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, MetapodName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -246,7 +246,7 @@ ENDC
 
 	ld a, AI_TRAINER_CARD_PHASE_15
 	call AIProcessHandTrainerCards
-	jr c, .phase_2
+	jr c, .phase_1
 
 ; Phase 16: Gusting
 
@@ -279,24 +279,14 @@ ENDC
 	ld a, AI_TRAINER_CARD_PHASE_17
 	call AIProcessHandTrainerCards
 
-; Phase 18: Lass
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, NinetalesName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, AI_TRAINER_CARD_PHASE_18
-	call AIProcessHandTrainerCards
-
-; Phase 19: Professor Oak
+; Phase 18: Professor Oak
 
 IF AI_DEBUG_PRINTS
 	ldtx hl, EkansName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_19
+	ld a, AI_TRAINER_CARD_PHASE_18
 	call AIProcessHandTrainerCards
 
 ; if used Professor Oak, process new hand
@@ -307,15 +297,27 @@ IF AI_DEBUG_PRINTS
 	call DrawWideTextBox_WaitForInput
 ENDC
 
-	ld a, [wPreviousAIFlags]
-	and AI_FLAG_USED_PROFESSOR_OAK
-; make sure that flags are reset to avoid infinite loops
-	push af
-	ld a, [wPreviousAIFlags]
-	and AI_FLAG_USED_GUST_OF_WIND  ; flags to keep
-	ld [wPreviousAIFlags], a
-	pop af
-	jp nz, .phase_1
+	jp c, .phase_1
+
+	; ld a, [wPreviousAIFlags]
+	; and AI_FLAG_USED_PROFESSOR_OAK
+	; ; make sure that flags are reset to avoid infinite loops
+	; push af
+	; ld a, [wPreviousAIFlags]
+	; and AI_FLAG_USED_GUST_OF_WIND  ; flags to keep
+	; ld [wPreviousAIFlags], a
+	; pop af
+	; jp nz, .phase_1
+
+; Phase 19: Lass
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, NinetalesName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+	ld a, AI_TRAINER_CARD_PHASE_19
+	call AIProcessHandTrainerCards
 
 .try_attack
 
