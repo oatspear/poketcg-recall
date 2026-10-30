@@ -969,19 +969,26 @@ AIDecide_GustOfWind:
 	farcall CheckIfActivePokemonCanUseAnyNonResidualAttack
 	ret nc ; no non-residual attack can be used
 
+; skip if KO attack is useable
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	farcall CheckIfAnyAttackCouldKnockOutDefendingCard
-	jr c, .no_carry ; if KO attack is useable
+	jr nc, .check_active_spot
+.no_carry
+	or a
+	ret
 
 ; skip if current active card is MEW_LV23 or MEWTWO_LV53
+.check_active_spot
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
 	cp16 MEW_LV23
-	jr z, .no_carry
+	ret z
 	cp16 MEWTWO_LV53
-	jr z, .no_carry
+	ret z
+
+	call AIRankPlayerPokemonByThreatLevel
 
 	call AIFindBenchCardToKnockOut
 	ret c
@@ -999,15 +1006,11 @@ AIDecide_GustOfWind:
 	call GetArenaCardWeakness
 	call SwapTurn
 	and b
-	jr nz, .no_carry
+	ret nz
 
 ; check weakness
 ; carry if there's a bench card weak to arena card
 	jp AIFindBenchCardWithWeakness
-
-.no_carry
-	or a
-	ret
 
 ; being here means AI's arena card cannot damage player's arena card
 
@@ -1023,25 +1026,25 @@ AIDecide_GustOfWind:
 
 ; next, loop through bench to find a card
 ; that has no energy attached and that AI can damage
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetNonTurnDuelistVariable
-	ld d, a
-	ld e, PLAY_AREA_ARENA
-; loop through bench and check attached energy cards
+	ld hl, hTempList
 .loop_1
-	inc e
-	dec d
+	ld a, [hli]
+	cp $ff
 	jr z, .check_bench_hp
+	or a  ; PLAY_AREA_ARENA
+	jr z, .loop_1
+
+	ld e, a  ; PLAY_AREA_*
 	call SwapTurn
-	call GetPlayAreaCardAttachedEnergies
+	call GetPlayAreaCardAttachedEnergies  ; preserves hl, de
 	call SwapTurn
 	ld a, [wTotalAttachedEnergies]
 	or a
 	jr nz, .loop_1 ; skip if has energy attached
-	call AICheckIfCanDamageBenchedCard
+	call AICheckIfCanDamageBenchedCard  ; preserves hl, de
 	jr nc, .loop_1
 	ld a, e
-	scf
+	; scf
 	ret
 
 ; finally, find the benched card with the least amount of HP
@@ -1080,7 +1083,7 @@ AIDecide_GustOfWind:
 .check_found
 	ld a, [wce08]
 	or a
-	jr z, .no_carry
+	ret z
 ; a card was found
 
 .set_carry
@@ -1090,14 +1093,21 @@ AIDecide_GustOfWind:
 ; returns carry if any of the player's benched cards
 ; is weak to color in b and has a way to damage it
 AIFindBenchCardWithWeakness:
-	ld a, DUELVARS_BENCH
-	call GetNonTurnDuelistVariable
-	ld c, PLAY_AREA_ARENA
+	ld hl, hTempList
 .loop
-	inc c
 	ld a, [hli]
 	cp $ff
-	ret z  ; no carry
+	ret z
+	or a  ; PLAY_AREA_ARENA
+	jr z, .loop
+
+	ld c, a  ; PLAY_AREA_LOCATION
+	add DUELVARS_ARENA_CARD
+	push hl
+	call GetNonTurnDuelistVariable
+	pop hl
+	cp $ff
+	jr z, .loop  ; not supposed to happen
 
 	ld d, a  ; player's bench card deck index
 	call SwapTurn
@@ -1129,17 +1139,25 @@ AIFindBenchCardWithWeakness:
 	scf
 	ret
 
+
 ; returns carry if there is a player's bench card that
 ; the opponent's current active card can KO
 AIFindBenchCardToKnockOut:
-	ld a, DUELVARS_BENCH
-	call GetNonTurnDuelistVariable
-	ld e, PLAY_AREA_BENCH_1
-
+	ld hl, hTempList
 .loop
 	ld a, [hli]
 	cp $ff
 	ret z
+	or a  ; PLAY_AREA_ARENA
+	jr z, .loop
+
+	ld e, a  ; play area location
+	add DUELVARS_ARENA_CARD
+	push hl
+	call GetNonTurnDuelistVariable
+	pop hl
+	cp $ff
+	jr z, .loop  ; not supposed to happen
 
 ; overwrite the player's active card and its HP
 ; with the current bench card that is being checked
@@ -1158,9 +1176,7 @@ AIFindBenchCardToKnockOut:
 	ld a, e
 	pop hl
 	ret c  ; found a bench card that can be KOed
-
 ; continue to next bench card
-	inc e
 	jr .loop
 
 
@@ -1186,6 +1202,106 @@ AICheckIfCanDamageBenchedCard:
 	pop de
 	pop bc
 	ret  ; carry set = can damage
+
+
+; uses wLoadedCard2 as a memory buffer
+AIRankPlayerPokemonByThreatLevel:
+	xor a
+	ld [wLoadedCard2 + 0], a
+	ld [wLoadedCard2 + 1], a
+	ld [wLoadedCard2 + 2], a
+	ld [wLoadedCard2 + 3], a
+	ld [wLoadedCard2 + 4], a
+	ld [wLoadedCard2 + 5], a
+
+	ld a, DUELVARS_CARD_LOCATIONS
+	call GetNonTurnDuelistVariable
+	ld c, DECK_SIZE
+.loop
+	ld a, [hl]
+	and CARD_LOCATION_PLAY_AREA
+	jr z, .next
+; Play Area card
+	ld a, [hl]
+	and $0f  ; lower nybble gives PLAY_AREA_*
+	ld e, a  ; PLAY_AREA_*
+	ld d, 0
+	ld a, l  ; deck index
+	call SwapTurn
+	call LoadCardDataToBuffer1_FromDeckIndex
+	call SwapTurn
+	push hl
+	ld hl, wLoadedCard2
+	add hl, de
+	ld a, [hl]
+	inc a
+	ld d, a  ; temporary score
+	ld a, [wLoadedCard1Type]
+	cp TYPE_ENERGY
+	jr nc, .no_ability
+; Pokémon Card, check abilities
+	ld a, [wLoadedCard1Atk1Category]
+	cp POKEMON_POWER
+	jr nz, .no_ability
+	inc d
+.no_ability
+	ld a, d
+	ld [hl], a
+	pop hl
+.next
+	inc hl
+	dec c
+	jr nz, .loop
+
+; sort play area locations
+; NOTE: this is quadratic complexity and inefficient, but the data is very small
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetNonTurnDuelistVariable
+	ld hl, hTempList
+	ld b, a  ; constant
+.loop_play_area
+	push bc
+	push hl
+	ld c, b  ; loop counter
+; loop from end to start
+	ld b, 0
+	ld hl, wLoadedCard2 - 1
+	add hl, bc
+	ld b, 1  ; initial max
+	ld e, PLAY_AREA_ARENA  ; location of maximum
+.loop_sort
+	ld a, [hld]
+	cp b
+	jr c, .less
+; found local maximum
+	ld b, a
+	ld e, c
+	dec e  ; zero-indexed
+.less
+	dec c
+	jr nz, .loop_sort
+; end of inner loop
+; null the used score
+	ld hl, wLoadedCard2
+	ld d, 0
+	add hl, de
+	xor a
+	ld [hl], a
+; store the location of the score
+	pop hl
+	ld a, e  ; location
+	ld [hli], a
+; next search for maximum
+	pop bc
+	dec c
+	jr nz, .loop_play_area
+; end of Play Area sorting loop
+	ld a, $ff
+	ld [hl], a
+; return location of the absolute maximum
+	ldh a, [hTempList]
+	ret
+
 
 
 ; input:
