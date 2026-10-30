@@ -292,11 +292,6 @@ ENDC
 ; if used Professor Oak, process new hand
 ; if not, then proceed to attack.
 
-IF AI_DEBUG_PRINTS
-	ldtx hl, ClefairyName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
 	jp c, .phase_1
 
 	; ld a, [wPreviousAIFlags]
