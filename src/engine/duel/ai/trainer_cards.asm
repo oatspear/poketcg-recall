@@ -745,6 +745,11 @@ AIPlay_Pluspower:
 	bank1call AIMakeDecision
 	ret
 
+AIDecide_Pluspower:
+	call AIDecide_Pluspower1
+	ret c
+	jp AIDecide_Pluspower2
+
 ; returns carry if using a Pluspower can KO defending Pokémon
 ; if active card cannot KO without the boost.
 ; outputs in a the attack to use.
@@ -790,11 +795,23 @@ AIDecide_Pluspower1:
 
 ; temporarily change this card's location to
 ; recalculate damage with Pluspower boost.
-	ld a, [wAITrainerCardToPlay]
-	add DUELVARS_CARD_LOCATIONS
+	ld a, DUELVARS_ARENA_CARD_ATTACHED_PLUSPOWER
 	call GetTurnDuelistVariable
-	ld a, CARD_LOCATION_ARENA
+	ld [wAIBackupAttachedPluspower], a
+	ld de, PLUSPOWER
+	ld b, CARD_LOCATION_HAND
+	; ld h, OPPONENT_TURN
+	push hl
+	call CountCardIDInLocation
+	pop hl
+	add [hl]
 	ld [hl], a
+
+	; ld a, [wAITrainerCardToPlay]
+	; add DUELVARS_CARD_LOCATIONS
+	; call GetTurnDuelistVariable
+	; ld a, CARD_LOCATION_ARENA
+	; ld [hl], a
 
 ; FIXME: use the "could" variant if the evaluation moves
 ; up to a phase before the last energy attachment.
@@ -803,11 +820,18 @@ AIDecide_Pluspower1:
 
 ; restore location after checking both attacks.
 	push af
-	ld a, [wAITrainerCardToPlay]
-	add DUELVARS_CARD_LOCATIONS
+
+	ld a, DUELVARS_ARENA_CARD_ATTACHED_PLUSPOWER
 	call GetTurnDuelistVariable
-	ld a, CARD_LOCATION_HAND
+	ld a, [wAIBackupAttachedPluspower]
 	ld [hl], a
+
+	; ld a, [wAITrainerCardToPlay]
+	; add DUELVARS_CARD_LOCATIONS
+	; call GetTurnDuelistVariable
+	; ld a, CARD_LOCATION_HAND
+	; ld [hl], a
+
 	pop af
 	jr nc, .no_carry
 
@@ -990,7 +1014,27 @@ AIDecide_GustOfWind:
 
 	call AIRankPlayerPokemonByThreatLevel
 
+	; temporarily overwrite the number of attached Pluspower
+	ld a, DUELVARS_ARENA_CARD_ATTACHED_PLUSPOWER
+	call GetTurnDuelistVariable
+	ld [wAIBackupAttachedPluspower], a
+	ld de, PLUSPOWER
+	ld b, CARD_LOCATION_HAND
+	; ld h, OPPONENT_TURN
+	push hl
+	call CountCardIDInLocation
+	pop hl
+	add [hl]
+	ld [hl], a
+
 	call AIFindBenchCardToKnockOut
+	push af
+	; restore the number of attached Pluspower
+	ld a, DUELVARS_ARENA_CARD_ATTACHED_PLUSPOWER
+	call GetTurnDuelistVariable
+	ld a, [wAIBackupAttachedPluspower]
+	ld [hl], a
+	pop af
 	ret c
 
 	xor a  ; PLAY_AREA_ARENA

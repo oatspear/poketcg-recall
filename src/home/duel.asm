@@ -2123,9 +2123,15 @@ ApplyDamageModifiers_DamageToSelf::
 ; increases de by 10 points for each Pluspower found in location b
 ApplyAttachedPluspower::
 	push de
+	; alternative method
+	ld a, b
+	and $0f
+	add DUELVARS_ARENA_CARD_ATTACHED_PLUSPOWER
 	call GetTurnDuelistVariable
-	ld de, PLUSPOWER
-	call CountCardIDInLocation
+	; ------------------
+	; call GetTurnDuelistVariable
+	; ld de, PLUSPOWER
+	; call CountCardIDInLocation
 	ld l, a
 	ld h, 10
 	call HtimesL
