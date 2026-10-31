@@ -1259,6 +1259,7 @@ AIRankPlayerPokemonByThreatLevel:
 	call GetNonTurnDuelistVariable
 	ld hl, hTempList
 	ld b, a  ; constant
+	ld c, b  ; loop counter
 .loop_play_area
 	push bc
 	push hl
@@ -1282,7 +1283,7 @@ AIRankPlayerPokemonByThreatLevel:
 	jr nz, .loop_sort
 ; end of inner loop
 ; null the used score
-	ld hl, wLoadedCard2
+	inc hl  ; ld hl, wLoadedCard2
 	ld d, 0
 	add hl, de
 	xor a
