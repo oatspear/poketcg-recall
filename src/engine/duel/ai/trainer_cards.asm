@@ -1012,6 +1012,7 @@ AIDecide_GustOfWind:
 	cp16 MEWTWO_LV53
 	ret z
 
+; rank the player's Pokémon by threat level, to target important Pokémon first
 	call AIRankPlayerPokemonByThreatLevel
 
 	; temporarily overwrite the number of attached Pluspower
@@ -1070,26 +1071,8 @@ AIDecide_GustOfWind:
 
 ; next, loop through bench to find a card
 ; that has no energy attached and that AI can damage
-	ld hl, hTempList
-.loop_1
-	ld a, [hli]
-	cp $ff
-	jr z, .check_bench_hp
-	or a  ; PLAY_AREA_ARENA
-	jr z, .loop_1
-
-	ld e, a  ; PLAY_AREA_*
-	call SwapTurn
-	call GetPlayAreaCardAttachedEnergies  ; preserves hl, de
-	call SwapTurn
-	ld a, [wTotalAttachedEnergies]
-	or a
-	jr nz, .loop_1 ; skip if has energy attached
-	call AICheckIfCanDamageBenchedCard  ; preserves hl, de
-	jr nc, .loop_1
-	ld a, e
-	; scf
-	ret
+	call AIFindBenchCardWithoutEnergiesToDamage
+	ret c
 
 ; finally, find the benched card with the least amount of HP
 .check_bench_hp
@@ -1133,6 +1116,34 @@ AIDecide_GustOfWind:
 .set_carry
 	scf
 	ret
+
+; returns carry if any of the player's benched cards
+; has no attached energies and can be damaged
+AIFindBenchCardWithoutEnergiesToDamage:
+	ld hl, hTempList
+.loop
+	ld a, [hli]
+	cp $ff
+	ret z
+	or a  ; PLAY_AREA_ARENA
+	jr z, .loop
+
+	ld e, a  ; PLAY_AREA_*
+	call SwapTurn
+	call GetPlayAreaCardAttachedEnergies  ; preserves hl, de
+	call SwapTurn
+	ld a, [wTotalAttachedEnergies]
+	or a
+	jr nz, .loop ; skip if has energy attached
+	call AICheckIfCanDamageBenchedCard  ; preserves hl, de
+	jr nc, .loop
+; by this point, if AIFindBenchCardToKnockOut was called first,
+; we know that we can do damage but not Knock Out,
+; so, we must check whether the player will be able to KO next
+	ld a, e
+	; scf
+	ret
+
 
 ; returns carry if any of the player's benched cards
 ; is weak to color in b and has a way to damage it
@@ -1226,6 +1237,7 @@ AIFindBenchCardToKnockOut:
 
 ; returns carry if opponent's arena card can damage this benched
 ; card if it were switched with the player's arena card
+; new: also checks whether that player card would be able to KO back
 AICheckIfCanDamageBenchedCard:
 	push bc
 	push de
@@ -1238,7 +1250,10 @@ AICheckIfCanDamageBenchedCard:
 ; check if can damage
 	xor a ; PLAY_AREA_ARENA
 	farcall CheckIfCanDamageDefendingPokemon
-; revert arena card data
+	jr nc, .revert_arena_card
+	farcall CheckIfDefendingPokemonCanKnockOut
+	ccf
+.revert_arena_card
 	push af
 	call AILogic2_RestorePlayerArenaCardAndBenchCard
 	pop af
