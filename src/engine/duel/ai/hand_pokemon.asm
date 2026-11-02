@@ -305,25 +305,8 @@ AIDecideSpecialEvolutions:
 	ret nz
 
 ; trying to evolve into Healing Wind Dragonite
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	or a ; PLAY_AREA_ARENA
-	jr nz, .benched
-
-; if Dragonair is active, check its damage in HP
-; if this result is >= 30, encourage evolution
-	ld e, PLAY_AREA_ARENA
-	call GetCardDamageAndMaxHP
-	cp 30
-	jr c, .benched
-	ld a, 3
-	call AIEncourage
-	; fallthrough
-
-; if Dragonair is benched, check all Pokémon in Play Area
-; and sum all the damage in HP of all cards
-; if this result is >= 70, check if there's
-; a Muk in any duelist's Play Area
-.benched
+; encourage evolution if the sum of all Play Area
+; damage is >= 50 and there is no Muk in play
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ld b, a
@@ -335,22 +318,21 @@ AIDecideSpecialEvolutions:
 	call GetCardDamageAndMaxHP
 	pop bc
 	add c
+	jr c, .check_muk  ; overflow
 	ld c, a
 	ld a, b
 	or a
 	jr nz, .loop
-	ld a, 69
+; end of loop
+	ld a, (50 - 1)
 	cp c
-	jr c, .check_muk
-.lower_score
-	ld a, 10
-	jp AIDiscourage
+	ret c  ; less than 50 damage
 
 ; if there's no Muk, raise score
 .check_muk
 	ld de, MUK
 	call CountPokemonWithActivePkmnPowerInBothPlayAreas
-	jr c, .lower_score
+	ret c
 	ld a, 10
 	jp AIEncourage
 
