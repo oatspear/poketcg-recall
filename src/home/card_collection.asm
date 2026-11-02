@@ -229,6 +229,7 @@ GetCardAlbumProgress::
 	cp HIGH(sCardCollection + CARD_COLLECTION_SIZE)
 	jr nz, .next_card
 
+	ld bc, NUM_CARDS
 	call DisableSRAM
 	pop hl
 	ret
