@@ -126,16 +126,41 @@ AIDecideEvolution:
 
 	ld [wTempAIPokemonCard], a
 ; load card data to buffer1
-; skip if it's not an Evolution Pokémon card
 	; ld a, [wTempAIPokemonCard]
 	call LoadCardDataToBuffer1_FromDeckIndex
+; skip if this is not an Evolution Pokémon card
 	ld a, [wLoadedCard1Type]
 	cp TYPE_ENERGY
 	jr nc, .next_hand_card
+; Pokémon card
+; preload the Breeder in hand variable
+	ld a, $ff
+	ld [wce0f], a  ; flag no Breeder in hand
 	ld a, [wLoadedCard1Stage]
 	or a  ; BASIC
 	jr z, .next_hand_card
+	cp STAGE2
+	jr nz, .evolution_card
 
+; optimize Breeder checks for Stage 2 cards
+; wce0f seems to be used only for Trainer card logic, so it should be safe here
+	push hl
+; preload pre-evolution name
+	ld hl, wLoadedCard1PreEvoName
+	ld e, [hl]
+	inc hl
+	ld d, [hl]
+; the call to CheckIfCanEvolveInto below will restore wLoadedCard1
+	call LoadCardDataToBuffer1_FromName
+	ld a, [wLoadedCard1PreEvoName + 0]
+	ld [wce0f + 1], a
+	ld a, [wLoadedCard1PreEvoName + 1]
+	ld [wce0f + 2], a
+; preload a Pokémon Breeder deck index if available
+	call .LookForPokemonBreederDeckIndex
+	pop hl
+
+.evolution_card
 	push hl
 ; loop Pokémon in Play Area to find a card to evolve
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
@@ -150,8 +175,43 @@ AIDecideEvolution:
 	call CheckIfCanEvolveInto
 	pop bc
 	push bc
-	jp c, .done_bench_pokemon
+	jr nc, .can_evolve
 
+; skip if it can evolve, but not this turn
+	jp nz, .done_bench_pokemon
+
+; directly incompatible cards at this point
+; check if a Basic to Stage 2 evolution is possible via Breeder
+	ld a, [wce0f]
+	cp $ff
+	jp z, .done_bench_pokemon  ; no Breeder
+
+; check the stages of the two loaded cards
+; call CheckIfCanEvolveInto_BasicToStage2 is an option,
+; but inefficient to call it on every Benched Pokémon
+	ld a, [wLoadedCard2Stage]
+	or a  ; BASIC
+	jp nz, .done_bench_pokemon  ; not Basic
+	ld a, [wLoadedCard1Stage]
+	cp STAGE2
+	jp nz, .done_bench_pokemon  ; not a Stage 2 evolution
+
+; check whether the buffered pre-evolution name matches
+	ld hl, wLoadedCard2Name
+	ld de, wce0f + 1
+	ld a, [de]
+	cp [hl]
+	jp nz, .done_bench_pokemon  ; incompatible
+	inc de
+	inc hl
+	ld a, [de]
+	cp [hl]
+	jp nz, .done_bench_pokemon  ; incompatible
+
+; Basic to Stage 2 evolution is possible and Breeder is available
+	; fallthrough
+
+.can_evolve
 ; store this Play Area location in wTempAI
 ; and initialize the AI score
 	ld a, b
@@ -267,6 +327,29 @@ AIDecideEvolution:
 	ld a, [wAIScore]
 	cp $80
 	jr c, .done_bench_pokemon
+; check whether this is a normal Evolution or Breeder-assisted Evolution
+	ld a, [wce0f]
+	cp $ff
+	jr z, .normal_evolution
+
+; Breeder-assisted Evolution
+; show Play Trainer Card screen
+	; ld a, [wce0f]
+	ldh [hTempCardIndex_ff9f], a
+	ld a, OPPACTION_PLAY_TRAINER
+	bank1call AIMakeDecision
+; play the card effects, based on AIPlay_PokemonBreeder
+	ld a, [wce0f]
+	ldh [hTempCardIndex_ff9f], a
+	ld a, [wTempAI]
+	ldh [hTempPlayAreaLocation_ffa1], a
+	ld a, [wTempAIPokemonCard]
+	ldh [hTemp_ffa0], a
+	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
+	bank1call AIMakeDecision
+	jr .disregard_pluspower_atk
+
+.normal_evolution
 	ld a, [wTempAI]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wTempAIPokemonCard]
@@ -275,6 +358,7 @@ AIDecideEvolution:
 	bank1call AIMakeDecision
 
 ; disregard PlusPower attack choice in case the Arena card evolved
+.disregard_pluspower_atk
 	ld a, [wTempAI]
 	or a
 	jr nz, .skip_reset_pluspower_atk
@@ -295,6 +379,18 @@ AIDecideEvolution:
 .done
 	or a
 	ret
+
+.LookForPokemonBreederDeckIndex
+	; ld a, $ff
+	; ld [wce0f], a
+	call CheckCantUseTrainerDueToEffect  ; preserves bc, de
+	ret c  ; unplayable
+	ld de, POKEMON_BREEDER
+	ld hl, wHandTempList
+	call LookForCardIDInHandList_Bank5.loop  ; preserves bc, de
+	ld [wce0f], a  ; $ff if not found
+	ret
+
 
 ; determine AI score for evolving certain cards
 ; wLoadedCard1 is the evolution card

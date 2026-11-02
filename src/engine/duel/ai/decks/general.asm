@@ -124,13 +124,13 @@ ENDC
 
 ; Phase 7: Pokémon Breeder
 
-IF AI_DEBUG_PRINTS
-	ldtx hl, WeedleName
-	call DrawWideTextBox_WaitForInput
-ENDC
+; IF AI_DEBUG_PRINTS
+; 	ldtx hl, WeedleName
+; 	call DrawWideTextBox_WaitForInput
+; ENDC
 
-	ld a, AI_TRAINER_CARD_PHASE_07
-	call AIProcessHandTrainerCards
+	; ld a, AI_TRAINER_CARD_PHASE_07
+	; call AIProcessHandTrainerCards
 
 ; Breakpoint: evaluate retreat
 
