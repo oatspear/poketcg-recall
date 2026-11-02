@@ -1781,7 +1781,8 @@ AIPlay_PokemonBreeder:
 
 AIDecide_PokemonBreeder:
 	call IsPrehistoricPowerActive
-	jp c, .done
+	ccf
+	ret nc
 
 	ld a, 7
 	ld hl, wce08
@@ -1792,31 +1793,20 @@ AIDecide_PokemonBreeder:
 	call CreateHandCardList
 	ld hl, wDuelTempList
 
-.loop_hand_1
+.loop_hand
 	ld a, [hli]
 	cp $ff
 	jp z, .not_found_in_hand
 
-; check if card in hand is any of the following
-; stage 2 Pokemon cards
+; check if card in hand is a Stage 2 Pokémon card
 	ld d, a
-	call LoadCardDataToBuffer1_FromDeckIndex
-	ld a, [wLoadedCard1ID + 0]
-	ld e, a
-	ld a, [wLoadedCard1ID + 1]
-	ld d, a
-	cp16 VENUSAUR_LV64
-	jr z, .found
-	cp16 VENUSAUR_LV67
-	jr z, .found
-	cp16 BLASTOISE
-	jr z, .found
-	cp16 VILEPLUME
-	jr z, .found
-	cp16 ALAKAZAM
-	jr z, .found
-	cp16 GENGAR
-	jr nz, .loop_hand_1
+	call LoadCardDataToBuffer1_FromDeckIndex  ; preserves de
+	ld a, [wLoadedCard1Type]
+	cp TYPE_ENERGY
+	jr nc, .loop_hand  ; not a Pokémon card
+	ld a, [wLoadedCard1Stage]
+	cp STAGE2
+	jr nz, .loop_hand
 
 .found
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
@@ -1828,31 +1818,32 @@ AIDecide_PokemonBreeder:
 
 ; check Play Area for card that can evolve into
 ; the picked stage 2 Pokemon
-.loop_play_area_1
+.loop_play_area
 	push hl
 	push bc
 	push de
 	call CheckIfCanEvolveInto_BasicToStage2
 	pop de
+	call nc, .HandleDragoniteLv41Evolution
 	call nc, .can_evolve
 	pop bc
 	pop hl
 	inc e
 	dec c
-	jr nz, .loop_play_area_1
-	jr .loop_hand_1
+	jr nz, .loop_play_area
+	jr .loop_hand
 
 .can_evolve
 	ld a, DUELVARS_ARENA_CARD_HP
 	add e
 	call GetTurnDuelistVariable
-	call ConvertHPToDamageCounters_Bank8
+	call ConvertHPToDamageCounters_Bank8  ; preserves de
 	swap a
 	ld b, a
 
 ; count number of energy cards attached and keep
 ; the lowest 4 bits (capped at $0f)
-	call GetPlayAreaCardAttachedEnergies
+	call GetPlayAreaCardAttachedEnergies  ; preserves de
 	ld a, [wTotalAttachedEnergies]
 	cp $10
 	jr c, .not_maxed_out
@@ -1883,7 +1874,7 @@ AIDecide_PokemonBreeder:
 .not_found_in_hand
 	ld a, [wce06]
 	or a
-	jr z, .check_evolution_and_dragonite
+	ret z
 
 ; an evolution has been found before
 	xor a
@@ -1891,12 +1882,11 @@ AIDecide_PokemonBreeder:
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ld c, a
-	lb de, $00, $00
+	ld de, $00
+	ld hl, wce08
 
 ; find highest score in wce08
 .loop_score_1
-	ld hl, wce08
-	add hl, de
 	ld a, [wce06]
 	cp [hl]
 	jr nc, .not_higher
@@ -1904,11 +1894,12 @@ AIDecide_PokemonBreeder:
 ; store this score to wce06
 	ld a, [hl]
 	ld [wce06], a
-; store this PLay Area location to wce07
+; store this Play Area location to wce07
 	ld a, e
 	ld [wce07], a
 
 .not_higher
+	inc hl
 	inc e
 	dec c
 	jr nz, .loop_score_1
@@ -1927,123 +1918,12 @@ AIDecide_PokemonBreeder:
 	scf
 	ret
 
-.check_evolution_and_dragonite
-	ld a, 7
-	ld hl, wce08
-	call ClearMemory_Bank8
-
-	xor a
-	ld [wce06], a
-	call CreateHandCardList
-	ld hl, wDuelTempList
-	push hl
-
-.loop_hand_2
-	pop hl
-	ld a, [hli]
-	cp $ff
-	jr z, .check_evolution_found
-
-	push hl
-	ld d, a
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetTurnDuelistVariable
-	ld c, a
-	ld e, PLAY_AREA_ARENA
-
-.loop_play_area_2
-; check if evolution is possible
-	push bc
-	push de
-	call CheckIfCanEvolveInto_BasicToStage2
-	pop de
-	call nc, .HandleDragoniteLv41Evolution
-	call nc, .can_evolve
-
-; not possible to evolve or returned carry
-; when handling DragoniteLv41 evolution
-	pop bc
-	inc e
-	dec c
-	jr nz, .loop_play_area_2
-	jr .loop_hand_2
-
-.check_evolution_found
-	ld a, [wce06]
-	or a
-	jr nz, .evolution_was_found
-; no evolution was found before
-	or a
-	ret
-
-.evolution_was_found
-	xor a
-	ld [wce06], a
-	ld a, $ff
-	ld [wce07], a
-
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetTurnDuelistVariable
-	ld c, a
-	lb de, $00, $00
-
-; find highest score in wce08 with at least
-; 2 energy cards attached
-.loop_score_2
-	ld hl, wce08
-	add hl, de
-	ld a, [wce06]
-	cp [hl]
-	jr nc, .next_score
-
-; take the lower 4 bits (total energy cards)
-; and skip if less than 2
-	ld a, [hl]
-	ld b, a
-	and %00001111
-	cp 2
-	jr c, .next_score
-
-; has at least 2 energy cards
-; store the score in wce06
-	ld a, b
-	ld [wce06], a
-; store this PLay Area location to wce07
-	ld a, e
-	ld [wce07], a
-
-.next_score
-	inc e
-	dec c
-	jr nz, .loop_score_2
-
-	ld a, [wce07]
-	cp $ff
-	jr z, .done
-
-; a card to evolve was found
-; store the deck index of the stage 2 card
-; that has been decided in wce1a,
-; return the Play Area location of card
-; to evolve in a and return carry
-	ld e, a
-	ld hl, wce0f
-	add hl, de
-	ld a, [hl]
-	ld [wce1a], a
-	ld a, [wce07]
-	scf
-	ret
-
-.done
-	or a
-	ret
-
-; return carry if card is evolving to DragoniteLv41 and if
-; - the card that is evolving is not Arena card and
-;   number of damage counters in Play Area is under 8;
-; - the card that is evolving is Arena card and has under 5
-;   damage counters or has less than 3 energy cards attached.
+; return carry if:
+; - not DRAGONITE_LV41
+; - evolving on the Bench and
+;   total damage counters in Play Area is under 5;
+; - evolving Arena card and
+;   its damage counters are less than 3.
 .HandleDragoniteLv41Evolution
 	push af
 	push bc
@@ -2056,12 +1936,15 @@ AIDecide_PokemonBreeder:
 	call GetCardIDFromDeckIndex
 	cp16 DRAGONITE_LV41
 	pop de
-	jr nz, .no_carry
+	jr z, .is_dragonite
+	or a  ; reset carry
+	jr .done
 
+.is_dragonite
 ; check card Play Area location
 	ld a, e
 	or a
-	jr z, .active_card_dragonite
+	ret z  ; Active Spot
 
 ; the card that is evolving is not active card
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
@@ -2084,45 +1967,18 @@ AIDecide_PokemonBreeder:
 	or a
 	jr nz, .loop_play_area_damage
 
-; compare number of total damage counters
-; with 7, if less or equal to that, set carry
-	ld a, 7
+; return carry if total damage counters < 5
+	ld a, 5
 	cp c
-	jr c, .no_carry
-	jr .set_carry
+	; jr .done
 
-.active_card_dragonite
-; the card that is evolving is active card
-; compare number of this card's damage counters
-; with 5, if less than that, set carry
-	ld e, PLAY_AREA_ARENA
-	call GetCardDamageAndMaxHP
-	cp 5
-	jr c, .set_carry
-
-; compare number of this card's attached energy cards
-; with 3, if less than that, set carry
-	ld e, PLAY_AREA_ARENA
-	farcall CountNumberOfEnergyCardsAttached
-	cp 3
-	jr c, .set_carry
-;	fallthrough
-
-
-.no_carry
+.done
 	pop hl
 	pop de
 	pop bc
 	pop af
 	ret
 
-.set_carry
-	pop hl
-	pop de
-	pop bc
-	pop af
-	scf
-	ret
 
 AIPlay_ProfessorOak:
 	ld a, [wCurrentAIFlags]
