@@ -6248,7 +6248,7 @@ OppAction_AttemptRetreat:
 	jp DrawWideTextBox_WaitForInput_Bank1
 
 ; play trainer card from hand
-OppAction_PlayTrainerCard:
+OppAction_PlayTrainerCard:  ; OPPACTION_PLAY_TRAINER
 	call LoadNonPokemonCardEffectCommands
 	call DisplayUsedTrainerCardDetailScreen
 	call PrintUsedTrainerCardDescription
@@ -6258,7 +6258,7 @@ OppAction_PlayTrainerCard:
 
 ; execute the effect commands of the trainer card that is being played
 ; used only for Trainer cards, as a continuation of OppAction_PlayTrainerCard
-OppAction_ExecuteTrainerCardEffectCommands:
+OppAction_ExecuteTrainerCardEffectCommands:  ; OPPACTION_EXECUTE_TRAINER_EFFECTS
 	ld a, EFFECTCMDTYPE_DISCARD_ENERGY
 	call TryExecuteEffectCommandFunction
 	ld a, EFFECTCMDTYPE_BEFORE_DAMAGE
