@@ -34,6 +34,7 @@ _AIProcessHandTrainerCards:
 	cp d
 	jp nz, .inc_hl_by_6
 
+; found the correct phase
 	ld a, [hli]
 	ld c, a
 	ld a, [hli]
@@ -41,6 +42,13 @@ _AIProcessHandTrainerCards:
 
 	ld a, [wAITrainerCardToPlay]
 	call LoadCardDataToBuffer1_FromDeckIndex
+; skip Pokémon Breeder, which is now embedded in evolution logic
+	push hl
+	ld hl, wLoadedCard1ID
+	cphl POKEMON_BREEDER
+	pop hl
+	jr z, .inc_hl_by_4
+
 	push hl
 	ld hl, wLoadedCard1ID
 	cphl SWITCH
@@ -53,11 +61,13 @@ _AIProcessHandTrainerCards:
 
 .skip_switch_check
 ; compare hand card to second byte in data and continue if equal.
+	push de  ; protect the trainer card phase in d
 	ld a, [wLoadedCard1ID + 0]
 	ld e, a
 	ld a, [wLoadedCard1ID + 1]
 	ld d, a
 	call CompareDEtoBC
+	pop de
 	jr nz, .inc_hl_by_4
 
 ; found Trainer card
