@@ -5551,6 +5551,7 @@ DisplayUsePokemonPowerScreen::
 	ld [wCurPlayAreaY], a
 	call ZeroObjectPositionsAndToggleOAMCopy
 	call EmptyScreen
+	call SetDefaultConsolePalettes
 	call LoadDuelCardSymbolTiles
 	call LoadDuelCheckPokemonScreenTiles
 	call PrintPlayAreaCardInformationAndLocation
