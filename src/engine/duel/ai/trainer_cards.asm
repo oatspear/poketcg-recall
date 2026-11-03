@@ -93,9 +93,11 @@ _AIProcessHandTrainerCards:
 ; call routine to decide whether to play Trainer card
 	pop de
 	pop hl
+	push de
 	push hl
 	call CallIndirect
 	pop hl
+	pop de
 	jr nc, .inc_hl_by_4
 
 ; routine returned carry, which means
