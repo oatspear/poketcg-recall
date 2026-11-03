@@ -113,6 +113,7 @@ AIDecideEvolution:
 	ccf
 	ret nc  ; unable to play evolutions
 
+.refresh_hand_list
 	call CreateHandCardList
 	ld hl, wDuelTempList
 	ld de, wHandTempList
@@ -364,9 +365,15 @@ AIDecideEvolution:
 	jr nz, .skip_reset_pluspower_atk
 	ld hl, wPreviousAIFlags
 	res AI_FLAG_USED_PLUSPOWER, [hl]
+
+; refresh the hand list if an Evolution or Breeder was played
+; otherwise, discarded Breeders could still be considered in wHandTempList
+; this also enables normal evolutions to reconsider a new board state
+; which is useful, e.g., for Adaptive Evolution
 .skip_reset_pluspower_atk
 	pop bc
-	jr .done_hand_card
+	pop hl
+	jp .refresh_hand_list
 
 .done_bench_pokemon
 	pop bc
