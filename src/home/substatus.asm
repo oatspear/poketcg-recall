@@ -509,8 +509,15 @@ NoDamageOrEffectTextIDTable::
 	tx NoDamageOrEffectDueToTransparencyText ; NO_DAMAGE_OR_EFFECT_TRANSPARENCY
 	tx NoDamageOrEffectDueToNShieldText      ; NO_DAMAGE_OR_EFFECT_NSHIELD
 
+
+DEF DEBUG_CLAIRVOYANCE EQU DEBUG_MODE
+
 ; return carry if turn holder has Omanyte and its Clairvoyance Pkmn Power is active
 IsClairvoyanceActive::
+IF DEBUG_CLAIRVOYANCE
+	scf
+	ret
+ELSE
 	ld de, MUK
 	call CountPokemonWithActivePkmnPowerInBothPlayAreas
 	ccf
@@ -522,6 +529,8 @@ IsClairvoyanceActive::
 	ld [wPlayAreaStageToLookup], a
 	ld de, OMASTAR
 	jp CountTurnDuelistPokemonOrPreviousStageWithActivePkmnPower
+ENDC
+
 
 ; returns carry if turn holder's arena card is paralyzed, asleep, confused,
 ; and/or toxic gas in play (i.e. its pkmn power cannot be used)

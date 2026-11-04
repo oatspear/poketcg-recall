@@ -1,4 +1,4 @@
-DEF DEBUG_FULL_COLLECTION_AT_START EQU FALSE
+DEF DEBUG_FULL_COLLECTION_AT_START EQU DEBUG_MODE
 
 ; adds the chosen starter deck to the player's first deck configuration
 ; and also adds to the collection its corresponding extra cards

@@ -1,4 +1,5 @@
 DEF PURIST_PATCH EQU 0
+DEF DEBUG_MODE EQU 1
 
 INCLUDE "macros.asm"
 INCLUDE "constants.asm"
