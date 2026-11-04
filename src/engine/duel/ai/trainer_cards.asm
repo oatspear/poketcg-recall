@@ -4122,49 +4122,74 @@ AIDecide_Maintenance:
 	ret
 
 AIPlay_Recycle:
+	call AIBackupRNGSources
+; cheat an always-heads flip if the Player has 2 Prizes or less
+	call SwapTurn
+	call CountPrizes
+	call SwapTurn
+	cp 3
+	call c, AIOverwriteRNGToFlipHeads
+; do the coin flip
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ldtx de, TrainerCardSuccessCheckText
-	bank1call TossCoin
-	jr nc, .asm_216ae
+	call TossCoin
+	jr nc, .tails
+; heads
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
-	jr .asm_216b2
-.asm_216ae
+	jr .execute
+.tails
 	ld a, $ff
+	; fallthrough to discard after playing
+.execute
 	ldh [hTemp_ffa0], a
-.asm_216b2
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
-	ret
+	jp AIRestoreRNGSources
+	; ret
 
 ; lists cards to look for in the Discard Pile.
-; has priorities for Ghost Deck, and a "default" priority list
-; (which is the Fire Charge deck, since it's the only other
-; deck that runs a Recycle card in it.)
+; has a "default" priority list
 AIDecide_Recycle:
 ; no use checking if no cards in Discard Pile
 	call CreateDiscardPileCardList
-	jr c, .no_carry
+	ccf
+	ret nc
 
-	ld a, $ff
-	ld [wce08], a
-	ld [wce08 + 1], a
-	ld [wce08 + 2], a
-	ld [wce08 + 3], a
-	ld [wce08 + 4], a
+; various flags to help decision
+	ld c, 0
 
-; handle Ghost deck differently
+; store whether there are any basic energies in the hand
+	ld a, CARD_LOCATION_HAND
+	call FindBasicEnergyCardsInLocation
+	jr c, .deck_size
+; found energies in the hand
+	ld a, %0000_0001
+	or c
+	ld c, a
+
+; store the number of cards (not) in the deck
+.deck_size
+	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+	call GetTurnDuelistVariable
+	cp DECK_SIZE - 10
+	jr c, .search
+; the deck is starting to run out
+	ld a, %0000_0010
+	or c
+	ld c, a
+
+.search
 	ld hl, wDuelTempList
-	ld a, [wOpponentDeckID]
-	cp GHOST_DECK_ID
-	jr z, .loop_2
+	; ld a, [wOpponentDeckID]
+	; cp GHOST_DECK_ID
+	; jr z, .loop_2
 
-; priority list for Fire Charge deck
-.loop_1
+; general-purpose priority list
+.loop
 	ld a, [hli]
 	cp $ff
-	jr z, .done
+	ret z
 
 	ld b, a
 	call LoadCardDataToBuffer1_FromDeckIndex
@@ -4173,100 +4198,37 @@ AIDecide_Recycle:
 	ld a, [wLoadedCard1ID + 1]
 	ld d, a
 
-; double colorless
+; skip card draw if the deck is running out
+	ld a, c
+	and %0000_0010
+	jr nz, .double_colorless
+
+; prioritize card draw
+	cp16 BILL
+	jr z, .found
+	cp16 PROFESSOR_OAK
+	jr z, .found
+
+; prioritize double colorless energy
+.double_colorless
 	cp16 DOUBLE_COLORLESS_ENERGY
-	jr nz, .chansey
-	ld a, b
-	ld [wce08], a
-	jr .loop_1
+	jr z, .found
 
-.chansey
-	cp16 CHANSEY
-	jr nz, .tauros
-	ld a, b
-	ld [wce08 + 1], a
-	jr .loop_1
+; prioritize basic energy
+	ld a, [wLoadedCard1Type]
+	and TYPE_ENERGY
+	jr z, .loop
+; skip if there are energies in hand already
+	ld a, c
+	and %0000_0001
+	jr nz, .loop
+	; fallthrough
 
-.tauros
-	cp16 TAUROS
-	jr nz, .jigglypuff
+.found
 	ld a, b
-	ld [wce08 + 2], a
-	jr .loop_1
-
-.jigglypuff
-	cp16 JIGGLYPUFF_LV12
-	jr nz, .loop_1
-	ld a, b
-	ld [wce08 + 3], a
-	jr .loop_1
-
-; loop through wce08 and set carry
-; on the first that was found in Discard Pile.
-; if none were found, return no carry.
-.done
-	ld hl, wce08
-	ld b, 5
-.loop_found
-	ld a, [hli]
-	cp $ff
-	jr nz, .set_carry
-	dec b
-	jr nz, .loop_found
-.no_carry
-	or a
-	ret
-.set_carry
 	scf
 	ret
 
-; priority list for Ghost deck
-.loop_2
-	ld a, [hli]
-	cp $ff
-	jr z, .done
-
-	ld b, a
-	call LoadCardDataToBuffer1_FromDeckIndex
-	ld a, [wLoadedCard1ID + 0]
-	ld e, a
-	ld a, [wLoadedCard1ID + 1]
-	ld d, a
-
-; gastly2
-	cp16 GASTLY_LV17
-	jr nz, .gastly1
-	ld a, b
-	ld [wce08], a
-	jr .loop_2
-
-.gastly1
-	cp16 GASTLY_LV8
-	jr nz, .zubat
-	ld a, b
-	ld [wce08 + 1], a
-	jr .loop_2
-
-.zubat
-	cp16 ZUBAT
-	jr nz, .ditto
-	ld a, b
-	ld [wce08 + 2], a
-	jr .loop_2
-
-.ditto
-	cp16 DITTO
-	jr nz, .meowth
-	ld a, b
-	ld [wce08 + 3], a
-	jr .loop_2
-
-.meowth
-	cp16 MEOWTH_LV15
-	jr nz, .loop_2
-	ld a, b
-	ld [wce08 + 4], a
-	jr .loop_2
 
 AIPlay_Lass:
 	ld a, [wCurrentAIFlags]
@@ -4451,13 +4413,8 @@ AIDecide_Imakuni:
 	or a
 	ret
 
-AIPlay_Gambler:
-	ld a, [wCurrentAIFlags]
-	or AI_FLAG_MODIFIED_HAND
-	ld [wCurrentAIFlags], a
-	ld a, [wOpponentDeckID]
-	cp IMAKUNI_DECK_ID
-	jr z, .asm_2186a
+
+AIBackupRNGSources:
 	ld hl, wRNG1
 	ld a, [hli]
 	ld [wce06], a
@@ -4465,14 +4422,25 @@ AIPlay_Gambler:
 	ld [wce08], a
 	ld a, [hl]
 	ld [wce0f], a
-	ld a, $50
-	ld [hld], a
-	ld [hld], a
+	ret
+
+AIOverwriteRNGToFlipHeads:
+	ld hl, wRNG1
+	xor a
+	ld [hli], a
+	ld [hli], a
 	ld [hl], a
-	ld a, [wAITrainerCardToPlay]
-	ldh [hTempCardIndex_ff9f], a
-	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
-	bank1call AIMakeDecision
+	ret
+
+AIOverwriteRNGToFlipTails:
+	ld hl, wRNG1
+	ld a, $50
+	ld [hli], a
+	ld [hli], a
+	ld [hl], a
+	ret
+
+AIRestoreRNGSources:
 	ld hl, wRNG1
 	ld a, [wce06]
 	ld [hli], a
@@ -4481,7 +4449,25 @@ AIPlay_Gambler:
 	ld a, [wce0f]
 	ld [hl], a
 	ret
-.asm_2186a
+
+
+AIPlay_Gambler:
+	ld a, [wCurrentAIFlags]
+	or AI_FLAG_MODIFIED_HAND
+	ld [wCurrentAIFlags], a
+	ld a, [wOpponentDeckID]
+	cp IMAKUNI_DECK_ID
+	jr z, .fair
+; cheat coin flip to always flip tails
+	call AIBackupRNGSources
+	call AIOverwriteRNGToFlipTails
+	ld a, [wAITrainerCardToPlay]
+	ldh [hTempCardIndex_ff9f], a
+	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
+	bank1call AIMakeDecision
+	jr AIRestoreRNGSources
+
+.fair
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
@@ -4676,7 +4662,7 @@ AIPlay_Pokeball:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ldtx de, TrainerCardSuccessCheckText
-	bank1call TossCoin
+	call TossCoin
 	ldh [hTemp_ffa0], a
 	jr nc, .asm_219bc
 	ld a, [wAITrainerCardParameter]
