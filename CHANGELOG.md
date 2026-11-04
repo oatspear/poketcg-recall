@@ -4,6 +4,12 @@
 
 ### Changed
 - Made several improvements to the AI's main turn logic.
+- Improved AI's logic to play Pokémon Breeder.
+- Improved AI's logic to play Recycle.
+- Improved AI's logic to play Pluspower.
+
+#### Pinsir
+- Reduced HP from 80 to 70.
 
 
 ## Version 2.2
