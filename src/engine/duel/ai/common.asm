@@ -643,8 +643,8 @@ LookForCardIDInHandList_Bank8:
 	scf
 	ret
 
-; searches in deck for card ID 1 in a, and
-; if found, searches in Hand/Play Area for card ID 2 in b, and
+; searches in deck for card ID 1 in de, and
+; if found, searches in Hand/Play Area for card ID 2 in bc, and
 ; if found, searches for card ID 1 in Hand/Play Area, and
 ; if none found, return carry and output deck index
 ; of the card ID 1 in deck.
@@ -653,6 +653,7 @@ LookForCardIDInHandList_Bank8:
 ;   bc = card ID 2
 ; output:
 ;   a = index of card ID 1 in deck
+;   carry = set if found and all conditions satisfied
 LookForCardIDInDeck_GivenCardIDInHandAndPlayArea:
 	ld a, c
 	ld [wTempAI + 0], a
@@ -686,7 +687,8 @@ LookForCardIDInDeck_GivenCardIDInHandAndPlayArea:
 	ld e, a
 	ld a, [wTempAI2 + 1]
 	ld d, a
-	call LookForCardIDInHandAndPlayArea
+	; call LookForCardIDInHandAndPlayArea
+	call LookForCardIDInHandList_Bank8
 	jr c, .no_carry
 ; none found
 
@@ -755,7 +757,8 @@ LookForCardIDInDeck_GivenCardIDInHand:
 	ld e, a
 	ld a, [wTempAI + 1]
 	ld d, a
-	call LookForCardIDInHandAndPlayArea
+	; call LookForCardIDInHandAndPlayArea
+	call LookForCardIDInHandList_Bank8
 	jr c, .no_carry
 ; none found
 
