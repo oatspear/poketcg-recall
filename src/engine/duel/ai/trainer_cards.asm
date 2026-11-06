@@ -17,8 +17,6 @@ _AIProcessHandTrainerCards:
 	ret z
 
 	push hl
-	ld a, [wAITrainerCardPhase]
-	ld d, a
 	ld hl, AITrainerCardLogic
 .loop_data
 	xor a
@@ -31,6 +29,8 @@ _AIProcessHandTrainerCards:
 
 ; compare input to first byte in data and continue if equal.
 .process_row
+	ld d, a
+	ld a, [wAITrainerCardPhase]
 	cp d
 	jp nz, .inc_hl_by_6
 
@@ -61,18 +61,15 @@ _AIProcessHandTrainerCards:
 
 .skip_switch_check
 ; compare hand card to second byte in data and continue if equal.
-	push de  ; protect the trainer card phase in d
 	ld a, [wLoadedCard1ID + 0]
 	ld e, a
 	ld a, [wLoadedCard1ID + 1]
 	ld d, a
 	call CompareDEtoBC
-	pop de
 	jr nz, .inc_hl_by_4
 
 ; found Trainer card
 	push hl
-	push de
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 
@@ -91,13 +88,10 @@ _AIProcessHandTrainerCards:
 	; jr c, .next_in_data
 
 ; call routine to decide whether to play Trainer card
-	pop de
 	pop hl
-	push de
 	push hl
 	call CallIndirect
 	pop hl
-	pop de
 	jr nc, .inc_hl_by_4
 
 ; routine returned carry, which means
@@ -107,14 +101,12 @@ _AIProcessHandTrainerCards:
 	ld [wAITrainerCardParameter], a
 
 ; show Play Trainer Card screen
-	push de
 	push hl
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, OPPACTION_PLAY_TRAINER
 	bank1call AIMakeDecision
 	pop hl
-	pop de
 	jr c, .inc_hl_by_2
 
 ; execute the effects of the Trainer card
@@ -160,7 +152,6 @@ _AIProcessHandTrainerCards:
 	jp .loop_data
 
 .next_in_data
-	pop de
 	pop hl
 	inc hl
 	inc hl
