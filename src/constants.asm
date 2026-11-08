@@ -1,5 +1,5 @@
 DEF DEBUG_MODE EQU 1
-DEF AI_DEBUG_PRINTS EQU 1
+DEF AI_DEBUG_PRINTS EQU 0
 
 INCLUDE "constants/booster_constants.asm"
 INCLUDE "constants/card_constants.asm"

@@ -181,6 +181,10 @@ AIProcessAttacks:
 
 ; enough score, check whether to execute the chosen attack
 .attack_chosen
+; IF AI_DEBUG_PRINTS
+; 	ldtx hl, BreakpointText
+; 	call DrawWideTextBox_WaitForInput
+; ENDC
 	ld a, [wTempCardDeckIndex]
 	ld [wTempAIPokemonCard], a
 	ld a, [wAIExecuteProcessedAttack]
@@ -193,8 +197,8 @@ AIProcessAttacks:
 	jp RetrievePlayAreaAIScoreFromBackup2
 
 .execute
-	ld a, AI_TRAINER_CARD_PHASE_14
-	call AIProcessHandTrainerCards
+	; ld a, AI_TRAINER_CARD_PHASE_14
+	; call AIProcessHandTrainerCards
 
 ; load this attack's damage output against the current Defending Pokémon
 	xor a ; PLAY_AREA_ARENA
@@ -257,9 +261,6 @@ AIProcessAttacks:
 GetAIScoreOfAttack:
 ; initialize AI score.
 	ld [wSelectedAttack], a
-	ld a, AI_MINIMUM_SCORE_TO_USE_ATTACK
-	ld [wAIScore], a
-
 	call Old_CheckIfSelectedAttackIsUnusable  ; loads attack data
 	jr nc, .usable
 
@@ -271,6 +272,8 @@ GetAIScoreOfAttack:
 
 ; load arena card IDs
 .usable
+	ld a, AI_MINIMUM_SCORE_TO_USE_ATTACK
+	ld [wAIScore], a
 	xor a  ; FALSE
 	ld [wAICannotDamage], a
 	ld a, DUELVARS_ARENA_CARD
