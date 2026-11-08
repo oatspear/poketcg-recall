@@ -1,5 +1,3 @@
-DEF AI_DEBUG_PRINTS EQU FALSE
-
 ; AI logic used by general decks
 AIActionTable_GeneralDecks:
 	dw .do_turn ; unused
@@ -256,7 +254,11 @@ ENDC
 
 	ld a, AI_TRAINER_CARD_PHASE_16
 	call AIProcessHandTrainerCards
+IF AI_DEBUG_PRINTS
+	jp c, .phase_1
+ELSE
 	jr c, .phase_1
+ENDC
 
 ; Breakpoint: Energy Trans
 

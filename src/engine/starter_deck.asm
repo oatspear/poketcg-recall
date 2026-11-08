@@ -51,11 +51,7 @@ _AddStarterDeck:
 
 	ld hl, sCardCollection
 	ld de, wOpponentDeck
-IF PURIST_PATCH
-	ld c, 30 ; number of extra cards
-ELSE
 	ld c, 60 ; number of extra cards
-ENDC
 .loop_extra_cards
 	push hl
 	ld a, [de]
