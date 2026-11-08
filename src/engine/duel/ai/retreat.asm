@@ -94,12 +94,12 @@ AIDecideWhetherToRetreat:
 ;   +1: Bench resists Defending
 ; So, if another Bench Pokémon can KO the Defending Pokémon,
 ; and the Active Pokémon is Poisoned or Confused, the AI will retreat.
-	ld a, 15
-	call AIDiscourage
+	; ld a, 15
+	; call AIDiscourage
 ; discourage retreat strongly if the AI is at the last prize card
-	ld a, [wAIOpponentPrizeCount]
-	cp 2
-	jr nc, .active_cant_ko
+	; ld a, [wAIOpponentPrizeCount]
+	; cp 2
+	; jr nc, .active_cant_ko
 	xor a
 	ld [wAIScore], a
 	ret  ; no carry
@@ -116,9 +116,9 @@ AIDecideWhetherToRetreat:
 	; jr c, .check_resistance_1
 ; encourage the AI to play an energy to retreat if the Player has only 1 Prize
 ; but only if there is a Benched Pokémon that can survive the Defending Pokémon's attacks
-	ld a, [wAIPlayerPrizeCount]
-	cp 2
-	jr nc, .check_prize_count
+	; ld a, [wAIPlayerPrizeCount]
+	; cp 2
+	; jr nc, .check_prize_count
 
 	ld a, DUELVARS_BENCH
 	call GetTurnDuelistVariable
@@ -146,10 +146,10 @@ AIDecideWhetherToRetreat:
 
 ; found a Benched Pokémon that can survive, encourage retreat
 .found_bench_survivor
-	ld a, 3
-	call AIEncourage
-	ld a, TRUE
-	ld [wAIPlayEnergyCardForRetreat], a
+	; ld a, 3
+	; call AIEncourage
+	; ld a, TRUE
+	; ld [wAIPlayEnergyCardForRetreat], a
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 
@@ -165,13 +165,13 @@ AIDecideWhetherToRetreat:
 	; ld a, 3
 	; call AIEncourage
 
-.check_prize_count
-	ld a, [wAIOpponentPrizeCount]
-	cp 2
-	jr nc, .check_resistance_1
+; .check_prize_count
+	; ld a, [wAIOpponentPrizeCount]
+	; cp 2
+	; jr nc, .check_resistance_1
 ; discourage retreat if the AI has only 1 Prize
-	ld a, 2
-	call AIDiscourage
+	; ld a, 2
+	; call AIDiscourage
 
 .check_resistance_1
 	call GetArenaCardColor
@@ -257,7 +257,7 @@ AIDecideWhetherToRetreat:
 	inc e
 	ld a, [hli]
 	cp $ff
-	jr z, .check_resistance_3
+	jr z, .check_weakness_3
 	push de
 	call LoadCardDataToBuffer1_FromDeckIndex
 	ld a, [wLoadedCard1Type]
@@ -266,26 +266,18 @@ AIDecideWhetherToRetreat:
 	and b
 	jr z, .loop_weakness_2
 ; encourage retreat if a Benched Pokémon matches the Player's weakness
-	ld a, 2
-	call AIEncourage
-
-	push de
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	call GetCardIDFromDeckIndex
-	cp16 PORYGON
-	pop de
-	jr nz, .check_weakness_3
-
-; handle Porygon
-; FIXME maybe this damaging check should be above?
+; and is able to damage the Defending Pokémon
 	ld a, e
+	push bc
+	push de
 	call CheckIfCanDamageDefendingPokemon
-	jr nc, .check_weakness_3
-	ld a, 10
+	pop de
+	pop bc
+	jr nc, .loop_weakness_2
+	ld a, 3
 	call AIEncourage
-	jr .check_resistance_3
 
+; check if the Active Pokémon matches the Defending Pokémon's weakness
 .check_weakness_3
 	call GetArenaCardColor
 	call TranslateColorToWR
@@ -294,7 +286,11 @@ AIDecideWhetherToRetreat:
 	and b
 	jr z, .check_resistance_3
 ; discourage retreat if the Active Pokémon matches the Player's weakness
-	ld a, 3
+; and is able to damage it
+	xor a  ; PLAY_AREA_ARENA
+	call CheckIfCanDamageDefendingPokemon
+	jr nc, .check_resistance_3
+	ld a, 5
 	call AIDiscourage
 
 ; check bench for a Pokémon that is resistant to defending Pokémon
@@ -313,7 +309,7 @@ AIDecideWhetherToRetreat:
 	and b
 	jr z, .loop_resistance_2
 ; encourage retreat if a resistant Pokémon is on the bench
-	ld a, 1
+	ld a, 2
 	call AIEncourage
 
 ; check bench for a Pokémon that can KO defending Pokémon
@@ -337,7 +333,7 @@ AIDecideWhetherToRetreat:
 	jr nc, .loop_ko_1
 ; this Pokémon can KO the Defending Pokémon,
 ; either right now or with an energy attachment from the hand
-	ld a, 3
+	ld a, 5
 	call AIEncourage
 
 ; if the AI is at the last prize card and the arena Pokémon cannot KO,
@@ -423,61 +419,16 @@ AIDecideWhetherToRetreat:
 	call AIDiscourage
 
 .one_or_none
-	call CheckIfArenaCardIsFullyPowered
-	jr c, .check_defending_can_ko
-	call CountNumberOfSetUpBenchPokemon
-	cp 2
-	jr c, .check_defending_can_ko
-	call AIEncourage
+	; call CheckIfArenaCardIsFullyPowered
+	; jr c, .check_defending_can_ko
+	; call CountNumberOfSetUpBenchPokemon
+	; cp 2
+	; jr c, .check_defending_can_ko
+	; call AIEncourage
 
 ; check Bench for Pokémon that the Defending Pokémon cannot knock out
 ; if none is found, skip AIDiscourage
-.check_defending_can_ko
-	ld a, DUELVARS_BENCH
-	call GetTurnDuelistVariable
-	ld e, PLAY_AREA_BENCH_1 - 1
-.loop_ko_2
-	inc e
-	ld a, [hli]
-	cp $ff
-	jr z, .exit_loop_ko
-	push de
-	push hl
-	call LoadCardDataToBuffer2_FromDeckIndex
-	pop hl
-	pop de
-
-	ld a, [wLoadedCard2ID + 0]
-	cp LOW(MYSTERIOUS_FOSSIL)
-	jr nz, .not_mysterious_fossil
-	ld a, [wLoadedCard2ID + 1]
-	cp HIGH(MYSTERIOUS_FOSSIL)
-	jr z, .loop_ko_2
-
-.not_mysterious_fossil
-	ld a, [wLoadedCard2ID + 0]
-	cp LOW(CLEFAIRY_DOLL)
-	jr nz, .not_clefairy_doll
-	ld a, [wLoadedCard2ID + 1]
-	cp HIGH(CLEFAIRY_DOLL)
-	jr z, .loop_ko_2
-
-.not_clefairy_doll
-	ld a, e
-	ldh [hTempPlayAreaLocation_ff9d], a
-	push de
-	push hl
-	call CheckIfDefendingPokemonCanKnockOut
-	pop hl
-	pop de
-	jr c, .loop_ko_2
-; found a bench Pokémon that cannot be KO'd by defending Pokémon
-	jr .check_active_id
-
-; no bench Pokémon can survive, discourage retreat
-.exit_loop_ko
-	ld a, 20
-	call AIDiscourage
+; .check_defending_can_ko
 
 ; check if active card is Mysterious Fossil or Clefairy Doll
 ; those are handled differently
@@ -493,12 +444,7 @@ AIDecideWhetherToRetreat:
 ; if wAIScore is at least +3 from base, set carry
 	ld a, [wAIScore]
 	cp $83
-	jr nc, .set_carry
-.no_carry
-	or a
-	ret
-.set_carry
-	scf
+	ccf
 	ret
 
 ; set carry regardless if active card is
@@ -513,7 +459,7 @@ AIDecideWhetherToRetreat:
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	cp $ff
-	jr z, .no_carry
+	ret z  ; no carry
 	ld a, e
 	ldh [hTempPlayAreaLocation_ff9d], a
 	push de
@@ -525,7 +471,8 @@ AIDecideWhetherToRetreat:
 	call CheckIfCanDamageDefendingPokemon
 	pop de
 	jr nc, .loop_ko_3
-	jr .set_carry
+	ret  ; carry
+
 
 ; if player's turn and loaded attack is not a Pokémon Power OR
 ; if opponent's turn and wAITriedAttack == 0
