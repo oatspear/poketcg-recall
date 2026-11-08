@@ -213,11 +213,17 @@ AIDecideEvolution:
 	; fallthrough
 
 .can_evolve
-; store this Play Area location in wTempAI
-; and initialize the AI score
+; store this Play Area location
 	ld a, b
 	ld [wTempAI], a
 	ldh [hTempPlayAreaLocation_ff9d], a
+; check if there are any Benched Pokémon
+; if not, always evolve the active Pokémon
+	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+	call GetTurnDuelistVariable
+	dec a
+	jp z, .always_evolve
+; initialize the AI score
 	ld a, $80
 	ld [wAIScore], a
 	call AIDecideSpecialEvolutions
@@ -328,7 +334,9 @@ AIDecideEvolution:
 	ld a, [wAIScore]
 	cp $80
 	jr c, .done_bench_pokemon
+
 ; check whether this is a normal Evolution or Breeder-assisted Evolution
+.always_evolve
 	ld a, [wce0f]
 	cp $ff
 	jr z, .normal_evolution
