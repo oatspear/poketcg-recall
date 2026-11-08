@@ -1336,10 +1336,12 @@ GetPlayAreaCardAttachedEnergies::
 ;  [wAttachedEnergies]: already populated
 ; preserves: hl, bc, de
 HandleRainbowEnergies::
-	push hl
-	push bc
 ; tally rainbow energies
 	ld a, [wAttachedEnergies + UNUSED_TYPE]
+	or a
+	ret z
+	push hl
+	push bc
 	ld b, a
 	ld hl, wAttachedEnergies
 	ld c, NUM_TYPES - 1
