@@ -5042,14 +5042,14 @@ AIDecide_ComputerSearch_Anger:
 ; Play Area or in the hand. If there is, choose it as target.
 ; otherwise, check if the evolution card is in
 ; hand and if so, choose it as target instead.
-	ld bc, RATTATA
-	ld de, RATICATE
-	call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
-	jr c, .find_discard_cards
-	ld de, RATTATA
-	ld bc, RATICATE
-	call LookForCardIDInDeck_GivenCardIDInHand
-	jr c, .find_discard_cards
+	; ld bc, RATTATA
+	; ld de, RATICATE
+	; call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
+	; jr c, .find_discard_cards
+	; ld de, RATTATA
+	; ld bc, RATICATE
+	; call LookForCardIDInDeck_GivenCardIDInHand
+	; jr c, .find_discard_cards
 	ld bc, GROWLITHE
 	ld de, ARCANINE_LV34
 	call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
@@ -5592,22 +5592,22 @@ AIDecide_PokemonTrader_FlowerGarden:
 ; Play Area or in the hand. If there is, choose it as target.
 ; otherwise, check if the evolution card is in
 ; hand and if so, choose it as target instead.
-	ld bc, BULBASAUR
-	ld de, IVYSAUR
-	call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
-	jr c, .find_duplicates
-	ld bc, IVYSAUR
-	ld de, VENUSAUR_LV67
-	call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
-	jr c, .find_duplicates
-	ld de, BULBASAUR
-	ld bc, IVYSAUR
-	call LookForCardIDInDeck_GivenCardIDInHand
-	jr c, .find_duplicates
-	ld de, IVYSAUR
-	ld bc, VENUSAUR_LV67
-	call LookForCardIDInDeck_GivenCardIDInHand
-	jr c, .find_duplicates
+	; ld bc, BULBASAUR
+	; ld de, IVYSAUR
+	; call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
+	; jr c, .find_duplicates
+	; ld bc, IVYSAUR
+	; ld de, VENUSAUR_LV67
+	; call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
+	; jr c, .find_duplicates
+	; ld de, BULBASAUR
+	; ld bc, IVYSAUR
+	; call LookForCardIDInDeck_GivenCardIDInHand
+	; jr c, .find_duplicates
+	; ld de, IVYSAUR
+	; ld bc, VENUSAUR_LV67
+	; call LookForCardIDInDeck_GivenCardIDInHand
+	; jr c, .find_duplicates
 	ld bc, BELLSPROUT
 	ld de, WEEPINBELL
 	call LookForCardIDInDeck_GivenCardIDInHandAndPlayArea
