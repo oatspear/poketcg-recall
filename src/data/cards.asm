@@ -576,11 +576,11 @@ ArbokCard:
 	; attack 2
 	energy GRASS, 1, COLORLESS, 2 ; energies
 	tx TerrorStrikeName ; name
-	tx TerrorStrikeDescription ; description
+	tx WhirlwindDescription ; description
 	dw NONE ; description (cont)
 	db 40 ; damage
 	db DAMAGE_NORMAL ; category
-	dw TerrorStrikeEffectCommands ; effect commands
+	dw WhirlwindEffectCommands ; effect commands
 	db NONE ; flags 1
 	db SWITCH_OPPONENT_POKEMON ; flags 2
 	db NONE ; flags 3

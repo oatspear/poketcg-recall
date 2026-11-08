@@ -8,6 +8,9 @@
 - Improved AI's logic to play Recycle.
 - Improved AI's logic to play Pluspower.
 
+#### Arbok
+- **Terror Strike**: now does damage before forcing the opponent to switch Pokémon.
+
 #### Pinsir
 - Reduced HP from 80 to 70.
 
