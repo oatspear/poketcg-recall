@@ -470,7 +470,16 @@ AIPlayInitialBasicCards:
 ;	[wSelectedAttack] = selected attack to examine
 Old_CheckIfSelectedAttackIsUnusable:  ; FIXME delete
 	call CopyAttackDataAndDamage_FromPlayAreaLocation
+; IF AI_DEBUG_PRINTS
+; 	call CheckIfLoadedAttackIsUnusableOrNotEnoughEnergy
+; 	push af
+; 	ldtx hl, BreakpointText
+; 	call DrawWideTextBox_WaitForInput
+; 	pop af
+; 	ret
+; ELSE
 	jr CheckIfLoadedAttackIsUnusableOrNotEnoughEnergy
+; ENDC
 
 
 ; returns carry if Pokémon at hTempPlayAreaLocation_ff9d
@@ -645,9 +654,7 @@ CheckEnergyNeededForLoadedAttack:
 ;	b = basic energy still needed
 ;	c = colorless energy still needed
 ;	de = output of ConvertColorToEnergyCardID, or $0 if not an attack
-;	carry set if no attack
-;	       OR if it's a Pokémon Power
-;	       OR if not enough energy for attack
+;	carry set if not enough energy for attack
 CheckEnergyNeededForLoadedAttackWithAttachedEnergies:
 	xor a
 	ld [wTempLoadedAttackEnergyCost], a
@@ -656,7 +663,7 @@ CheckEnergyNeededForLoadedAttackWithAttachedEnergies:
 
 	ld hl, wAttachedEnergies
 	ld de, wLoadedAttackEnergyCost
-	ld b, 0
+	ld b, 0  ; color
 	ld c, (NUM_TYPES / 2) - 1
 
 .loop
@@ -684,16 +691,17 @@ CheckEnergyNeededForLoadedAttackWithAttachedEnergies:
 	ld a, [de]
 	swap a
 	and %00001111
-	ld b, a ; colorless energy still needed
+	ld b, a ; colorless energy cost
 	ld a, [wTempLoadedAttackEnergyCost]
 	ld hl, wTempLoadedAttackEnergyNeededAmount
 	sub [hl]
-	ld c, a ; basic energy still needed
+	ld c, a ; basic energy already attached and assigned
 	ld a, [wTotalAttachedEnergies]
-	sub c
-	sub b
+	sub c  ; leftover energies = total energies - basic energy already assigned
+	sub b  ; leftover energies - colorless energy cost
 	jr c, .not_enough
 
+; enough energy to pay the colorless cost
 	ld a, [wTempLoadedAttackEnergyNeededAmount]
 	or a
 	ret z
