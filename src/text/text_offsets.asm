@@ -565,6 +565,7 @@ TextOffsets::
 	textpointer ChooseADeckToDismantleText
 	textpointer DismantledDeckText
 	textpointer ThisDeckCanOnlyBeBuiltIfYouDismantleText
+	textpointer BreakpointText
 	textpointer YouDoNotOwnAllCardsNeededToBuildThisDeckText
 	textpointer BuiltDeckText
 	textpointer TheseCardsAreNeededToBuildThisDeckText
