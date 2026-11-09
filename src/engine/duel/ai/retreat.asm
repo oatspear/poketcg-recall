@@ -249,7 +249,7 @@ AIDecideWhetherToRetreat:
 ; if none is found, skip AIEncourage
 .check_weakness_2
 	ld a, [wAIPlayerWeakness]
-	ld b, a
+	ld d, a
 	ld a, DUELVARS_BENCH
 	call GetTurnDuelistVariable
 	ld e, PLAY_AREA_BENCH_1 - 1
@@ -258,21 +258,19 @@ AIDecideWhetherToRetreat:
 	ld a, [hli]
 	cp $ff
 	jr z, .check_weakness_3
-	push de
-	call LoadCardDataToBuffer1_FromDeckIndex
+	call LoadCardDataToBuffer1_FromDeckIndex  ; preserves hl, bc, de
 	ld a, [wLoadedCard1Type]
-	call TranslateColorToWR
-	pop de
-	and b
+	call TranslateColorToWR  ; preserves hl, bc, de
+	and d
 	jr z, .loop_weakness_2
 ; encourage retreat if a Benched Pokémon matches the Player's weakness
 ; and is able to damage the Defending Pokémon
 	ld a, e
-	push bc
+	push hl
 	push de
 	call CheckIfCanDamageDefendingPokemon
 	pop de
-	pop bc
+	pop hl
 	jr nc, .loop_weakness_2
 	ld a, 3
 	call AIEncourage
