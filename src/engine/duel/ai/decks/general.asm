@@ -33,7 +33,7 @@ AIMainTurnLogic:
 ; Handle the special anti-mill strategy.
 .phase_1
 IF AI_DEBUG_PRINTS
-	ldtx hl, BulbasaurName
+	ldtx hl, GamblerName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -41,7 +41,7 @@ ENDC
 	call AIProcessHandTrainerCards
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, IvysaurName
+	ldtx hl, MewtwoName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -53,7 +53,7 @@ ENDC
 .phase_2
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, SquirtleName
+	ldtx hl, EnergySearchName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -65,7 +65,7 @@ ENDC
 ; Handle cards that sort or change the top of the deck.
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, WartortleName
+	ldtx hl, PokedexName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -75,7 +75,7 @@ ENDC
 ; Phase 4: Unconditional Card Draw
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, BlastoiseName
+	ldtx hl, BillName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -86,14 +86,14 @@ ENDC
 ; Phase 5: Scoop Up
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, CharizardName
+	ldtx hl, CowardiceName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
 	farcall HandleAICowardice
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, ButterfreeName
+	ldtx hl, ScoopUpName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -104,7 +104,7 @@ ENDC
 ; Handle cards that have priority over Pokémon.
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, MetapodName
+	ldtx hl, MysteriousFossilName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -133,7 +133,7 @@ ENDC
 ; Breakpoint: evaluate retreat
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, BeedrillName
+	ldtx hl, SwitchName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -142,7 +142,7 @@ ENDC
 ; Phase 8: Mr. Fuji
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, KakunaName
+	ldtx hl, MrFujiName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -152,14 +152,14 @@ ENDC
 ; Phase 9: Healing
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, CharmanderName
+	ldtx hl, DamageSwapName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
 	farcall HandleAIDamageSwap
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, CharmeleonName
+	ldtx hl, HealName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -167,7 +167,7 @@ ENDC
 	ret c ; return if turn ended
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, PidgeyName
+	ldtx hl, PotionName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -175,7 +175,7 @@ ENDC
 	call AIProcessHandTrainerCards
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, NidokingName
+	ldtx hl, PokemonCenterName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -183,7 +183,7 @@ ENDC
 	call AIProcessHandTrainerCards
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, NidoranFName
+	ldtx hl, SuperPotionName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -193,7 +193,7 @@ ENDC
 ; Breakpoint: evaluate retreat
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, BeedrillName
+	ldtx hl, RetreatAidName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -202,7 +202,7 @@ ENDC
 ; Phase 13: Energy Retrieval
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, PidgeotName
+	ldtx hl, EnergyRetrievalName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -212,7 +212,7 @@ ENDC
 ; Phase 14: Gusting
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, ClefableName
+	ldtx hl, GustOfWindName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -222,14 +222,14 @@ ENDC
 ; Breakpoint: Energy attachment
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, RattataName
+	ldtx hl, DoubleColorlessEnergyName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
 	call AIProcessAndTryToPlayEnergy
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, VenusaurName
+	ldtx hl, RainDanceName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -238,7 +238,7 @@ ENDC
 ; Phase 15: Disruption
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, PikachuName
+	ldtx hl, EnergyRemovalName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -248,7 +248,7 @@ ENDC
 ; Phase 16: Item Finder
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, RaichuName
+	ldtx hl, ItemFinderName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -263,7 +263,7 @@ ENDC
 ; Breakpoint: Energy Trans
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, SandslashName
+	ldtx hl, EnergyTransName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -274,7 +274,7 @@ ENDC
 ; Handle Pluspower and Defender
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, VulpixName
+	ldtx hl, DefenderName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -284,7 +284,7 @@ ENDC
 ; Phase 18: Professor Oak
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, EkansName
+	ldtx hl, ProfessorOakName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -309,7 +309,7 @@ ENDC
 ; Phase 19: Lass
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, NinetalesName
+	ldtx hl, LassName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
@@ -319,7 +319,7 @@ ENDC
 .try_attack
 
 IF AI_DEBUG_PRINTS
-	ldtx hl, VenomothName
+	ldtx hl, VenusaurName
 	call DrawWideTextBox_WaitForInput
 ENDC
 
