@@ -194,7 +194,7 @@ AIProcessAttacks:
 ; set carry and reset Play Area AI score
 ; to the previous values.
 	scf
-	jp RetrievePlayAreaAIScoreFromBackup2
+	jp RetrievePlayAreaAIScoreFromBackup
 
 .execute
 	; ld a, AI_TRAINER_CARD_PHASE_14
@@ -246,7 +246,7 @@ AIProcessAttacks:
 	jr z, .failed_to_use
 ; reset Play Area AI score
 ; to the previous values.
-	jp RetrievePlayAreaAIScoreFromBackup2
+	jp RetrievePlayAreaAIScoreFromBackup
 
 ; return no carry if no viable attack.
 .failed_to_use
@@ -816,25 +816,4 @@ BackupPlayAreaAIScore:
 	jr nz, .loop
 	ld a, [wAIScore]
 	ld [de], a
-	ret
-
-
-; copies wTempPlayAreaAIScore to wPlayAreaAIScore
-; and loads wAIScore with value in wTempAIScore.
-; identical to RetrievePlayAreaAIScoreFromBackup1.
-RetrievePlayAreaAIScoreFromBackup2:
-	push af
-	ld de, wPlayAreaAIScore
-	ld hl, wTempPlayAreaAIScore
-	ld b, MAX_PLAY_AREA_POKEMON
-.loop
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .loop
-
-	ld a, [hl]
-	ld [wAIScore], a
-	pop af
 	ret

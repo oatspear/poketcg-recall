@@ -42,8 +42,7 @@ AIProcessButDontPlayEnergy:
 
 ; copies wTempPlayAreaAIScore to wPlayAreaAIScore
 ; and loads wAIScore with value in wTempAIScore.
-; identical to RetrievePlayAreaAIScoreFromBackup2.
-RetrievePlayAreaAIScoreFromBackup1:
+RetrievePlayAreaAIScoreFromBackup:
 	push af
 	ld de, wPlayAreaAIScore
 	ld hl, wTempPlayAreaAIScore
@@ -76,7 +75,7 @@ AIProcessAndTryToPlayEnergy:
 ; no energy
 	ld a, [wAIEnergyAttachLogicFlags]
 	or a
-	jp nz, RetrievePlayAreaAIScoreFromBackup1
+	jp nz, RetrievePlayAreaAIScoreFromBackup
 	ret
 
 ; have AI decide whether to play energy card
@@ -380,7 +379,7 @@ AIProcessEnergyCards:
 	and AI_ENERGY_FLAG_DONT_PLAY
 	jr z, .play_card
 	scf
-	jp RetrievePlayAreaAIScoreFromBackup1
+	jp RetrievePlayAreaAIScoreFromBackup
 
 .play_card
 	call CreateEnergyCardListFromHand
@@ -401,7 +400,7 @@ AIProcessEnergyCards:
 	ld a, [wAIEnergyAttachLogicFlags]
 	or a
 	ret z
-	jp RetrievePlayAreaAIScoreFromBackup1
+	jp RetrievePlayAreaAIScoreFromBackup
 
 
 ; checks score related to loaded attack,
