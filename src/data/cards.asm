@@ -2782,7 +2782,7 @@ MoltresLv35Card:
 	db DAMAGE_NORMAL ; category
 	dw MoltresWildfireEffectCommands ; effect commands
 	db NONE ; flags 1
-	db FLAG_2_BIT_5 ; flags 2
+	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_FIRE_SPIN ; animation
