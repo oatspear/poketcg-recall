@@ -53,11 +53,12 @@ _AIProcessHandTrainerCards:
 	ld hl, wLoadedCard1ID
 	cphl SWITCH
 	pop hl
-	jr nz, .skip_switch_check
+	; jr nz, .skip_switch_check
+	jr z, .inc_hl_by_4
 
-	ld a, [wPreviousAIFlags]
-	and AI_FLAG_USED_SWITCH
-	jr nz, .inc_hl_by_4
+	; ld a, [wPreviousAIFlags]
+	; and AI_FLAG_USED_SWITCH
+	; jr nz, .inc_hl_by_4
 
 .skip_switch_check
 ; compare hand card to second byte in data and continue if equal.
@@ -907,9 +908,9 @@ AIDecide_Pluspower2:
 
 
 AIPlay_Switch:
-	ld a, [wCurrentAIFlags]
-	or AI_FLAG_USED_SWITCH
-	ld [wCurrentAIFlags], a
+	; ld a, [wCurrentAIFlags]
+	; or AI_FLAG_USED_SWITCH
+	; ld [wCurrentAIFlags], a
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]

@@ -374,55 +374,40 @@ ENDC
 	call AIDecideBenchPokemonToSwitchTo
 	ret c ; return if no Bench Pokemon
 
+; store Play Area to retreat to
+	ld [wAIPlayAreaCardToSwitch], a
+
 IF AI_DEBUG_PRINTS
-	push af
 	ldtx hl, AlakazamName
 	call DrawWideTextBox_WaitForInput
-	pop af
 ENDC
 
-; store Play Area to retreat to and
-; set wAIRetreatedThisTurn to true
-	ld [wAIPlayAreaCardToSwitch], a
-	ld a, TRUE
-	ld [wAIRetreatedThisTurn], a
+	ld a, DUELVARS_ARENA_CARD_STATUS
+	call GetTurnDuelistVariable
+	and CNF_SLP_PRZ
+	jr z, .no_status
 
+; if AI can use Switch from hand, use it instead
+	; ld a, AI_TRAINER_CARD_PHASE_12
+	; call AIProcessHandTrainerCards
+	jp AITryRetreatWithSwitch
+
+; evaluate retreat cost
+.no_status
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call GetPlayAreaCardRetreatCost
 	or a
-	jr z, .retreat_free ; free retreat
+	jr z, .retreat_free
 
-; if AI can use Switch from hand, use it instead...
-	ld a, AI_TRAINER_CARD_PHASE_12
-	call AIProcessHandTrainerCards
+; if AI can use Switch from hand, use it instead
+	; ld a, AI_TRAINER_CARD_PHASE_12
+	; call AIProcessHandTrainerCards
+	call AITryRetreatWithSwitch
+	ret c  ; used Switch
 
-IF AI_DEBUG_PRINTS
-	ldtx hl, SlowpokeName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, [wPreviousAIFlags]
-	and AI_FLAG_USED_SWITCH
-	jr nz, .used_switch
-
-; ... else try retreating normally.
-.retreat_free
-
-IF AI_DEBUG_PRINTS
-	ldtx hl, SlowbroName
-	call DrawWideTextBox_WaitForInput
-ENDC
-
-	ld a, [wAIPlayAreaCardToSwitch]
-	jp AITryToRetreat
-
-.used_switch
-; if AI used switch, unset its AI flag
-	ld a, [wPreviousAIFlags]
-	and ~AI_FLAG_USED_SWITCH ; clear Switch flag
-	ld [wPreviousAIFlags], a
-
+; try retreating normally
+.retreat_normally
 IF AI_DEBUG_PRINTS
 	ldtx hl, VoltorbName
 	call DrawWideTextBox_WaitForInput
@@ -436,4 +421,52 @@ IF AI_DEBUG_PRINTS
 	call DrawWideTextBox_WaitForInput
 ENDC
 
+.retreat_free
+
+IF AI_DEBUG_PRINTS
+	ldtx hl, SlowbroName
+	call DrawWideTextBox_WaitForInput
+ENDC
+
+; set wAIRetreatedThisTurn to true
+	ld a, TRUE
+	ld [wAIRetreatedThisTurn], a
+
+	ld a, [wAIPlayAreaCardToSwitch]
+	jp AITryToRetreat
+
+
+; input:
+;   [wAIPlayAreaCardToSwitch]: PLAY_AREA_* to retreat to
+; output:
+;   carry: set if used Switch
+AITryRetreatWithSwitch:
+	ld de, SWITCH
+	call LookForCardIDInHandList_Bank5
+	ret nc  ; not found
+
+IF AI_DEBUG_PRINTS
+	push af
+	ldtx hl, SlowpokeName
+	call DrawWideTextBox_WaitForInput
+	pop af
+ENDC
+
+; show Play Trainer Card screen
+	ldh [hTempCardIndex_ff9f], a
+	ld a, OPPACTION_PLAY_TRAINER
+	bank1call AIMakeDecision
+; play the card effects, based on AIPlay_Switch
+	; ld a, [wAITrainerCardToPlay]
+	; ldh [hTempCardIndex_ff9f], a
+	ld a, [wAIPlayAreaCardToSwitch]
+	ldh [hTemp_ffa0], a
+	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
+	bank1call AIMakeDecision
+	xor a
+	ld [wAIRetreatScore], a
+; set wAIRetreatedThisTurn to true
+	ld a, TRUE
+	ld [wAIRetreatedThisTurn], a
+	scf
 	ret
